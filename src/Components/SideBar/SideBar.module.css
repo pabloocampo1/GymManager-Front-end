@@ -1,0 +1,5 @@
+.container_sideBar{
+    display: flex;
+    flex-direction: column;
+    
+}
