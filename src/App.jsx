@@ -6,6 +6,7 @@ import Login from './Pages/LoginPage/Login'
 import Home from './Pages/Home/Home'
 import PublicLayout from './Layouts/PublicLayout'
 import Contact from './Components/contact'
+import PrivateLayout from './Layouts/PrivateLayout'
 
 
 
@@ -19,7 +20,13 @@ function App() {
             <Route index element={<Home />} /> 
             <Route path="/contact" element={<Contact></Contact>} />
         </Route>
+
         <Route element={<Login />}>
+            <Route index element={<Home />} /> 
+            <Route path="/login" element={<Login />} />
+            <Route path="/contact" element={<Contact></Contact>} />
+        </Route>
+        <Route element={<PrivateLayout />}>
             <Route index element={<Home />} /> 
             <Route path="/login" element={<Login />} />
             <Route path="/contact" element={<Contact></Contact>} />
