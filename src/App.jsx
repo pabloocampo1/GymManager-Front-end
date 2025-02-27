@@ -1,34 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
+import { Outlet, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import './App.css'
+import Login from './Pages/LoginPage/Login'
+import PublicLayout from './Layouts/PublicLayout';
+import PrivateLayout from './Layouts/PrivateLayout';
+import Hola from './Components/Hola';
+import Home from './Pages/Home/Home';
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    
+
+      
+
+    <Router>
+        <Routes>
+                {/* Layout público */}
+                <Route element={<PublicLayout> <Outlet></Outlet> </PublicLayout>}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/about" element={<Hola />} />
+                </Route>
+
+                {/* Layout privado */}
+                <Route element={<PrivateLayout />}>
+                    <Route path="/login" element={<Login />} />
+                   
+                </Route>
+        </Routes>
+  </Router>
+    
   )
 }
 

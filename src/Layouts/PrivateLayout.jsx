@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Home() {
+const PrivateLayout = () => {
     return (
         <div>
-            si da
+            
         </div>
     );
-}
+};
 
-export default Home;
+export default PrivateLayout;

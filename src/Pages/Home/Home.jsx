@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Hola() {
+function Home() {
     return (
         <div>
-            COMPONENTE HOLA
+            HOME
         </div>
     );
 }
 
-export default Hola;
+export default Home;
