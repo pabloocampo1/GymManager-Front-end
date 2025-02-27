@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import imageLogo from '../../assets/images/logoprincipal.png'
 import imageLogin from '../../assets/images/logo_login_yellow.png'
 import iconArrowLeft from '../../assets/icons/left-arrow.png'
@@ -6,11 +6,11 @@ import style from './Login.module.css'
 
 
 function Login() {
-
+    const navigate = useNavigate()
    
 
     function backToHome() {
-        
+        navigate("/")
     }
     
     return (
