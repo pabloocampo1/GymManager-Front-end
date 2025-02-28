@@ -41,6 +41,9 @@ function App() {
             <Route path="eventos" element={<Events />} />
             <Route path="inventario" element={<Inventory />} />
             
+
+            
+            
         </Route>
         
         <Route path="*" element={<NotFound />} />

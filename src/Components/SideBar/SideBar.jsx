@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 
 import imageLogo from '../../assets/images/logoprincipal.png'
 import homeLogo from '../../assets/icons/round.png'
+import { Button } from '@mui/material';
+
 
 
 function SideBar() {
@@ -26,6 +28,8 @@ function SideBar() {
 
                 <div>
                     <Link to="user">eventos</Link>
+                    <Button variant="outlined">Outlined</Button>
+                    
                 </div>
             </div>
 
