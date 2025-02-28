@@ -3,6 +3,7 @@ import imageLogo from '../../assets/images/logoprincipal.png'
 import imageLogin from '../../assets/images/logo_login_yellow.png'
 import iconArrowLeft from '../../assets/icons/left-arrow.png'
 import style from './Login.module.css'
+import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 
 
 function Login() {
@@ -33,7 +34,7 @@ function Login() {
                 <div className={style.container_form}>
                     <div className={style.form}>
                         <h2 className={style.h2_title_login}>Login</h2>
-                        <p>Bienvenido, por favor incresa tus credenciales para acceder a tu cuentai</p>
+                        <p>Bienvenido, por favor incresa tus credenciales para acceder a tu cuenta</p>
                         <form>
                             <label htmlFor="username">Nombre De Usuario</label>
                             <input type="text" id="username" placeholder='Nombre De Usuario' name="username" />
@@ -42,9 +43,13 @@ function Login() {
                             <input type="password" id="password" placeholder='Contraseña' name="password" /> 
                             
                             <div className={style.forgetPasswoedSection}> 
+                                <FormGroup >
+                                        <FormControlLabel  sx={{color:"#504F4F", fontSize:20}} control={<Checkbox sx={{color: '#FFDB00', '&.Mui-checked': {color: '#FFDB00',},}}  defaultChecked />} label="Guardar contraseña" />
+                                </FormGroup>
                                 <Link to="/">Olvidaste tu contraseña?</Link>
+                                
                             </div>
-                            <button>ingresar</button>   
+                            <button>Ingresar</button>   
                         </form>
                     </div>
                 </div>

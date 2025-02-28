@@ -2,7 +2,7 @@
 :root{
     --primary-color:#FFDB00;
     --primarySecond-color:#D3D837;
-    --textSecond-color:#979797;
+    --textSecond-color:#504F4F;
 }
 
 .container_login{
@@ -34,7 +34,7 @@
 }
 .container_image_contain h2{
     font-size: 2.5rem;
-    padding-bottom: 20px;
+    padding-bottom: 50px;
     color: #ffffff;
    
 }
@@ -43,8 +43,8 @@
    
 }
 .container_image_contain img{
-   width: 300px;
-   height: 300px;
+   width: 500px;
+   height: 500px;
    
 }
 
@@ -84,17 +84,17 @@
     height: 100%;
     display: flex;
     justify-content: center;
-    padding: 5px 150px;
+    padding: 5px 250px;
 }
 .h2_title_login{
    color: var(--primary-color);
    font-size: 2.0rem;
    font-weight: 500;
-   padding-bottom: 20px; 
+   padding-bottom: 40px; 
 }
 .container_form p{
     color: var(--textSecond-color);
-    padding-bottom: 30px; 
+    padding-bottom: 50px; 
     font-size: 1rem;
 }
 
@@ -106,13 +106,13 @@
 .form form input{
    width: 100%;
    height: 40px;
-   border:1px solid var(--textSecond-color);
+   border:1px solid rgb(224, 222, 222);
    border-radius: 7px;
    margin-bottom: 25px;
 }
 .form form input::placeholder{
    padding-left: 10px;
-   color: var(--textSecond-color);
+   color: rgb(180, 180, 180);
 }
 .form form input[type="text"]:focus {
     border: 2px solid var(--primary-color); 
@@ -128,19 +128,23 @@
    height: 40px;
    background-color: var(--primary-color);
    border: none;
-   border-radius: 15px;
-   color: white;
+   border-radius: 10px;
+   color: rgb(39, 39, 39);
    font-weight: 700;
+   font-size: 1rem;
+   margin-top: 10px;
 }
 
 .forgetPasswoedSection{
     width: 100%;
     height: 40px;
     display: flex;
-    justify-content: end;
-    margin-bottom: 20px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 50px;
 }
 .forgetPasswoedSection a{
     color: var(--textSecond-color);
     font-size:0.875rem;
 }
+

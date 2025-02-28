@@ -39,11 +39,7 @@ function App() {
             <Route path='membresias' element={<Hola></Hola>}></Route>
             <Route path="correo" element={<Promotions />} />
             <Route path="eventos" element={<Events />} />
-            <Route path="inventario" element={<Inventory />} />
-            
-
-            
-            
+            <Route path="inventario" element={<Inventory />} />            
         </Route>
         
         <Route path="*" element={<NotFound />} />
