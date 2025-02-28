@@ -1,0 +1,57 @@
+.inventory-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: white;
+  }
+  
+  .inventory-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-right: auto;
+  }
+  
+  .search-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e3e3e3;
+    border-radius: 5px;
+    padding: 5px 10px;
+    gap: 5px;
+  }
+  
+  .search-icon {
+    color: gray;
+  }
+  
+  .search-input {
+    border: none;
+    outline: none;
+    width: 200px;
+  }
+  
+  .filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid #e3e3e3;
+    background: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .add-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #e3e300;
+    color: black;
+    font-weight: bold;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

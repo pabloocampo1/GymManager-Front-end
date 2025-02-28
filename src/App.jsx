@@ -8,6 +8,10 @@ import PublicLayout from './Layouts/PublicLayout'
 import Contact from './Components/contact'
 import PrivateLayout from './Layouts/PrivateLayout'
 import Dashboard from './Pages/Dashboard/Dashboard'
+import Promotions from './Pages/Mail/Mail'
+import Events from './Pages/Events/Events'
+import NotFound from './Pages/NotFound/NotFound'
+import Inventory from './Pages/Inventory/Inventory'
 
 
 
@@ -20,6 +24,7 @@ function App() {
         <Route path="/" element={<PublicLayout />}>
             <Route index element={<Home />} /> 
             <Route path="/contact" element={<Contact></Contact>} />
+
         </Route>
 
         <Route element={<Login />}>
@@ -30,6 +35,11 @@ function App() {
         <Route element={<PrivateLayout />}>
             <Route path="/dash" element={<Dashboard></Dashboard>} />
         </Route>
+        <Route path="/correo" element={<Promotions />} />
+        <Route path="/eventos" element={<Events />} />
+        <Route path="/inventario" element={<Inventory />} />
+        <Route path="*" element={<NotFound />} />
+
       </Routes>
     </BrowserRouter>
   )
