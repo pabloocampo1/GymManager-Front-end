@@ -1,0 +1,14 @@
+.privateLayout_container{
+    display: flex;
+}
+
+.privateLayout_sidebar{
+    width: 25%;
+}
+
+
+
+.privateLayout_main{
+    width: 100%;
+    height: auto;
+}

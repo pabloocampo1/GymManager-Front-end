@@ -5,8 +5,9 @@ import { Outlet } from 'react-router-dom';
 function Dashboard() {
     return (
         <div>
-            Dashboard
-            <SideBar></SideBar>
+            
+            soy el maldito dashboard
+           
             
         </div>
     );
