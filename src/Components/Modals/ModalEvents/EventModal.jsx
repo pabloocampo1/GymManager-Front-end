@@ -4,8 +4,14 @@ import "./EventModal.css";
 const EventModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null; 
 
+  const handleOverlayClick = (e) => {
+    if (e.target.classList.contains("modal-overlay")) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="modal-overlay">
+    <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal-content">
         <button className="close-btn" onClick={onClose}>Volver</button>
         <h2>Añadir Evento</h2>
@@ -13,29 +19,32 @@ const EventModal = ({ isOpen, onClose }) => {
           <label>Nombre del Evento</label>
           <input type="text" required placeholder="Evento"/>
 
-          <label for="menuToggle" class="menu-button" placeholder="opciones">&#9660; Categorias</label>
-    
-        <div class="menu-options">
-            <a href="#">CrosFit</a>
-            <a href="#">Natacion</a>
-            <a href="#">Atletismo</a>
-            <a href="#">Power lifther</a>
-        </div>
+          <label>Categoría</label>
+          <select required>
+            <option value="crossfit">CrossFit</option>
+            <option value="natacion">Natación</option>
+            <option value="atletismo">Atletismo</option>
+            <option value="powerlifting">Powerlifting</option>
+          </select>
 
           <label>Fecha del evento</label>
-          <input type="date" required placeholder="20/10/2006"/>
+          <input type="date" required />
 
           <label>Encargado</label>
-          <textarea required placeholder="Encargado"></textarea>
+          <input type="text" required placeholder="Encargado" />
 
           <label>Lugar</label>
-          <input type="text" required placeholder="Ubicacion"></input>  
+          <input type="text" required placeholder="Ubicación" />
 
-          <label for="fileInput">Selecciona una imagen</label>
-          <input type="file" id="fileInput"></input>
+          <label>Imagen</label>
+          <div className="image-upload">
+            <span>Añadir imagen</span>
+          </div>
 
-          <button type="submit" id="AddEvent" onClick={onClose}>Cancelar</button>  
-          <button type="submit" id="AddEvent">Agregar</button>
+          <div className="button-container">
+            <button type="button" className="cancel-btn" onClick={onClose}>Cancelar</button>  
+            <button type="submit" className="add-btn">Agregar</button>
+          </div>
         </form>
       </div>
     </div>

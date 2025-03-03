@@ -174,13 +174,31 @@
     .container_login {
       background-color: red;
     }
+    .container_form{
+      
+      padding: 5px 100px;
+  }
+  .container_image_contain img{
+    width: 100px;
+    height: 100px;
+    
+ }
   }
   
   /* 🖥️ Pantallas Grandes (1025px en adelante) */
   @media (min-width: 1025px) {
-    .container {
-      grid-template-columns: repeat(3, 1fr);
+    .container_login {
+      background-color: rgb(36, 185, 43);
     }
+    .container_form{
+      
+      padding: 5px 150px;
+  }
+  .container_image_contain img{
+    width: 300px;
+    height: 300px;
+    
+ }
   }
   
 
