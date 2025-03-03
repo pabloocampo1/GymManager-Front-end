@@ -169,18 +169,26 @@
     }
   }
   
-  /* 💻 Tablets (769px - 1024px) */
+
   @media (max-width: 1024px) {
     .container_login {
       background-color: red;
     }
+    .container_form{
+        padding: 5px 100px;
+    }
+    .container_image_contain img{
+        width: 300px;
+        height: 300px;
+        
+     }
   }
   
   /* 🖥️ Pantallas Grandes (1025px en adelante) */
   @media (min-width: 1025px) {
-    .container {
-      grid-template-columns: repeat(3, 1fr);
-    }
+    .container_login {
+        background-color: rgb(161, 143, 143);
+      }
   }
   
 

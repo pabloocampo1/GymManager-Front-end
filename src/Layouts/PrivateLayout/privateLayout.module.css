@@ -14,6 +14,9 @@
 }
 
 
+
+
+
 /* 📱 Móviles Pequeños (hasta 480px) */
 @media (max-width: 480px) {
     body {
@@ -53,8 +56,9 @@
   
   /* 🖥️ Pantallas Grandes (1025px en adelante) */
   @media (min-width: 1025px) {
-    .container {
-      grid-template-columns: repeat(3, 1fr);
+    .privateLayout_sidebar{
+        width: 20%;
+        background-color: blue;
     }
   }
   
