@@ -57,8 +57,8 @@
   /* 🖥️ Pantallas Grandes (1025px en adelante) */
   @media (min-width: 1025px) {
     .privateLayout_sidebar{
-        width: 20%;
-        background-color: blue;
+        width: 35%;
+        
     }
   }
   

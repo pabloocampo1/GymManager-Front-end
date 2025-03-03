@@ -7,7 +7,6 @@ import imageLogo from '../../assets/images/logoprincipal.png'
 import HomeIcon from '@mui/icons-material/Home';
 import GroupAddRoundedIcon from '@mui/icons-material/GroupAddRounded';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
-import { Button, Menu, MenuItem } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -74,9 +73,6 @@ function SideBar() {
 
                 <div>
                     <Link to="/login"><AccountCircleIcon /></Link>
-                </div>
-                <div>
-                    <Link to="/login"><SettingsIcon /></Link>
                 </div>
                 <div>
                     <Link to="/login"><LogoutIcon /></Link>
