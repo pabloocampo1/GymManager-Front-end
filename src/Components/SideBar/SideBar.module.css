@@ -107,8 +107,22 @@
   
   /* 🖥️ Pantallas Grandes (1025px en adelante) */
   @media (min-width: 1025px) {
-    .container {
-      grid-template-columns: repeat(3, 1fr);
+    .container_sideBar{
+      justify-content: space-around;
     }
+    .imageContainer{
+
+      height: 12%;
+      
+  }
+  .navegationList{
+    height: 50%;
+    
+}
+.UtilsSideBar{
+  height: 12%;
+  
+}
+
   }
   
