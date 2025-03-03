@@ -5,7 +5,7 @@ import './App.css'
 import Login from './Pages/LoginPage/Login'
 import Home from './Pages/Home/Home'
 import PublicLayout from './Layouts/PublicLayout/PublicLayout'
-import Contact from './Components/contact'
+import Contact from './Components/Contact'
 import PrivateLayout from './Layouts/PrivateLayout/PrivateLayout'
 import Dashboard from './Pages/Dashboard/Dashboard'
 
