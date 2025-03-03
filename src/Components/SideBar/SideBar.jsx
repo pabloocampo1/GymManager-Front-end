@@ -53,7 +53,7 @@ function SideBar() {
                 </div>
                 <div className={activeLink ==="Eventos" ? style.activeLink : ""}
                     onClick={() => handleClick("Eventos")}>
-                    <EventIcon sx={{color:"white"}} />  <Link to="user">Eventos</Link>    
+                    <EventIcon sx={{color:"white"}} />  <Link to="eventos">Eventos</Link>    
                 </div>
                 <div className={activeLink ==="Email" ? style.activeLink : ""}
                     onClick={() => handleClick("Email")} >
@@ -61,7 +61,7 @@ function SideBar() {
                 </div>
                 <div className={activeLink ==="Inventario" ? style.activeLink : ""}
                     onClick={() => handleClick("Inventario")}>
-                   <InventoryIcon sx={{color:"white"}} /> <Link to="user">Inventario</Link>    
+                   <InventoryIcon sx={{color:"white"}} /> <Link to="inventario">Inventario</Link>    
                 </div>
             </div>
 
