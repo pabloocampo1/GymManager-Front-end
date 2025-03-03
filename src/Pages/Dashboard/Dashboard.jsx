@@ -1,13 +1,12 @@
 import React from 'react';
-import SideBar from '../../Components/SideBar/SideBar';
-import { Outlet } from 'react-router-dom';
-
+import style from "./Dashboard.module.css"
+import Formatting from '../../Components/Charts/Formatting';
 function Dashboard() {
     return (
-        <div>
+        <div className={style.dashboard_container}>
             
             soy el maldito dashboard
-           
+           <Formatting />
             
         </div>
     );

@@ -15,6 +15,9 @@
     justify-content: center;
     padding-left: 50px;
 }
+.navegationList a{
+    text-decoration: none;
+}
 .navegationList div{
     width: 90%;
     height: 45px;
@@ -122,7 +125,13 @@
 .UtilsSideBar{
   height: 12%;
   
+  
 }
 
   }
   
+
+  /* image 13 */
+
+
+
