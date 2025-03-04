@@ -1,13 +1,18 @@
 import { Link } from "react-router-dom";
-import "./NotFound.css";
+import style from "./NotFound.module.css";
+import imageNoFound from "../../assets/images/noFoundIcon.svg"
+import { Button } from "@mui/material";
 
 function NotFound() {
   return (
-    <div className="not-found-container">
-      <h1>404</h1>
-      <p>Url no encontrada</p>
-      <Link to="/" className="home-link">
-        Volver al inicio
+    <div className={style.not_found_container}>
+      <img className={style.imageNotFound} src={imageNoFound} alt="" />
+      <p>Pagina no encontrada</p>
+      <Link to="/">
+      <Button 
+        sx={{backgroundColor:"#FFDB00",border:1, borderStyle: "none", color:"black", marginTop:3}} 
+        variant="contained"
+        >Volver al inicio</Button>
       </Link>
     </div>
   );
