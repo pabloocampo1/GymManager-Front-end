@@ -1,11 +1,12 @@
 import React from 'react';
-import style from "./AboutUsHome.module.css"
+import WhyChooseUs from './WhyChooseUs';
+import style from "../AboutUsHome/AboutUsHome.module.css"; 
 
 function AboutUsHome() {
     return (
-        <section className={style.aboutUs_container}>
-            
-        </section>
+        <div className={style.aboutUs_container}>
+              <WhyChooseUs />
+        </div>
     );
 }
 

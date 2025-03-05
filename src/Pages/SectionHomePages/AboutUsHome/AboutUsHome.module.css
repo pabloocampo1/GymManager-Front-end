@@ -1,5 +1,50 @@
 .aboutUs_container{
     width: 100%;
     height: 100vh;
-    background-color: red;
+    background-color: black;
+    
 }
+
+/* Estilos generales */
+
+
+.whyChooseUs{
+  width: 100%;
+  min-height: auto;
+}  
+  /* Título */
+  .title {
+    font-size: 2rem;
+    padding: 30px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  /* Contenedor flexible */
+  .container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  /* Tarjetas de contenido */
+  .card {
+    border: 1px solid var(--primary-color);
+    padding: 20px;
+    margin-bottom: 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    min-height: auto;
+    text-align: center;
+  }
+  .card h3 {
+    color: var(--primary-color);
+    font-weight: 300;
+  }
+  .card p {
+    color: white;
+  }
+  
