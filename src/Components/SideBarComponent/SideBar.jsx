@@ -38,23 +38,23 @@ function SideBar() {
                         <HomeIcon sx={{ color: "white" }} /><Link to="/dashboard">Inicio</Link>
                     </div>
                 </Link>
-                <Link to="membresias">
+                <Link to="/dashboard/miembros">
                     <div className={activeLink === "Miembros" ? style.activeLink : ""}
                         onClick={() => handleClick("Miembros")}>
-                        <GroupAddRoundedIcon sx={{ color: "white" }}></GroupAddRoundedIcon><Link to="membresias">Miembros</Link>
+                        <GroupAddRoundedIcon sx={{ color: "white" }}></GroupAddRoundedIcon><Link to="Miembros">Miembros</Link>
                     </div>
                 </Link>
 
 
 
-                <Link to="*">
+                <Link to="/dashboard/membresias">
                     <div className={activeLink === "Membresias" ? style.activeLink : ""}
                         onClick={() => handleClick("Membresias")}>
-                        <LocalActivityIcon sx={{ color: "white" }} /><Link to="user">Membresias</Link>
+                        <LocalActivityIcon sx={{ color: "white" }} /><Link to="Membresias">Membresias</Link>
                     </div>
                 </Link>
                 
-                <Link to="*">
+                <Link to="/dashboard/user">
                     <div className={activeLink === "Registro" ? style.activeLink : ""}
                         onClick={() => handleClick("Registro")}>
                         <ContactMailIcon sx={{ color: "white" }} /> <Link to="user">Control de acceso</Link>

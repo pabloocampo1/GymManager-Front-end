@@ -13,7 +13,8 @@ import Promotions from './Pages/Mail/Mail'
 import Events from './Pages/Events/Events'
 import NotFound from './Pages/NotFound/NotFound'
 import Inventory from './Pages/Inventory/Inventory'
-import Hola from './Components/Hola'
+import Membresias from './Pages/Membresias/Membresias'
+import Miembros from './Pages/Miembros/Miembros'
 import User from './Pages/User/User'
 
 
@@ -36,7 +37,8 @@ function App() {
         <Route path="/dashboard" element={<PrivateLayout />}>
             <Route index element={<Dashboard />} />
             <Route path='user' element={<User></User>}></Route>
-            <Route path='membresias' element={<Hola></Hola>}></Route>
+            <Route path='miembros' element={<Miembros />}></Route>
+            <Route path='membresias' element={<Membresias />}></Route>
             <Route path="correo" element={<Promotions />} />
             <Route path="eventos" element={<Events />} />
             <Route path="inventario" element={<Inventory />} />            
