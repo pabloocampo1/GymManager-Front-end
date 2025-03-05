@@ -1,5 +1,5 @@
 import React from 'react';
-import SideBar from '../../Components/SideBar/SideBar';
+import SideBar from '../../Components/SideBarComponent/SideBar';
 import { Outlet } from 'react-router-dom';
 
 import style from './privateLayout.module.css'

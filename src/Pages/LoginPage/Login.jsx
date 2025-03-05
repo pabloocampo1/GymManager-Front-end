@@ -9,9 +9,16 @@ import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 function Login() {
     const navigate = useNavigate()
    
+    const goToDashboard = () => {
+        navigate("/dashboard")
+    }
 
     function backToHome() {
         navigate("/")
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
     }
     
     return (
@@ -35,7 +42,7 @@ function Login() {
                     <div className={style.form}>
                         <h2 className={style.h2_title_login}>Login</h2>
                         <p>Bienvenido, por favor incresa tus credenciales para acceder a tu cuenta</p>
-                        <form>
+                        <form onSubmit={(e) => handleSubmit(e)}>
                             <label htmlFor="username">Nombre De Usuario</label>
                             <input type="text" id="username" placeholder='Nombre De Usuario' name="username" />
                                                             
@@ -49,7 +56,7 @@ function Login() {
                                 <Link to="/">Olvidaste tu contraseña?</Link>
                                 
                             </div>
-                            <button>Ingresar</button>   
+                            <button type='button' onClick={() => goToDashboard()} >Ingresar</button>   
                         </form>
                     </div>
                 </div>
