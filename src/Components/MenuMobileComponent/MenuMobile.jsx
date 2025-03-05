@@ -18,7 +18,7 @@ export default function MenuMobile({ open, handleClose }) {
         <Typography id="menu-mobile-title" variant="h6" component="h2">
           Menú
         </Typography>
-        <Typography id="menu-mobile-description" sx={{ mt: 2 }}>
+        
           <ul style={{ padding: 0, listStyle: 'none' }}>
             <li>
               <Link to="/" onClick={handleClose}>Inicio</Link>
@@ -33,7 +33,7 @@ export default function MenuMobile({ open, handleClose }) {
               <Link to="/contact" onClick={handleClose}>Contacto</Link>
             </li>
           </ul>
-        </Typography>
+       
       </Box>
     </Modal>
   );

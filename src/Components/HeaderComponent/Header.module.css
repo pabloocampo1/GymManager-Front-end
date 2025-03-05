@@ -112,6 +112,14 @@
     .inactive {
         display: inline-block;
     }
+    .header_image_logo {
+        width: 20%;
+        height: 100%;
+        padding-left: 20px;
+    }
+    .header_icon_login {
+        padding-right: 20px;
+    }
 
 }
 
@@ -138,5 +146,6 @@
         height: 100%;
     
     }
+    
     
 }
