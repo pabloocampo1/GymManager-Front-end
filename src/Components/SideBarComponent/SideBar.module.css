@@ -36,7 +36,7 @@
 
 }
 
-.navegationList div a {
+.navegationList div p {
     color: white;
     text-decoration: none;
     padding-left: 10px;
@@ -112,11 +112,9 @@
     }
 }
 
-/* 💻 Tablets (769px - 1024px) */
+
 @media (max-width: 1024px) {
-    .container_sideBar {
-        background-color: red;
-    }
+    
 }
 
 /* 🖥️ Pantallas Grandes (1025px en adelante) */
@@ -140,4 +138,3 @@
 }
 
 
-/* image 13 */
