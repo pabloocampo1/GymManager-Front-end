@@ -47,26 +47,42 @@ function SideBar() {
 
 
 
-                <div className={activeLink === "Membresias" ? style.activeLink : ""}
-                    onClick={() => handleClick("Membresias")}>
-                    <LocalActivityIcon sx={{ color: "white" }} /><Link to="user">Membresias</Link>
-                </div>
-                <div className={activeLink === "Registro" ? style.activeLink : ""}
-                    onClick={() => handleClick("Registro")}>
-                    <ContactMailIcon sx={{ color: "white" }} /> <Link to="user">Control de acceso</Link>
-                </div>
-                <div className={activeLink === "Eventos" ? style.activeLink : ""}
-                    onClick={() => handleClick("Eventos")}>
-                    <EventIcon sx={{ color: "white" }} />  <Link to="eventos">Eventos</Link>
-                </div>
-                <div className={activeLink === "Email" ? style.activeLink : ""}
-                    onClick={() => handleClick("Email")} >
-                    <AttachEmailIcon sx={{ color: "white" }} /><Link to="correo">Email</Link>
-                </div>
-                <div className={activeLink === "Inventario" ? style.activeLink : ""}
-                    onClick={() => handleClick("Inventario")}>
-                    <InventoryIcon sx={{ color: "white" }} /> <Link to="inventario">Inventario</Link>
-                </div>
+                <Link to="*">
+                    <div className={activeLink === "Membresias" ? style.activeLink : ""}
+                        onClick={() => handleClick("Membresias")}>
+                        <LocalActivityIcon sx={{ color: "white" }} /><Link to="user">Membresias</Link>
+                    </div>
+                </Link>
+                
+                <Link to="*">
+                    <div className={activeLink === "Registro" ? style.activeLink : ""}
+                        onClick={() => handleClick("Registro")}>
+                        <ContactMailIcon sx={{ color: "white" }} /> <Link to="user">Control de acceso</Link>
+                    </div>
+                </Link>
+                
+                
+                <Link to="/dashboard/eventos">
+                    <div className={activeLink === "Eventos" ? style.activeLink : ""}
+                        onClick={() => handleClick("Eventos")}>
+                        <EventIcon sx={{ color: "white" }} />  <Link to="eventos">Eventos</Link>
+                    </div>
+                </Link>   
+
+                <Link to="/dashboard/correo">
+                    <div className={activeLink === "Email" ? style.activeLink : ""}
+                        onClick={() => handleClick("Email")} >
+                        <AttachEmailIcon sx={{ color: "white" }} /><Link to="correo">Email</Link>
+                    </div>
+                </Link>
+                
+                <Link to="/dashboard/inventario">
+                    <div className={activeLink === "Inventario" ? style.activeLink : ""}
+                        onClick={() => handleClick("Inventario")}>
+                        <InventoryIcon sx={{ color: "white" }} /> <Link to="inventario">Inventario</Link>
+                    </div>
+                </Link>
+                
             </div>
 
             <div className={style.UtilsSideBar}>
