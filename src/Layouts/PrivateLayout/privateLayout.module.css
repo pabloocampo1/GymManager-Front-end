@@ -53,11 +53,5 @@
     }
 
   }
-  
-  /* 🖥️ Pantallas Grandes (1025px en adelante) */
-  @media (min-width: 1026px) {
-    .privateLayout_sidebar{
-        width: 20%; 
-    }
-  }
+
   

@@ -41,11 +41,7 @@ function SideBar() {
                 <Link to="/dashboard/miembros">
                     <div className={activeLink === "Miembros" ? style.activeLink : ""}
                         onClick={() => handleClick("Miembros")}>
-<<<<<<< HEAD
-                        <GroupAddRoundedIcon sx={{ color: "white" }}></GroupAddRoundedIcon><Link to="Miembros">Miembros</Link>
-=======
                         <GroupAddRoundedIcon sx={{ color: "white" }}></GroupAddRoundedIcon><p>Miembros</p>
->>>>>>> ca737a3b60c9bedd4148af73a7cf6eb5d753caba
                     </div>
                 </Link>
 
@@ -54,11 +50,7 @@ function SideBar() {
                 <Link to="/dashboard/membresias">
                     <div className={activeLink === "Membresias" ? style.activeLink : ""}
                         onClick={() => handleClick("Membresias")}>
-<<<<<<< HEAD
-                        <LocalActivityIcon sx={{ color: "white" }} /><Link to="Membresias">Membresias</Link>
-=======
                         <LocalActivityIcon sx={{ color: "white" }} /><p>Membresias</p>
->>>>>>> ca737a3b60c9bedd4148af73a7cf6eb5d753caba
                     </div>
                 </Link>
                 
