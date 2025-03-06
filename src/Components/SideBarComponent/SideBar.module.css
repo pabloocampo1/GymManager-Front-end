@@ -89,31 +89,20 @@
 }
 
 
-/* 📱 Móviles Pequeños (hasta 480px) */
-@media (max-width: 480px) {
-    body {
-        font-size: 14px;
-    }
 
-    .container {
-        flex-direction: column;
-        padding: 10px;
-    }
-}
 
 /* 📱 Móviles Medianos (481px - 768px) */
 @media (max-width: 768px) {
-    .nav {
-        flex-direction: column;
-    }
+   
 
-    .sidebar {
-        display: none;
-    }
+    
 }
 
 
 @media (max-width: 1024px) {
+    .container_sideBar {
+        
+    }
     
 }
 
