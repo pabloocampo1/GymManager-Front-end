@@ -1,0 +1,69 @@
+.membresia_container{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.membresias-header {
+    display: flex;
+    align-items: center;
+    
+    gap: 10px;
+    padding: 10px;
+    background-color: white;
+  }
+  
+  .membresias-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-right: auto;
+  }
+  
+  .search-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #D3D837; /* Color corregido */
+    border-radius: 5px;
+    padding: 2px 8px; /* Reducción del padding */
+    gap: 5px;
+    height: 28px; /* Más pequeño */
+  }
+  
+  .search-icon {
+    color: gray;
+    font-size: 14px;
+  }
+  
+  .search-input {
+    border: none;
+    outline: none;
+    width: 260px; /* Más pequeño */
+    font-size: 13px; /* Ajuste de fuente */
+  }
+  
+  .filter-boton {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid #D3D837; /* Color corregido */
+    background: white;
+    padding: 4px 10px; /* Ajuste fino */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  
+  .add-boton {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #D3D837 !important; /* Color exacto */
+    color: black !important;
+    font-weight: bold;
+    padding: 6px 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  
