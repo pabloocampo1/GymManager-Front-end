@@ -35,29 +35,29 @@ function SideBar() {
                     <div
                         className={activeLink === "inicio" ? style.activeLink : "inicio"}
                         onClick={() => handleClick("inicio")}>
-                        <HomeIcon sx={{ color: "white" }} /><Link to="/dashboard">Inicio</Link>
+                        <HomeIcon sx={{ color: "white" }} /><p>Inicio</p>
                     </div>
                 </Link>
-                <Link to="membresias">
+                <Link to="/dashboard/miembros">
                     <div className={activeLink === "Miembros" ? style.activeLink : ""}
                         onClick={() => handleClick("Miembros")}>
-                        <GroupAddRoundedIcon sx={{ color: "white" }}></GroupAddRoundedIcon><Link to="membresias">Miembros</Link>
+                        <GroupAddRoundedIcon sx={{ color: "white" }}></GroupAddRoundedIcon><p>Miembros</p>
                     </div>
                 </Link>
 
 
 
-                <Link to="*">
+                <Link to="/dashboard/membresias">
                     <div className={activeLink === "Membresias" ? style.activeLink : ""}
                         onClick={() => handleClick("Membresias")}>
-                        <LocalActivityIcon sx={{ color: "white" }} /><Link to="user">Membresias</Link>
+                        <LocalActivityIcon sx={{ color: "white" }} /><p>Membresias</p>
                     </div>
                 </Link>
                 
-                <Link to="*">
+                <Link to="/dashboard/user">
                     <div className={activeLink === "Registro" ? style.activeLink : ""}
                         onClick={() => handleClick("Registro")}>
-                        <ContactMailIcon sx={{ color: "white" }} /> <Link to="user">Control de acceso</Link>
+                        <ContactMailIcon sx={{ color: "white" }} /> <p>Control de acceso</p>
                     </div>
                 </Link>
                 
@@ -65,21 +65,21 @@ function SideBar() {
                 <Link to="/dashboard/eventos">
                     <div className={activeLink === "Eventos" ? style.activeLink : ""}
                         onClick={() => handleClick("Eventos")}>
-                        <EventIcon sx={{ color: "white" }} />  <Link to="eventos">Eventos</Link>
+                        <EventIcon sx={{ color: "white" }} />  <p>Eventos</p>
                     </div>
                 </Link>   
 
                 <Link to="/dashboard/correo">
                     <div className={activeLink === "Email" ? style.activeLink : ""}
                         onClick={() => handleClick("Email")} >
-                        <AttachEmailIcon sx={{ color: "white" }} /><Link to="correo">Email</Link>
+                        <AttachEmailIcon sx={{ color: "white" }} /><p>Email</p>
                     </div>
                 </Link>
                 
                 <Link to="/dashboard/inventario">
                     <div className={activeLink === "Inventario" ? style.activeLink : ""}
                         onClick={() => handleClick("Inventario")}>
-                        <InventoryIcon sx={{ color: "white" }} /> <Link to="inventario">Inventario</Link>
+                        <InventoryIcon sx={{ color: "white" }} /> <p >Inventario</p>
                     </div>
                 </Link>
                 
