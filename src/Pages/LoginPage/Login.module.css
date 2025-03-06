@@ -186,9 +186,7 @@
 }
 
 
-.container_login {
-  background-color: red;
-}
+
 
 .container_form {
 
@@ -204,9 +202,7 @@
 
 /* 🖥️ Pantallas Grandes (1025px en adelante) */
 @media (min-width: 1025px) {
-  .container_login {
-    background-color: rgb(36, 185, 43);
-  }
+  
 
   .container_form {
     padding: 5px 120px;
