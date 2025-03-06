@@ -1,19 +1,19 @@
 import React from "react";
-import "./EventModal.css";
+import styles from "./EventModal.module.css";
 
 const EventModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null; 
 
   const handleOverlayClick = (e) => {
-    if (e.target.classList.contains("modal-overlay")) {
+    if (e.target.classList.contains(styles.modalOverlay)) {
       onClose();
     }
   };
 
   return (
-    <div className="modal-overlay" onClick={handleOverlayClick}>
-      <div className="modal-content">
-        <button className="close-btn" onClick={onClose}>Volver</button>
+    <div className={styles.modalOverlay} onClick={handleOverlayClick}>
+      <div className={styles.modalContent}>
+        <button className={styles.closeBtn} onClick={onClose}>Volver</button>
         <h2>Añadir Evento</h2>
         <form>
           <label>Nombre del Evento</label>
@@ -37,13 +37,13 @@ const EventModal = ({ isOpen, onClose }) => {
           <input type="text" required placeholder="Ubicación" />
 
           <label>Imagen</label>
-          <div className="image-upload">
+          <div className={styles.imageUpload}>
             <span>Añadir imagen</span>
           </div>
 
-          <div className="button-container">
-            <button type="button" className="cancel-btn" onClick={onClose}>Cancelar</button>  
-            <button type="submit" className="add-btn">Agregar</button>
+          <div className={styles.buttonContainer}>
+            <button type="button" className={styles.cancelBtn} onClick={onClose}>Cancelar</button>  
+            <button type="submit" className={styles.addBtn}>Agregar</button>
           </div>
         </form>
       </div>
@@ -52,3 +52,4 @@ const EventModal = ({ isOpen, onClose }) => {
 };
 
 export default EventModal;
+

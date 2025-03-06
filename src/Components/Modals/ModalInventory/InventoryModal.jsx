@@ -1,29 +1,29 @@
 import React from "react";
-import "./InventoryModal.css";
+import styles from "./InventoryModal.module.css";
 
 const InventoryModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const handleOverlayClick = (e) => {
-    if (e.target.classList.contains("modal-overlay")) {
-      onClose(); // Cierra el modal solo si se hace clic fuera del contenido
+    if (e.target.classList.contains(styles.modalOverlay)) {
+      onClose();
     }
   };
 
   return (
-    <div className="modal-overlay" onClick={handleOverlayClick}>
-      <div className="modal-content">
+    <div className={styles.modalOverlay} onClick={handleOverlayClick}>
+      <div className={styles.modal}>
         <h2>Añadir Objeto</h2>
         <form>
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="nombre">Nombre del objeto</label>
-              <input type="text" id="nombre" required placeholder="Máquina Smith" />
+          <div className={styles.formRow}>
+            <div className={styles.formGroup}>
+              <label htmlFor="nombre" className={styles.label}>Nombre del objeto</label>
+              <input type="text" id="nombre" required className={styles.input} placeholder="Máquina Smith" />
             </div>
 
-            <div className="form-group">
-              <label htmlFor="categoria">Categoría</label>
-              <select id="categoria">
+            <div className={styles.formGroup}>
+              <label htmlFor="categoria" className={styles.label}>Categoría</label>
+              <select id="categoria" className={styles.select}>
                 <option>Inferior</option>
                 <option>Superior</option>
                 <option>Cardio</option>
@@ -31,47 +31,47 @@ const InventoryModal = ({ isOpen, onClose }) => {
               </select>
             </div>
 
-            <div className="form-group">
-              <label htmlFor="fecha">Fecha de compra</label>
-              <input type="date" id="fecha" required />
+            <div className={styles.formGroup}>
+              <label htmlFor="fecha" className={styles.label}>Fecha de compra</label>
+              <input type="date" id="fecha" required className={styles.input} />
             </div>
           </div>
 
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="proveedor">Proveedor</label>
-              <input type="text" id="proveedor" required placeholder="Empresa" />
+          <div className={styles.formRow}>
+            <div className={styles.formGroup}>
+              <label htmlFor="proveedor" className={styles.label}>Proveedor</label>
+              <input type="text" id="proveedor" required className={styles.input} placeholder="Empresa" />
             </div>
 
-            <div className="form-group">
-              <label htmlFor="estado">Estado</label>
-              <input type="text" id="estado" required placeholder="Estado Máquina" />
-            </div>
-          </div>
-
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="marca">Marca</label>
-              <input type="text" id="marca" required placeholder="Marca" />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="modelo">Modelo</label>
-              <input type="text" id="modelo" required placeholder="Modelo de la máquina" />
+            <div className={styles.formGroup}>
+              <label htmlFor="estado" className={styles.label}>Estado</label>
+              <input type="text" id="estado" required className={styles.input} placeholder="Estado Máquina" />
             </div>
           </div>
 
-          <div className="form-group image-upload">
-            <label htmlFor="imagen">Imagen</label>
+          <div className={styles.formRow}>
+            <div className={styles.formGroup}>
+              <label htmlFor="marca" className={styles.label}>Marca</label>
+              <input type="text" id="marca" required className={styles.input} placeholder="Marca" />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="modelo" className={styles.label}>Modelo</label>
+              <input type="text" id="modelo" required className={styles.input} placeholder="Modelo de la máquina" />
+            </div>
+          </div>
+
+          <div className={styles.imageUpload}>
+            <label htmlFor="imagen" className={styles.label}>Imagen</label>
             <input type="file" id="imagen" />
-            <div className="image-preview">Añadir imagen</div>
+            <div className={styles.imageBox}>Añadir imagen</div>
           </div>
 
-          <div className="button-container">
-            <button type="button" className="cancel-btn" onClick={onClose}>
+          <div className={styles.buttonContainer}>
+            <button type="button" className={styles.cancelBtn} onClick={onClose}>
               Cancelar
             </button>
-            <button type="submit" className="add-btn">Agregar</button>
+            <button type="submit" className={styles.addBtn}>Agregar</button>
           </div>
         </form>
       </div>
