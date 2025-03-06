@@ -1,5 +1,9 @@
-.modal-overlay {
-  position: fixed;
+._privateLayout_main {
+  position: relative; /* Mantiene el modal dentro del contenedor */
+}
+
+.modalOverlay {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -10,56 +14,68 @@
   justify-content: center;
 }
 
-.modal-content {
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: white;
   padding: 25px;
-  width: 680px; /* Ajustado para que coincida */
+  border-radius: 10px;
+  width: 800px; /* Aumentamos el ancho */
+  max-width: 90vw; /* Evita que se desborde en pantallas pequeñas */
+  text-align: center;
+}
+
+.modalContent {
+  background: white;
+  padding: 25px;
   border-radius: 10px;
   position: relative;
 }
 
-.modal-content h2 {
+.modalContent h2 {
   text-align: center;
   margin-bottom: 15px;
-  font-size: 22px; /* Ajustado para que coincida */
+  font-size: 22px;
   font-weight: bold;
 }
 
-.modal-content .form-row {
+.formRow {
   display: flex;
-  gap: 15px;
+  gap: 20px; /* Mayor separación entre los elementos */
   margin-bottom: 15px;
 }
 
-.modal-content .form-group {
+.formGroup {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-.modal-content label {
-  font-size: 13px;
+.label {
+  font-size: 14px;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-.modal-content input, 
-.modal-content select {
-  padding: 10px;
+.input, 
+.select {
+  padding: 12px; /* Más espacio en los inputs */
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
 }
 
-.modal-content .image-upload {
+.imageUpload {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.modal-content .image-box {
+.imageBox {
   border: 1px dashed #ccc;
-  height: 90px;
+  height: 100px; /* Aumentamos el área de imagen */
   width: 100%;
   display: flex;
   align-items: center;
@@ -70,37 +86,37 @@
   margin-top: 10px;
 }
 
-.modal-content .button-container {
+.buttonContainer {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
   margin-top: 20px;
 }
 
-.modal-content .cancel-btn {
+.cancelBtn {
   background: #e0e0e0;
   color: black;
-  padding: 10px 15px;
+  padding: 12px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
 }
 
-.modal-content .add-btn {
+.addBtn {
   background: #ffdd57;
   color: black;
-  padding: 10px 15px;
+  padding: 12px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
 }
 
-.modal-content .add-btn:hover {
+.addBtn:hover {
   background: #ffd000;
 }
 
-.modal-content .cancel-btn:hover {
+.cancelBtn:hover {
   background: #cfcfcf;
 }
