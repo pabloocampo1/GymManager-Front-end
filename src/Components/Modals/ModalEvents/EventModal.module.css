@@ -1,80 +1,132 @@
-:global(.modal-overlay) {
+/* Fondo del modal */
+.modalOverlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.3); /* Oscurece el fondo */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* Modal */
 .modalContent {
-  background: #f8f8f8;
-  width: 500px;
-  padding: 20px;
-  border-radius: 10px;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 850px;
+  max-width: 90vw;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
 }
 
+/* Botón de cierre */
 .closeBtn {
+  position: absolute;
+  top: 15px;
+  left: 20px;
   background: none;
   border: none;
   font-size: 14px;
   cursor: pointer;
-  color: #000;
+  color: #333;
 }
 
-.form {
+/* Título */
+.modalContent h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Filas del formulario */
+.formRow {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+/* Grupos de formulario */
+.formGroup {
+  flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-.label {
+/* Etiquetas */
+label {
+  font-size: 14px;
   font-weight: bold;
-  margin-top: 10px;
+  margin-bottom: 5px;
+  display: block;
+  text-align: left;
 }
 
-.input,
-.select {
-  padding: 8px;
-  margin-top: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.imageUpload {
+/* Campos de entrada */
+input,
+select {
   width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  height: 38px;
+}
+
+/* Subida de imagen */
+.imageUpload {
+  border: 1px dashed #ccc;
   height: 120px;
-  background: #eaeaea;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: gray;
+  font-size: 14px;
   border-radius: 5px;
+  background: #f9f9f9;
   margin-top: 10px;
 }
 
+/* Contenedor de botones */
 .buttonContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 10px;
   margin-top: 20px;
 }
 
+/* Botón cancelar */
 .cancelBtn {
   background: black;
   color: white;
-  padding: 10px 15px;
+  padding: 12px 24px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 14px;
 }
 
+.cancelBtn:hover {
+  background: #333;
+}
+
+/* Botón agregar */
 .addBtn {
   background: #D3D837;
   color: black;
-  padding: 10px 15px;
+  padding: 12px 24px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 14px;
+}
+
+.addBtn:hover {
+  background: #c4c92f;
 }

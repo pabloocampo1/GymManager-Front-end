@@ -52,3 +52,4 @@ const EventModal = ({ isOpen, onClose }) => {
 };
 
 export default EventModal;
+

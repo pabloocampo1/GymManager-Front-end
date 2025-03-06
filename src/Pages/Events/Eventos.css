@@ -1,0 +1,101 @@
+/* Contenedor principal */
+.eventos-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 35px;
+}
+
+/* Header */
+.evento-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: white;
+  border-bottom: 2px solid #ddd;
+}
+
+.eventos-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Acciones */
+.eventos-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Barra de búsqueda */
+.eventos-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #d4d400;
+  border-radius: 10px;
+  padding: 8px;
+  width: 330px;
+}
+
+.search-icon {
+  color: #999;
+}
+
+.eventos-search input {
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+/* Botones */
+.filter-button,
+.add-button {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: var(--primarySecond-color);
+  color: black;
+}
+
+.add-button:hover {
+  background-color: #b8b800;
+}
+
+.filter-button {
+  background-color: rgb(251, 251, 251);
+    color: black;
+    border: 1px solid #d4d400;
+}
+
+.filter-button:hover {
+  background-color: #eae879;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+

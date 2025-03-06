@@ -2,6 +2,11 @@
   position: relative; /* Mantiene el modal dentro del contenedor */
 }
 
+.inventory-header {
+  padding: 35px;
+}
+
+
 .modalOverlay {
   position: absolute;
   top: 0;
