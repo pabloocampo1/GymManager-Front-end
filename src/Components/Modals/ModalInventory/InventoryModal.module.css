@@ -6,7 +6,6 @@
   padding: 35px;
 }
 
-
 .modalOverlay {
   position: absolute;
   top: 0;
@@ -48,8 +47,8 @@
 
 .formRow {
   display: flex;
-  gap: 20px; /* Mayor separación entre los elementos */
-  margin-bottom: 15px;
+  gap: 15px; /* Reducción del espacio entre los grupos de inputs */
+  margin-bottom: 10px; /* Reducción del margen inferior */
 }
 
 .formGroup {
@@ -61,12 +60,12 @@
 .label {
   font-size: 14px;
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 3px; /* Reducción del margen inferior de la etiqueta */
 }
 
-.input, 
+.input,
 .select {
-  padding: 12px; /* Más espacio en los inputs */
+  padding: 10px; /* Reducción del padding interno */
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
@@ -76,6 +75,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.uploadBtn { /* Estilos para el nuevo botón de "Añadir Imagen" */
+  background: #e0e0e0;
+  color: black;
+  padding: 10px 16px; /* Reducción del padding interno */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.uploadBtn:hover {
+  background: #cfcfcf;
 }
 
 .imageBox {
@@ -99,9 +113,9 @@
 }
 
 .cancelBtn {
-  background: #e0e0e0;
-  color: black;
-  padding: 12px 20px;
+  background: black; /* Fondo negro para el botón "Cancelar" */
+  color: white; /* Color de texto blanco para el botón "Cancelar" */
+  padding: 10px 16px; /* Reducción del padding interno */
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -111,7 +125,7 @@
 .addBtn {
   background: #ffdd57;
   color: black;
-  padding: 12px 20px;
+  padding: 10px 16px; /* Reducción del padding interno */
   border: none;
   border-radius: 5px;
   cursor: pointer;
