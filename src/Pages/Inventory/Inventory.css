@@ -2,60 +2,72 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px;
+  padding: 35px 35px;
   background-color: white;
 }
 
 .inventory-title {
-  font-size: 1.5rem;
+  font-size: 30px;
   font-weight: bold;
-  margin-right: auto;
+  margin-right: 40px; /* Aumento del margen derecho */
+  white-space: nowrap;
 }
 
 .search-container {
   display: flex;
-  align-items: center;
-  border: 1px solid #D3D837; /* Color corregido */
-  border-radius: 5px;
-  padding: 2px 8px; /* Reducción del padding */
-  gap: 5px;
-  height: 28px; /* Más pequeño */
+      align-items: center;
+      border: 1px solid #D3D837;
+      border-radius: 8px;
+      padding: 4px 10px;
+      margin-left: 67px;
+      gap: 5px;
+      height: 30px;
+      width: 380px;
+      margin-right: 14px;
 }
 
 .search-icon {
   color: gray;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .search-input {
   border: none;
   outline: none;
-  width: 160px; /* Más pequeño */
-  font-size: 13px; /* Ajuste de fuente */
+  width: 250px; /* Ajuste del ancho interno */
+  font-size: 14px;
+  padding: 0;
+  height: 24px;
+  margin-left: 10px;
 }
 
 .filter-btn {
   display: flex;
   align-items: center;
   gap: 5px;
-  border: 1px solid #D3D837; /* Color corregido */
+  border: 1px solid #D3D837;
   background: white;
-  padding: 4px 10px; /* Ajuste fino */
-  border-radius: 5px;
+  padding: 6px 12px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
+  height: 33px;
+  width: 102px;
+  margin-right: 10px;
 }
 
 .add-btn {
   display: flex;
-  align-items: center;
-  gap: 5px;
-  background: #D3D837 !important; /* Color exacto */
-  color: black !important;
-  font-weight: bold;
-  padding: 6px 14px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 13px;
+    align-items: center;
+    gap: 5px;
+    background: #D3D837 !important;
+    color: black !important;
+    font-weight: bold;
+    padding: 5px 9px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    height: 35px;
+    width: 209px;
+    padding-left: 15px;
 }
