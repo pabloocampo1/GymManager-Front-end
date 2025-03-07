@@ -43,8 +43,16 @@ const WhyChooseUs = () => {
                         transition={{ duration: 0.6, delay: index * 0.3 }}
                     >
 
-                        <img src={card.image} alt={card.title} className={style.cardImage} />
 
+                        <div style={{
+                            backgroundImage: `url(${card.image})`,
+                            backgroundSize: "contain",  // Para que el SVG no se corte
+                            backgroundRepeat: "no-repeat",
+                            backgroundPosition: "center",
+                           
+                        }}>
+
+                        </div>
                         <h3>{card.title}</h3>
                         <p>{card.text}</p>
                     </motion.div>
