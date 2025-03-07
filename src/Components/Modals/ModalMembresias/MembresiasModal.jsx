@@ -1,51 +1,81 @@
 import React from "react";
-import './MembresiasModal.module.css';
+import styles from "./MembresiasModal.module.css";
 
 const MembresiaModal = ({ isOpen, onClose }) => {
-    if (!isOpen) return null; 
-  
-    const handleOverlayClick = (e) => {
-      if (e.target.classList.contains("modal-overlay")) {
-        onClose();
-      }
-    };
+  if (!isOpen) return null;
+
+  const handleOverlayClick = (e) => {
+    if (e.target.classList.contains(styles.modalOverlay)) {
+      onClose();
+    }
+  };
   return (
-    <div className="modal-overlay" onClick={handleOverlayClick}>
-      <div className="modal-content">
-        <h2>Agregar membresia</h2>
+    <div className={styles.modalOverlay} onClick={handleOverlayClick}>
+      <div className={styles.modalContainer}>
+        <h2>Agregar Membresia</h2>
         <form>
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="nombre">Nombre Membresia</label>
-              <input type="text" id="nombre" placeholder="Nombre Membresia" />
-              
-            </div>
+          <div className={styles.formRow}>
+            <div className={styles.formGroup}>
+              <label htmlFor="nombre" className={styles.label}>
+                Nombre Membresia
+              </label>
+              <input
+                type="text"
+                id="nombre"
+                required
+                className={styles.input}
+                placeholder="Nombre Membresia"
+              />
 
-            <div className="form-group">
-              <label htmlFor="tipo">Tipo de membresia</label>
-              <select id="tipo">
-                <option>tipo</option>
-                <option>Mensual</option>
-                <option>Trimestral</option>
-                <option>Anual</option>
-              </select>
+              <div className={styles.formGroup}>
+                <label htmlFor="tipo" className={styles.label}>
+                  Tipo de membresia
+                </label>
+                <select id="tipo" className={styles.select}>
+                  <option>tipo</option>
+                  <option>Mensual</option>
+                  <option>Trimestral</option>
+                  <option>Anual</option>
+                </select>
+              </div>
             </div>
-
-            <div className="form-group">
-              <label htmlFor="duracion">Duracion</label>
-              <input type="text" id="duracion" placeholder="Duracion" />
+            <div className={styles.formGroup}>
+              <label htmlFor="duracion" className={styles.label}>
+                Duracion En Dias
+              </label>
+              <input
+                type="number"
+                id="duracion"
+                className={styles.input}
+                placeholder="Duracion"
+              />
             </div>
           </div>
-        <div className="form-row">    
-          <div className="form-group">
-            <label htmlFor="precio">Precio</label>
-            <input type="text" id="precio" placeholder="Precio" />
+          <div className={styles.formRow}>
+            <div className={styles.formGroup}>
+              <label htmlFor="precio" required className={styles.label}>
+                Precio
+              </label>
+              <input
+                type="number"
+                id="precio"
+                className={styles.input}
+                placeholder="Precio"
+              />
+            </div>
           </div>
-        </div>
 
-          <div className="button-container">
-            <button type="button" className="cancel-btn" onClick={onClose}>Cancelar</button>
-            <button type="submit" className="add-btn">Agregar</button>
+          <div className={styles.buttonContainer}>
+            <button
+              type="button"
+              className={styles.cancelButton}
+              onClick={onClose}
+            >
+              Cancelar
+            </button>
+            <button type="submit" className={styles.addButton}>
+              Agregar
+            </button>
           </div>
         </form>
       </div>
