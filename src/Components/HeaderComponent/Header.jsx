@@ -6,6 +6,8 @@ import ImageLogoPrincipal from "../../assets/images/imageVallHallaLogo.png"
 import LoginIcon from '@mui/icons-material/Login';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuMobile from '../MenuMobileComponent/MenuMobile';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+
 
 function Header() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -43,6 +45,11 @@ function Header() {
                         </li>
                         <li>
                             <Link to="/dfdf">
+                                Eventos
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/dfdf">
                                 Contacto
                             </Link>
                         </li>
@@ -51,12 +58,16 @@ function Header() {
                 </nav>
             </div>)}
             <div className={style.header_icon_login}>
+
+                <Brightness4Icon className={style.icon_darkMode} ></Brightness4Icon>
                 <Link to="/login">
                     <button>
                         <p>Ingresar</p>
                         <LoginIcon className={style.icon_login} />
                     </button>
+                    
                 </Link>
+               
 
                 <div className={style.inactive}>
                     <MenuIcon

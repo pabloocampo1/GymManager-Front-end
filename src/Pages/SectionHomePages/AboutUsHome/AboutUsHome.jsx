@@ -35,6 +35,7 @@ function AboutUsHome() {
 
                 </motion.div>
             </div>
+            <WhyChooseUs />
             <div className={style.stadistics_container}>
                 <div>
                     <span>300+</span>
@@ -55,7 +56,7 @@ function AboutUsHome() {
                 <p>Tiipos de membresias</p>
                 </div>
             </div>
-            <WhyChooseUs />
+           
         </div>
     );
 }
