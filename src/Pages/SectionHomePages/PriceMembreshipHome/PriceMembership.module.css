@@ -56,3 +56,21 @@
     padding-bottom: 10px;
     list-style: none;
 }
+
+
+@media (min-width: 1200px) {
+   
+    .tipePrice_container{
+        width: 100%;
+        height: auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    
+  
+    
+  }

@@ -168,6 +168,37 @@
   font-size: 15;
 }
 
+@media (min-width: 1200px) {
+  .aboutUs_section {
+    height: 70vh;
+  
+  }
+  .aboutUs_section_text {
+    width: 50%;
+    height: 50%;
+    
+  }
+  .aboutUs_section_image {
+    width: 50%;
+    height: 50%;
+    
+  }
+  /* why choose us */
+
+  .card {
+  
+    background-color: rgb(0, 0, 0);
+    border: 1px solid var(--primary-color);
+    text-align: center;
+   
+  }
+  
+  
+  
+
+  
+}
+
 @media (max-width: 999px) {
   .aboutUs_section_text{
     height: auto;
@@ -182,6 +213,9 @@
     padding-top: 20px;
     padding-bottom: 20px;
   }
+
+
+  
 }
 
 
