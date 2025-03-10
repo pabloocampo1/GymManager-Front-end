@@ -2,7 +2,8 @@
 :root{
     --primary-color:#FFDB00;
     --primarySecond-color:#D3D837;
-    --textSecond-color:#979797;
+    --textSecond-color:#9b9b9b;
+    --colorByBackgrounds: #0A192F;
 }
 
 *{
@@ -16,4 +17,5 @@ html{
 body{
     font-family: "Inter", sans-serif;
 }
+
 
