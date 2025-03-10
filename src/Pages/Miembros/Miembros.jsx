@@ -1,7 +1,7 @@
 import { FaSearch, FaFilter, FaPlus } from "react-icons/fa";
 import React, { useState } from "react";
 import styles from "./Miembros.module.css";
-import MembresiasModal from "../../Components/Modals/ModalMiembros/MiembrosModal.jsx";
+import MiembrosModal from "../../Components/Modals/ModalMiembros/MiembrosModal.jsx";
 
 const MiembroModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,7 +30,7 @@ const MiembroModal = () => {
           Agregar Nuevo Miembro
         </button>
         {isModalOpen ? (
-          <MembresiasModal
+          <MiembrosModal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
           />
