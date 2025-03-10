@@ -1,13 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./InventoryModal.module.css";
 
 const InventoryModal = ({ isOpen, onClose }) => {
+  const [imagePreview, setImagePreview] = useState(null);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setImagePreview(null); // 🔥 Borra la preview cuando el modal se cierra
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const handleOverlayClick = (e) => {
     if (e.target.classList.contains(styles.modalOverlay)) {
-      onClose();
+      handleClose();
     }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type.startsWith("image/")) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleClose = () => {
+    setImagePreview(null); // 🔥 Borra la preview al cerrar modal
+    onClose();
   };
 
   return (
@@ -15,6 +39,7 @@ const InventoryModal = ({ isOpen, onClose }) => {
       <div className={styles.modal}>
         <h2>Añadir Objeto</h2>
         <form>
+          {/* 🏋️ Primera Fila */}
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
               <label htmlFor="nombre" className={styles.label}>Nombre del objeto</label>
@@ -37,6 +62,7 @@ const InventoryModal = ({ isOpen, onClose }) => {
             </div>
           </div>
 
+          {/* 🏋️ Segunda Fila */}
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
               <label htmlFor="proveedor" className={styles.label}>Proveedor</label>
@@ -45,10 +71,16 @@ const InventoryModal = ({ isOpen, onClose }) => {
 
             <div className={styles.formGroup}>
               <label htmlFor="estado" className={styles.label}>Estado</label>
-              <input type="text" id="estado" required className={styles.input} placeholder="Estado Máquina" />
+              <select id="estado" required className={styles.select}>
+                <option>Deplorable</option>
+                <option>Superior</option>
+                <option>Mela</option>
+                <option>Pro</option>
+              </select>
             </div>
           </div>
 
+          {/* 🏋️ Tercera Fila */}
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
               <label htmlFor="marca" className={styles.label}>Marca</label>
@@ -61,14 +93,18 @@ const InventoryModal = ({ isOpen, onClose }) => {
             </div>
           </div>
 
+          {/* 📸 Sección para subir imagen con preview */}
           <div className={styles.imageUpload}>
-            <label htmlFor="imagen" className={styles.label}>Imagen</label>
-            <input type="file" id="imagen" />
-            <div className={styles.imageBox}>Añadir imagen</div>
+            <label htmlFor="imagen" className={styles.uploadBtn}>
+              Subir Imagen
+            </label>
+            <input type="file" id="imagen" onChange={handleImageChange} accept="image/png" />
+            {imagePreview && <img src={imagePreview} alt="Preview" className={styles.imagePreview} />}
           </div>
 
+          {/* 🏁 Botones */}
           <div className={styles.buttonContainer}>
-            <button type="button" className={styles.cancelBtn} onClick={onClose}>
+            <button type="button" className={styles.cancelBtn} onClick={handleClose}>
               Cancelar
             </button>
             <button type="submit" className={styles.addBtn}>Agregar</button>

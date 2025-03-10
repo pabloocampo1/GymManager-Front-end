@@ -1,10 +1,11 @@
 ._privateLayout_main {
-  position: relative; /* Mantiene el modal dentro del contenedor */
+  position: relative; 
 }
 
 .inventory-header {
   padding: 35px;
 }
+
 
 .modalOverlay {
   position: absolute;
@@ -26,8 +27,8 @@
   background: white;
   padding: 25px;
   border-radius: 10px;
-  width: 800px; /* Aumentamos el ancho */
-  max-width: 90vw; /* Evita que se desborde en pantallas pequeñas */
+  width: 800px;
+  max-width: 90vw;
   text-align: center;
 }
 
@@ -47,8 +48,8 @@
 
 .formRow {
   display: flex;
-  gap: 15px; /* Reducción del espacio entre los grupos de inputs */
-  margin-bottom: 10px; /* Reducción del margen inferior */
+  gap: 15px;
+  margin-bottom: 10px;
 }
 
 .formGroup {
@@ -60,12 +61,12 @@
 .label {
   font-size: 14px;
   font-weight: bold;
-  margin-bottom: 3px; /* Reducción del margen inferior de la etiqueta */
+  margin-bottom: 3px;
 }
 
 .input,
 .select {
-  padding: 10px; /* Reducción del padding interno */
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
@@ -75,34 +76,32 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 10px;
 }
 
-.uploadBtn { /* Estilos para el nuevo botón de "Añadir Imagen" */
-  background: #e0e0e0;
-  color: black;
-  padding: 10px 16px; /* Reducción del padding interno */
-  border: none;
+
+.uploadBtn {
+  padding: 10px 15px;
+  border: 2px solid #888; 
   border-radius: 5px;
+  background: white;
   cursor: pointer;
+  text-align: center;
   font-size: 14px;
-  margin-top: 10px;
+  font-weight: bold;
+  color: black;
+  transition: background 0.3s, border-color 0.3s;
+  display: inline-block;
 }
 
 .uploadBtn:hover {
-  background: #cfcfcf;
+  background: #f0f0f0;
+  border-color: #555;
 }
 
-.imageBox {
-  border: 1px dashed #ccc;
-  height: 100px; /* Aumentamos el área de imagen */
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: gray;
-  font-size: 14px;
-  border-radius: 5px;
-  margin-top: 10px;
+
+input[type="file"] {
+  display: none;
 }
 
 .buttonContainer {
@@ -113,9 +112,9 @@
 }
 
 .cancelBtn {
-  background: black; /* Fondo negro para el botón "Cancelar" */
-  color: white; /* Color de texto blanco para el botón "Cancelar" */
-  padding: 10px 16px; /* Reducción del padding interno */
+  background: black;
+  color: white;
+  padding: 10px 16px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -125,7 +124,7 @@
 .addBtn {
   background: #ffdd57;
   color: black;
-  padding: 10px 16px; /* Reducción del padding interno */
+  padding: 10px 16px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -138,4 +137,17 @@
 
 .cancelBtn:hover {
   background: #cfcfcf;
+}
+._modal_126qw_19 h2{
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
+.imagePreview {
+  margin-top: 10px;
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: 5px;
+  object-fit: cover;
+  border: 1px solid #ddd;
+  
 }

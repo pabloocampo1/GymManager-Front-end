@@ -9,7 +9,7 @@
 .inventory-title {
   font-size: 30px;
   font-weight: bold;
-  margin-right: 40px; /* Aumento del margen derecho */
+  margin-right: 40px; 
   white-space: nowrap;
 }
 
@@ -34,7 +34,7 @@
 .search-input {
   border: none;
   outline: none;
-  width: 250px; /* Ajuste del ancho interno */
+  width: 250px; 
   font-size: 14px;
   padding: 0;
   height: 24px;

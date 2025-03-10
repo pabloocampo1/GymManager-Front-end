@@ -1,6 +1,59 @@
 .ContactHome_container{
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:  10px 100px;
     background-color: black;
-    text-align: center;
+    color: white;
 }
+
+.infomation_container{
+    width: 50%;
+    height: 80%;
+    padding-top: 40px;
+    background-color: rgb(141, 189, 129);
+}
+.infomation_container h2{
+    color: white;
+    text-align: center;
+    padding-bottom: 40px;
+}
+.information_details{
+    width: 100%;
+    height: 50% ;
+    background-color: blue;
+    
+}
+
+
+.location_contact{
+    width: 100%;
+    height: 50%;
+    background-color: aquamarine;
+}
+
+
+
+.send_mesagge_section{
+    width: 50%;
+    height: 80%;
+    padding-top: 40px;
+    background-color: rgb(190, 124, 124);
+}
+
+@media (max-width: 700px) {
+    .ContactHome_container{
+        flex-direction: column;
+       
+    }
+    .infomation_container{
+        margin-bottom: 50px;
+        
+    }
+
+}
+
+
+
