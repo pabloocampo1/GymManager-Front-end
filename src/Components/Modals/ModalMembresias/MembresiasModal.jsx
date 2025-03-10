@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./MembresiasModal.module.css";
+import ClearIcon from '@mui/icons-material/Clear';
 
 const MembresiaModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
@@ -12,6 +13,9 @@ const MembresiaModal = ({ isOpen, onClose }) => {
   return (
     <div className={styles.modalOverlay} onClick={handleOverlayClick}>
       <div className={styles.modalContainer}>
+        <div className={styles.modalCloseContainer}>
+          <ClearIcon onClick={onClose}></ClearIcon>
+        </div>
         <h2>Agregar Membresia</h2>
         <form>
           <div className={styles.formRow}>
@@ -32,7 +36,7 @@ const MembresiaModal = ({ isOpen, onClose }) => {
                   Tipo de membresia
                 </label>
                 <select id="tipo" className={styles.select}>
-                  <option>tipo</option>
+                  <option>Tipo</option>
                   <option>Mensual</option>
                   <option>Trimestral</option>
                   <option>Anual</option>

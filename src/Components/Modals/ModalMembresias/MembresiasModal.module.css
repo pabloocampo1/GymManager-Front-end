@@ -8,6 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 35px;
 }
 
 .modalContainer {
@@ -16,11 +17,18 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background: white;
-  padding: 25px;
+  padding: 35px;
   border-radius: 15px;
   width: 750px; 
   max-width: 90vw; /* Evita que se desborde en pantallas pequeñas */
   text-align: center;
+}
+
+.modalCloseContainer{
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: end;
 }
 
 .modalContainer h2 {
@@ -28,6 +36,7 @@
   margin-bottom: 15px;
   font-size: 22px;
   font-weight: bold;
+  padding: 35px;
 }
 
 .formRow {
@@ -43,6 +52,7 @@
 }
 
 .label {
+  margin-top: 20px;
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 5px;
@@ -62,11 +72,14 @@
   gap: 10px;
   margin-top: 20px;
 }
+.buttonContainer button {
+  margin-top: 30px;
+}
 
 .cancelButton {
-  background: #e0e0e0;
-  color: black;
-  padding: 12px 20px;
+  background: black;
+  color: white;
+  padding: 10px 16px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -87,6 +100,7 @@
   background: var(--primarySecond-color);
 }
 
-cancelButton:hover {
-  background: var(textSecond-color);
+.cancelButton:hover {
+  background: #cfcfcf;
+  ;
 }

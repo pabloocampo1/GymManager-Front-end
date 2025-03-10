@@ -1,11 +1,43 @@
-import React from 'react';
+import { FaSearch, FaFilter, FaPlus } from "react-icons/fa";
+import React, { useState } from "react";
+import styles from "./Miembros.module.css";
+import MembresiasModal from "../../Components/Modals/ModalMiembros/MiembrosModal.jsx";
 
-const Miembros = () => {
-    return (
-        <div>
-            soy miembros
+const MiembroModal = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  return (
+    <div className={styles["miembros_container"]}>
+      <div className={styles["miembros-header"]}>
+        <h2 className={styles["miembros-title"]}>Miembros</h2>
+        <div className={styles["search-container"]}>
+          <FaSearch className={styles["search-icon"]} />
+          <input
+            type="text"
+            placeholder="Buscar Miembros"
+            className={styles["search-input"]}
+          />
         </div>
-    );
+        <button className={styles["filter-boton"]}>
+          <FaFilter className={styles["filter-icon"]} />
+          Filter
+        </button>
+        <button
+          className={styles["add-boton"]}
+          onClick={() => setIsModalOpen(true)}
+        >
+          <FaPlus className={styles["add-icon"]} />
+          Agregar Nuevo Miembro
+        </button>
+        {isModalOpen ? (
+          <MembresiasModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+          />
+        ) : null}
+      </div>
+    </div>
+  );
 };
 
-export default Miembros;
+export default MiembroModal;
