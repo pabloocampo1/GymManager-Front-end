@@ -16,6 +16,7 @@ import Inventory from './Pages/Inventory/Inventory'
 import Membresias from './Pages/Membresias/Membresias'
 import Miembros from './Pages/Miembros/Miembros'
 import User from './Pages/User/User'
+import Profile from './Pages/ProfileGym/ProfileGym'
 
 
 
@@ -41,7 +42,8 @@ function App() {
             <Route path='membresias' element={<Membresias />}></Route>
             <Route path="correo" element={<Promotions />} />
             <Route path="eventos" element={<Events />} />
-            <Route path="inventario" element={<Inventory />} />            
+            <Route path="inventario" element={<Inventory />} /> 
+            <Route path="perfil" element={<Profile />} />           
         </Route>
           <Route path="*" element={<NotFound />} />
       </Routes>

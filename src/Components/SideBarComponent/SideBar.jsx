@@ -88,7 +88,7 @@ function SideBar() {
             <div className={style.UtilsSideBar}>
 
                 <div>
-                    <Link to="/login"><AccountCircleIcon /></Link>
+                    <Link to="/dashboard/perfil"><AccountCircleIcon /></Link>
                 </div>
                 <div>
                     <Link to="/login"><LogoutIcon /></Link>
