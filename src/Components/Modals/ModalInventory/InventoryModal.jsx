@@ -6,7 +6,7 @@ const InventoryModal = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     if (!isOpen) {
-      setImagePreview(null); // 🔥 Borra la preview cuando el modal se cierra
+      setImagePreview(null);
     }
   }, [isOpen]);
 
@@ -30,7 +30,7 @@ const InventoryModal = ({ isOpen, onClose }) => {
   };
 
   const handleClose = () => {
-    setImagePreview(null); // 🔥 Borra la preview al cerrar modal
+    setImagePreview(null);
     onClose();
   };
 

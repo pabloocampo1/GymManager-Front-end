@@ -1,6 +1,4 @@
-._privateLayout_main {
-  position: relative; 
-}
+
 
 .inventory-header {
   padding: 35px;
@@ -8,7 +6,7 @@
 
 
 .modalOverlay {
-  position: absolute;
+  position: absolute; /* Asegura que cubra toda la pantalla */
   top: 0;
   left: 0;
   width: 100%;
@@ -20,10 +18,9 @@
 }
 
 .modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
+  
+  
   background: white;
   padding: 25px;
   border-radius: 10px;

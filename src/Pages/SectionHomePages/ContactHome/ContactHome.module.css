@@ -1,59 +1,141 @@
-.ContactHome_container{
+.ContactHome_container {
     width: 100%;
-    min-height: 100vh;
+    height: auto;
+    padding-bottom: 100px;
+    background-color: black;
+
+}
+
+/* intro */
+.container_intro_contact {
+    width: 100%;
+    height: 50vh;
+    background-color: var(--colorByBackgrounds);
+    padding: 10px 100px;
+}
+
+/* Sección principal */
+.container_contact {
+    width: 100%;
+    height: auto; 
+    padding: 10px 100px;
+    margin-top: 200px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding:  10px 100px;
-    background-color: black;
-    color: white;
+    flex-wrap: wrap; 
 }
 
-.infomation_container{
+.section_details,
+.section_send_mesagge {
     width: 50%;
-    height: 80%;
-    padding-top: 40px;
-    background-color: rgb(141, 189, 129);
+    height: auto; 
+    min-height: 400px; 
 }
-.infomation_container h2{
+
+/* Información */
+.section_details_information h2 {
     color: white;
     text-align: center;
-    padding-bottom: 40px;
+    display: block;
+    padding-bottom: 30px;
+    padding-top: 10px;
 }
-.information_details{
+
+.section_details .section_details_information {
     width: 100%;
-    height: 50% ;
-    background-color: blue;
-    
+    height: auto; 
 }
 
-
-.location_contact{
+.information_items {
     width: 100%;
-    height: 50%;
-    background-color: aquamarine;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    justify-content: center;
+    gap: 10px;
+}
+
+.information_items div {
+    height: 100px;
+    background-color: rgb(133, 133, 196);
+}
+
+/* Mapa */
+.section_details .section_details_map {
+    width: 100%;
+    height: 300px; 
+    background-color: rgb(57, 225, 99);
 }
 
 
-
-.send_mesagge_section{
-    width: 50%;
-    height: 80%;
-    padding-top: 40px;
-    background-color: rgb(190, 124, 124);
+.section_send_mesagge {
+    display: flex;
+    justify-content: center;
+}
+.container_form {
+    width: 80%;
+    min-height: 500px;
+    padding: 20px;
+    border: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+.container_form h2{
+   color: white;
+   padding-bottom: 10px;
+}
+.section_send_mesagge_items {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+    flex-grow: 1; 
 }
 
-@media (max-width: 700px) {
-    .ContactHome_container{
+.send_mesagge_form_container {
+    width: 100%;
+    flex: 3; 
+    background-color: red;
+}
+
+.send_mesagge_socialMedia_container {
+    width: 100%;
+    flex: 1; 
+    background-color: rgb(27, 215, 115);
+}
+
+
+@media (max-width: 1000px) {
+    .container_contact {
+        padding: 10px 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container_contact {
         flex-direction: column;
-       
-    }
-    .infomation_container{
-        margin-bottom: 50px;
-        
+        padding: 10px 20px;
     }
 
+    .section_details,
+    .section_send_mesagge {
+        width: 100%;
+        height: auto; 
+        padding: 20px; 
+    }
+
+    .section_details .section_details_map {
+        height: 250px; 
+    }
 }
 
 
-
+@media (min-width: 1400px) {
+    .information_items {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+        justify-content: center;
+        gap: 20px;
+    }
+}

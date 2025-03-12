@@ -28,12 +28,12 @@ function Events() {
             <input type="text" placeholder="Buscar Eventos" />
           </div>
 
-          {/* Botón Filtrar con menú desplegable */}
+         
           <button className="filter-button" onClick={handleOpenMenu}>
             <Filter size={16} /> Filtrar
           </button>
 
-          {/* Menú de opciones */}
+          
           <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => handleCloseMenu()}>
             <MenuItem onClick={() => handleCloseMenu("CrossFit")}>CrossFit</MenuItem>
             <MenuItem onClick={() => handleCloseMenu("Natación")}>Natación</MenuItem>

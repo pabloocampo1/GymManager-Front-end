@@ -17,6 +17,7 @@ import Membresias from './Pages/Membresias/Membresias'
 import Miembros from './Pages/Miembros/Miembros'
 import User from './Pages/User/User'
 import Profile from './Pages/ProfileGym/ProfileGym'
+import ContactHome from './Pages/SectionHomePages/ContactHome/ContactHome'
 
 
 
@@ -28,8 +29,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<PublicLayout />}>
-            <Route index element={<Home />} /> 
-            <Route path="/contact" element={<Contact></Contact>} />
+            <Route index element={<Home />} />
+            <Route path="/contact" element={ <ContactHome />} />
 
         </Route>
 

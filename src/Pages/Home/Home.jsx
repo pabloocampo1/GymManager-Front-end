@@ -15,7 +15,7 @@ function Home() {
             <IntroduccionHome />
             <AboutUsHome />
             <PriceMembershipHome />
-            <ContactHome />
+           
         </div>
     );
 }
