@@ -1,6 +1,6 @@
 import React from 'react';
 
-function User() {
+function Acceso() {
     return (
         <div style={{backgroundColor:"blue", color:"white"}}>
             soy user
@@ -8,4 +8,4 @@ function User() {
     );
 }
 
-export default User;
+export default Acceso;

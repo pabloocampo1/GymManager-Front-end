@@ -9,7 +9,7 @@ const MiembroModal = () => {
   return (
     <div className={styles["miembros_container"]}>
       <div className={styles["miembros-header"]}>
-        <h2 className={styles["miembros-title"]}>Miembros</h2>
+        <h1 className={styles["miembros-title"]}>Miembros</h1>
         <div className={styles["search-container"]}>
           <FaSearch className={styles["search-icon"]} />
           <input

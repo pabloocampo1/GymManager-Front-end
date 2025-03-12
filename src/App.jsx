@@ -1,5 +1,3 @@
-
-
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Login from './Pages/LoginPage/Login'
@@ -8,14 +6,13 @@ import PublicLayout from './Layouts/PublicLayout/PublicLayout'
 import Contact from './Components/Contact'
 import PrivateLayout from './Layouts/PrivateLayout/PrivateLayout'
 import Dashboard from './Pages/Dashboard/Dashboard'
-
 import Promotions from './Pages/Mail/Mail'
 import Events from './Pages/Events/Events'
 import NotFound from './Pages/NotFound/NotFound'
 import Inventory from './Pages/Inventory/Inventory'
 import Membresias from './Pages/Membresias/Membresias'
 import Miembros from './Pages/Miembros/Miembros'
-import User from './Pages/User/User'
+import Acceso from './Pages/Acceso/Acceso'
 import Profile from './Pages/ProfileGym/ProfileGym'
 
 
@@ -37,7 +34,7 @@ function App() {
         {/* Rutas privadas: el layout se encargará de mostrar el sidebar */}
         <Route path="/dashboard" element={<PrivateLayout />}>
             <Route index element={<Dashboard />} />
-            <Route path='user' element={<User></User>}></Route>
+            <Route path='acceso' element={<Acceso />}></Route>
             <Route path='miembros' element={<Miembros />}></Route>
             <Route path='membresias' element={<Membresias />}></Route>
             <Route path="correo" element={<Promotions />} />
