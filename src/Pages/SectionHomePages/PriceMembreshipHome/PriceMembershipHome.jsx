@@ -5,6 +5,7 @@ import { useInView } from "react-intersection-observer";
 
 const PriceMembershipHome = () => {
     const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.5 });
+    console.log(motion)
     return (
         <div className={style.priceMembership_container}>
             <h2  className={style.h2_title}>

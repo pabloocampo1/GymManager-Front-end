@@ -3,8 +3,6 @@ import style from "./IntroduccionHome.module.css"
 import TypingEffect from '../../../Components/TypingEffect';
 import { motion } from "framer-motion";
 
-// iamgenes
-
 import imagen1 from "../../../assets/images/imagenValHallaSlider1.png"
 import imagen2 from "../../../assets/images/imagenValHallaSlider2.png"
 import imagen3 from "../../../assets/images/imagenValHallaSlider3.png"
@@ -12,7 +10,6 @@ import imagen3 from "../../../assets/images/imagenValHallaSlider3.png"
 
 const IntroduccionHome = () => {
     console.log(motion);
-
 
     const images = [
         imagen1,
