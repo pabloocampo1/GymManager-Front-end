@@ -6,8 +6,7 @@
   padding: 40px;
 }
 
-.inventory_header {
-  
+.inventory_header { 
   display: flex;
   align-items: center;
   background-color: white;

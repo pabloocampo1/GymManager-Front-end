@@ -25,9 +25,8 @@
     flex-wrap: wrap; 
 }
 
-.section_details,
-.section_send_mesagge {
-    width: 50%;
+.section_details {
+    width: 60%;
     height: auto; 
     min-height: 400px; 
 }
@@ -49,14 +48,35 @@
 .information_items {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
     justify-content: center;
-    gap: 10px;
+    gap: 15px;
 }
 
 .information_items div {
     height: 100px;
-    background-color: rgb(133, 133, 196);
+    display: flex;
+}
+.information_items div .logo_details{
+    width: 30%;
+    height: 100%;
+    background-color: var(--primary-color);
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.information_items div .details_about_contact{
+    display: inline;
+}
+.information_items div .details_about_contact h3{
+   font-size: 1rem;
+   color: white;
+   font-weight: bold;
+}
+.information_items div .details_about_contact ol li{
+   color: rgb(182, 182, 182);
+   list-style: none;
 }
 
 /* Mapa */
@@ -68,6 +88,9 @@
 
 
 .section_send_mesagge {
+    width: 40%;
+    height: auto; 
+    min-height: 400px; 
     display: flex;
     justify-content: center;
 }
