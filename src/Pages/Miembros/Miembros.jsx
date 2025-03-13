@@ -7,26 +7,26 @@ const MiembroModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className={styles["miembros_container"]}>
-      <div className={styles["miembros-header"]}>
-        <h1 className={styles["miembros-title"]}>Miembros</h1>
-        <div className={styles["search-container"]}>
-          <FaSearch className={styles["search-icon"]} />
+    <div className={styles.miembros_container}>
+      <div className={styles.miembros_header}>
+        <h1 className={styles.miembros_title}>Miembros</h1>
+        <div className={styles.search_container}>
+          <FaSearch className={styles.search_icon} />
           <input
             type="text"
             placeholder="Buscar Miembros"
-            className={styles["search-input"]}
+            className={styles.search_input}
           />
         </div>
-        <button className={styles["filter-boton"]}>
-          <FaFilter className={styles["filter-icon"]} />
+        <button className={styles.filter_boton}>
+          <FaFilter className={styles.filter_icon} />
           Filter
         </button>
         <button
-          className={styles["add-boton"]}
+          className={styles.add_boton}
           onClick={() => setIsModalOpen(true)}
         >
-          <FaPlus className={styles["add-icon"]} />
+          <FaPlus className={styles.add_icon} />
           Agregar Nuevo Miembro
         </button>
         {isModalOpen ? (

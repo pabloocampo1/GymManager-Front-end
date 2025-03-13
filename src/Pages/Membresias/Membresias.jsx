@@ -18,19 +18,19 @@ const MembresiaModal = () => {
   };
 
   return (
-    <div className={styles["membresia_container"]}>
-      <div className={styles["membresias-header"]}>
-        <h1 className={styles["membresias-title"]}>Membresias</h1>
-        <div className={styles["search-container"]}>
-          <FaSearch className={styles["search-icon"]} />
+    <div className={styles.membresia_container}>
+      <div className={styles.membresias_header}>
+        <h1 className={styles.membresias_title}>Membresias</h1>
+        <div className={styles.search_container}>
+          <FaSearch className={styles.search_icon} />
           <input
             type="text"
             placeholder="Buscar membresias"
-            className={styles["search-input"]}
+            className={styles.search_input}
           />
         </div>
-        <button className={styles["filter-boton"]} onClick={handleOpenMenu}>
-          <FaFilter className={styles["filter-icon"]} />
+        <button className={styles.filter_boton} onClick={handleOpenMenu}>
+          <FaFilter className={styles.filter_icon} />
           Filter
         </button>
         <Menu
@@ -49,10 +49,10 @@ const MembresiaModal = () => {
           </MenuItem>
         </Menu>
         <button
-          className={styles["add-boton"]}
+          className={styles.add_boton}
           onClick={() => setIsModalOpen(true)}
         >
-          <FaPlus className={styles["add-icon"]} />
+          <FaPlus className={styles.add_icon} />
           Agregar Nueva Membresia
         </button>
         {isModalOpen ? (
