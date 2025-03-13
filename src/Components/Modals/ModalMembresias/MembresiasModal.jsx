@@ -37,9 +37,9 @@ const MembresiaModal = ({ isOpen, onClose }) => {
                 </label>
                 <select id="tipo" className={styles.select}>
                   <option>Tipo</option>
-                  <option>Mensual</option>
-                  <option>Trimestral</option>
-                  <option>Anual</option>
+                  <option>Oro</option>
+                  <option>Plata</option>
+                  <option>Bronce</option>
                 </select>
               </div>
             </div>

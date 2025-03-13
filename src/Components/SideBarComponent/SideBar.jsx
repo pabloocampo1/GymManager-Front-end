@@ -54,7 +54,7 @@ function SideBar() {
                     </div>
                 </Link>
                 
-                <Link to="/dashboard/user">
+                <Link to="/dashboard/acceso">
                     <div className={activeLink === "Registro" ? style.activeLink : ""}
                         onClick={() => handleClick("Registro")}>
                         <ContactMailIcon sx={{ color: "white" }} /> <p>Control de acceso</p>

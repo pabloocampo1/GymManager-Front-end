@@ -1,54 +1,83 @@
 import React, { useState, useEffect } from "react";
 import styles from "./InventoryModal.module.css";
 
-const InventoryModal = ({ isOpen, onClose }) => {
-  const [imagePreview, setImagePreview] = useState(null);
+/*constante isOpen es un boleano para saber si esta abierto el modal,onClose es la funcion que se ejecuta cuando
+se ierreel modal y el onaddItem es la funcion que se ejecuta cuando se envia el formulario*/
 
+const InventoryModal = ({ isOpen, onClose, onAddItem }) => {
+  /*formData almacena  valores ingresados en el formulario. Se inicializa con valores predeterminados.*/ 
+  const [formData, setFormData] = useState({
+    nombre: "",
+    categoria: "Inferior",
+    fecha: "",
+    proveedor: "",
+    estado: "Deplorable",
+    marca: "",
+    modelo: "",
+    image: null
+  });
+  /*Cuando el modal se cierra osea isOpen = false, este useEffect restablece los valores del formulario.*/ 
   useEffect(() => {
     if (!isOpen) {
-      setImagePreview(null);
+      setFormData({
+        nombre: "",
+        categoria: "Inferior",
+        fecha: "",
+        proveedor: "",
+        estado: "Deplorable",
+        marca: "",
+        modelo: "",
+        image: null
+      });
     }
   }, [isOpen]);
 
   if (!isOpen) return null;
 
-  const handleOverlayClick = (e) => {
-    if (e.target.classList.contains(styles.modalOverlay)) {
-      handleClose();
-    }
+  /*Cuando la persona escriba en el campo, actualiza el estado formData con el nuevo valor.*/ 
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
   };
-
+  /* proceso mas largo :Obtiene el archivo (imagen que sube la persona).
+      Verifica que tipo es la imagen
+      Usa FileReader para convertir la imagen en base64 y almacenarla en formData.image.  */
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file && file.type.startsWith("image/")) {
       const reader = new FileReader();
       reader.onload = () => {
-        setImagePreview(reader.result);
+        setFormData((prev) => ({ ...prev, image: reader.result }));
       };
       reader.readAsDataURL(file);
     }
   };
-
-  const handleClose = () => {
-    setImagePreview(null);
-    onClose();
+  /*Evita que la página se recargue con el e.preventdefault.
+Llama a onAddItem pasándo los datos del formulario*/ 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onAddItem(formData);
   };
-
+  /*estructura omg*/ 
   return (
-    <div className={styles.modalOverlay} onClick={handleOverlayClick}>
+    <div className={styles.modalOverlay} onClick={(e) => e.target.classList.contains(styles.modalOverlay) && onClose()}>
       <div className={styles.modal}>
-        <h2>Añadir Objeto</h2>
-        <form>
-          {/* 🏋️ Primera Fila */}
+        <div className={styles.title}>
+          <h2>Añadir Objeto</h2>
+        </div>
+        
+        <form onSubmit={handleSubmit}>
+
+  
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
-              <label htmlFor="nombre" className={styles.label}>Nombre del objeto</label>
-              <input type="text" id="nombre" required className={styles.input} placeholder="Máquina Smith" />
+              <label htmlFor="nombre">Nombre del Objeto:</label>
+              <input type="text" id="nombre" placeholder="Nombre del objeto" required value={formData.nombre} onChange={handleInputChange} className={styles.input} />
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="categoria" className={styles.label}>Categoría</label>
-              <select id="categoria" className={styles.select}>
+              <label htmlFor="categoria">Categoría:</label>
+              <select id="categoria" value={formData.categoria} onChange={handleInputChange} className={styles.select}>
                 <option>Inferior</option>
                 <option>Superior</option>
                 <option>Cardio</option>
@@ -57,56 +86,50 @@ const InventoryModal = ({ isOpen, onClose }) => {
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="fecha" className={styles.label}>Fecha de compra</label>
-              <input type="date" id="fecha" required className={styles.input} />
+              <label htmlFor="fecha">Fecha de Compra:</label>
+              <input type="date" id="fecha" required value={formData.fecha} onChange={handleInputChange} className={styles.input} />
             </div>
           </div>
 
-          {/* 🏋️ Segunda Fila */}
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
-              <label htmlFor="proveedor" className={styles.label}>Proveedor</label>
-              <input type="text" id="proveedor" required className={styles.input} placeholder="Empresa" />
+              <label htmlFor="proveedor">Proveedor:</label>
+              <input type="text" id="proveedor" placeholder="Nombre del proveedor" required value={formData.proveedor} onChange={handleInputChange} className={styles.input} />
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="estado" className={styles.label}>Estado</label>
-              <select id="estado" required className={styles.select}>
+              <label htmlFor="estado">Estado:</label>
+              <select id="estado" value={formData.estado} onChange={handleInputChange} className={styles.select}>
                 <option>Deplorable</option>
                 <option>Superior</option>
                 <option>Mela</option>
                 <option>Pro</option>
               </select>
             </div>
-          </div>
+        </div>
 
-          {/* 🏋️ Tercera Fila */}
+  
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
-              <label htmlFor="marca" className={styles.label}>Marca</label>
-              <input type="text" id="marca" required className={styles.input} placeholder="Marca" />
+              <label htmlFor="marca">Marca:</label>
+              <input type="text" id="marca" placeholder="Marca del objeto" required value={formData.marca} onChange={handleInputChange} className={styles.input} />
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="modelo" className={styles.label}>Modelo</label>
-              <input type="text" id="modelo" required className={styles.input} placeholder="Modelo de la máquina" />
+              <label htmlFor="modelo">Modelo:</label>
+              <input type="text" id="modelo" placeholder="Modelo del objeto" required value={formData.modelo} onChange={handleInputChange} className={styles.input} />
+            </div>
+
+            <div className={styles.imageUpload}>
+              <label htmlFor="imagen">Imagen:</label>
+              <input type="file" id="imagen" onChange={handleImageChange} accept="image/png, image/jpeg" />
+              {formData.image && <img src={formData.image} alt="Previsualización" className={styles.imagePreview} />}
             </div>
           </div>
 
-          {/* 📸 Sección para subir imagen con preview */}
-          <div className={styles.imageUpload}>
-            <label htmlFor="imagen" className={styles.uploadBtn}>
-              Subir Imagen
-            </label>
-            <input type="file" id="imagen" onChange={handleImageChange} accept="image/png" />
-            {imagePreview && <img src={imagePreview} alt="Preview" className={styles.imagePreview} />}
-          </div>
-
-          {/* 🏁 Botones */}
+  
           <div className={styles.buttonContainer}>
-            <button type="button" className={styles.cancelBtn} onClick={handleClose}>
-              Cancelar
-            </button>
+            <button type="button" className={styles.cancelBtn} onClick={onClose}>Cancelar</button>
             <button type="submit" className={styles.addBtn}>Agregar</button>
           </div>
         </form>

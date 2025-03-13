@@ -1,19 +1,21 @@
+
 .inventory_container {
   width: 100%;
   height: 100%;
-  background-color: red;
+  background-color: white;
   position: relative;
   padding: 40px;
 }
 
-.inventory_header { 
+.inventory_header {
+  
   display: flex;
   align-items: center;
   background-color: white;
 }
 
 .inventory_title {
-  font-size:  1.875rem;
+  font-size: 1.875rem;
   font-weight: bold;
   margin-right: 40px;
   white-space: nowrap;
@@ -80,4 +82,81 @@
   height: 35px;
   width: 200px;
   padding-left: 15px;
+}
+
+
+.inventory_list {
+  display: flex;
+  flex-wrap: wrap; /* Permite que los elementos se ubiquen en varias filas si no caben */
+  gap: 10px; /* Espaciado entre las tarjetas */
+  max-height: 400px;
+  overflow-y: auto; /* Agrega scroll vertical si hay muchas tarjetas */
+  padding-right: 10px;
+  margin-top: 20px;
+}
+
+
+.inventory_card {
+  display: flex;
+  flex-direction: column; 
+  
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(1, 1, 1, 0.1);
+  width: 250px; 
+  justify-content: space-between;
+}
+
+
+.card_actions {
+  display: flex;
+  
+  gap: 10px;
+  margin-top: 10px;
+}
+.hidden {
+  display: none !important;
+}
+
+
+.item_image {
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-right: 15px;
+}
+
+
+.item_info {
+  flex-grow: 1;
+  font-size: 14px;
+}
+
+.item_info h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.item_info p {
+  margin: 5px 0;
+  color: #555;
+}
+
+
+
+
+.edit_btn, .delete_btn {
+  color: #333;
+  transition: 0.3s;
+}
+
+.edit_btn:hover {
+  color: #1976D2;
+}
+
+.delete_btn:hover {
+  color: #D32F2F;
 }

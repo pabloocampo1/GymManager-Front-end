@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./ProfileGym.css";
+import styles from "./ProfileGym.module.css";
 
-const Profile = () => {
+const ProfileGym = () => {
   const [formData, setFormData] = useState({
     nombre: "Juan Pérez",
     correo: "juanperez@example.com",
@@ -20,31 +20,31 @@ const Profile = () => {
   };
 
   return (
-    <div className="profile-container">
-      <h2>Datos Personales</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Nombre:
+    <div className={styles.profileContainer}>
+      <h2 className={styles.title}>Datos Personales</h2>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.formGroup}>
+          <label>Nombre:</label>
           <input
             type="text"
             name="nombre"
             value={formData.nombre}
             onChange={handleChange}
           />
-        </label>
+        </div>
 
-        <label>
-          Correo:
+        <div className={styles.formGroup}>
+          <label>Correo:</label>
           <input
             type="email"
             name="correo"
             value={formData.correo}
             onChange={handleChange}
           />
-        </label>
+        </div>
 
-        <label>
-          Contraseña:
+        <div className={styles.formGroup}>
+          <label>Contraseña:</label>
           <input
             type="password"
             name="contraseña"
@@ -52,32 +52,34 @@ const Profile = () => {
             onChange={handleChange}
             placeholder="********"
           />
-        </label>
+        </div>
 
-        <label>
-          Clientes Activos:
+        <div className={styles.formGroup}>
+          <label>Clientes Activos:</label>
           <input
             type="number"
             name="clientes"
             value={formData.clientes}
             onChange={handleChange}
           />
-        </label>
+        </div>
 
-        <label>
-          Nombre del Gimnasio:
+        <div className={styles.formGroup}>
+          <label>Nombre del Gimnasio:</label>
           <input
             type="text"
             name="nombreGimnasio"
             value={formData.nombreGimnasio}
             onChange={handleChange}
           />
-        </label>
+        </div>
 
-        <button type="submit">Actualizar Datos</button>
+        <button type="submit" className={styles.updateButton}>
+          Actualizar Datos
+        </button>
       </form>
     </div>
   );
 };
 
-export default Profile;
+export default ProfileGym;
