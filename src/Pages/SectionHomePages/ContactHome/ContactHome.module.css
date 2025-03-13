@@ -10,28 +10,63 @@
 .container_intro_contact {
     width: 100%;
     height: 50vh;
-    background-color: var(--colorByBackgrounds);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     padding: 10px 100px;
+    position: relative;
+    z-index: 1;
 }
+
+.container_intro_contact::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://www.titaniumstrength.es/blog/wp-content/uploads/2023/01/9U6A7799-1-1-1-edited-2048x1280.jpg");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.4;
+    z-index: -1;
+}
+
+.container_intro_contact h2 {
+    color: white;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+.container_intro_contact p {
+    color: var(--textSecond-color);
+}
+
 
 /* Sección principal */
 .container_contact {
     width: 100%;
-    height: auto; 
+    height: auto;
     padding: 10px 100px;
-    margin-top: 200px;
+    margin-top: 100px;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
 }
 
 .section_details {
     width: 60%;
-    height: auto; 
-    min-height: 400px; 
+    height: auto;
+    min-height: 400px;
+
 }
 
 /* Información */
+.section_details_information {
+    margin-bottom: 30px;
+}
+
 .section_details_information h2 {
     color: white;
     text-align: center;
@@ -42,58 +77,64 @@
 
 .section_details .section_details_information {
     width: 100%;
-    height: auto; 
+    height: auto;
 }
 
 .information_items {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     justify-content: center;
     gap: 15px;
 }
 
-.information_items div {
-    height: 100px;
+.information_items_item {
+    height: auto;
     display: flex;
+    border: 1px solid var(--primary-color);
+    border-radius: 15px;
+    padding: 15px 0px;
 }
-.information_items div .logo_details{
+
+.information_items .information_items_item .logo_details {
     width: 30%;
     height: 100%;
-    background-color: var(--primary-color);
     margin-right: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.information_items div .details_about_contact{
+
+.information_items .information_items_item .details_about_contact {
     display: inline;
 }
-.information_items div .details_about_contact h3{
-   font-size: 1rem;
-   color: white;
-   font-weight: bold;
+
+.information_items .information_items_item .details_about_contact h3 {
+    font-size: 1rem;
+    color: white;
+    font-weight: bold;
 }
-.information_items div .details_about_contact ol li{
-   color: rgb(182, 182, 182);
-   list-style: none;
+
+.information_items .information_items_item .details_about_contact ol li {
+    color: rgb(182, 182, 182);
+    list-style: none;
 }
 
 /* Mapa */
 .section_details .section_details_map {
     width: 100%;
-    height: 300px; 
-    background-color: rgb(57, 225, 99);
+    height: 300px;
 }
 
 
 .section_send_mesagge {
     width: 40%;
-    height: auto; 
-    min-height: 400px; 
+    height: auto;
+    min-height: 400px;
     display: flex;
     justify-content: center;
 }
+
 .container_form {
     width: 80%;
     min-height: 500px;
@@ -101,31 +142,82 @@
     border: 1px solid white;
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    align-items: center;
 }
-.container_form h2{
-   color: white;
-   padding-bottom: 10px;
+
+.container_form h2 {
+    color: white;
+    padding-bottom: 20px;
 }
+
 .section_send_mesagge_items {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 10px; 
-    flex-grow: 1; 
+    gap: 10px;
+    flex-grow: 1;
 }
 
 .send_mesagge_form_container {
     width: 100%;
-    flex: 3; 
-    background-color: red;
+    height: 100%;
+    flex: 3;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
 }
+.send_mesagge_form_container form {
+    width: 80%;
+
+}
+.send_mesagge_form_container form label{
+   padding-bottom: 10px;
+    color: white;
+}
+.send_mesagge_form_container form textarea{
+    width: 100%;
+    height: 100px;
+    background-color: rgb(0, 0, 0);
+    border: 1px solid white;
+    color: white;
+}
+
+.inputField {
+    color: white !important;
+    /* Color del texto */
+}
+.inputField::placeholder {
+    color: white !important;
+    /* Color del texto */
+}
+
+.inputField label {
+    color: white !important;
+    /* Color del label */
+}
+
 
 .send_mesagge_socialMedia_container {
     width: 100%;
-    flex: 1; 
-    background-color: rgb(27, 215, 115);
+    display: flex;
+    align-items: center;
+    flex: 1;
+    background-color: rgb(0, 0, 0);
+   color: white;
+   
 }
+
+
+
+
+@media (min-width: 1024px) {}
+
+@media (min-width: 1100px) {}
+
+@media (min-width: 1200px) {}
+
 
 
 @media (max-width: 1000px) {
@@ -143,12 +235,21 @@
     .section_details,
     .section_send_mesagge {
         width: 100%;
-        height: auto; 
-        padding: 20px; 
+        height: auto;
+        padding: 20px;
     }
 
     .section_details .section_details_map {
-        height: 250px; 
+        height: 250px;
+    }
+
+
+    /*form*/
+
+    .container_form {
+       
+        min-height: 600px;
+       
     }
 }
 
@@ -157,7 +258,7 @@
     .information_items {
         width: 100%;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         justify-content: center;
         gap: 20px;
     }

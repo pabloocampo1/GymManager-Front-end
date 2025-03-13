@@ -7,10 +7,12 @@ import LoginIcon from '@mui/icons-material/Login';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuMobile from '../MenuMobileComponent/MenuMobile';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
+import { MaterialUISwitch } from '../ButtonDarkMode';
 
 
 function Header() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
+    const [checked, setChecked] = useState(false)
 
     const handleShowMenu = () => {
         if (isOpenMenu) {
@@ -18,6 +20,13 @@ function Header() {
         } else {
             setIsOpenMenu(true)
         }
+    }
+
+    const handleChecked = () => {
+        setChecked(event.target.checked);
+        return checked ? console.log("sun") : console.log("dark");
+        ;
+        
     }
 
     return (
@@ -59,11 +68,13 @@ function Header() {
             </div>)}
             <div className={style.header_icon_login}>
 
-                <Brightness4Icon className={style.icon_darkMode} ></Brightness4Icon>
+                
+                <MaterialUISwitch className={style.icon_darkMode} checked={checked} onChange={handleChecked}/>
                 <Link to="/login">
                     <button>
                         <p>Ingresar</p>
                         <LoginIcon className={style.icon_login} />
+                        
                     </button>
                     
                 </Link>
