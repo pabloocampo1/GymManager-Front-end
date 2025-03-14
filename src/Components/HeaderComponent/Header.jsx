@@ -53,7 +53,7 @@ function Header() {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/dfdf">
+                            <Link to="/eventsHome">
                                 Eventos
                             </Link>
                         </li>

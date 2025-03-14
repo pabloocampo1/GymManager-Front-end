@@ -9,7 +9,7 @@ export const MaterialUISwitch = styled(Switch)(({ theme }) => ({
       padding: 0,
       transform: 'translateX(6px)',
       '&.Mui-checked': {
-        color: '#fff',
+        color: 'red',
         transform: 'translateX(22px)',
         '& .MuiSwitch-thumb:before': {
           backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
@@ -48,7 +48,7 @@ export const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     },
     '& .MuiSwitch-track': {
       opacity: 1,
-      backgroundColor: 'white',
+      backgroundColor: '#FFDB00',
       borderRadius: 20 / 2,
       ...theme.applyStyles('dark', {
         backgroundColor: '#8796A5',

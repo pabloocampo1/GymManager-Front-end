@@ -1,0 +1,101 @@
+.Accordion_container {
+    width: 100%;
+    min-height: 100vh;
+    padding: 0px 100px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 1;
+}
+
+.Accordion_container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://www.titaniumstrength.es/blog/wp-content/uploads/2023/01/9U6A7799-1-1-1-edited-2048x1280.jpg");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.4;
+    z-index: -1;
+}
+
+.Accordion_container h2 {
+    color: white;
+    padding-bottom: 20px;
+}
+
+/* Estilo del contenido del acordeón */
+.accordion_content {
+    width: 70%;
+    margin-top: 10px;
+}
+
+/* Estilos específicos del acordeón */
+.acordion {
+    background-color: rgb(0, 0, 0, 0.3) !important;
+    border-radius: 10px !important;
+    border: 1px solid var(--primary-color);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2) !important;
+    margin-bottom: 20px;
+}
+
+.acordion .MuiAccordionSummary-root {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px 10px 0 0;
+}
+
+.acordion .MuiAccordionSummary-expandIcon {
+    color: white !important;
+}
+
+.acordion .MuiAccordionDetails-root {
+    background-color: #fff;
+    padding: 15px;
+    font-size: 1rem;
+    color: #333;
+    border-radius: 0 0 10px 10px;
+}
+
+
+@media (max-width:1000px) {
+
+    .Accordion_container {
+        padding: 0px 50px;
+    }
+
+    .accordion_content {
+        width: 80%;
+    }
+}
+
+@media (max-width:768px) {
+    .accordion_content {
+        width: 90%;
+
+    }
+
+    .Accordion_container {
+
+        padding: 0px 30px;
+
+    }
+}
+
+@media (max-width:425px) {
+    .accordion_content {
+        width: 100%;
+
+    }
+
+    .Accordion_container {
+
+        padding: 0px 10px;
+
+    }
+}

@@ -3,7 +3,6 @@ import './App.css'
 import Login from './Pages/LoginPage/Login'
 import Home from './Pages/Home/Home'
 import PublicLayout from './Layouts/PublicLayout/PublicLayout'
-import Contact from './Components/Contact'
 import PrivateLayout from './Layouts/PrivateLayout/PrivateLayout'
 import Dashboard from './Pages/Dashboard/Dashboard'
 import Promotions from './Pages/Mail/Mail'
@@ -15,6 +14,7 @@ import Miembros from './Pages/Miembros/Miembros'
 import Acceso from './Pages/Acceso/Acceso'
 import Profile from './Pages/ProfileGym/ProfileGym'
 import ContactHome from './Pages/SectionHomePages/ContactHome/ContactHome'
+import EventHome from './Pages/SectionHomePages/EventsHome/EventHome'
 
 
 
@@ -28,6 +28,7 @@ function App() {
         <Route path="/" element={<PublicLayout />}>
             <Route index element={<Home />} />
             <Route path="/contact" element={ <ContactHome />} />
+            <Route path="/eventsHome" element={ <EventHome />} />
 
         </Route>
 

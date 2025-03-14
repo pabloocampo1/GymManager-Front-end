@@ -7,6 +7,7 @@ import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import { Button, TextField } from '@mui/material';
 import { Facebook, Instagram, Send, WhatsApp } from '@mui/icons-material';
 import MapLocation from '../../../Components/MapLocation';
+import AccordionTransition from '../AccordionContactHome/AccordionContactHome';
 
 
 
@@ -149,6 +150,7 @@ const ContactHome = () => {
                     </div>
                 </div>
             </div>
+            <AccordionTransition></AccordionTransition>
         </div>
     );
 };
