@@ -1,0 +1,174 @@
+/* Eventos.module.css */
+
+.eventosContainer {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  position: relative;
+  padding: 40px;
+}
+
+.eventoHeader {
+  display: flex;
+  align-items: center;
+  background-color: white;
+}
+
+.eventosTitle {
+  font-size: 1.875rem;
+  font-weight: bold;
+  margin-right: 40px;
+  white-space: nowrap;
+}
+
+.eventosActions {
+  display: flex;
+  align-items: center;
+}
+
+.eventosSearch {
+  display: flex;
+  align-items: center;
+  border: 1px solid #D3D837;
+  border-radius: 8px;
+  padding: 4px 10px;
+  margin-left: 67px;
+  gap: 5px;
+  height: 30px;
+  width: 300px;
+  margin-right: 14px;
+}
+
+.searchIcon {
+  color: gray;
+  font-size: 16px;
+}
+
+.eventosSearch input {
+  border: none;
+  outline: none;
+  width: 250px;
+  font-size: 14px;
+  padding: 0;
+  height: 24px;
+  margin-left: 10px;
+}
+
+.filterButton {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid #D3D837;
+  background: white;
+  padding: 6px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  height: 27px;
+  width: 100px;
+  margin-right: 10px;
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #D3D837 !important;
+  color: black !important;
+  font-weight: bold;
+  padding: 5px 9px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  height: 35px;
+  width: 200px;
+  padding-left: 15px;
+}
+
+.eventosList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-top: 20px;
+}
+
+.eventCard {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(1, 1, 1, 0.1);
+  width: 250px;
+  justify-content: space-between;
+}
+
+.cardActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.eventImage {
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-right: 15px;
+}
+
+.eventInfo {
+  flex-grow: 1;
+  font-size: 14px;
+}
+
+.eventInfo h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.eventInfo p {
+  margin: 5px 0;
+  color: #555;
+}
+
+.editButton, .deleteButton {
+  color: #333 !important;
+  transition: 0.3s;
+}
+
+.editButton:hover {
+  color: #1976D2 !important;
+}
+
+.deleteButton:hover {
+  color: #D32F2F !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .eventoHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .eventosSearch {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .eventosActions {
+    width: 100%;
+    margin-top: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
