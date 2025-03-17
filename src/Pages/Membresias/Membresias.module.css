@@ -77,3 +77,77 @@
   width: 200px;
   padding-left: 15px;
 }
+
+
+.filtered_title{
+  color: var( --textSecond-color);
+}
+
+
+.membresia_table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.membresia_table th,
+.membresia_table td {
+  border: 1px solid #e0e0e0;
+  padding: 12px;
+  text-align: center;
+}
+
+.membresia_table th {
+  background: #f8f9fa;
+  color: #333;
+  font-weight: bold;
+}
+
+.membresia_table tbody tr {
+  background: white;
+  transition: background 0.2s ease;
+}
+
+.membresia_table tr:hover {
+  background: #f3f3f3;
+}
+
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.edit_icon {
+  cursor: pointer;
+  font-size: 18px;
+  color: #454141;
+  transition: color 0.2s ease;
+  
+}
+
+.icon:hover {
+  color: #007bff;
+}
+
+
+.membresia_table td {
+  font-size: 16px;
+  color: #444;
+}
+
+
+.oro {
+  background-color: #ffe082;
+  color: #333;
+}
+
+.plata {
+  background: #c0c0c0;
+}
+
+.bronce {
+  background: #cd7f32;
+  color: white;
+}
