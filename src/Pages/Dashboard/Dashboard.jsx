@@ -1,15 +1,29 @@
+import ChartMembership from "../../Components/Charts/ChartMembership";
+import style from "./Dashboard.module.css";
 import React from 'react';
-import style from "./Dashboard.module.css"
-import Formatting from '../../Components/Charts/Formatting';
-function Dashboard() {
-    return (
-        <div className={style.dashboard_container}>
-            
-            soy el maldito dashboard
-           <Formatting />
-            
-        </div>
-    );
-}
 
-export default Dashboard;
+    
+    function Dashboard() {
+
+
+       
+        return (
+            <div className={style.dashboard_container}>
+                <div className={style.firstDataCards}>
+                    <div>
+                        
+                    </div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+
+                </div>
+            <ChartMembership />
+                
+            </div>
+        );
+    }
+
+    export default Dashboard;

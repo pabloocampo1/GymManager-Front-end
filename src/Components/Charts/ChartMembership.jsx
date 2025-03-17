@@ -78,7 +78,7 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
   currency: 'USD',
 }).format;
 
-export default function Formatting() {
+export default function ChartMembership() {
   return (
     <LineChart sx={{padding:1}}
       {...lineChartsParams}
