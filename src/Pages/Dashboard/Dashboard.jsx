@@ -1,29 +1,27 @@
 import ChartMembership from "../../Components/Charts/ChartMembership";
+import FirstDataCards from "../../Components/DasboardComponents/firstDataCards_div/firstDataCards";
 import style from "./Dashboard.module.css";
 import React from 'react';
 
-    
-    function Dashboard() {
+
+function Dashboard() {
 
 
-       
-        return (
-            <div className={style.dashboard_container}>
-                <div className={style.firstDataCards}>
-                    <div>
-                        
-                    </div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
 
+    return (
+        <div className={style.dashboard_container}>
+            <FirstDataCards />
+            <div className={style.charDuplaTwo}>
+                <div className={style.ChartMembership_container}>
+                    <ChartMembership />
                 </div>
-            <ChartMembership />
-                
+                <div className={style.topMembreship_container}>
+                    <div>gfg</div>
+                </div>
             </div>
-        );
-    }
 
-    export default Dashboard;
+        </div>
+    );
+}
+
+export default Dashboard;

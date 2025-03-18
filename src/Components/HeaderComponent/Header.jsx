@@ -42,9 +42,10 @@ function Header() {
                                 Inicio
                             </Link>
                         </li>
+                        {/*
                         <li>
-                            <Link to="/dfdf">
-                                Sobre nosotros
+                            <Link to="/"  href="#aboutUs">
+                            Sobre nosotros
                             </Link>
                         </li>
                         <li>
@@ -52,6 +53,7 @@ function Header() {
                                 Precios
                             </Link>
                         </li>
+                                */}
                         <li>
                             <Link to="/eventsHome">
                                 Eventos

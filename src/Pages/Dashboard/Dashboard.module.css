@@ -1,11 +1,36 @@
 .dashboard_container {
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     padding: 20px;
+    background-color: #F9F9F9;
+}
+.charDuplaTwo{
+    width: auto;
+    height: 400px;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 50px;
 }
 
-.firstDataCards{
-    width: 100%;
-    height: 40vh;
-    background-color: red;
+.ChartMembership_container{
+    width: 65%;
+    height: 100%;
+    display: flex;
+    border-radius: 15px;
+    background-color: #ffffff;
 }
+.topMembreship_container{
+    width: 30%;
+    height: 100%;
+}
+.topMembreship_container div{
+    width: 90;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0.5px 0.5px 0.5px 2px  rgb(241, 241, 241, 0.5);
+  
+}
+
+

@@ -11,7 +11,7 @@ function Home() {
 
 
     return (
-        <div>
+        <div style={{backgroundColor:"black"}}>
             <IntroduccionHome />
             <AboutUsHome />
             <PriceMembershipHome />
