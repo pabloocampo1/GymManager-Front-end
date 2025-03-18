@@ -1,6 +1,7 @@
 import React, { useState } from "react"; 
 import { X } from "lucide-react"; 
 import styles from "../../Modals/ModalEvents/EventModal.module.css";  
+import ClearIcon from '@mui/icons-material/Clear';
 
 function EventModal({ isOpen, onClose, onAddEvent }) {   
   const [eventData, setEventData] = useState({     
@@ -56,10 +57,10 @@ function EventModal({ isOpen, onClose, onAddEvent }) {
 
   return (     
     <div className={styles.modalOverlay}>       
-      <div className={styles.modalContent}>         
-        <button className={styles.closeBtn} onClick={onClose}>             
-          <X size={24} />           
-        </button>         
+      <div className={styles.modalContent}>       
+      <div className={styles.modalClosebtn}>
+          <ClearIcon onClick={onClose}></ClearIcon>
+        </div>        
         <h2>Agregar Nuevo Evento</h2>         
         <form onSubmit={handleSubmit}>           
           <div className={styles.formRow}>

@@ -3,8 +3,31 @@ import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import styles from "./TargetEvent.module.css";
+import ButtonActive from "../../Buttons/ButtonActive";
+import ButtonInactive from "../../Buttons/ButtonInactive"
+import ButtonInTime from "../../Buttons/ButtonInTime";
 
 const TargetEvent = ({ event, onDelete, onEdit }) => {
+    const getEventStatus = (eventDate)=>{
+      const hoy = new Date();
+      const eventDateObjeto = new Date(eventDate);
+
+
+      hoy.setHours(0,0,0,0);
+      eventDateObjeto.setHours(0,0,0,0);
+
+
+      if (eventDateObjeto.getDate() === hoy.getDate() && 
+        eventDateObjeto.getMonth() === hoy.getMonth() && 
+        eventDateObjeto.getFullYear() === hoy.getFullYear()) {
+        return "today";
+      } else if (eventDateObjeto > hoy) {
+        return "upcoming";
+      } else {
+        return "expired";
+      }
+    }
+    const eventStatus = getEventStatus(event.fecha);
   return (
     <div className={styles.eventCard}>
       {event.image && (
@@ -27,9 +50,12 @@ const TargetEvent = ({ event, onDelete, onEdit }) => {
         </div>
         
         <div className={styles.eventActions}>
-          <button className={styles.vencidaButton}>
-            {event.estado || "Vencida"}
-          </button>
+        {eventStatus === "expired" && <ButtonInactive text="vencido" />}
+          {eventStatus === "today" && <ButtonActive text="Enproceso" />}
+          {eventStatus === "upcoming" && <ButtonInTime text="disponible" />}
+          
+  
+          
           
           <div className={styles.iconButtons}>
             <IconButton className={styles.editButton} onClick={() => onEdit && onEdit(event)}>

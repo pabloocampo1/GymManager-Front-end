@@ -56,10 +56,10 @@ function Events() {
           <button className={styles.addButton} onClick={() => setIsModalOpen(true)}>
             <PlusCircle size={16} /> Agregar Nuevo Evento
           </button>
-          <h2 className={styles.Prueba}>Filtrado por la categoria  : {selectedCategory} </h2>
+          
         </div>
       </div>
-
+      <h2 className={styles.TitleFiltrado}>Filtrado por la categoria  : {selectedCategory} </h2>
       <EventModal 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
