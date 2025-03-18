@@ -1,9 +1,94 @@
 
-.footerContainer{
+
+
+.footerContainer {
     width: 100%;
-    height: 20vh;
-    background-color: rgb(238, 83, 83);
+    height: auto;
+    padding-left: 100px ;
+    padding-right:100px ;
+    padding-top: 20px;
+    background-color: black;
+    position: relative;
+    z-index: 1;
 }
-.footerContainer p{
-   color: red;
+
+.footerContainer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../../assets/images/imagenValHallaSlider2.png") ;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2;
+    z-index: -1;
+}
+
+.seccion_one_footer{
+    width: 100%;
+    min-height: 25vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.seccion_one_footer div{
+   display: flex;
+   align-items: start;
+   justify-content: center;
+   color: white;
+}
+.seccion_one_footer .container_logo img{
+  width: 250px;
+  
+}
+
+.seccion_one_footer div li{
+    list-style: none;
+    padding-bottom: 10px;
+    color: var( --textSecond-color);
+}
+.seccion_one_footer div li a{
+    text-decoration: none;
+    color: var( --textSecond-color);
+
+}
+.seccion_one_footer div li:hover{
+    color: white;
+}
+.seccion_one_footer div li a:hover{
+    color: white;
+}
+
+.container_map{
+    padding: 0px 20px;
+}
+
+
+
+.seccion_two_footer{
+    width: 100%;
+    min-height: 25vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  
+}
+ .socialMedia{
+    width: 100%;
+    height: auto;
+    border-top: 1px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+ .socialMedia a{
+   padding: 15px;
+}
+
+.seccion_two_footer p{
+   color: var(--textSecond-color);
 }

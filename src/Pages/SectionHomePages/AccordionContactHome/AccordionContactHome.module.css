@@ -7,21 +7,10 @@
     flex-direction: column;
     justify-content: center;
     z-index: 1;
+    background-color: var(--colorByBackgrounds);
 }
 
-.Accordion_container::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("https://www.titaniumstrength.es/blog/wp-content/uploads/2023/01/9U6A7799-1-1-1-edited-2048x1280.jpg");
-    background-size: cover;
-    background-position: center;
-    opacity: 0.4;
-    z-index: -1;
-}
+
 
 .Accordion_container h2 {
     color: white;
