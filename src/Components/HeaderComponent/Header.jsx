@@ -8,11 +8,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import MenuMobile from '../MenuMobileComponent/MenuMobile';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import { MaterialUISwitch } from '../ButtonDarkMode';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 
 function Header() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
     const [checked, setChecked] = useState(false)
+   
 
     const handleShowMenu = () => {
         if (isOpenMenu) {
@@ -26,7 +28,7 @@ function Header() {
         setChecked(event.target.checked);
         return checked ? console.log("sun") : console.log("dark");
         ;
-        
+
     }
 
     return (
@@ -42,7 +44,9 @@ function Header() {
                                 Inicio
                             </Link>
                         </li>
-                        {/*
+
+                        
+                       
                         <li>
                             <Link to="/"  href="#aboutUs">
                             Sobre nosotros
@@ -53,7 +57,7 @@ function Header() {
                                 Precios
                             </Link>
                         </li>
-                                */}
+                                
                         <li>
                             <Link to="/eventsHome">
                                 Eventos
@@ -64,23 +68,23 @@ function Header() {
                                 Contacto
                             </Link>
                         </li>
-            
+
                     </ol>
                 </nav>
             </div>)}
             <div className={style.header_icon_login}>
 
-                
-                <MaterialUISwitch className={style.icon_darkMode} checked={checked} onChange={handleChecked}/>
+
+                <MaterialUISwitch className={style.icon_darkMode} checked={checked} onChange={handleChecked} />
                 <Link to="/login">
                     <button>
                         <p>Ingresar</p>
                         <LoginIcon className={style.icon_login} />
-                        
+
                     </button>
-                    
+
                 </Link>
-               
+
 
                 <div className={style.inactive}>
                     <MenuIcon

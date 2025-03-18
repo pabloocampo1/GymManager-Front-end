@@ -13,6 +13,8 @@
     height: auto;
 }
 
+
+
 @media (max-width:1024px){
   .privateLayout_sidebar{
     width: 40%;
