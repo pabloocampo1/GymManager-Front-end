@@ -69,8 +69,8 @@ const lineChartsParams = {
       showMark: true,
     },
   ],
-  width: 600,
-  height: 400,
+  width: 550,
+  height: 300,
 };
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
@@ -80,7 +80,8 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
 
 export default function ChartMembership() {
   return (
-    <LineChart sx={{}}
+    <div style={{ width: '60%' }}>
+      <LineChart 
       {...lineChartsParams}
       xAxis={[{ data: months, scaleType: 'point' }]} 
       series={lineChartsParams.series.map((series) => ({
@@ -88,5 +89,6 @@ export default function ChartMembership() {
         valueFormatter: (v) => (v === null ? '' : currencyFormatter(v)),
       }))}
     />
+    </div>
   );
 }
