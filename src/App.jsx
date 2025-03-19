@@ -17,37 +17,38 @@ import ContactHome from './Pages/SectionHomePages/ContactHome/ContactHome'
 import EventHome from './Pages/SectionHomePages/EventsHome/EventHome'
 
 
-
-
 function App() {
+   
 
-  return (
+    return (
 
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<PublicLayout />}>
-            <Route index element={<Home />} />
-            <Route path="/contact" element={ <ContactHome />} />
-            <Route path="/eventsHome" element={ <EventHome />} />
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<PublicLayout />}>
+                    <Route index element={<Home />} />
+                    <Route path="/contact" element={<ContactHome />} />
+                    <Route path="/eventsHome" element={<EventHome />} />
 
-        </Route>
+                </Route>
 
-        <Route path="/login" element={<Login />} />
-        {/* Rutas privadas: el layout se encargará de mostrar el sidebar */}
-        <Route path="/dashboard" element={<PrivateLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path='acceso' element={<Acceso />}></Route>
-            <Route path='miembros' element={<Miembros />}></Route>
-            <Route path='membresias' element={<Membresias />}></Route>
-            <Route path="correo" element={<Promotions />} />
-            <Route path="eventos" element={<Events />} />
-            <Route path="inventario" element={<Inventory />} /> 
-            <Route path="perfil" element={<Profile />} />           
-        </Route>
-          <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
-  )
+                <Route path="/login" element={<Login />} />
+                {/* Rutas privadas: el layout se encargará de mostrar el sidebar */}
+                <Route path="/dashboard" element={<PrivateLayout />}>
+                    <Route index element={<Dashboard />} />
+                    <Route path='acceso' element={<Acceso />}></Route>
+                    <Route path='miembros' element={<Miembros />}></Route>
+                    <Route path='membresias' element={<Membresias />}></Route>
+                    <Route path="correo" element={<Promotions />} />
+                    <Route path="eventos" element={<Events />} />
+                    <Route path="inventario" element={<Inventory />} />
+                    <Route path="perfil" element={<Profile />} />
+                </Route>
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+        </BrowserRouter>
+
+
+    )
 }
 
 export default App

@@ -5,7 +5,6 @@ import WhyChooseUs from './WhyChooseUs';
 import style from "../AboutUsHome/AboutUsHome.module.css";
 
 function AboutUsHome() {
-    // Se utiliza el hook para detectar cuando el contenedor está en vista
     const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.5 });
     console.log(motion);
 

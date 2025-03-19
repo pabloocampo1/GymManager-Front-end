@@ -3,8 +3,8 @@
     min-height: 100vh;
     padding: 20px;
     background-color: #F9F9F9;
+    
 }
-
 
 .title{
     padding-bottom: 40px;
@@ -21,6 +21,8 @@
     justify-content: center;
     align-items: center;
     margin-top: 50px; 
+    background-color: white;
+    box-shadow: 0.5px 0.5px 2px  rgb(241, 241, 241, 0.5);
 }
  
 
@@ -43,9 +45,11 @@
     justify-content: end;
     border-radius: 15px;
     background-color: #ffffff;
+    box-shadow: 0.5px 0.5px 2px  rgb(241, 241, 241, 0.5);
 }
 .ChartMembership_container p{
    padding-bottom: 20px;
+   font-weight: bold;
 }
 .topMembreship_container{
     width: 50%;
@@ -59,5 +63,26 @@
     flex-direction: column;
     align-items: center;
 }
+.topMembreship_container p{
+    font-weight: bold;
+}
 
 
+
+
+.totalPeopleByMonth_coontainer{
+    width: 100%;
+    min-height: 340px;
+    background-color: white;
+    box-shadow: 0.5px 0.5px 2px  rgb(241, 241, 241, 0.5);
+    border-radius: 15px;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.totalPeopleByMonth_coontainer p{
+    text-align: center;
+    padding-bottom: 20px;
+    font-weight: bold;
+}
