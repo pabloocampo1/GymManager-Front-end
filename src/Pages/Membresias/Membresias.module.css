@@ -127,6 +127,13 @@
   
 }
 
+.delete_icon {
+  cursor: pointer;
+  font-size: 18px;
+  color: #454141;
+  transition: color 0.2s ease;
+}
+
 .icon:hover {
   color: #007bff;
 }

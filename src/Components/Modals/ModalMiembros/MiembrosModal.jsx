@@ -14,7 +14,7 @@ const MiembrosModal = ({ isOpen, onClose }) => {
     <div className={styles.modalOverlayMiembros} onClick={handleOverlayClick}>
       <div className={styles.modalContainer}>
         <div className={styles.modalCloseContainer}>
-          <ClearIcon onClick={onClose} />
+          <ClearIcon className= {styles.closeButton} onClick={onClose} />
         </div>
         <h2>Agregar Un Nuevo Miembro</h2>
         <div className={styles.Subtitulos}>

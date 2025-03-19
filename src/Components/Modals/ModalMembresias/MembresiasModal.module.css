@@ -20,6 +20,9 @@
   max-width: 90vw;
   text-align: center;
 }
+.closeButton{
+  cursor: pointer;
+}
 
 .modalCloseContainer{
   width: 100%;

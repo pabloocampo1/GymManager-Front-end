@@ -27,6 +27,10 @@
   display: flex;
   justify-content: end;
 }
+.closeButton{
+  cursor: pointer;
+}
+
 .Subtitulos {
   color: #b3b3b3;
   font-size: 14px;
