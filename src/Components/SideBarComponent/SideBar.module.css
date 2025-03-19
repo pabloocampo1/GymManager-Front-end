@@ -78,7 +78,7 @@
 
 
 .activeLink {
-    background-color: var(--primary-color);
+   border: 1px solid var(--primary-color);
     color: black;
     border-radius: 4px;
 }

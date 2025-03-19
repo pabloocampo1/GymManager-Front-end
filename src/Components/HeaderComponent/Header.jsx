@@ -1,21 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, {  useState } from 'react';
 import style from './Header.module.css'
 import { Link } from 'react-router-dom';
-
 import ImageLogoPrincipal from "../../assets/images/imageVallHallaLogo.png"
 import LoginIcon from '@mui/icons-material/Login';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuMobile from '../MenuMobileComponent/MenuMobile';
-import { MaterialUISwitch } from '../ButtonDarkMode';
-import { ThemeContext } from '../../Context/ThemeContext';
 
 
 function Header() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
-    const [checked, setChecked] = useState(false);
-    const { darkMode, setDarkMode } = useContext(ThemeContext);
-   
-
+  
     const handleShowMenu = () => {
         if (isOpenMenu) {
             setIsOpenMenu(false)
@@ -23,10 +17,6 @@ function Header() {
             setIsOpenMenu(true)
         }
     }
-
-    const handleChecked = (event) => {
-        setChecked(event.target.checked);
-    };
 
     return (
         <header className={style.headerContainer}>
@@ -70,9 +60,6 @@ function Header() {
                 </nav>
             </div>)}
             <div className={style.header_icon_login}>
-
-
-                <MaterialUISwitch className={style.icon_darkMode} checked={checked} onClick={() => setDarkMode(!darkMode)}  onChange={handleChecked} />
                 <Link to="/login">
                     <button>
                         <p>Ingresar</p>

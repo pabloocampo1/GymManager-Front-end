@@ -9,33 +9,34 @@ import style from "./Dashboard.module.css";
 import React from 'react';
 
 
+
 function Dashboard() {
     return (
-        <Box className={style.dashboard_container}>
-            <Typography variant="h2" className={style.title}>WELCOME BACK - <span>Juan Pablo hermoso</span></Typography>
+        <div className={style.dashboard_container}>
+            <h2 className={style.title}>WELCOME BACK - <span>Juan Pablo hermoso</span></h2>
             <FirstDataCards />
 
-            <Box className={style.charDuplaOne} >
+            <div className={style.charDuplaOne} >
                 <TickPlacementBars />
                 <ChartMembership />
-            </Box>
-            <Box className={style.charDuplaTwo}>
-                <Box className={style.ChartMembership_container}>
-                    <Typography variant="p">Cantidad de yo no se que</Typography>
+            </div>
+            <div className={style.charDuplaTwo}>
+                <div className={style.ChartMembership_container}>
+                    <p>Cantidad de yo no se que</p>
                     <CustomAxis />
-                </Box>
-                <Box className={style.topMembreship_container}>
-                    <Typography variant="p">Cantidad de yo no se que</Typography>
+                </div>
+                <div className={style.topMembreship_container}>
+                    <p>Cantidad de yo no se que</p>
                     <PieActiveArc />
 
-                </Box>
-            </Box>
-            <Box className={style.totalPeopleByMonth_coontainer}>
-                <Typography variant="p">Cantidad de yo no se que</Typography>
+                </div>
+            </div>
+            <div className={style.totalPeopleByMonth_coontainer}>
+                <p>Cantidad de yo no se que</p>
                 <BarsDatasetToTal />
-            </Box>
+            </div>
 
-        </Box>
+        </div>
     );
 }
 

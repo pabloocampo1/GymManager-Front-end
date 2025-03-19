@@ -15,49 +15,39 @@ import Acceso from './Pages/Acceso/Acceso'
 import Profile from './Pages/ProfileGym/ProfileGym'
 import ContactHome from './Pages/SectionHomePages/ContactHome/ContactHome'
 import EventHome from './Pages/SectionHomePages/EventsHome/EventHome'
-import { ThemeContext, ThemeProviderWrapper } from './Context/ThemeContext'
-import { CssBaseline } from '@mui/material'
-import { useState } from 'react'
-import { darkTheme, lightTheme } from './Theme/Theme';
-
-
 
 
 function App() {
-    const [darkMode, setDarkMode] = useState(false);
+   
 
     return (
-        <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
-        <ThemeProviderWrapper theme={darkMode ? darkTheme : lightTheme}>
-        <CssBaseline />
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<PublicLayout />}>
-                        <Route index element={<Home />} />
-                        <Route path="/contact" element={<ContactHome />} />
-                        <Route path="/eventsHome" element={<EventHome />} />
 
-                    </Route>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<PublicLayout />}>
+                    <Route index element={<Home />} />
+                    <Route path="/contact" element={<ContactHome />} />
+                    <Route path="/eventsHome" element={<EventHome />} />
 
-                    <Route path="/login" element={<Login />} />
-                    {/* Rutas privadas: el layout se encargará de mostrar el sidebar */}
-                    <Route path="/dashboard" element={<PrivateLayout />}>
-                        <Route index element={<Dashboard />} />
-                        <Route path='acceso' element={<Acceso />}></Route>
-                        <Route path='miembros' element={<Miembros />}></Route>
-                        <Route path='membresias' element={<Membresias />}></Route>
-                        <Route path="correo" element={<Promotions />} />
-                        <Route path="eventos" element={<Events />} />
-                        <Route path="inventario" element={<Inventory />} />
-                        <Route path="perfil" element={<Profile />} />
-                    </Route>
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-            </BrowserRouter>
-        </ThemeProviderWrapper>
-        </ThemeContext.Provider>
+                </Route>
 
-        
+                <Route path="/login" element={<Login />} />
+                {/* Rutas privadas: el layout se encargará de mostrar el sidebar */}
+                <Route path="/dashboard" element={<PrivateLayout />}>
+                    <Route index element={<Dashboard />} />
+                    <Route path='acceso' element={<Acceso />}></Route>
+                    <Route path='miembros' element={<Miembros />}></Route>
+                    <Route path='membresias' element={<Membresias />}></Route>
+                    <Route path="correo" element={<Promotions />} />
+                    <Route path="eventos" element={<Events />} />
+                    <Route path="inventario" element={<Inventory />} />
+                    <Route path="perfil" element={<Profile />} />
+                </Route>
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+        </BrowserRouter>
+
+
     )
 }
 
