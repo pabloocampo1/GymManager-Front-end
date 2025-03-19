@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import style from './Header.module.css'
 import { Link } from 'react-router-dom';
 
@@ -6,14 +6,14 @@ import ImageLogoPrincipal from "../../assets/images/imageVallHallaLogo.png"
 import LoginIcon from '@mui/icons-material/Login';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuMobile from '../MenuMobileComponent/MenuMobile';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
 import { MaterialUISwitch } from '../ButtonDarkMode';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { ThemeContext } from '../../Context/ThemeContext';
 
 
 function Header() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
-    const [checked, setChecked] = useState(false)
+    const [checked, setChecked] = useState(false);
+    const { darkMode, setDarkMode } = useContext(ThemeContext);
    
 
     const handleShowMenu = () => {
@@ -24,12 +24,9 @@ function Header() {
         }
     }
 
-    const handleChecked = () => {
+    const handleChecked = (event) => {
         setChecked(event.target.checked);
-        return checked ? console.log("sun") : console.log("dark");
-        ;
-
-    }
+    };
 
     return (
         <header className={style.headerContainer}>
@@ -75,7 +72,7 @@ function Header() {
             <div className={style.header_icon_login}>
 
 
-                <MaterialUISwitch className={style.icon_darkMode} checked={checked} onChange={handleChecked} />
+                <MaterialUISwitch className={style.icon_darkMode} checked={checked} onClick={() => setDarkMode(!darkMode)}  onChange={handleChecked} />
                 <Link to="/login">
                     <button>
                         <p>Ingresar</p>
