@@ -1,4 +1,3 @@
-import { Box, Typography } from "@mui/material";
 import CustomAxis from "../../Components/Charts/BarChartOne";
 import ChartMembership from "../../Components/Charts/ChartMembership";
 import TickPlacementBars from "../../Components/Charts/ChartPrice/TrickChart";
@@ -13,7 +12,7 @@ import React from 'react';
 function Dashboard() {
     return (
         <div className={style.dashboard_container}>
-            <h2 className={style.title}>WELCOME BACK - <span>Juan Pablo hermoso</span></h2>
+            <h2 className={style.title}>BIENVENIDO! <span>Nombre De Usuario</span></h2>
             <FirstDataCards />
 
             <div className={style.charDuplaOne} >
