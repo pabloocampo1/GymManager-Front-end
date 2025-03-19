@@ -11,7 +11,7 @@ export default function CustomAxis() {
         <SparkLineChart
           plotType="bar"
           data={[1, 4, 2, 5, 7, 2, 4, 6]}
-          height={100}
+          height={200}
           showTooltip
           showHighlight
           xAxis={{

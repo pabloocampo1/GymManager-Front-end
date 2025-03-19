@@ -1,5 +1,6 @@
 .privateLayout_container{
     display: flex;
+    position: relative;
 }
 
 .privateLayout_sidebar{
@@ -9,7 +10,7 @@
 
 
 .privateLayout_main{
-    width: 100%;
+    width: 75vw;
     height: auto;
 }
 
