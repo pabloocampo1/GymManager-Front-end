@@ -1,3 +1,9 @@
 .container_layout_public{
     height: auto;
 }
+
+.main{
+    flex-grow: 1;
+    padding-top: 12vh; 
+    background-color: black;
+}

@@ -8,7 +8,7 @@ function PublicLayout() {
     return (
         <div className={style.container_layout_public}>
         <Header />
-        <main>
+        <main className={style.main}>
           <Outlet />
         </main>
         <Footer />

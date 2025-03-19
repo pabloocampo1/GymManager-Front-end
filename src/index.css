@@ -3,7 +3,7 @@
     --primary-color:#FFDB00;
     --primarySecond-color:#D3D837;
     --textSecond-color:#9b9b9b;
-    --colorByBackgrounds: rgb(25, 25, 25);
+    --colorByBackgrounds: rgb(25, 25, 25,1);
 }
 
 *{
@@ -16,6 +16,11 @@ html{
 }
 body{
     font-family: "Inter", sans-serif;
+    
 }
+
+
+
+
 
 

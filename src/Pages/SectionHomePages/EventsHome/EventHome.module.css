@@ -1,11 +1,8 @@
 .EventHome_container{
     width: 100%;
-    height: auto;
+    min-height: 100vh;
     background-color: black;
-    
 }
-
-
 .EventHome_intro {
     width: 100%;
     height: 50vh;

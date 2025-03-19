@@ -22,7 +22,7 @@ const premium = [
 ];
 
 const basic = [
-  100000, // Enero
+  150000, // Enero
   103000, // Febrero
   105000, // Marzo
   102000, // Abril
@@ -37,7 +37,7 @@ const basic = [
 ];
 
 const biweekly = [
-  130000, // Enero
+  150000, // Enero
   133000, // Febrero
   135000, // Marzo
   132000, // Abril
@@ -69,8 +69,8 @@ const lineChartsParams = {
       showMark: true,
     },
   ],
-  width: 700,
-  height: 400,
+  width: 550,
+  height: 300,
 };
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
@@ -78,9 +78,10 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
   currency: 'USD',
 }).format;
 
-export default function Formatting() {
+export default function ChartMembership() {
   return (
-    <LineChart sx={{padding:1}}
+    <div style={{ width: '60%' }}>
+      <LineChart 
       {...lineChartsParams}
       xAxis={[{ data: months, scaleType: 'point' }]} 
       series={lineChartsParams.series.map((series) => ({
@@ -88,5 +89,6 @@ export default function Formatting() {
         valueFormatter: (v) => (v === null ? '' : currencyFormatter(v)),
       }))}
     />
+    </div>
   );
 }

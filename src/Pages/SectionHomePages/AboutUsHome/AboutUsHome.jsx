@@ -10,8 +10,8 @@ function AboutUsHome() {
     console.log(motion);
 
     return (
-        <div className={style.aboutUs_container}>
-            <div ref={ref} className={style.aboutUs_section}>
+        <div className={style.aboutUs_container} id='aboutUs'>
+            <div ref={ref} className={style.aboutUs_section} >
                 <motion.div
                     className={style.aboutUs_section_text}
                     initial={{ opacity: 0, x: -50 }}
@@ -35,7 +35,9 @@ function AboutUsHome() {
 
                 </motion.div>
             </div>
+
             <WhyChooseUs />
+
             <div className={style.stadistics_container}>
                 <div>
                     <span>300+</span>
