@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Filter, PlusCircle, Search } from "lucide-react";
+import {PlusCircle, Search } from "lucide-react";
 import { Menu, MenuItem } from "@mui/material";
 import styles from "./Eventos.module.css";
 import EventModal from "../../Components/Modals/ModalEvents/EventModal";
-import TargetEvent from "../../Components/Targets/TargetEvent/TargetEvent"; // Importar el componente externo
+import TargetEvent from "../../Components/Targets/TargetEvent/TargetEvent"; 
+import FilterAltIcon from '@mui/icons-material/FilterAlt';// Importar el componente externo
 
 function Events() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,7 +45,7 @@ function Events() {
             <input type="text" placeholder="Buscar Eventos" />
           </div>
           <button className={styles.filterButton} onClick={handleOpenMenu}>
-            <Filter size={16} /> Filtrar 
+            <FilterAltIcon  /> Filtrar 
           </button>
           <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleCloseMenu}>
             <MenuItem onClick={() => handleFilterSelect("Todos")}>Todos</MenuItem>

@@ -18,7 +18,7 @@
 .inventory_title {
   font-size: 1.875rem;
   font-weight: bold;
-  margin-right: 40px;
+  margin-right: 125px;
   white-space: nowrap;
 }
 
@@ -61,13 +61,11 @@
   cursor: pointer;
   font-size: 14px;
   height: 27px;
-  width: 100px;
+  min-width: 100px;
   margin-right: 10px;
 }
 
-.filter_icon {
-  margin-right: 4px;
-}
+
 
 .add_btn {
   display: flex;
@@ -110,6 +108,8 @@
 }
 .TitleFiltrado{
   color: var(--textSecond-color);
+  margin-top: 10px;
+  font-size: 1.4rem;
 }
 
 

@@ -1,4 +1,5 @@
-import { FaSearch, FaFilter, FaPlus } from "react-icons/fa";
+import { FaSearch, FaPlus } from "react-icons/fa";
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -65,7 +66,7 @@ const Inventory = () => {
         </div>
 
         <button className={styles.filter_btn} onClick={handleOpenMenu}>
-          <FaFilter className={styles.filter_icon} /> Filtrar 
+          <FilterAltIcon className={styles.filter_icon} /> Filtrar
         </button>
 
         <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleCloseMenu}>
