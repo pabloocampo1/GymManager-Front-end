@@ -58,7 +58,7 @@ function EventModal({ isOpen, onClose, onAddEvent }) {
   return (     
     <div className={styles.modalOverlay} onClick={(e) => e.target.classList.contains(styles.modalOverlay) && onClose()}>     
       <div className={styles.modalContent}>       
-      <div className={styles.modalClosebtn}>
+        <div className={styles.modalClosebtn}>
           <ClearIcon onClick={onClose}></ClearIcon>
         </div>        
         <h2>Agregar Nuevo Evento</h2>         
@@ -130,29 +130,14 @@ function EventModal({ isOpen, onClose, onAddEvent }) {
               />           
             </div>
             <div className={styles.formGroup}>             
-              <label>Imagen del Evento</label>
-              <div className={styles.imageUpload}>             
-                {imagePreview ? (
-                  <img 
-                    src={imagePreview} 
-                    alt="Vista previa" 
-                    className={styles.imagePreview} 
-                  />
-                ) : (
-                  <label className={styles.uploadBtn}>
-                    
-                    <input               
-                      type="file"               
-                      name="imageFile"              
-                      onChange={handleImageChange}
-                      accept="image/*"           
-                    />
-                  </label>             
-                )}
+              <div className={styles.imageUpload}>
+                <label htmlFor="imagen">Imagen:</label>
+                <input type="file" id="imagen" onChange={handleImageChange} accept="image/png, image/jpeg" />
+                {imagePreview && <img src={imagePreview} alt="Previsualización" className={styles.imagePreview} />}
               </div>
             </div>
           </div>
-             
+          
           <div className={styles.buttonContainer}>
             <button type="button" className={styles.cancelBtn} onClick={onClose}>
               Cancelar
