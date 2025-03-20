@@ -1,5 +1,5 @@
 import React, { useState } from "react"; 
-import { X } from "lucide-react"; 
+
 import styles from "../../Modals/ModalEvents/EventModal.module.css";  
 import ClearIcon from '@mui/icons-material/Clear';
 
@@ -56,7 +56,7 @@ function EventModal({ isOpen, onClose, onAddEvent }) {
   if (!isOpen) return null;    
 
   return (     
-    <div className={styles.modalOverlay}>       
+    <div className={styles.modalOverlay} onClick={(e) => e.target.classList.contains(styles.modalOverlay) && onClose()}>     
       <div className={styles.modalContent}>       
       <div className={styles.modalClosebtn}>
           <ClearIcon onClick={onClose}></ClearIcon>
@@ -108,7 +108,8 @@ function EventModal({ isOpen, onClose, onAddEvent }) {
               <label>Fecha del Evento</label>             
               <input               
                 type="date"               
-                name="fecha"               
+                name="fecha"   
+                min={new Date().toISOString().split("T")[0]}          
                 value={eventData.fecha}               
                 onChange={handleChange}               
                 required             

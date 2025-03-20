@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { Menu, MenuItem } from "@mui/material";
 import styles from "./Inventory.module.css";
 import InventoryModal from "../../Components/Modals/ModalInventory/InventoryModal";
+import TargetInventory from "../../Components/Targets/TargetInventory/TargetInventory";
 
 const Inventory = () => {
 
@@ -64,7 +65,7 @@ const Inventory = () => {
         </div>
 
         <button className={styles.filter_btn} onClick={handleOpenMenu}>
-          <FaFilter className={styles.filter_icon} /> Filtrar ({selectedCategory})
+          <FaFilter className={styles.filter_icon} /> Filtrar 
         </button>
 
         <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleCloseMenu}>
@@ -82,31 +83,14 @@ const Inventory = () => {
         <InventoryModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onAddItem={handleAddItem} />
       </div>
 
-      
-      <div className={styles.inventory_list}>
-        {filteredItems.map((item, index) => (
-          <div key={index} className={styles.inventory_card}>
-            
-            {item.image && <img src={item.image} alt="Objeto" className={styles.item_image} />}
-
-            
-            <div className={styles.item_info}>
-              <h3>{item.nombre}</h3>
-              <p><strong>Categoría:</strong> {item.categoria}</p>
-              <p><strong>Proveedor:</strong> {item.proveedor}</p>
-            </div>
-
-            
-            <div className={`${styles.card_actions} ${isModalOpen ? styles.hidden : ""}`}>
-              <IconButton className={styles.edit_btn} onClick={() => console.log("Editar:", item.nombre)}>
-                <EditIcon />
-              </IconButton>
-
-              <IconButton className={styles.delete_btn} onClick={() => handleRemoveItem(index)}>
-                <DeleteIcon />
-              </IconButton>
-            </div>
-          </div>
+      <h2 className={styles.TitleFiltrado}>Filtrado por la categoria  : {selectedCategory} </h2>
+      <div className={styles.eventosList}>
+        {filteredItems.map((inventory, index) => (
+          <TargetInventory 
+            key={index} 
+            inventory={inventory} 
+            onDelete={() => handleRemoveItem(index)} 
+          />
         ))}
       </div>
     </div>

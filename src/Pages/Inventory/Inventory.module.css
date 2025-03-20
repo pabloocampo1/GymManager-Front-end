@@ -107,6 +107,9 @@
   width: 250px; 
   justify-content: space-between;
 }
+.TitleFiltrado{
+  color: var(--textSecond-color);
+}
 
 
 .card_actions {

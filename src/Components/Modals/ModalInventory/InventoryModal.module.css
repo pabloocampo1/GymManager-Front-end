@@ -19,6 +19,12 @@
   max-width: 90vw;
   text-align: center;
 }
+.modalClosebtn{
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: end;
+}
 
 .title {
   margin-bottom: 38px;
