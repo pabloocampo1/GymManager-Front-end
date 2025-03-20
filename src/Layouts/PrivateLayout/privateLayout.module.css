@@ -1,15 +1,16 @@
 .privateLayout_container{
     display: flex;
+    position: relative;
 }
 
 .privateLayout_sidebar{
-    width:30%;
+    width:25vw;
 }
 
 
 
 .privateLayout_main{
-    width: 100%;
+    width: 75vw;
     height: auto;
 }
 

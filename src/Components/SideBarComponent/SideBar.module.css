@@ -1,10 +1,13 @@
 .container_sideBar {
-    width: 100%;
+    width: 25vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
     background-color: black;
     border-radius: 0px 20px 20px 0px;
+    position: fixed;
+    top: 0;
+    
 }
 
 .navegationList {
@@ -78,14 +81,13 @@
 
 
 .activeLink {
-    background-color: var(--primary-color);
+   border: 1px solid var(--primary-color);
     color: black;
     border-radius: 4px;
 }
 
 .activeLink link {
     color: black;
-
 }
 
 

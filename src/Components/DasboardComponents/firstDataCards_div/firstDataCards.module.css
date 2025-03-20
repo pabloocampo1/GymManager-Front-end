@@ -21,8 +21,9 @@
     color: var(--textSecond-color);
     font-size: 0.90rem;
 }
-.firstDataCards_div .description span{
-    color: var(--primarySecond-color);
+.firstDataCards_div .description .span{
+   color: black;
+    font-weight: 500;
 }
 .firstDataCards_div .data{
     color: black;

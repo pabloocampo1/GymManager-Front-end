@@ -4,7 +4,7 @@ import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
-import { Button, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import { Facebook, Instagram, Send, WhatsApp } from '@mui/icons-material';
 import MapLocation from '../../../Components/MapLocation';
 import AccordionTransition from '../AccordionContactHome/AccordionContactHome';
@@ -14,7 +14,7 @@ import AccordionTransition from '../AccordionContactHome/AccordionContactHome';
 
 const ContactHome = () => {
     return (
-        <div className={style.ContactHome_container}>
+        <Box className={style.ContactHome_container}>
             <div className={style.container_intro_contact}>
                 <h2>Contacto</h2>
                 <p>¿Tienes alguna pregunta o necesitas más información? </p>
@@ -78,7 +78,7 @@ const ContactHome = () => {
                         <MapLocation />
                     </div>
                 </div>
-                <div className={style.section_send_mesagge}>
+                <Box className={style.section_send_mesagge}>
                     <div className={style.container_form}>
                         <h2>Envianos un mensaje</h2>
                         <div className={style.section_send_mesagge_items}>
@@ -148,10 +148,10 @@ const ContactHome = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </Box>
             </div>
             <AccordionTransition></AccordionTransition>
-        </div>
+        </Box>
     );
 };
 
