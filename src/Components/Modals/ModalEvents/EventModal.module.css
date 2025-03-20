@@ -20,16 +20,13 @@
   text-align: center;
 }
 
-.closeBtn {
-  position: absolute;
-  top: 15px;
-  left: 20px;
-  background: none;
-  border: none;
-  font-size: 14px;
-  cursor: pointer;
-  color: #333;
+.modalClosebtn{
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: end;
 }
+
 
 .modalContent h2 {
   text-align: center;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./InventoryModal.module.css";
+import ClearIcon from '@mui/icons-material/Clear';
 
 /*constante isOpen es un boleano para saber si esta abierto el modal,onClose es la funcion que se ejecuta cuando
 se ierreel modal y el onaddItem es la funcion que se ejecuta cuando se envia el formulario*/
@@ -62,6 +63,9 @@ Llama a onAddItem pasándo los datos del formulario*/
   return (
     <div className={styles.modalOverlay} onClick={(e) => e.target.classList.contains(styles.modalOverlay) && onClose()}>
       <div className={styles.modal}>
+        <div className={styles.modalClosebtn}>
+          <ClearIcon onClick={onClose}></ClearIcon>
+        </div>
         <div className={styles.title}>
           <h2>Añadir Objeto</h2>
         </div>
@@ -87,7 +91,7 @@ Llama a onAddItem pasándo los datos del formulario*/
 
             <div className={styles.formGroup}>
               <label htmlFor="fecha">Fecha de Compra:</label>
-              <input type="date" id="fecha" required value={formData.fecha} onChange={handleInputChange} className={styles.input} />
+              <input type="date" id="fecha" min={new Date().toISOString().split("T")[0]} required value={formData.fecha} onChange={handleInputChange} className={styles.input} />
             </div>
           </div>
 
