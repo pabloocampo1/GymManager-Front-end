@@ -33,27 +33,32 @@ export default function MenuMobile({ open, handleClose }) {
                 <div className={style.container_links}>
                     <ul style={{ padding: 0, listStyle: 'none' }}>
                         <li>
-                            <Link to="/" onClick={handleClose}>
+                            <Link to="/#home" onClick={handleClose}>
                                 Inicio
                             </Link>
                         </li>
+
+
+
                         <li>
-                            <Link to="/dfdf" onClick={handleClose}>
+                            <Link to="/#aboutUs" onClick={handleClose}>
                                 Sobre nosotros
                             </Link>
                         </li>
+
                         <li>
-                            <Link to="/dfdf" onClick={handleClose}>
+                            <Link to="/#price" onClick={handleClose}>
                                 Precios
                             </Link>
                         </li>
+
                         <li>
-                            <Link to="/eventsHome" onClick={handleClose}>
+                            <Link to="eventsHome#events" onClick={handleClose}>
                                 Eventos
                             </Link>
                         </li>
                         <li>
-                            <Link to="/contact" onClick={handleClose}>
+                            <Link to="contact#contact" onClick={handleClose}>
                                 Contacto
                             </Link>
                         </li>

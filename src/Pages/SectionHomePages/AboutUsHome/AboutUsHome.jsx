@@ -9,7 +9,7 @@ function AboutUsHome() {
     console.log(motion);
 
     return (
-        <div className={style.aboutUs_container} id='aboutUs'>
+        <div id="aboutUs" className={style.aboutUs_container}>
             <div ref={ref} className={style.aboutUs_section} >
                 <motion.div
                     className={style.aboutUs_section_text}
