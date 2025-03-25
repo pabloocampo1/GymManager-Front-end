@@ -1,7 +1,7 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import style from './Header.module.css'
 import { Link } from 'react-router-dom';
-import ImageLogoPrincipal from "../../assets/images/imageVallHallaLogo.png"
+import ImageLogoPrincipal from "../../assets/images/logoSinFondo.png"
 import LoginIcon from '@mui/icons-material/Login';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuMobile from '../MenuMobileComponent/MenuMobile';
@@ -9,7 +9,7 @@ import MenuMobile from '../MenuMobileComponent/MenuMobile';
 
 function Header() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
-  
+
     const handleShowMenu = () => {
         if (isOpenMenu) {
             setIsOpenMenu(false)
@@ -27,31 +27,32 @@ function Header() {
                 <nav>
                     <ol>
                         <li>
-                            <Link to="/">
+                            <Link to="/#home">
                                 Inicio
                             </Link>
                         </li>
 
-                        
-                       
+
+
                         <li>
-                            <Link to="/"  href="#aboutUs">
-                            Sobre nosotros
+                            <Link  to="/#aboutUs" href="#aboutUs">
+                                Sobre nosotros
                             </Link>
                         </li>
+
                         <li>
-                            <Link to="/dfdf">
+                            <Link to="/#price">
                                 Precios
                             </Link>
                         </li>
-                                
+
                         <li>
-                            <Link to="/eventsHome">
+                            <Link  to="eventsHome#events">
                                 Eventos
                             </Link>
                         </li>
                         <li>
-                            <Link to="/contact">
+                            <Link to="contact#contact">
                                 Contacto
                             </Link>
                         </li>

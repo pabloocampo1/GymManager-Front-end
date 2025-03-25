@@ -1,7 +1,7 @@
 import React from 'react';
 import style from "./EventHome.module.css"
 import imageExample from "../../../assets/images/imagenValHallaSlider1.png"
-import { Box } from '@mui/material';
+
 
 
 const EventHome = () => {
@@ -26,7 +26,7 @@ const EventHome = () => {
 
 
     return (
-        <Box  className={style.EventHome_container}>
+        <div id='events' className={style.EventHome_container}>
             <div className={style.EventHome_intro}>
                 <h2>Eventos</h2>
                 <p>Entrena, diviértete y haz comunidad</p>
@@ -61,7 +61,7 @@ const EventHome = () => {
                     </div>
                 </div>
             </div>
-        </Box>
+        </div>
     );
 };
 

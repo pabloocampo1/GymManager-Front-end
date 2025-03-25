@@ -13,6 +13,7 @@
 }
 html{
     font-family: "Inter", sans-serif;
+    scroll-padding-top: 12vh; 
 }
 body{
     font-family: "Inter", sans-serif;
