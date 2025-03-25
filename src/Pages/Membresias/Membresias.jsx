@@ -6,6 +6,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import DeleteIcon from '@mui/icons-material/Delete';
 import React, { useState } from "react";
 import styles from "./Membresias.module.css";
 import MembresiasModal from "../../Components/Modals/ModalMembresias/MembresiasModal.jsx";
@@ -88,7 +89,7 @@ const MembresiaModal = () => {
                     className={styles.edit_icon}
                     onClick={() => setIsModalOpen(true)}
                   />
-                  <FaSearch className={styles.delete_icon} />
+                  <DeleteIcon className={styles.delete_icon} />
                 </TableCell>
               </TableRow>
             ))}

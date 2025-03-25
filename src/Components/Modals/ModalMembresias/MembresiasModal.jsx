@@ -14,7 +14,7 @@ const MembresiaModal = ({ isOpen, onClose }) => {
     <div className={styles.modalOverlay} onClick={handleOverlayClick}>
       <div className={styles.modalContainer}>
         <div className={styles.modalCloseContainer}>
-          <ClearIcon onClick={onClose}></ClearIcon>
+          <ClearIcon className= {styles.closeButton} onClick={onClose}></ClearIcon>
         </div>
         <h2>Agregar Membresia</h2>
         <form>

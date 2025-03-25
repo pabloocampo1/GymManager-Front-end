@@ -10,6 +10,8 @@
 }
 .TitleFiltrado{
   color: var(--textSecond-color);
+  margin-top: 10px;
+  font-size: 1.4rem;
 }
 
 .eventoHeader {
@@ -21,7 +23,7 @@
 .eventosTitle {
   font-size: 1.875rem;
   font-weight: bold;
-  margin-right: 40px;
+  margin-right: 132px;
   white-space: nowrap;
 }
 

@@ -1,6 +1,6 @@
 .membresia_container {
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   position: relative;
   padding: 40px;
 }
@@ -125,6 +125,13 @@
   color: #454141;
   transition: color 0.2s ease;
   
+}
+
+.delete_icon {
+  cursor: pointer;
+  font-size: 18px;
+  color: #454141;
+  transition: color 0.2s ease;
 }
 
 .icon:hover {
