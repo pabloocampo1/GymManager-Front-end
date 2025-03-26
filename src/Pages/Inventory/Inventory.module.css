@@ -125,6 +125,9 @@
   object-fit: cover;
   margin-right: 15px;
 }
+.inventoryList{
+  width: 100%;
+}
 
 .item_info {
   flex-grow: 1;
