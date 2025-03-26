@@ -14,7 +14,7 @@ import AccordionTransition from '../AccordionContactHome/AccordionContactHome';
 
 const ContactHome = () => {
     return (
-        <Box className={style.ContactHome_container}>
+        <div id='contact' className={style.ContactHome_container}>
             <div className={style.container_intro_contact}>
                 <h2>Contacto</h2>
                 <p>¿Tienes alguna pregunta o necesitas más información? </p>
@@ -151,7 +151,7 @@ const ContactHome = () => {
                 </Box>
             </div>
             <AccordionTransition></AccordionTransition>
-        </Box>
+        </div>
     );
 };
 

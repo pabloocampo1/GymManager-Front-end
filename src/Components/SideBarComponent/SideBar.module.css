@@ -21,6 +21,8 @@
 
 .navegationList a {
     text-decoration: none;
+    width: 90%;
+    height: 45px;
 }
 
 .navegationList div {
@@ -29,7 +31,6 @@
     display: flex;
     align-items: center;
     border-radius: 10px;
-    margin-bottom: 6px;
     padding-left: 10px;
 }
 
@@ -72,6 +73,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    padding-left: 10px;
 }
 
 .UtilsSideBar div a {
@@ -81,7 +83,7 @@
 
 
 .activeLink {
-   border: 1px solid var(--primary-color);
+    border: 1px solid var(--primary-color);
     color: black;
     border-radius: 4px;
 }

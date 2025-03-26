@@ -2,18 +2,19 @@
     width: 100%;
     min-height: 100vh;
     padding: 0px 100px;
+    padding-bottom: 40px;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     z-index: 1;
-    background-color: var(--colorByBackgrounds);
+    background-color: #F9F9F9;
 }
 
 
 
 .Accordion_container h2 {
-    color: white;
+    color: rgb(0, 0, 0);
     padding-bottom: 20px;
 }
 
@@ -24,30 +25,28 @@
 }
 
 .acordion {
-    background-color: var(--colorByBackgrounds) !important;
     backdrop-filter: blur(5px); 
     border-radius: 10px !important;
-    border: 1px solid var(--primary-color);
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0px 0px 5px rgb(215, 215, 215) !important;
     margin-bottom: 20px;
 }
 
 .acordion .MuiAccordionSummary-root {
     background-color: #007bff;
-    color: white;
+    color: rgb(0, 0, 0);
     font-weight: bold;
     border-radius: 10px 10px 0 0;
 }
 
 .acordion .MuiAccordionSummary-expandIcon {
-    color: white !important;
+    color: rgb(0, 0, 0) !important;
 }
 
 .acordion .MuiAccordionDetails-root {
     background-color: #fff;
     padding: 15px;
     font-size: 1rem;
-    color: #333;
+    color: #ffffff;
     border-radius: 0 0 10px 10px;
 }
 

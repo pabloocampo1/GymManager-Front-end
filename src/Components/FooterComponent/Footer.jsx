@@ -24,31 +24,36 @@ function Footer() {
                 <div>
                     <ol>
                         <li>
-                            <Link to="/">
+                            <Link to="/#home">
                                 Inicio
                             </Link>
                         </li>
+
+
+
                         <li>
-                            <Link to="/" href="#aboutUs">
+                            <Link to="/#aboutUs" href="#aboutUs">
                                 Sobre nosotros
                             </Link>
                         </li>
+
                         <li>
-                            <Link to="/dfdf">
+                            <Link to="/#price">
                                 Precios
                             </Link>
                         </li>
 
                         <li>
-                            <Link to="/eventsHome">
+                            <Link to="eventsHome#events">
                                 Eventos
                             </Link>
                         </li>
                         <li>
-                            <Link to="/contact">
+                            <Link to="contact#contact">
                                 Contacto
                             </Link>
                         </li>
+
                     </ol>
                 </div>
                 <div className={style.container_map}>

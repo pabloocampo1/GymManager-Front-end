@@ -7,8 +7,8 @@ const PriceMembershipHome = () => {
     const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.5 });
     console.log(motion)
     return (
-        <div className={style.priceMembership_container}>
-            <h2  className={style.h2_title}>
+        <div id='price' className={style.priceMembership_container}>
+            <h2  className={style.h2_title} >
                 Nuestros Precios
             </h2>
             <div ref={ref}  className={style.tipePrice_container}>
