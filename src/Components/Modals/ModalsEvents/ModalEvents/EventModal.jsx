@@ -1,9 +1,14 @@
-import React, { useState } from "react"; 
+import React, { useState, useEffect } from "react"; 
 
-import styles from "../../Modals/ModalEvents/EventModal.module.css";  
+import styles from "./EventModal.module.css";  
 import ClearIcon from '@mui/icons-material/Clear';
 
-function EventModal({ isOpen, onClose, onAddEvent }) {   
+function EventModal({ 
+  isOpen, 
+  onClose, 
+  onAddEvent, 
+  initialEventData = null  // Nuevo prop para datos de edición
+}) {   
   const [eventData, setEventData] = useState({     
     nombre: "",     
     categoria: "crossfit",     
@@ -14,6 +19,25 @@ function EventModal({ isOpen, onClose, onAddEvent }) {
   });   
   
   const [imagePreview, setImagePreview] = useState(null);
+
+  // Efecto para cargar datos de edición
+  useEffect(() => {
+    if (initialEventData) {
+      setEventData(initialEventData);
+      setImagePreview(initialEventData.image || null);
+    } else {
+      // Reiniciar si no hay datos de edición
+      setEventData({
+        nombre: "",     
+        categoria: "crossfit",     
+        encargado: "",
+        fecha: "",
+        lugar: "",
+        image: ""
+      });
+      setImagePreview(null);
+    }
+  }, [initialEventData]);
 
   const handleChange = (e) => {     
     const { name, value } = e.target;     
@@ -51,6 +75,7 @@ function EventModal({ isOpen, onClose, onAddEvent }) {
       image: ""     
     });
     setImagePreview(null);
+    onClose(); // Cerrar modal después de guardar
   };    
 
   if (!isOpen) return null;    
@@ -61,7 +86,7 @@ function EventModal({ isOpen, onClose, onAddEvent }) {
         <div className={styles.modalClosebtn}>
           <ClearIcon onClick={onClose}></ClearIcon>
         </div>        
-        <h2>Agregar Nuevo Evento</h2>         
+        <h2>{initialEventData ? "Editar Evento" : "Agregar Nuevo Evento"}</h2>         
         <form onSubmit={handleSubmit}>           
           <div className={styles.formRow}>
             <div className={styles.formGroup}>             
@@ -143,7 +168,7 @@ function EventModal({ isOpen, onClose, onAddEvent }) {
               Cancelar
             </button>
             <button type="submit" className={styles.addBtn}>             
-              Guardar Evento           
+              {initialEventData ? "Guardar Cambios" : "Guardar Evento"}
             </button>
           </div>
         </form>       
