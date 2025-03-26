@@ -85,7 +85,7 @@ const Inventory = () => {
       </div>
 
       <h2 className={styles.TitleFiltrado}>Filtrado por la categoria  : {selectedCategory} </h2>
-      <div className={styles.eventosList}>
+      <div className={styles.inventoryList}>
         {filteredItems.map((inventory, index) => (
           <TargetInventory 
             key={index} 
