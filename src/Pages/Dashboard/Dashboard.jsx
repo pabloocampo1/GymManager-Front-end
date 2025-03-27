@@ -1,4 +1,4 @@
-import { Box, Typography, Paper } from "@mui/material";
+import { Box, Typography, Paper, Button } from "@mui/material";
 import CustomAxis from "../../Components/Charts/BarChartOne";
 import ChartMembership from "../../Components/Charts/ChartMembership";
 import TickPlacementBars from "../../Components/Charts/ChartPrice/TrickChart";
@@ -7,11 +7,24 @@ import PieActiveArc from "../../Components/Charts/Pie/PieMembershipMoreUsed";
 import PieChartAgeProm from "../../Components/Charts/Pie/PieChartAgeProm";
 import FirstDataCards from "../../Components/DasboardComponents/firstDataCards_div/firstDataCards";
 import PiePromGender from "../../Components/Charts/Pie/PiePromGender";
-import React from 'react';
+import React, { useRef } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 function Dashboard() {
+    const componentRef = useRef();
+
+  const downloadPdf = async () => {
+    const element = componentRef.current;
+    const canvas = await html2canvas(element);
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF("p", "mm", "a4");
+    pdf.addImage(imgData, "PNG", 10, 10, 190, 0);
+    pdf.save("component.pdf");
+  };
     return (
-        <Box
+        <Box ref={componentRef}
             sx={{
                 width: "100%",
                 minHeight: "100vh",
@@ -28,6 +41,7 @@ function Dashboard() {
             >
                 BIENVENIDO! <span style={{ fontWeight: 300, fontSize: "1.30rem" }}>Nombre De Usuario</span>
             </Typography>
+            <Button onClick={downloadPdf}>Descargar PDF</Button>
             <FirstDataCards />
             
             <Box
