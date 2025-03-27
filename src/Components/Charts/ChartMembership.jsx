@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
+import { Box, Typography } from '@mui/material';
 
 const months = [
   'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
@@ -37,8 +38,8 @@ const basic = [
 ];
 
 const biweekly = [
-  150000, // Enero
-  133000, // Febrero
+  150000,
+  133000,
   135000, // Marzo
   132000, // Abril
   137000, // Mayo
@@ -80,15 +81,22 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
 
 export default function ChartMembership() {
   return (
-    <div style={{ width: '60%' }}>
-      <LineChart 
-      {...lineChartsParams}
-      xAxis={[{ data: months, scaleType: 'point' }]} 
-      series={lineChartsParams.series.map((series) => ({
-        ...series,
-        valueFormatter: (v) => (v === null ? '' : currencyFormatter(v)),
-      }))}
-    />
-    </div>
+    <Box sx={{
+      width: '55%',
+      display: "flex",
+      justifyContent: "center",
+      flexDirection: "column",
+      alignItems:"center"
+    }}>
+      <Typography variant='p' sx={{ textAlign: "center" }}>Ingresos por cada membresia - por mes</Typography>
+      <LineChart
+        {...lineChartsParams}
+        xAxis={[{ data: months, scaleType: 'point' }]}
+        series={lineChartsParams.series.map((series) => ({
+          ...series,
+          valueFormatter: (v) => (v === null ? '' : currencyFormatter(v)),
+        }))}
+      />
+    </Box>
   );
 }

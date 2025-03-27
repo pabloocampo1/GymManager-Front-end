@@ -104,10 +104,9 @@ Llama a onAddItem pasándo los datos del formulario*/
             <div className={styles.formGroup}>
               <label htmlFor="estado">Estado:</label>
               <select id="estado" value={formData.estado} onChange={handleInputChange} className={styles.select}>
+                <option>Aceptable</option>
                 <option>Deplorable</option>
-                <option>Superior</option>
-                <option>Mela</option>
-                <option>Pro</option>
+                
               </select>
             </div>
         </div>

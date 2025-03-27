@@ -1,4 +1,5 @@
-import React from "react";
+
+import React, { useState } from "react";
 import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -6,8 +7,10 @@ import styles from "./TargetInventory.module.css";
 import ButtonActive from "../../Buttons/ButtonActive";
 import ButtonInactive from "../../Buttons/ButtonInactive"
 import ButtonInTime from "../../Buttons/ButtonInTime";
+import ConfirmationModalInventory from "../../Modals/ModalsInventory/ConfirmationModalInventory/ConfirmationModalInventory";
 
 const TargetInventory = ({ inventory, onDelete, onEdit }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
     const getEventStatus = (eventDate)=>{
       const hoy = new Date();
       const eventDateObjeto = new Date(eventDate);
@@ -56,12 +59,21 @@ const TargetInventory = ({ inventory, onDelete, onEdit }) => {
             <IconButton className={styles.editButton} onClick={() => onEdit && onEdit(inventory)}>
               <EditIcon fontSize="small" />
             </IconButton>
-            <IconButton className={styles.deleteButton} onClick={() => onDelete && onDelete(inventory)}>
+            <IconButton className={styles.deleteButton} onClick={() => setIsModalOpen(true)}>
               <DeleteIcon fontSize="small" />
             </IconButton>
           </div>
         </div>
       </div>
+      {isModalOpen && (
+                <ConfirmationModalInventory
+                    onClose={() => setIsModalOpen(false)}
+                    onConfirm={() => {
+            
+                        setIsModalOpen(onDelete);
+                    }}
+                />
+            )}
     </div>
   );
 };

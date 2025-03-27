@@ -1,85 +1,74 @@
 .eventCard {
-    width: 100%;
-    max-width: 300px;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    background-color: white;
-    margin-bottom: 20px;
-  }
+  display: flex;
+  align-items: center;
+  width: 45%;
+  max-width: 450px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  margin-bottom: 20px;
   
-  .eventImage {
-    width: 100%;
-    height: 123px;
-    object-fit: cover;
-  }
-  
-  .eventContent {
-    padding: 12px 16px 16px;
-    height: 130px;
-  }
-  
-  .eventTitle {
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0 0 12px;
-    text-align: center;
-  }
-  
-  .eventDetails {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 16px;
-    
-  }
-  
-  .detailItem {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .detailLabel {
-    font-size: 14px;
-    color: #777;
-    margin-bottom: 2px;
-  }
-  
-  .detailValue {
-    font-size: 14px;
-    font-weight: 500;
-  }
-  
-  .eventActions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 8px;
-  }
-  
-  .vencidaButton {
-    background-color: #ff3b30;
-    color: white;
-    border: none;
-    border-radius: 16px;
-    padding: 4px 14px;
-    font-size: 14px;
-    cursor: pointer;
-  }
-  
-  .iconButtons {
-    display: flex;
-    gap: 4px;
-  }
-  
-  .editButton svg, .deleteButton svg {
-    font-size: 18px;
-  }
-  
-  .editButton {
-    color: #1976d2;
-  }
-  
-  .deleteButton {
-    color: #f44336;
-  }
+}
+
+.eventImage {
+  width: 40%;
+  height: 140px;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.eventContent {
+  flex: 1;
+  padding: 12px 16px;
+}
+
+.eventTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.detailLabel {
+  font-size: 14px;
+  color: #777;
+}
+
+.detailValue {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.eventActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.statusButton {
+  background-color: #00ff00;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 6px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.iconButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.iconButtons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.iconButtons svg {
+  font-size: 20px;
+  color: black;
+}

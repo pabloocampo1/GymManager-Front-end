@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import {PlusCircle, Search } from "lucide-react";
 import { Menu, MenuItem } from "@mui/material";
 import styles from "./Eventos.module.css";
-import EventModal from "../../Components/Modals/ModalEvents/EventModal";
+import EventModal from "../../Components/Modals/ModalsEvents/ModalEvents/EventModal";
 import TargetEvent from "../../Components/Targets/TargetEvent/TargetEvent"; 
-import FilterAltIcon from '@mui/icons-material/FilterAlt';// Importar el componente externo
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 function Events() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [events, setEvents] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("Todos");
+  const [editingEvent, setEditingEvent] = useState(null);
 
   const handleOpenMenu = (event) => setAnchorEl(event.currentTarget);
   const handleCloseMenu = () => setAnchorEl(null);
@@ -21,7 +22,16 @@ function Events() {
   };
 
   const handleAddEvent = (newEvent) => {
-    setEvents([...events, newEvent]);
+    if (editingEvent !== null) {
+      // Estamos editando un evento existente
+      const updatedEvents = [...events];
+      updatedEvents[editingEvent.index] = newEvent;
+      setEvents(updatedEvents);
+      setEditingEvent(null);
+    } else {
+      // Estamos agregando un nuevo evento
+      setEvents([...events, newEvent]);
+    }
     setIsModalOpen(false);
   };
 
@@ -29,6 +39,11 @@ function Events() {
     const updatedEvents = events.filter((_, i) => i !== index);
     setEvents(updatedEvents);
   };
+
+  const handleEditEvent = (event, index) => {
+  setEditingEvent({ ...event, index });
+  setIsModalOpen(true);
+};
 
   const filteredEvents =
     selectedCategory === "Todos"
@@ -54,17 +69,23 @@ function Events() {
             <MenuItem onClick={() => handleFilterSelect("atletismo")}>Atletismo</MenuItem>
             <MenuItem onClick={() => handleFilterSelect("powerlifting")}>Powerlifting</MenuItem>
           </Menu>
-          <button className={styles.addButton} onClick={() => setIsModalOpen(true)}>
+          <button className={styles.addButton} onClick={() => {
+            setEditingEvent(null);
+            setIsModalOpen(true);
+          }}>
             <PlusCircle size={16} /> Agregar Nuevo Evento
           </button>
-          
         </div>
       </div>
-      <h2 className={styles.TitleFiltrado}>Filtrado por la categoria  : {selectedCategory} </h2>
+      <h2 className={styles.TitleFiltrado}>Filtrado por la categoria: {selectedCategory}</h2>
       <EventModal 
         isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-        onAddEvent={handleAddEvent} 
+        onClose={() => {
+          setIsModalOpen(false);
+          setEditingEvent(null);
+        }} 
+        onAddEvent={handleAddEvent}
+        initialEventData={editingEvent ? editingEvent : null}
       />
 
       <div className={styles.eventosList}>
@@ -72,7 +93,8 @@ function Events() {
           <TargetEvent 
             key={index} 
             event={event} 
-            onDelete={() => handleRemoveEvent(index)} 
+            onDelete={() => handleRemoveEvent(index)}
+            onEdit={() => handleEditEvent(event, index)}
           />
         ))}
       </div>

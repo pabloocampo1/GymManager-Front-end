@@ -1,7 +1,3 @@
-// Data derived from https://gs.statcounter.com/os-market-share/desktop/worldwide/2023
-// And https://gs.statcounter.com/os-market-share/mobile/worldwide/2023
-// And https://gs.statcounter.com/platform-market-share/desktop-mobile-tablet/worldwide/2023
-// For the month of December 2023
 
 export const desktopOS = [
     {
@@ -15,6 +11,35 @@ export const desktopOS = [
     {
       label: 'full year',
       value: 4.65,
+    },
+  ];
+export const agePromUser = [
+    {
+      label: '15-25',
+      value: 23,
+    },
+    {
+      label: '25-40',
+      value: 90,
+    },
+    {
+      label: '40 - 80',
+      value: 23,
+    },
+  ];
+  
+export const genderProm = [
+    {
+      label: 'mujer',
+      value: 50,
+    },
+    {
+      label: 'hombre',
+      value: 90,
+    },
+    {
+      label: 'no genero',
+      value: 23,
     },
   ];
   

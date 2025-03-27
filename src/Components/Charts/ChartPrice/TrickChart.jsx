@@ -12,7 +12,7 @@ const chartSetting = {
       label: 'rainfall (mm)',
     },
   ],
-  series: [{ dataKey: 'seoul', label: 'Seoul rainfall', valueFormatter }],
+  series: [{ dataKey: 'seoul', label: 'Ingresos mensuales', valueFormatter }],
   height: 300,
   sx: {
     [`& .${axisClasses.directionY} .${axisClasses.label}`]: {
