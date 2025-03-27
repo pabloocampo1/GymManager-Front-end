@@ -17,6 +17,7 @@
     "@mui/styled-engine": "^6.4.6",
     "@mui/styled-engine-sc": "^6.4.6",
     "@mui/x-charts": "^7.27.1",
+    "axios": "^1.8.4",
     "bootstrap": "^5.3.3",
     "framer-motion": "^12.4.10",
     "leaflet": "^1.9.4",
