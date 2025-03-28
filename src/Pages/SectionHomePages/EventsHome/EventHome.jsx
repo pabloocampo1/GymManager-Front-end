@@ -1,30 +1,13 @@
 import React from 'react';
 import style from "./EventHome.module.css"
 import imageExample from "../../../assets/images/imagenValHallaSlider1.png"
+import useEvent from '../../../hooks/useEvent';
 
 
 
 const EventHome = () => {
 
-    const events = [
-        {
-            "image": imageExample,
-            "title": "Crossfit class",
-            "description": "esto solo es un ejemplo de implemntacion para mas adelante",
-            "place": "Gimansio VallHalla",
-            "date": "20/04/03 12:00 PM"
-        },
-        {
-            "image": imageExample,
-            "title": "Crossfit class",
-            "description": "esto solo es un ejemplo de implemntacion para mas adelante",
-            "place": "Gimansio VallHalla",
-            "date": "20/04/03 12:00 PM"
-        }
-
-    ]
-
-
+    const {events} = useEvent();
     return (
         <div id='events' className={style.EventHome_container}>
             <div className={style.EventHome_intro}>
@@ -35,7 +18,7 @@ const EventHome = () => {
             <div className={style.events_items_container}>
                 <h2>Nuestros eventos</h2>
                 <div>
-                    {events.length <= 0 && <p className={style.text_no_events}>No hay eventos en este momento</p>}
+                   
                     <div className={style.event_item}>
                         {events && events.map((item, index) => (
                             <div key={index} className={style.content_event}>
@@ -49,7 +32,7 @@ const EventHome = () => {
                                     <div className={style.div_date_place}>
                                         <div>
                                             <span>Lugar</span>
-                                            <p>{item.place}</p>
+                                            <p>{item.place == "" ? "juan sito" : item.place}</p>
                                         </div>
                                         <div>
                                             <span>Hora y fecha</span>

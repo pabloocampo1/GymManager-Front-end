@@ -15,7 +15,7 @@ export default function PieActiveArc() {
       },
     ]}
     height={250}
-    width={400} // Ajusta la altura
+    width={400} 
     slotProps={{
       legend: { hidden: false },
     }}
