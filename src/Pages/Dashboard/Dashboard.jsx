@@ -3,26 +3,59 @@ import CustomAxis from "../../Components/Charts/BarChartOne";
 import ChartMembership from "../../Components/Charts/ChartMembership";
 import TickPlacementBars from "../../Components/Charts/ChartPrice/TrickChart";
 import BarsDatasetToTal from "../../Components/Charts/ChartTotalUserByMonth/TotalUserByMonth";
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 import PieActiveArc from "../../Components/Charts/Pie/PieMembershipMoreUsed";
 import PieChartAgeProm from "../../Components/Charts/Pie/PieChartAgeProm";
 import FirstDataCards from "../../Components/DasboardComponents/firstDataCards_div/firstDataCards";
 import PiePromGender from "../../Components/Charts/Pie/PiePromGender";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import LoandingDownloadReport from "../../Components/LoandingDownloadReport";
 
 function Dashboard() {
     const componentRef = useRef();
+    const [titleReport, setTitleReport] = useState("BIENVENIDO!");
+    const [userName, setUserName] = useState("Nombre De Usuario");
+    const [activeButtonDownloadReport, setActiveButtonDownloadReport] = useState(true);
+    const [isGeneratingPDF, setIsGeneratingPDF] = useState(false); 
+    const [loandingDownload, setLoandingDownload] = useState(false);
 
-  const downloadPdf = async () => {
-    const element = componentRef.current;
-    const canvas = await html2canvas(element);
-    const imgData = canvas.toDataURL("image/png");
+    useEffect(() => {
+        if (isGeneratingPDF) {
+            setLoandingDownload(true)
+            generatePdf();
+        }
+    }, [loandingDownload,titleReport, userName, isGeneratingPDF]); 
 
-    const pdf = new jsPDF("p", "mm", "a4");
-    pdf.addImage(imgData, "PNG", 10, 10, 190, 0);
-    pdf.save("component.pdf");
-  };
+    const downloadPdf = () => {
+        setTitleReport("Informe");
+        setUserName("");
+        setActiveButtonDownloadReport(false);
+        setIsGeneratingPDF(true); 
+    };
+
+    const generatePdf = async () => {
+        const dateReport = `${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}`;
+        const element = componentRef.current;
+        
+        setTimeout(async () => { 
+            const canvas = await html2canvas(element, { scale: 2 });
+            const imgData = canvas.toDataURL("image/png");
+            const pdf = new jsPDF("p", "mm", "a4");
+            pdf.addImage(imgData, "PNG", 10, 10, 190, 0);
+            pdf.save(`Reporte del dia: ${dateReport}.pdf`);
+
+            
+            setTitleReport("BIENVENIDO!");
+            setUserName("Nombre De Usuario");
+            setActiveButtonDownloadReport(true);
+            setIsGeneratingPDF(false);
+            setLoandingDownload(false)
+        }, 300); 
+    };
+
+
     return (
         <Box ref={componentRef}
             sx={{
@@ -32,18 +65,28 @@ function Dashboard() {
                 backgroundColor: "#F9F9F9",
             }}
         >
-            <Typography
-                variant="h4"
+            <Box
                 sx={{
-                    paddingTop: "20px",
-                    paddingBottom: "40px",
-                }}
-            >
-                BIENVENIDO! <span style={{ fontWeight: 300, fontSize: "1.30rem" }}>Nombre De Usuario</span>
-            </Typography>
-            <Button onClick={downloadPdf}>Descargar PDF</Button>
+                    width:"100%",
+                    height:"15vh",
+                    display:"flex",
+                    justifyContent:"space-between",
+                    alignItems:"center"
+                }}>
+                <Typography
+                    variant="h4"
+                    sx={{
+                        paddingTop: "20px",
+                        paddingBottom: "40px",
+                    }}
+                >
+                    {titleReport} <span style={{ fontWeight: 300, fontSize: "1.30rem" }}> {userName} </span>
+                </Typography>
+                <LoandingDownloadReport open={loandingDownload} />
+                {activeButtonDownloadReport && (<Button color="#FFDB00" variant="contained" sx={{backgroundColor:"", border:"2px solid #FFDB00"}} onClick={downloadPdf}>PDF  <UploadFileIcon /></Button>)}
+            </Box>
             <FirstDataCards />
-            
+
             <Box
                 sx={{
                     width: "100%",
@@ -58,7 +101,7 @@ function Dashboard() {
                 <TickPlacementBars />
                 <ChartMembership />
             </Box>
-            
+
             <Box
                 sx={{
                     width: "auto",
@@ -87,7 +130,7 @@ function Dashboard() {
                     <Typography fontWeight="bold">Membresías más usadas</Typography>
                     <PieActiveArc />
                 </Paper>
-                
+
                 <Paper
                     sx={{
                         width: "50%",
@@ -107,7 +150,7 @@ function Dashboard() {
                     <CustomAxis />
                 </Paper>
             </Box>
-            
+
             <Paper
                 sx={{
                     width: "100%",
@@ -126,13 +169,13 @@ function Dashboard() {
                 </Typography>
                 <BarsDatasetToTal />
             </Paper>
-            
+
             <Box
                 sx={{
                     width: "100%",
                     height: "50vh",
                     display: "flex",
-                    alignItems:"center",
+                    alignItems: "center",
                     justifyContent: "space-between",
                     marginTop: "50px",
                 }}
@@ -141,17 +184,17 @@ function Dashboard() {
                 <PiePromGender />
                 <Box
                     sx={{
-                        width:"20%",
-                        height:"100%",
-                        display:"flex",
-                        alignItems:"center",
-                        flexDirection:"column",
-                        backgroundColor:"white",
-                        borderRadius:"15px"
-    
+                        width: "20%",
+                        height: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        backgroundColor: "white",
+                        borderRadius: "15px"
+
                     }}
                 >
-                    <Typography variant="p" sx={{textAlign:"center", pt:2}}>Ultimos usuarios registrados</Typography>
+                    <Typography variant="p" sx={{ textAlign: "center", pt: 2 }}>Ultimos usuarios registrados</Typography>
                 </Box>
             </Box>
         </Box>
