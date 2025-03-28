@@ -1,7 +1,7 @@
-.eventCard {
+.inventoriCard {
   display: flex;
   align-items: center;
-  width: 45%;
+  width: 100%;
   max-width: 450px;
   border-radius: 12px;
   overflow: hidden;
@@ -12,7 +12,7 @@
 }
 
 .eventImage {
-  width: 40%;
+  width: 37%;
   height: 140px;
   object-fit: cover;
   border-top-left-radius: 12px;
@@ -55,11 +55,12 @@
   padding: 6px 14px;
   font-size: 14px;
   cursor: pointer;
+ 
 }
 
 .iconButtons {
   display: flex;
-  gap: 8px;
+  gap: 3px;
 }
 
 .iconButtons button {
@@ -72,3 +73,4 @@
   font-size: 20px;
   color: black;
 }
+

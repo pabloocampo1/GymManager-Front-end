@@ -4,35 +4,24 @@ import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import styles from "./TargetInventory.module.css";
-import ButtonActive from "../../Buttons/ButtonActive";
+
 import ButtonInactive from "../../Buttons/ButtonInactive"
 import ButtonInTime from "../../Buttons/ButtonInTime";
 import ConfirmationModalInventory from "../../Modals/ModalsInventory/ConfirmationModalInventory/ConfirmationModalInventory";
 
 const TargetInventory = ({ inventory, onDelete, onEdit }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-    const getEventStatus = (eventDate)=>{
-      const hoy = new Date();
-      const eventDateObjeto = new Date(eventDate);
-
-
-      hoy.setHours(0,0,0,0);
-      eventDateObjeto.setHours(0,0,0,0);
-
-
-      if (eventDateObjeto.getDate() === hoy.getDate() && 
-        eventDateObjeto.getMonth() === hoy.getMonth() && 
-        eventDateObjeto.getFullYear() === hoy.getFullYear()) {
-        return "today";
-      } else if (eventDateObjeto > hoy) {
-        return "upcoming";
-      } else {
-        return "expired";
+    const getEventStatus = ()=>{
+      const estado = inventory.estado;
+      if (estado === "Aceptable"){
+        return "Aceptable";
+      }else{
+        return "deplorable"
       }
     }
-    const eventStatus = getEventStatus(inventory.fecha);
+    const eventStatus = getEventStatus(inventory.estado);
   return (
-    <div className={styles.eventCard}>
+    <div className={styles.inventoriCard}>
       {inventory.image && (
         <img src={inventory.image} alt="Evento" className={styles.eventImage} />
       )}
@@ -48,9 +37,9 @@ const TargetInventory = ({ inventory, onDelete, onEdit }) => {
         </div>
         
         <div className={styles.eventActions}>
-        {eventStatus === "expired" && <ButtonInactive text="vencido" />}
-          {eventStatus === "today" && <ButtonActive text="Enproceso" />}
-          {eventStatus === "upcoming" && <ButtonInTime text="disponible" />}
+        {eventStatus === "Aceptable" && <ButtonInTime text="aceptable" />}
+          {eventStatus === "deplorable" && <ButtonInactive text="deplorable" />}
+          
           
   
           

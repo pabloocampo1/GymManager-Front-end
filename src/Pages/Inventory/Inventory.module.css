@@ -1,11 +1,34 @@
+._privateLayout_main_1ub0z_23{
+  width: auto;
+  height: auto;
+}
+
 .inventory_container {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh; /* Changed from min-height to height */
   background-color: white;
   position: relative;
-  padding-left: 10px;
   padding: 40px;
+  overflow-y: auto; /* Adds vertical scrolling */
 }
+
+.inventoryList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+  height: 374px; /* Altura fija */
+  max-height: 374px;
+  overflow-y: auto; /* Scroll vertical */
+  overflow-x: hidden; /* Evitar scroll horizontal */
+  padding-right: 10px;
+  margin-top: 20px;
+  width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: #D3D837 #f1f1f1;
+  grid-auto-rows: min-content; /* Asegura que las filas no se expandan */
+}
+
+
 
 .inventory_header {
   display: flex;
@@ -16,7 +39,7 @@
 .inventory_title {
   font-size: 1.875rem;
   font-weight: bold;
-  margin-right: 125px;
+  margin-right: 68px;
   white-space: nowrap;
 }
 
@@ -26,7 +49,7 @@
   border: 1px solid #D3D837;
   border-radius: 8px;
   padding: 4px 10px;
-  margin-left: 67px;
+  margin-left: 45px;
   gap: 5px;
   height: 30px;
   width: 300px;
@@ -77,28 +100,19 @@
   height: 35px;
   width: 200px;
   padding-left: 15px;
+  margin-left: 10px;
 }
 
-.inventory_list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  max-height: 400px;
-  overflow-y: auto;
-  padding-right: 10px;
-  margin-top: 20px;
-  width: 102%;
-}
 
-.inventory_card {
-  display: flex;
-  flex-direction: column;
+._inventoriCard_1wps6_1 {
   background: white;
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(1, 1, 1, 0.1);
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  justify-content: space-between;
+  
 }
 
 .TitleFiltrado {
@@ -125,9 +139,7 @@
   object-fit: cover;
   margin-right: 15px;
 }
-.inventoryList{
-  width: 100px;
-}
+
 
 .item_info {
   flex-grow: 1;
@@ -157,6 +169,39 @@
 .delete_btn:hover {
   color: #D32F2F;
 }
+.inventoryList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.inventoryList::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.inventoryList::-webkit-scrollbar-thumb {
+  background-color: #D3D837;
+  border-radius: 4px;
+}
+.syncIcon {
+  transition: transform 0.5s ease;
+}
+
+.syncIcon:hover {
+  transform: rotate(360deg);
+}
+
+/* Si prefieres una animación continua */
+.syncIconSpinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
@@ -170,7 +215,7 @@
      width: 100%;
   }
   
-  .inventory_list {
+  .inventoryList {
      grid-template-columns: 1fr;
      gap: 15px;
   }
