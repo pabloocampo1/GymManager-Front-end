@@ -6,7 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import React, { useState } from "react";
 import { Menu, MenuItem } from "@mui/material";
 import styles from "./Inventory.module.css";
-import InventoryModal from "../../Components/Modals/ModalInventory/InventoryModal";
+import InventoryModal from "../../Components/Modals/ModalsInventory/ModalInventory/InventoryModal";
 import TargetInventory from "../../Components/Targets/TargetInventory/TargetInventory";
 
 const Inventory = () => {
@@ -85,7 +85,7 @@ const Inventory = () => {
       </div>
 
       <h2 className={styles.TitleFiltrado}>Filtrado por la categoria  : {selectedCategory} </h2>
-      <div className={styles.eventosList}>
+      <div className={styles.inventoryList}>
         {filteredItems.map((inventory, index) => (
           <TargetInventory 
             key={index} 

@@ -1,3 +1,7 @@
+._privateLayout_main_1ub0z_23{
+  height: auto;
+  width: auto;
+}
 .modalOverlay {
   position: absolute; /* Asegura que cubra toda la pantalla */
   top: 0;
@@ -8,6 +12,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1000;
 }
 
 .modalContent {
@@ -18,6 +23,7 @@
   width: 800px;
   max-width: 90vw;
   text-align: center;
+  z-index: 1001;
 }
 
 .modalClosebtn{
