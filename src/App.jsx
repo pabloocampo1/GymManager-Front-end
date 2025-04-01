@@ -11,10 +11,10 @@ import NotFound from './Pages/NotFound/NotFound'
 import Inventory from './Pages/Inventory/Inventory'
 import Membresias from './Pages/Membresias/Membresias'
 import Miembros from './Pages/Miembros/Miembros'
-import Acceso from './Pages/Acceso/Acceso'
 import Profile from './Pages/ProfileGym/ProfileGym'
 import ContactHome from './Pages/SectionHomePages/ContactHome/ContactHome'
 import EventHome from './Pages/SectionHomePages/EventsHome/EventHome'
+import ControlAcces from './Pages/ControlAcces'
 
 
 function App() {
@@ -35,7 +35,7 @@ function App() {
                 {/* Rutas privadas: el layout se encargará de mostrar el sidebar */}
                 <Route path="/dashboard" element={<PrivateLayout />}>
                     <Route index element={<Dashboard />} />
-                    <Route path='acceso' element={<Acceso />}></Route>
+                    <Route path='acceso' element={<ControlAcces />}></Route>
                     <Route path='miembros' element={<Miembros />}></Route>
                     <Route path='membresias' element={<Membresias />}></Route>
                     <Route path="correo" element={<Promotions />} />

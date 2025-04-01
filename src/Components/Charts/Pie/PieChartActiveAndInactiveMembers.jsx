@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { genderProm } from './webUsageStats';
+import { dataActiveAndInactiveMembers } from '../webUsageStats';
 import { PieChart } from '@mui/x-charts/PieChart';
 import { Box, Typography } from '@mui/material';
 
 
-export default function PieChartAgeProm() {
+export default function PieChartActiveAndInactiveMembers() {
     return (
 
         <Box
@@ -13,12 +13,12 @@ export default function PieChartAgeProm() {
                 backgroundColor:"white",
                 borderRadius:"15px"
             }}>
-            <Typography variant='p'>Genero Promedio</Typography>
+            <Typography variant='p'>Minetros activo e inactivos</Typography>
             <PieChart
 
                 series={[
                     {
-                        data: genderProm,
+                        data: dataActiveAndInactiveMembers,
                         highlightScope: { fade: "global", highlight: "item" },
                         faded: { innerRadius: 30, additionalRadius: -30, color: "gray" },
                         label: "",

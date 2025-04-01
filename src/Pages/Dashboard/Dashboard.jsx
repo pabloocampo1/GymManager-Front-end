@@ -5,13 +5,15 @@ import TickPlacementBars from "../../Components/Charts/ChartPrice/TrickChart";
 import BarsDatasetToTal from "../../Components/Charts/ChartTotalUserByMonth/TotalUserByMonth";
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import PieActiveArc from "../../Components/Charts/Pie/PieMembershipMoreUsed";
-import PieChartAgeProm from "../../Components/Charts/Pie/PieChartAgeProm";
+import PieChartActiveAndInactiveMembers from "../../Components/Charts/Pie/PieChartActiveAndInactiveMembers";
 import FirstDataCards from "../../Components/DasboardComponents/firstDataCards_div/firstDataCards";
 import PiePromGender from "../../Components/Charts/Pie/PiePromGender";
 import React, { useEffect, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import LoandingDownloadReport from "../../Components/LoandingDownloadReport";
+import ListNewUsers from "../../Components/Charts/ListNewUsers";
+import ChartTotalUser from "../../Components/Charts/ChartTotalUser";
 
 function Dashboard() {
     const componentRef = useRef();
@@ -26,7 +28,7 @@ function Dashboard() {
             setLoandingDownload(true)
             generatePdf();
         }
-    }, [loandingDownload,titleReport, userName, isGeneratingPDF]); 
+    }, [isGeneratingPDF]); 
 
     const downloadPdf = () => {
         setTitleReport("Informe");
@@ -38,23 +40,37 @@ function Dashboard() {
     const generatePdf = async () => {
         const dateReport = `${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}`;
         const element = componentRef.current;
-        
-        setTimeout(async () => { 
-            const canvas = await html2canvas(element, { scale: 2 });
-            const imgData = canvas.toDataURL("image/png");
-            const pdf = new jsPDF("p", "mm", "a4");
-            pdf.addImage(imgData, "PNG", 10, 10, 190, 0);
-            pdf.save(`Reporte del dia: ${dateReport}.pdf`);
-
-            
-            setTitleReport("BIENVENIDO!");
-            setUserName("Nombre De Usuario");
-            setActiveButtonDownloadReport(true);
-            setIsGeneratingPDF(false);
-            setLoandingDownload(false)
-        }, 300); 
-    };
-
+      
+        setTimeout(async () => {
+          const canvas = await html2canvas(element, { scale: 2, ignoreElements: (el) => el.classList && el.classList.contains("no-print") });
+          const imgData = canvas.toDataURL("image/png");
+      
+          const pdf = new jsPDF("p", "mm", "a4");
+          const imgWidth = 190; 
+          const pageHeight = pdf.internal.pageSize.getHeight(); 
+          const imgHeight = (canvas.height * imgWidth) / canvas.width; 
+          let heightLeft = imgHeight;
+          let position = 10; 
+      
+          pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+    
+          while (heightLeft > 0) {
+            pdf.addPage();
+            position = 10; 
+            pdf.addImage(imgData, "PNG", 10, position - (imgHeight - heightLeft), imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+          }
+      
+          pdf.save(`Reporte del dia: ${dateReport}.pdf`);
+      
+          setTitleReport("BIENVENIDO!");
+          setUserName("Nombre De Usuario");
+          setActiveButtonDownloadReport(true);
+          setIsGeneratingPDF(false);
+          setLoandingDownload(false);
+        }, 300);
+      };
 
     return (
         <Box ref={componentRef}
@@ -62,7 +78,7 @@ function Dashboard() {
                 width: "100%",
                 minHeight: "100vh",
                 padding: "20px",
-                backgroundColor: "#F9F9F9",
+                backgroundColor: "var(--backgroundWhiteMiddle)",
             }}
         >
             <Box
@@ -82,7 +98,7 @@ function Dashboard() {
                 >
                     {titleReport} <span style={{ fontWeight: 300, fontSize: "1.30rem" }}> {userName} </span>
                 </Typography>
-                <LoandingDownloadReport open={loandingDownload} />
+                <LoandingDownloadReport open={loandingDownload} text={"Descargando informe en pdf"} />
                 {activeButtonDownloadReport && (<Button color="#FFDB00" variant="contained" sx={{backgroundColor:"", border:"2px solid #FFDB00"}} onClick={downloadPdf}>PDF  <UploadFileIcon /></Button>)}
             </Box>
             <FirstDataCards />
@@ -127,7 +143,7 @@ function Dashboard() {
                         alignItems: "center",
                     }}
                 >
-                    <Typography fontWeight="bold">Membresías más usadas</Typography>
+                    <Typography fontWeight="bold">Membresías activas más usadas</Typography>
                     <PieActiveArc />
                 </Paper>
 
@@ -167,6 +183,7 @@ function Dashboard() {
                 <Typography textAlign="center" paddingBottom="20px" fontWeight="bold">
                     Tipo de usuarios que han ingresado
                 </Typography>
+
                 <BarsDatasetToTal />
             </Paper>
 
@@ -180,23 +197,11 @@ function Dashboard() {
                     marginTop: "50px",
                 }}
             >
-                <PieChartAgeProm />
+                <PieChartActiveAndInactiveMembers />
                 <PiePromGender />
-                <Box
-                    sx={{
-                        width: "20%",
-                        height: "100%",
-                        display: "flex",
-                        alignItems: "center",
-                        flexDirection: "column",
-                        backgroundColor: "white",
-                        borderRadius: "15px"
-
-                    }}
-                >
-                    <Typography variant="p" sx={{ textAlign: "center", pt: 2 }}>Ultimos usuarios registrados</Typography>
-                </Box>
+                <ListNewUsers />
             </Box>
+            <ChartTotalUser />
         </Box>
     );
 }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { PieChart } from '@mui/x-charts/PieChart';
-import { desktopOS } from './webUsageStats';
+import { desktopOS } from '../webUsageStats';
 
 export default function PieActiveArc() {
   return (

@@ -88,7 +88,7 @@ export default function ChartMembership() {
       flexDirection: "column",
       alignItems:"center"
     }}>
-      <Typography variant='p' sx={{ textAlign: "center" }}>Ingresos por cada membresia - por mes</Typography>
+      <Typography variant='p' sx={{ textAlign: "center" }}>Ingresos monetarios por cada membresia - por mes</Typography>
       <LineChart
         {...lineChartsParams}
         xAxis={[{ data: months, scaleType: 'point' }]}
