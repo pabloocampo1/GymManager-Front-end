@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import {PlusCircle, Search } from "lucide-react";
+import { PlusCircle, Search } from "lucide-react";
 import { Menu, MenuItem } from "@mui/material";
 import styles from "./Eventos.module.css";
 import EventModal from "../../Components/Modals/ModalsEvents/ModalEvents/EventModal";
-import TargetEvent from "../../Components/Targets/TargetEvent/TargetEvent"; 
+import TargetEvent from "../../Components/Targets/TargetEvent/TargetEvent";
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 function Events() {
@@ -12,6 +12,7 @@ function Events() {
   const [events, setEvents] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [editingEvent, setEditingEvent] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleOpenMenu = (event) => setAnchorEl(event.currentTarget);
   const handleCloseMenu = () => setAnchorEl(null);
@@ -23,13 +24,13 @@ function Events() {
 
   const handleAddEvent = (newEvent) => {
     if (editingEvent !== null) {
-      // Estamos editando un evento existente
+      
       const updatedEvents = [...events];
       updatedEvents[editingEvent.index] = newEvent;
       setEvents(updatedEvents);
       setEditingEvent(null);
     } else {
-      // Estamos agregando un nuevo evento
+    
       setEvents([...events, newEvent]);
     }
     setIsModalOpen(false);
@@ -41,14 +42,21 @@ function Events() {
   };
 
   const handleEditEvent = (event, index) => {
-  setEditingEvent({ ...event, index });
-  setIsModalOpen(true);
-};
+    setEditingEvent({ ...event, index });
+    setIsModalOpen(true);
+  };
 
-  const filteredEvents =
-    selectedCategory === "Todos"
-      ? events
-      : events.filter((event) => event.categoria === selectedCategory);
+ 
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+  };
+
+
+  const filteredEvents = events.filter(event => 
+    (selectedCategory === "Todos" || event.categoria === selectedCategory) &&
+    (searchTerm === "" || (event.nombre && event.nombre.toLowerCase().includes(searchTerm.toLowerCase())))
+  );
 
   return (
     <div className={styles.eventosContainer}>
@@ -57,10 +65,15 @@ function Events() {
         <div className={styles.eventosActions}>
           <div className={styles.eventosSearch}>
             <Search size={16} className={styles.searchIcon} />
-            <input type="text" placeholder="Buscar Eventos" />
+            <input 
+              type="text" 
+              placeholder="Buscar Eventos" 
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
           </div>
           <button className={styles.filterButton} onClick={handleOpenMenu}>
-            <FilterAltIcon  /> Filtrar 
+            <FilterAltIcon /> Filtrar
           </button>
           <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleCloseMenu}>
             <MenuItem onClick={() => handleFilterSelect("Todos")}>Todos</MenuItem>
@@ -77,22 +90,27 @@ function Events() {
           </button>
         </div>
       </div>
-      <h2 className={styles.TitleFiltrado}>Filtrado por la categoria: {selectedCategory}</h2>
+      <h2 className={styles.TitleFiltrado}>
+        {searchTerm ? 
+          `Filtrado por la categoría: ${selectedCategory} y búsqueda: "${searchTerm}"` : 
+          `Filtrado por la categoría: ${selectedCategory}`
+        }
+      </h2>
       <EventModal 
-        isOpen={isModalOpen} 
+        isOpen={isModalOpen}
         onClose={() => {
           setIsModalOpen(false);
           setEditingEvent(null);
-        }} 
+        }}
         onAddEvent={handleAddEvent}
         initialEventData={editingEvent ? editingEvent : null}
       />
-
+      
       <div className={styles.eventosList}>
         {filteredEvents.map((event, index) => (
-          <TargetEvent 
-            key={index} 
-            event={event} 
+          <TargetEvent
+            key={index}
+            event={event}
             onDelete={() => handleRemoveEvent(index)}
             onEdit={() => handleEditEvent(event, index)}
           />

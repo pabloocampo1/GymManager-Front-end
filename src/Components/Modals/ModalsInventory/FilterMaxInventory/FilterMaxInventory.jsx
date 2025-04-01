@@ -32,13 +32,13 @@ const FilterMaxInventory = ({
   const handleFilterChange = (e) => {
     const filterValue = e.target.value;
     setSelectedFilter(filterValue);
-    // Reiniciar selección al cambiar filtro
+
     setSelectedItemIds([]);
   };
 
   const handleItemSelect = (itemId) => {
     setSelectedItemIds(prevSelectedItemIds => {
-      // Toggle selection usando el id
+     
       if (prevSelectedItemIds.includes(itemId)) {
         return prevSelectedItemIds.filter(id => id !== itemId);
       }
@@ -60,7 +60,7 @@ const FilterMaxInventory = ({
   
     // Crear una copia de los items con el estado actualizado
     const updatedItems = items.map(item => {
-      // Verificar si el id del item está en los ids seleccionados
+      
       if (selectedItemIds.includes(item.id)) {
         return {
           ...item,
@@ -71,7 +71,7 @@ const FilterMaxInventory = ({
       return item;
     });
   
-    // Actualizar los items en el componente padre
+
     onUpdateItems(updatedItems);
     
     // Cerrar el modal
@@ -121,7 +121,7 @@ const FilterMaxInventory = ({
         ) : (
           selectedFilter 
             ? <p>No hay Objetos por el filtro selecionado</p>
-            : <p>Selecciona un criterio de filtrado</p>
+            : <p>Selecciona una opcion de filtrado</p>
         )}
       </div>
 

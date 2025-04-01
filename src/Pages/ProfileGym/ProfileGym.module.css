@@ -1,64 +1,154 @@
+/* ProfileGym.module.css con diseño de dos columnas */
+
+.title {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin: 35px;
+}
+
 .profileContainer {
-    display: flex;
+  max-width: 850px;
+  margin: 39px auto 30px 35px;
+  padding: 35px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.contentLayout {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+}
+
+.imageColumn {
+  flex: 0 0 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formColumn {
+  flex: 1;
+}
+
+.profileImagePreview {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 15px;
+  border: 2px solid #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.previewImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.noImagePlaceholder {
+  width: 100%;
+  height: 100%;
+  background-color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #666;
+}
+
+.uploadButtonContainer {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.customFileUpload {
+  background-color: #d3d837;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+  border: none;
+  font-weight: bold;
+  text-align: center;
+}
+
+.customFileUpload:hover {
+  background-color: #e5c100;
+}
+
+.fileInput {
+  display: none;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.formGroup label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+}
+
+.formGroup input:focus {
+  border: 1px solid #d3d837;
+  box-shadow: 0 0 5px rgba(211, 216, 55, 0.5);
+}
+
+.updateButton {
+  background-color: #d3d837;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+  font-weight: bold;
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.updateButton:hover {
+  background-color: #e5c100;
+}
+
+/* Responsive design para móviles */
+@media (max-width: 768px) {
+  .contentLayout {
     flex-direction: column;
-    align-items: center;
-    padding: 35px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    margin: auto;
   }
   
-  .title {
-    font-size: 30px;
-    font-weight: bold;
-    margin-bottom: 20px;
+  .imageColumn {
+    margin-bottom: 30px;
   }
   
-  .form {
+  .formColumn {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
   }
-  
-  .formGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  
-  .formGroup label {
-    font-weight: bold;
-    font-size: 14px;
-  }
-  
-  .formGroup input {
-    border: 1px solid #d3d837;
-    border-radius: 8px;
-    padding: 8px;
-    font-size: 14px;
-    width: 100%;
-  }
-  
-  .updateButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #d3d837;
-    color: black;
-    font-weight: bold;
-    padding: 10px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 10px;
-    transition: background 0.3s ease-in-out;
-  }
-  
-  .updateButton:hover {
-    background: #c1c62f;
-  }
-  
+}

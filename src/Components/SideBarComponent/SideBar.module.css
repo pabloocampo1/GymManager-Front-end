@@ -93,14 +93,31 @@
 }
 
 
+.profileImageContainer {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .profileImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+ 
+  .UtilsSideBar a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
 
-/* 📱 Móviles Medianos (481px - 768px) */
-@media (max-width: 768px) {
-   
-
-    
-}
 
 
 @media (max-width: 1024px) {
