@@ -10,6 +10,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import React, { useState, useMemo } from "react";
 import styles from "./Miembros.module.css";
 import MiembrosModal from "../../Components/Modals/ModalMiembros/MiembrosModal.jsx";
+import ConfirmatioModalMiembros from "../../Components/Modals/ModalMiembros/ConfirmationModalMiembros/MiembrosConfirmation.jsx";
 
 const MiembrosModalComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,6 +19,8 @@ const MiembrosModalComponent = () => {
   const [miembros, setMiembros] = useState([]);
   const [miembroEditado, setMiembroEditado] = useState(null);
   const [searchTerm, setSearchTerm] = useState(""); // New state for search term
+  const [miembrosToDelete, setMiembrosToDelete] = useState(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   // Función para agregar un nuevo miembro
   const handleAgregarOEditarMiembro = (datos) => {
@@ -33,15 +36,11 @@ const MiembrosModalComponent = () => {
     }
   };
 
-  const onDeleteMiembro = (identificacion) => {
-    const confirmDelete = window.confirm(
-      "¿Estás seguro de que deseas eliminar este miembro?"
-    );
-    if (confirmDelete) {
-      setMiembros((prevMiembros) =>
-        prevMiembros.filter((m) => m.identificacion !== identificacion)
-      );
-    }
+  const onDeleteMiembro = (id) => {
+    // Guarda el ID de la membresía a eliminar
+    setMiembrosToDelete(id);
+    // Abre el modal de confirmación
+    setIsDeleteModalOpen(true);
   };
 
   // Manejo de menú de filtros
@@ -196,6 +195,19 @@ const MiembrosModalComponent = () => {
           onEdit={handleAgregarOEditarMiembro}
           miembroSeleccionado={miembroEditado}
           miembros={miembros}
+        />
+      )}
+      {isDeleteModalOpen && (
+        <ConfirmatioModalMiembros
+          onClose={() => setIsDeleteModalOpen(false)}
+          onConfirm={() => {
+            // Elimina el miembro cuando se confirma
+            setMiembros((prevMiembros) =>
+              prevMiembros.filter((m) => m.identificacion !== miembrosToDelete)
+            );
+            setIsDeleteModalOpen(false);
+            setMiembrosToDelete(null); // Limpia el estado después de eliminar
+          }}
         />
       )}
     </div>

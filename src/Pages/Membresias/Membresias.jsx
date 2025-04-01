@@ -10,6 +10,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import React, { useState } from "react";
 import styles from "./Membresias.module.css";
 import MembresiasModal from "../../Components/Modals/ModalMembresias/MembresiasModal.jsx";
+import ConfirmatioModalMembresia from "../../Components/Modals/ModalMembresias/ConfirmationModalMembresias/MembresiasConfirmation.jsx";
 
 const MembresiaModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,6 +18,8 @@ const MembresiaModal = () => {
   const [selectedFilter, setSelectedFilter] = useState("Todos");
   const [membresias, setMembresias] = useState([]);
   const [membresiaEditando, setMembresiaEditando] = useState(null); // 📌 Estado para la membresía a editar
+  const [membresiaToDelete, setMembresiaToDelete] = useState(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleOpenMenu = (event) => setAnchorEl(event.currentTarget);
   const handleCloseMenu = (option) => {
@@ -55,11 +58,10 @@ const MembresiaModal = () => {
   };
 
   const handleDeleteMembresia = (id) => {
-    if (window.confirm("¿Seguro que quieres eliminar esta membresía?")) {
-      setMembresias((prevMembresias) =>
-        prevMembresias.filter((m) => m.id !== id)
-      );
-    }
+    // Guarda el ID de la membresía a eliminar
+    setMembresiaToDelete(id);
+    // Abre el modal de confirmación
+    setIsDeleteModalOpen(true);
   };
 
   return (
@@ -144,6 +146,19 @@ const MembresiaModal = () => {
           onClose={() => setIsModalOpen(false)}
           onAdd={handleAddMembresia}
           membresiaEditando={membresiaEditando} // 📌 Pasamos los datos de edición al modal
+        />
+      )}
+      {isDeleteModalOpen && (
+        <ConfirmatioModalMembresia
+          onClose={() => setIsDeleteModalOpen(false)}
+          onConfirm={() => {
+            // Elimina la membresía cuando se confirma
+            setMembresias((prevMembresias) =>
+              prevMembresias.filter((m) => m.id !== membresiaToDelete)
+            );
+            setIsDeleteModalOpen(false);
+            setMembresiaToDelete(null); // Limpia el estado después de eliminar
+          }}
         />
       )}
     </div>
