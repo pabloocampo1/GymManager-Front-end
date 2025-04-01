@@ -28,14 +28,14 @@ export default function AccordionTransition() {
           slotProps={{ transition: { timeout: 400 } }}
         >
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
+            expandIcon={<ExpandMoreIcon sx={{color:"#FFDB00"}} />}
             aria-controls="panel1-content"
             id="panel1-header"
           >
-            <Typography sx={{fontWeight:"bold"}}  component="span">¿Puedo pagar la membresía en efectivo o solo con tarjeta?</Typography>
+            <Typography sx={{fontWeight:"bold", color:"white"}}  component="span">¿Puedo pagar la membresía en efectivo o solo con tarjeta?</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
+            <Typography sx={{color:"white"}}>
             💬 Aceptamos pagos en efectivo, tarjeta de crédito/débito y transferencias bancarias. También contamos con opciones de pago mensual o anual.
             </Typography>
           </AccordionDetails>
@@ -43,14 +43,14 @@ export default function AccordionTransition() {
 
         <Accordion className={style.acordion}>
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon/>}
+            expandIcon={<ExpandMoreIcon sx={{color:"#FFDB00"}}   />}
             aria-controls="panel2-content"
             id="panel2-header"
           >
-            <Typography sx={{fontWeight:"bold"}} component="span" >¿Ofrecen entrenamientos personalizados?</Typography>
+            <Typography sx={{fontWeight:"bold", color:"white"}} component="span" >¿Ofrecen entrenamientos personalizados?</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography >
+            <Typography sx={{color:"white"}} >
               Sí, contamos con entrenadores personales que te ayudarán a alcanzar tus objetivos. Pregunta en recepción para más información.
             </Typography>
           </AccordionDetails>
@@ -58,14 +58,14 @@ export default function AccordionTransition() {
 
         <Accordion className={style.acordion}>
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon/>}  
+            expandIcon={<ExpandMoreIcon sx={{color:"#FFDB00"}} />}  
             aria-controls="panel3-content"
             id="panel3-header"
           >
-          <Typography sx={{fontWeight:"bold"}} component="span" >¿Puedo probar el gimnasio antes de inscribirme?</Typography>
+          <Typography sx={{fontWeight:"bold", color:"white"}} component="span" >¿Puedo probar el gimnasio antes de inscribirme?</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography >
+            <Typography sx={{color:"white"}} >
             ¡Sí! Ofrecemos un pase gratuito de 1 día para que pruebes nuestras instalaciones. Solo necesitas registrarte en la recepción.
             </Typography>
           </AccordionDetails>
@@ -73,28 +73,28 @@ export default function AccordionTransition() {
 
         <Accordion className={style.acordion}>
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon />} 
+            expandIcon={<ExpandMoreIcon sx={{color:"#FFDB00"}} />} 
             aria-controls="panel4-content"
             id="panel4-header"
           >
-            <Typography sx={{fontWeight:"bold"}} component="span" >¿Cuál es el horario del gimnasio?</Typography>
+            <Typography sx={{fontWeight:"bold",color:"white"}} component="span" >¿Cuál es el horario del gimnasio?</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography >
+            <Typography sx={{color:"white"}} >
             💬 Nuestro gimnasio está abierto de lunes a sábado de 5:00 AM a 10:00 PM y los domingos de 7:00 AM a 5:00 PM
             </Typography>
           </AccordionDetails>
         </Accordion>
         <Accordion className={style.acordion}>
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon />} 
+            expandIcon={<ExpandMoreIcon sx={{color:"#FFDB00"}} />} 
             aria-controls="panel4-content"
             id="panel4-header"
           >
-            <Typography sx={{fontWeight:"bold"}} component="span" >¿Cuál es el horario del gimnasio?</Typography>
+            <Typography sx={{fontWeight:"bold", color:"white"}} component="span" >¿Cuál es el horario del gimnasio?</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography >
+            <Typography sx={{color:"white"}}>
             💬 Nuestro gimnasio está abierto de lunes a sábado de 5:00 AM a 10:00 PM y los domingos de 7:00 AM a 5:00 PM
             </Typography>
           </AccordionDetails>

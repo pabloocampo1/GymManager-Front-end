@@ -7,7 +7,7 @@
     display: flex;
     justify-content: space-between;
     background: rgba(0, 0, 0,0.2); 
-    backdrop-filter: blur(5px); 
+    backdrop-filter: blur(9px); 
     border-bottom: 1px solid rgb(96, 96, 96); 
     z-index: 1000; 
     transition: background 0.3s ease-in-out;
