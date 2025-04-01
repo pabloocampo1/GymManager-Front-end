@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import style from './SideBar.module.css'
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -13,11 +13,10 @@ import ContactMailIcon from '@mui/icons-material/ContactMail';
 import EventIcon from '@mui/icons-material/Event';
 import AttachEmailIcon from '@mui/icons-material/AttachEmail';
 import InventoryIcon from '@mui/icons-material/Inventory';
-import { useEffect } from 'react';
-
 
 function SideBar() {
     const [activeLink, setActiveLink] = useState("");
+    const [profileImage, setProfileImage] = useState(null);
     const navigate = useNavigate();
 
     const handleClick = (link) => {
@@ -28,11 +27,46 @@ function SideBar() {
         navigate(path);
     }
 
+    // Function to load profile image from localStorage
+    const loadProfileImage = () => {
+        const savedImage = localStorage.getItem('profileImage');
+        if (savedImage) {
+            setProfileImage(savedImage);
+        }
+    };
 
     useEffect(() => {
-        handleClick("inicio")
+        handleClick("inicio");
+        loadProfileImage();
+        
+    
+        const handleProfileUpdate = () => {
+            loadProfileImage();
+        };
+        
+        window.addEventListener('profileUpdated', handleProfileUpdate);
+        
 
-    }, [])
+        return () => {
+            window.removeEventListener('profileUpdated', handleProfileUpdate);
+        };
+    }, []);
+
+    
+    useEffect(() => {
+        
+        const handleStorageChange = (e) => {
+            if (e.key === 'profileImage') {
+                loadProfileImage();
+            }
+        };
+        
+        window.addEventListener('storage', handleStorageChange);
+        
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+        };
+    }, []);
 
     return (
         <div className={style.container_sideBar}>
@@ -74,9 +108,16 @@ function SideBar() {
             </div> 
 
             <div className={style.UtilsSideBar}>
-
-                <div className={activeLink === "perfil" ? "" : ""} onClick={() => handleClick("perfil")}>
-                    <Link to="/dashboard/perfil"><AccountCircleIcon /></Link> {/* santio debes de renderizar una imagen al perfil, osea agregar una imagen al perfil, y en esta linea, si es usuario tiene foto, entonces muestre la foto, si notiene, entonces el icono */}
+                <div className={activeLink === "perfil" ? style.activeLink : ""} onClick={() => handleClick("perfil")}>
+                    <Link to="/dashboard/perfil">
+                        {profileImage ? (
+                            <div className={style.profileImageContainer}>
+                                <img src={profileImage} alt="Foto de perfil" className={style.profileImage} />
+                            </div>
+                        ) : (
+                            <AccountCircleIcon />
+                        )}
+                    </Link>
                 </div>
                 <div>
                     <Link to="/login"><LogoutIcon /></Link>
