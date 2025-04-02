@@ -31,7 +31,7 @@ const ContactHome = () => {
                                     <LocalPhoneIcon fontSize='large' sx={{ color: "white" }} />
                                 </div>
                                 <div className={style.details_about_contact} >
-                                    <h3>Tefonos decontacto</h3>
+                                    <h3>Telefonos de contacto</h3>
                                     <ol>
                                         <li>343434</li>
                                         <li>34343</li>
@@ -43,7 +43,7 @@ const ContactHome = () => {
                                     <EmailIcon fontSize='large' sx={{ color: "white" }}> </EmailIcon>
                                 </div>
                                 <div className={style.details_about_contact} >
-                                    <h3>Tefonos decontacto</h3>
+                                    <h3>Telefonos de contacto</h3>
                                     <ol>
                                         <li>343434</li>
                                         <li>34343</li>
@@ -54,7 +54,7 @@ const ContactHome = () => {
                                     <LocationOnIcon fontSize='large' sx={{ color: "white" }} />
                                 </div>
                                 <div className={style.details_about_contact} >
-                                    <h3>Tefonos decontacto</h3>
+                                    <h3>Telefonos de contacto</h3>
                                     <ol>
                                         <li>343434</li>
                                         <li>34343</li>
@@ -66,7 +66,7 @@ const ContactHome = () => {
                                     <AccessTimeFilledIcon fontSize='large' sx={{ color: "white" }} />
                                 </div>
                                 <div className={style.details_about_contact} >
-                                    <h3>Tefonos decontacto</h3>
+                                    <h3>Telefonos de contacto</h3>
                                     <ol>
                                         <li>343434</li>
                                         <li>34343</li>

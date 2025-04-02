@@ -24,7 +24,7 @@ const IntroduccionHome = () => {
                 <p className={style.name_gym}>VALLHALLA GYM</p>
                 <h1><TypingEffect text={["El SALON DE LOS", "DIOSES"]} speed={80} /></h1>
                 <p className={style.text_introduction}>Transforma tu cuerpo, transforma tu <br></br> vida. !Unete a nuestra comunidad <br /> fitness¡</p>
-                <Link to="contact#contact"><button>contactanos</button></Link>
+                <Link to="contact#contact"><button>Contactanos</button></Link>
             </div>
             <div className={style.container_bubble}>
                 <motion.div

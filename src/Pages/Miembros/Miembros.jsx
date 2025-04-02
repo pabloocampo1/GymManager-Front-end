@@ -110,9 +110,7 @@ const MiembrosModalComponent = () => {
           onClose={() => handleCloseMenu()}
         >
           <MenuItem onClick={() => handleCloseMenu("Activo")}>Activo</MenuItem>
-          <MenuItem onClick={() => handleCloseMenu("Inactivo")}>
-            Inactivo
-          </MenuItem>
+          <MenuItem onClick={() => handleCloseMenu("Inactivo")}>Inactivo</MenuItem>
           <MenuItem onClick={() => handleCloseMenu("Todos")}>Todos</MenuItem>
         </Menu>
 
@@ -130,7 +128,7 @@ const MiembrosModalComponent = () => {
 
       {/* Estado del filtro y búsqueda */}
       <h2 className={styles.filtered_title}>
-        Filtrado por estado: {selectedFilter} 
+        Filtrado por: {selectedFilter} 
       </h2>
 
       {/* Tabla de miembros */}
