@@ -1,27 +1,20 @@
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import styles from "./FilterMaxInventory.module.css";
 
-const FilterMaxInventory = ({
-  items,
-  onClose,
-  onUpdateItems
-}) => {
+const FilterMaxInventory = ({ items, onClose, onUpdateItems }) => {
   const [selectedFilter, setSelectedFilter] = useState("");
   const [selectedItemIds, setSelectedItemIds] = useState([]);
   const [displayItems, setDisplayItems] = useState([]);
 
-  // Efecto para actualizar los items mostrados basado en el filtro
   useEffect(() => {
     let filteredItems = [];
-    
     if (selectedFilter === "aceptable-deplorable") {
-      filteredItems = items.filter(item => item.estado === 'Aceptable');
+      filteredItems = items.filter((item) => item.estado === "Aceptable");
     } else if (selectedFilter === "deplorable-aceptable") {
-      filteredItems = items.filter(item => item.estado === 'Deplorable');
+      filteredItems = items.filter((item) => item.estado === "Deplorable");
     }
-    
     setDisplayItems(filteredItems);
-    // Reiniciar items seleccionados cuando cambia el filtro
     setSelectedItemIds([]);
   }, [selectedFilter, items]);
 
@@ -30,58 +23,40 @@ const FilterMaxInventory = ({
   };
 
   const handleFilterChange = (e) => {
-    const filterValue = e.target.value;
-    setSelectedFilter(filterValue);
-
+    setSelectedFilter(e.target.value);
     setSelectedItemIds([]);
   };
 
   const handleItemSelect = (itemId) => {
-    setSelectedItemIds(prevSelectedItemIds => {
-     
-      if (prevSelectedItemIds.includes(itemId)) {
-        return prevSelectedItemIds.filter(id => id !== itemId);
-      }
-      return [...prevSelectedItemIds, itemId];
-    });
+    setSelectedItemIds((prevSelectedItemIds) =>
+      prevSelectedItemIds.includes(itemId)
+        ? prevSelectedItemIds.filter((id) => id !== itemId)
+        : [...prevSelectedItemIds, itemId]
+    );
   };
 
   const handleAccept = () => {
-    // Validar que haya un filtro y elementos seleccionados
     if (!selectedFilter || selectedItemIds.length === 0) {
       alert("Debe seleccionar un filtro y al menos un elemento");
       return;
     }
-  
-    // Determinar el nuevo estado basado en el filtro seleccionado
-    const newState = selectedFilter === 'deplorable-aceptable' 
-      ? 'Aceptable' 
-      : 'Deplorable';
-  
-    // Crear una copia de los items con el estado actualizado
-    const updatedItems = items.map(item => {
-      
-      if (selectedItemIds.includes(item.id)) {
-        return {
-          ...item,
-          estado: newState
-        };
-      }
-      
-      return item;
-    });
-  
-
+    const newState =
+      selectedFilter === "deplorable-aceptable" ? "Aceptable" : "Deplorable";
+    const updatedItems = items.map((item) =>
+      selectedItemIds.includes(item.id) ? { ...item, estado: newState } : item
+    );
     onUpdateItems(updatedItems);
-    
-    // Cerrar el modal
     onClose();
   };
 
   return (
-    <div 
+    <motion.div 
       className={styles.ConteinerFilterMax}
       onClick={handleContainerClick}
+      initial={{ opacity: 0, y: -100, scale: 0.8 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: 100, scale: 0.8 }}
+      transition={{ type: "spring", stiffness: 100, damping: 10 }}
     >
       <div className={styles.HeaderFilterMax}>
         <h2>Filtrado Máximo de Inventario</h2>
@@ -119,9 +94,7 @@ const FilterMaxInventory = ({
             ))}
           </div>
         ) : (
-          selectedFilter 
-            ? <p>No hay Objetos por el filtro selecionado</p>
-            : <p>Selecciona una opcion de filtrado</p>
+          <p>{selectedFilter ? "No hay Objetos por el filtro seleccionado" : "Selecciona una opción de filtrado"}</p>
         )}
       </div>
 
@@ -133,14 +106,11 @@ const FilterMaxInventory = ({
         >
           Aceptar Cambios
         </button>
-        <button
-          onClick={onClose}
-          className={styles.cancelButton}
-        >
+        <button onClick={onClose} className={styles.cancelButton}>
           Cancelar
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./InventoryModal.module.css";
 import ClearIcon from '@mui/icons-material/Clear';
+import {motion, AnimatePresence} from "framer-motion"
 
 const InventoryModal = ({ 
   isOpen, 
@@ -73,19 +74,30 @@ const InventoryModal = ({
 
   /*estructura omg*/ 
   return (
-    <div 
-      className={styles.modalOverlay} 
-      onClick={(e) => e.target.classList.contains(styles.modalOverlay) && onClose()}
-    >
-      <div className={styles.modal}>
-        <div className={styles.modalClosebtn}>
-          <ClearIcon onClick={onClose}></ClearIcon>
-        </div>
-        <div className={styles.title}>
-          <h2>{initialItemData ? "Editar Objeto" : "Añadir Objeto"}</h2>
-        </div>
-        
-        <form onSubmit={handleSubmit}>
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div 
+          className={styles.modalOverlay}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={(e) => e.target.classList.contains(styles.modalOverlay) && onClose()}
+        >
+          <motion.div 
+            className={styles.modal}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            <div className={styles.modalClosebtn}>
+              <ClearIcon onClick={onClose}></ClearIcon>
+            </div>
+            <div className={styles.title}>
+              <h2>{initialItemData ? "Editar Objeto" : "Añadir Objeto"}</h2>
+            </div>
+            
+            <form onSubmit={handleSubmit}>
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
               <label htmlFor="nombre">Nombre del Objeto:</label>
@@ -218,9 +230,10 @@ const InventoryModal = ({
             </button>
           </div>
         </form>
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
-
 export default InventoryModal;
