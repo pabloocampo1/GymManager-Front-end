@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReactDOM from "react-dom"; // Importa ReactDOM
 import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -70,15 +71,16 @@ const TargetEvent = ({ event, onDelete, onEdit }) => {
                 </div>
             </div>
 
-            {/* Modal de eliminación */}
-            {isDeleteModalOpen && (
+            {/* Modal de eliminación renderizado en el <body> */}
+            {isDeleteModalOpen && ReactDOM.createPortal(
                 <ConfirmationModalEvent 
                     onClose={() => setIsDeleteModalOpen(false)}
                     onConfirm={() => {
                         setIsDeleteModalOpen(false);
                         if (onDelete) onDelete(event);
                     }}
-                />
+                />,
+                document.body
             )}
         </div>
     );
