@@ -110,13 +110,13 @@ const MiembrosModal = ({
     }
   
     if (miembroSeleccionado) {
-      // 🔄 Editar un miembro existente
+      // Editar un miembro existente
       onAdd({
         tipo: 'editar',
         miembro: formData
       });
     } else {
-      // 🆕 Agregar un nuevo miembro
+      // Agregar un nuevo miembro
       const existe = miembros.some((m) => m.identificacion === identificacion);
       if (existe) {
         alert("Error: La identificación ya está registrada.");

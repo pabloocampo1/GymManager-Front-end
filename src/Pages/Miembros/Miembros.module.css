@@ -123,6 +123,7 @@
   font-size: 18px;
   color: #454141;
   transition: color 0.2s ease;
+  margin: 3px;
 }
 
 .delete_icon {
