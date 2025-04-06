@@ -1,14 +1,15 @@
 import { Box, Typography } from '@mui/material';
 
-import ButtonActive from './Buttons/ButtonActive';
-import ButtonInactive from './Buttons/ButtonInactive';
-import {  useEffect, useState } from 'react';
+import ButtonActive from '../Buttons/ButtonActive';
+import ButtonInactive from '../Buttons/ButtonInactive';
+import { useEffect, useState } from 'react';
 import DataUserAccesAllInfo from './DataUserAccesAllInfo';
 
 
-const DataUserAccesUI = ({ dataUser = [], isUserSelect }) => {
+const DataUserAccesUI = ({ dataUser = [], isUserSelect, message }) => {
     const [open, setOpen] = useState(false);
     const [dataByUserSelect, setDataUserSelect] = useState({});
+    
 
     const handleOpen = (infoUser) => {
         setDataUserSelect(infoUser)
@@ -16,9 +17,9 @@ const DataUserAccesUI = ({ dataUser = [], isUserSelect }) => {
     };
     const handleClose = () => setOpen(false);
 
-   useEffect(() => {
+    useEffect(() => {
 
-   }, [open])
+    }, [open])
 
     return (
         <Box sx={{
@@ -41,12 +42,12 @@ const DataUserAccesUI = ({ dataUser = [], isUserSelect }) => {
                                 m: "10px 0px",
                                 alignItems: "center",
                                 bgcolor: "#FFFFFF",
-                                
-                            }} 
+
+                            }}
                         >
                             <Typography variant="h6">{user.name}</Typography>
                             <Typography variant="body2">DNI: {user.DNI}</Typography>
-                            {user.status ? <ButtonActive text={"Activo"} /> : <ButtonInactive text={"Membresia vencida"} />}
+                            {user.estado == "Activa" ?  (<ButtonActive text={user.estado}></ButtonActive>) : (<ButtonInactive text={user.estado} />)}
                         </Box>
                     ))
                 ) : (
@@ -54,8 +55,9 @@ const DataUserAccesUI = ({ dataUser = [], isUserSelect }) => {
                 )
             ) : console.log("perra")
             }
-            {open && <DataUserAccesAllInfo open={open} onClose={handleClose} data={dataByUserSelect} />
+            {open && <DataUserAccesAllInfo open={open} onClose={handleClose} data={dataByUserSelect} message={message} />
             }
+           
         </Box>
     );
 };
