@@ -172,7 +172,6 @@ const MiembrosModalComponent = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-<<<<<<< HEAD
             {filteredMiembros.length > 0 ? (
               filteredMiembros.map((miembro) => (
                 <TableRow key={miembro.identificacion || `temp-${Date.now()}`}>
@@ -195,22 +194,6 @@ const MiembrosModalComponent = () => {
               <TableRow>
                 <TableCell colSpan={8} style={{ textAlign: 'center' }}>
                   No se encontraron miembros con los criterios de búsqueda.
-=======
-            {filteredMiembros.map((miembro) => (
-              <TableRow key={miembro.identificacion || `temp-${Date.now()}`}>
-                <TableCell>{miembro.identificacion}</TableCell>
-                <TableCell>{miembro.nombre}</TableCell>
-                <TableCell>{miembro.telefono}</TableCell>
-                <TableCell className={miembro.estado === "Activo" ? styles.estado_activo : styles.estado_inactivo}>
-                  {miembro.estado}
-                </TableCell>
-                <TableCell>{miembro.membresia}</TableCell>
-                <TableCell>{miembro.fechaInscripcion}</TableCell>
-                <TableCell>{miembro.finMembresia}</TableCell>
-                <TableCell>
-                  <FaPen className={styles.edit_icon} onClick={() => { setMiembroEditado(miembro); setIsModalOpen(true); }} />
-                  <DeleteIcon className={styles.delete_icon} onClick={() => onDeleteMiembro(miembro.identificacion)} />
->>>>>>> 20c4f1df117692b96f6b855b2aaacff8aaa9eb5f
                 </TableCell>
               </TableRow>
             )}
