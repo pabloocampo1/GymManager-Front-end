@@ -1,11 +1,56 @@
-
-
 .container_login {
   width: 100%;
   height: 100vh;
   display: flex;
+  position: relative;
 }
 
+/* Estilos para el Loading Overlay */
+.loadingOverlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9998;
+ 
+ 
+}
+
+.blackBackground {
+  position: absolute;
+  inset: 0;
+  background-color: black;
+  z-index: -1;
+  
+
+}
+
+.loadingLine {
+  background-color: rgba(255, 230, 1); /* Un poco más sólido */
+  backdrop-filter: blur(5px); /* Ligero desenfoque */
+  position: absolute;
+  z-index: 10001;
+  transform-origin: center;
+  opacity: 0.2;
+}
+
+.leftPanel, .rightPanel {
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 50%;
+  background-color: black;
+  z-index: 10001;
+}
+
+.leftPanel {
+  left: 0;
+}
+
+.rightPanel {
+  right: 0;
+}
 .container_image {
   width: 50%;
   height: 100vh;

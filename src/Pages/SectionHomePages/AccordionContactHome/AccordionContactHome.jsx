@@ -1,104 +1,91 @@
 import * as React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import style from "./AccordionContactHome.module.css";
-
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Fade from '@mui/material/Fade';
+import Typography from '@mui/material/Typography';
+
+const MotionAccordion = ({ title, children }) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  
+  return (
+    <motion.div 
+      className={style.acordion}
+      initial={false}
+    >
+      <motion.div 
+        className={style.accordionHeader}
+        onClick={() => setIsOpen(!isOpen)}
+        style={{ 
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          alignItems: 'center',
+          padding: '12px 16px',
+          cursor: 'pointer',
+          borderRadius: isOpen ? '4px 4px 0 0' : '4px'
+        }}
+      >
+        <Typography sx={{fontWeight:"bold", color:"white"}} component="span">
+          {title}
+        </Typography>
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <ExpandMoreIcon sx={{color:"#FFDB00"}} />
+        </motion.div>
+      </motion.div>
+      
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            style={{ overflow: 'hidden' }}
+          >
+            <div style={{ padding: '8px 16px 16px 16px' }}>
+              <Typography sx={{color:"white"}}>
+                {children}
+              </Typography>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+};
 
 export default function AccordionTransition() {
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpansion = () => {
-    setExpanded((prevExpanded) => !prevExpanded);
-  };
-
   return (
     <div className={style.Accordion_container}>
       <h2>Preguntas Frecuentes</h2>
       <div className={style.accordion_content}>
-
-        <Accordion 
-          expanded={expanded}
-          onChange={handleExpansion}
-          slots={{ transition: Fade }}
-          className={style.acordion}
-          slotProps={{ transition: { timeout: 400 } }}
+        
+        <MotionAccordion 
+          title="¿Puedo pagar la membresía en efectivo o solo con tarjeta?"
         >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon sx={{color:"#FFDB00"}} />}
-            aria-controls="panel1-content"
-            id="panel1-header"
-          >
-            <Typography sx={{fontWeight:"bold", color:"white"}}  component="span">¿Puedo pagar la membresía en efectivo o solo con tarjeta?</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography sx={{color:"white"}}>
-            💬 Aceptamos pagos en efectivo, tarjeta de crédito/débito y transferencias bancarias. También contamos con opciones de pago mensual o anual.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-
-        <Accordion className={style.acordion}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon sx={{color:"#FFDB00"}}   />}
-            aria-controls="panel2-content"
-            id="panel2-header"
-          >
-            <Typography sx={{fontWeight:"bold", color:"white"}} component="span" >¿Ofrecen entrenamientos personalizados?</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography sx={{color:"white"}} >
-              Sí, contamos con entrenadores personales que te ayudarán a alcanzar tus objetivos. Pregunta en recepción para más información.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-
-        <Accordion className={style.acordion}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon sx={{color:"#FFDB00"}} />}  
-            aria-controls="panel3-content"
-            id="panel3-header"
-          >
-          <Typography sx={{fontWeight:"bold", color:"white"}} component="span" >¿Puedo probar el gimnasio antes de inscribirme?</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography sx={{color:"white"}} >
-            ¡Sí! Ofrecemos un pase gratuito de 1 día para que pruebes nuestras instalaciones. Solo necesitas registrarte en la recepción.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-
-        <Accordion className={style.acordion}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon sx={{color:"#FFDB00"}} />} 
-            aria-controls="panel4-content"
-            id="panel4-header"
-          >
-            <Typography sx={{fontWeight:"bold",color:"white"}} component="span" >¿Cuál es el horario del gimnasio?</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography sx={{color:"white"}} >
-            💬 Nuestro gimnasio está abierto de lunes a sábado de 5:00 AM a 10:00 PM y los domingos de 7:00 AM a 5:00 PM
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion className={style.acordion}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon sx={{color:"#FFDB00"}} />} 
-            aria-controls="panel4-content"
-            id="panel4-header"
-          >
-            <Typography sx={{fontWeight:"bold", color:"white"}} component="span" >¿Cuál es el horario del gimnasio?</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography sx={{color:"white"}}>
-            💬 Nuestro gimnasio está abierto de lunes a sábado de 5:00 AM a 10:00 PM y los domingos de 7:00 AM a 5:00 PM
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
+          💬 Aceptamos pagos en efectivo, tarjeta de crédito/débito y transferencias bancarias. También contamos con opciones de pago mensual o anual.
+        </MotionAccordion>
+        
+        <MotionAccordion 
+          title="¿Ofrecen entrenamientos personalizados?"
+        >
+          Sí, contamos con entrenadores personales que te ayudarán a alcanzar tus objetivos. Pregunta en recepción para más información.
+        </MotionAccordion>
+        
+        <MotionAccordion 
+          title="¿Puedo probar el gimnasio antes de inscribirme?"
+        >
+          ¡Sí! Ofrecemos un pase gratuito de 1 día para que pruebes nuestras instalaciones. Solo necesitas registrarte en la recepción.
+        </MotionAccordion>
+        
+        <MotionAccordion 
+          title="¿Cuál es el horario del gimnasio?"
+        >
+          💬 Nuestro gimnasio está abierto de lunes a sábado de 5:00 AM a 10:00 PM y los domingos de 7:00 AM a 5:00 PM
+        </MotionAccordion>
+        
       </div>
     </div>
   );

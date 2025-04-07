@@ -110,9 +110,7 @@ const MiembrosModalComponent = () => {
           onClose={() => handleCloseMenu()}
         >
           <MenuItem onClick={() => handleCloseMenu("Activo")}>Activo</MenuItem>
-          <MenuItem onClick={() => handleCloseMenu("Inactivo")}>
-            Inactivo
-          </MenuItem>
+          <MenuItem onClick={() => handleCloseMenu("Inactivo")}>Inactivo</MenuItem>
           <MenuItem onClick={() => handleCloseMenu("Todos")}>Todos</MenuItem>
         </Menu>
 
@@ -130,12 +128,33 @@ const MiembrosModalComponent = () => {
 
       {/* Estado del filtro y búsqueda */}
       <h2 className={styles.filtered_title}>
-        Filtrado por estado: {selectedFilter} 
+        Filtrado por: {selectedFilter} 
       </h2>
 
       {/* Tabla de miembros */}
-      <TableContainer className={styles.miembros_table}>
-        <Table>
+      <TableContainer className={styles.miembros_table} style={{ backgroundColor: '#F9F9F9', border:'4px solid #F9F9F9', borderRadius :'30px' }}>
+        <Table sx={{ 
+          borderCollapse: 'separate',
+          borderSpacing: '0 5px',
+          '& td, & th': { 
+            border: 'none' 
+          },
+          '& tbody tr': {
+            backgroundColor: 'white',
+          },
+          '& tbody tr td': {
+            padding: '10px 16px',
+          },
+          '& tbody tr td:first-of-type': {
+            borderRadius: '35px 0 0 35px',
+          },
+          '& tbody tr td:last-child': {
+            borderRadius: '0 35px 35px 0',
+          },
+          '& tbody': {
+            backgroundColor: '#F9F9F9',
+          }
+        }}>
           <TableHead>
             <TableRow>
               <TableCell>Documento</TableCell>
@@ -154,31 +173,15 @@ const MiembrosModalComponent = () => {
                 <TableCell>{miembro.identificacion}</TableCell>
                 <TableCell>{miembro.nombre}</TableCell>
                 <TableCell>{miembro.telefono}</TableCell>
-                <TableCell
-                  className={
-                    miembro.estado === "Activo"
-                      ? styles.estado_activo
-                      : styles.estado_inactivo
-                  }
-                >
+                <TableCell className={miembro.estado === "Activo" ? styles.estado_activo : styles.estado_inactivo}>
                   {miembro.estado}
                 </TableCell>
                 <TableCell>{miembro.membresia}</TableCell>
                 <TableCell>{miembro.fechaInscripcion}</TableCell>
                 <TableCell>{miembro.finMembresia}</TableCell>
                 <TableCell>
-                  <FaPen
-                    className={styles.edit_icon}
-                    onClick={() => {
-                      setMiembroEditado(miembro);
-                      setIsModalOpen(true);
-                    }}
-                  />
-
-                  <DeleteIcon
-                    className={styles.delete_icon}
-                    onClick={() => onDeleteMiembro(miembro.identificacion)}
-                  />
+                  <FaPen className={styles.edit_icon} onClick={() => { setMiembroEditado(miembro); setIsModalOpen(true); }} />
+                  <DeleteIcon className={styles.delete_icon} onClick={() => onDeleteMiembro(miembro.identificacion)} />
                 </TableCell>
               </TableRow>
             ))}

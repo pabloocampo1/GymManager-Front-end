@@ -34,12 +34,14 @@
   display: flex;
   align-items: center;
   background-color: white;
+  max-width: none;
+  width: 100%;
 }
 
 .inventory_title {
   font-size: 1.875rem;
   font-weight: bold;
-  margin-right: 68px;
+  margin-right: auto;
   white-space: nowrap;
 }
 
