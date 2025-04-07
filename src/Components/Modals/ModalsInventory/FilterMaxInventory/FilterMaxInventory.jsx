@@ -50,6 +50,7 @@ const FilterMaxInventory = ({ items, onClose, onUpdateItems }) => {
   };
 
   return (
+    <div className={styles._inventory_container_ovjvj_11}>
     <motion.div 
       className={styles.ConteinerFilterMax}
       onClick={handleContainerClick}
@@ -111,6 +112,7 @@ const FilterMaxInventory = ({ items, onClose, onUpdateItems }) => {
         </button>
       </div>
     </motion.div>
+    </div>
   );
 };
 

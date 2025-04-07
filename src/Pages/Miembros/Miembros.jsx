@@ -18,7 +18,7 @@ const MiembrosModalComponent = () => {
   const [selectedFilter, setSelectedFilter] = useState("Todos");
   const [miembros, setMiembros] = useState([]);
   const [miembroEditado, setMiembroEditado] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(""); // New state for search term
+  const [searchTerm, setSearchTerm] = useState(""); 
   const [miembrosToDelete, setMiembrosToDelete] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -64,23 +64,27 @@ const MiembrosModalComponent = () => {
   const filteredMiembros = useMemo(() => {
     let result = miembros;
 
-    // Filter by status
-    if (selectedFilter !== "Todos") {
-      result = result.filter((miembro) => miembro.estado === selectedFilter);
-    }
-
-    // Filter by search term
+    // Si hay un término de búsqueda, aplicar solo la búsqueda
     if (searchTerm) {
       const searchTermLower = searchTerm.toLowerCase();
-      result = result.filter((miembro) => 
+      result = miembros.filter((miembro) => 
         miembro.identificacion.toLowerCase().includes(searchTermLower) ||
         miembro.nombre.toLowerCase().includes(searchTermLower) ||
         miembro.telefono.toLowerCase().includes(searchTermLower)
       );
+    } 
+    // Si no hay búsqueda, aplicar solo el filtro
+    else if (selectedFilter !== "Todos") {
+      result = result.filter((miembro) => miembro.estado === selectedFilter);
     }
 
     return result;
   }, [miembros, selectedFilter, searchTerm]);
+
+  // Determinar qué criterio mostrar (búsqueda tiene prioridad)
+  const titleToShow = searchTerm 
+    ? `Búsqueda: ${searchTerm}` 
+    : `Filtrado por: ${selectedFilter}`;
 
   return (
     <div className={styles.miembros_container}>
@@ -126,9 +130,9 @@ const MiembrosModalComponent = () => {
         </button>
       </div>
 
-      {/* Estado del filtro y búsqueda */}
+      {/* Muestra solo un criterio a la vez (búsqueda tiene prioridad) */}
       <h2 className={styles.filtered_title}>
-        Filtrado por: {selectedFilter} 
+        {titleToShow}
       </h2>
 
       {/* Tabla de miembros */}
@@ -168,23 +172,31 @@ const MiembrosModalComponent = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredMiembros.map((miembro) => (
-              <TableRow key={miembro.identificacion || `temp-${Date.now()}`}>
-                <TableCell>{miembro.identificacion}</TableCell>
-                <TableCell>{miembro.nombre}</TableCell>
-                <TableCell>{miembro.telefono}</TableCell>
-                <TableCell className={miembro.estado === "Activo" ? styles.estado_activo : styles.estado_inactivo}>
-                  {miembro.estado}
-                </TableCell>
-                <TableCell>{miembro.membresia}</TableCell>
-                <TableCell>{miembro.fechaInscripcion}</TableCell>
-                <TableCell>{miembro.finMembresia}</TableCell>
-                <TableCell>
-                  <FaPen className={styles.edit_icon} onClick={() => { setMiembroEditado(miembro); setIsModalOpen(true); }} />
-                  <DeleteIcon className={styles.delete_icon} onClick={() => onDeleteMiembro(miembro.identificacion)} />
+            {filteredMiembros.length > 0 ? (
+              filteredMiembros.map((miembro) => (
+                <TableRow key={miembro.identificacion || `temp-${Date.now()}`}>
+                  <TableCell>{miembro.identificacion}</TableCell>
+                  <TableCell>{miembro.nombre}</TableCell>
+                  <TableCell>{miembro.telefono}</TableCell>
+                  <TableCell className={miembro.estado === "Activo" ? styles.estado_activo : styles.estado_inactivo}>
+                    {miembro.estado}
+                  </TableCell>
+                  <TableCell>{miembro.membresia}</TableCell>
+                  <TableCell>{miembro.fechaInscripcion}</TableCell>
+                  <TableCell>{miembro.finMembresia}</TableCell>
+                  <TableCell>
+                    <FaPen className={styles.edit_icon} onClick={() => { setMiembroEditado(miembro); setIsModalOpen(true); }} />
+                    <DeleteIcon className={styles.delete_icon} onClick={() => onDeleteMiembro(miembro.identificacion)} />
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={8} style={{ textAlign: 'center' }}>
+                  No se encontraron miembros con los criterios de búsqueda.
                 </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </TableContainer>

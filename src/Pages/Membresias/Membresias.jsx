@@ -17,24 +17,53 @@ const MembresiaModal = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState("Todos");
   const [membresias, setMembresias] = useState([]);
-  const [membresiaEditando, setMembresiaEditando] = useState(null); // 📌 Estado para la membresía a editar
+  const [membresiaEditando, setMembresiaEditando] = useState(null);
   const [membresiaToDelete, setMembresiaToDelete] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [activeFilterType, setActiveFilterType] = useState("filter"); // "filter" o "search"
 
   const handleOpenMenu = (event) => setAnchorEl(event.currentTarget);
   const handleCloseMenu = (option) => {
-    if (option) setSelectedFilter(option);
+    if (option) {
+      setSelectedFilter(option);
+      setActiveFilterType("filter");
+      // Si se selecciona un filtro, limpiamos la búsqueda
+      setSearchTerm("");
+    }
     setAnchorEl(null);
   };
 
-  const filteredMembresias =
-    selectedFilter === "Todos"
-      ? membresias
-      : membresias.filter((m) => m.type === selectedFilter);
+  // Handle search input change
+  const handleSearchChange = (event) => {
+    const value = event.target.value;
+    setSearchTerm(value);
+    
+    // Cambiamos al tipo de filtro de búsqueda si hay texto
+    // O volvemos al filtro normal si se borró el texto
+    if (value) {
+      setActiveFilterType("search");
+    } else if (!value && activeFilterType === "search") {
+      setActiveFilterType("filter");
+    }
+  };
+
+  // Filtrado según el tipo activo
+  const filteredMembresias = membresias.filter((m) => {
+    if (activeFilterType === "search" && searchTerm) {
+      // Solo aplicamos búsqueda si está activa y hay texto
+      return m.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        m.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        m.precio.toString().includes(searchTerm.toLowerCase()) ||
+        m.duracion.toLowerCase().includes(searchTerm.toLowerCase());
+    } else {
+      // Por defecto, usamos el filtro por tipo
+      return selectedFilter === "Todos" || m.type === selectedFilter;
+    }
+  });
 
   const handleAddMembresia = (newMembresia) => {
     if (membresiaEditando) {
-      // 📌 Editar membresía existente
       setMembresias((prevMembresias) =>
         prevMembresias.map((m) =>
           m.id === membresiaEditando.id ? newMembresia : m
@@ -42,13 +71,11 @@ const MembresiaModal = () => {
       );
       setMembresiaEditando(null);
     } else {
-      // 📌 Agregar nueva membresía
       setMembresias([
         ...membresias,
         { id: membresias.length + 1, ...newMembresia },
       ]);
     }
-
     setIsModalOpen(false);
   };
 
@@ -58,10 +85,17 @@ const MembresiaModal = () => {
   };
 
   const handleDeleteMembresia = (id) => {
-    // Guarda el ID de la membresía a eliminar
     setMembresiaToDelete(id);
-    // Abre el modal de confirmación
     setIsDeleteModalOpen(true);
+  };
+
+  // Determinar el título del filtro actual
+  const getFilterTitle = () => {
+    if (activeFilterType === "search" && searchTerm) {
+      return `Búsqueda: ${searchTerm}`;
+    } else {
+      return `Filtrado por: ${selectedFilter}`;
+    }
   };
 
   return (
@@ -75,10 +109,16 @@ const MembresiaModal = () => {
             type="text"
             placeholder="Buscar membresías"
             className={styles.search_input}
+            value={searchTerm}
+            onChange={handleSearchChange}
           />
         </div>
 
-        <Button className={styles.filter_boton} onClick={handleOpenMenu}>
+        <Button 
+          className={styles.filter_boton} 
+          onClick={handleOpenMenu}
+          disabled={activeFilterType === "search" && searchTerm}
+        >
           <FaFilter className={styles.filter_icon} /> Filtrar
         </Button>
         <Menu
@@ -103,10 +143,33 @@ const MembresiaModal = () => {
         </Button>
       </div>
 
-      <h2 className={styles.filtered_title}>Filtrado por: {selectedFilter}</h2>
+      <h2 className={styles.filtered_title}>
+        {getFilterTitle()}
+      </h2>
 
-      <TableContainer className={styles.membresia_table}>
-        <Table>
+      <TableContainer className={styles.membresia_table} style={{ backgroundColor: '#F9F9F9', border:'4px solid #F9F9F9', borderRadius:'30px' }}>
+        <Table sx={{ 
+          borderCollapse: 'separate',
+          borderSpacing: '0 5px',
+          '& td, & th': { 
+            border: 'none' 
+          },
+          '& tbody tr': {
+            backgroundColor: 'white',
+          },
+          '& tbody tr td': {
+            padding: '10px 16px',
+          },
+          '& tbody tr td:first-of-type': {
+            borderRadius: '35px 0 0 35px',
+          },
+          '& tbody tr td:last-child': {
+            borderRadius: '0 35px 35px 0',
+          },
+          '& tbody': {
+            backgroundColor: '#F9F9F9',
+          }
+        }}>
           <TableHead>
             <TableRow>
               <TableCell>Nombre</TableCell>
@@ -117,47 +180,53 @@ const MembresiaModal = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredMembresias.map((membresia) => (
-              <TableRow key={membresia.id} className={styles.membresia_row}>
-                <TableCell>{membresia.name}</TableCell>
-                <TableCell>{membresia.duracion}</TableCell>
-                <TableCell>{membresia.precio}</TableCell>
-                <TableCell>{membresia.type}</TableCell>
-                <TableCell>
-                  <FaPen
-                    className={styles.edit_icon}
-                    onClick={() => handleEditMembresia(membresia)}
-                  />
-                  <DeleteIcon
-                    className={styles.delete_icon}
-                    onClick={() => handleDeleteMembresia(membresia.id)}
-                  />
+            {filteredMembresias.length > 0 ? (
+              filteredMembresias.map((membresia) => (
+                <TableRow key={membresia.id}>
+                  <TableCell>{membresia.name}</TableCell>
+                  <TableCell>{membresia.duracion}</TableCell>
+                  <TableCell>{membresia.precio}</TableCell>
+                  <TableCell>{membresia.type}</TableCell>
+                  <TableCell>
+                    <FaPen
+                      className={styles.edit_icon}
+                      onClick={() => handleEditMembresia(membresia)}
+                    />
+                    <DeleteIcon
+                      className={styles.delete_icon}
+                      onClick={() => handleDeleteMembresia(membresia.id)}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={5} style={{ textAlign: 'center' }}>
+                  No se encontraron membresías con los criterios de búsqueda.
                 </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </TableContainer>
 
-      {/* 📌 Modal para agregar/editar membresías */}
       {isModalOpen && (
         <MembresiasModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           onAdd={handleAddMembresia}
-          membresiaEditando={membresiaEditando} // 📌 Pasamos los datos de edición al modal
+          membresiaEditando={membresiaEditando}
         />
       )}
       {isDeleteModalOpen && (
         <ConfirmatioModalMembresia
           onClose={() => setIsDeleteModalOpen(false)}
           onConfirm={() => {
-            // Elimina la membresía cuando se confirma
             setMembresias((prevMembresias) =>
               prevMembresias.filter((m) => m.id !== membresiaToDelete)
             );
             setIsDeleteModalOpen(false);
-            setMembresiaToDelete(null); // Limpia el estado después de eliminar
+            setMembresiaToDelete(null);
           }}
         />
       )}
