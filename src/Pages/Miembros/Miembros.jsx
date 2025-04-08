@@ -11,6 +11,8 @@ import React, { useState, useMemo } from "react";
 import styles from "./Miembros.module.css";
 import MiembrosModal from "../../Components/Modals/ModalMiembros/MiembrosModal.jsx";
 import ConfirmatioModalMiembros from "../../Components/Modals/ModalMiembros/ConfirmationModalMiembros/MiembrosConfirmation.jsx";
+import ActiveButton from "../../Components/Buttons/ButtonActive.jsx"
+import InactiveButton from "../../Components/Buttons/ButtonInactive.jsx"
 
 const MiembrosModalComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,7 +20,7 @@ const MiembrosModalComponent = () => {
   const [selectedFilter, setSelectedFilter] = useState("Todos");
   const [miembros, setMiembros] = useState([]);
   const [miembroEditado, setMiembroEditado] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(""); // New state for search term
+  const [searchTerm, setSearchTerm] = useState(""); 
   const [miembrosToDelete, setMiembrosToDelete] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -60,27 +62,61 @@ const MiembrosModalComponent = () => {
     setSearchTerm(event.target.value);
   };
 
+  // Función para determinar si una membresía está activa
+  const isMembresiaActiva = (miembro) => {
+    // Verificamos si el miembro tiene el estado explícitamente como "Activo"
+    if (miembro.estado === "Activo") return true;
+    
+    // Si no tiene estado explícito, verificamos fechas
+    if (miembro.fechaInscripcion) {
+      const fechaFin = new Date(miembro.fechaInscripcion);
+      const hoy = new Date();
+      return fechaFin >= hoy;
+    }
+    
+    return false; // Si no hay fecha de fin, consideramos inactivo por defecto
+  };
+
   // Memoized filtering of members
   const filteredMiembros = useMemo(() => {
     let result = miembros;
 
-    // Filter by status
-    if (selectedFilter !== "Todos") {
-      result = result.filter((miembro) => miembro.estado === selectedFilter);
-    }
-
-    // Filter by search term
+    // Si hay un término de búsqueda, aplicar solo la búsqueda
     if (searchTerm) {
       const searchTermLower = searchTerm.toLowerCase();
-      result = result.filter((miembro) => 
+      result = miembros.filter((miembro) => 
         miembro.identificacion.toLowerCase().includes(searchTermLower) ||
         miembro.nombre.toLowerCase().includes(searchTermLower) ||
         miembro.telefono.toLowerCase().includes(searchTermLower)
+      );
+    } 
+    // Si no hay búsqueda, aplicar solo el filtro
+    else if (selectedFilter !== "Todos") {
+      result = result.filter((miembro) => 
+        (selectedFilter === "Activo" && isMembresiaActiva(miembro)) || 
+        (selectedFilter === "Inactivo" && !isMembresiaActiva(miembro))
       );
     }
 
     return result;
   }, [miembros, selectedFilter, searchTerm]);
+
+  // Determinar qué criterio mostrar (búsqueda tiene prioridad)
+  const titleToShow = searchTerm 
+    ? `Búsqueda: ${searchTerm}` 
+    : `Filtrado por: ${selectedFilter}`;
+    
+  // Función para renderizar la celda de estado con el estilo adecuado
+  const renderEstadoCell = (miembro) => {
+    const esActivo = isMembresiaActiva(miembro);
+    const estadoTexto = esActivo ? <ActiveButton text={"Activo"}/> : <InactiveButton text={"Inactivo"}/>;
+    
+    return (
+      <TableCell className={estadoTexto}>
+        {estadoTexto}
+      </TableCell>
+    );
+  };
 
   return (
     <div className={styles.miembros_container}>
@@ -126,9 +162,9 @@ const MiembrosModalComponent = () => {
         </button>
       </div>
 
-      {/* Estado del filtro y búsqueda */}
+      {/* Muestra solo un criterio a la vez (búsqueda tiene prioridad) */}
       <h2 className={styles.filtered_title}>
-        Filtrado por: {selectedFilter} 
+        {titleToShow}
       </h2>
 
       {/* Tabla de miembros */}
@@ -168,23 +204,29 @@ const MiembrosModalComponent = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredMiembros.map((miembro) => (
-              <TableRow key={miembro.identificacion || `temp-${Date.now()}`}>
-                <TableCell>{miembro.identificacion}</TableCell>
-                <TableCell>{miembro.nombre}</TableCell>
-                <TableCell>{miembro.telefono}</TableCell>
-                <TableCell className={miembro.estado === "Activo" ? styles.estado_activo : styles.estado_inactivo}>
-                  {miembro.estado}
-                </TableCell>
-                <TableCell>{miembro.membresia}</TableCell>
-                <TableCell>{miembro.fechaInscripcion}</TableCell>
-                <TableCell>{miembro.finMembresia}</TableCell>
-                <TableCell>
-                  <FaPen className={styles.edit_icon} onClick={() => { setMiembroEditado(miembro); setIsModalOpen(true); }} />
-                  <DeleteIcon className={styles.delete_icon} onClick={() => onDeleteMiembro(miembro.identificacion)} />
+            {filteredMiembros.length > 0 ? (
+              filteredMiembros.map((miembro) => (
+                <TableRow key={miembro.identificacion || `temp-${Date.now()}`}>
+                  <TableCell>{miembro.identificacion}</TableCell>
+                  <TableCell>{miembro.nombre}</TableCell>
+                  <TableCell>{miembro.telefono}</TableCell>
+                  {renderEstadoCell(miembro)}
+                  <TableCell>{miembro.membresia}</TableCell>
+                  <TableCell>{miembro.fechaInscripcion}</TableCell>
+                  <TableCell>{miembro.finMembresia}</TableCell>
+                  <TableCell>
+                    <FaPen className={styles.edit_icon} onClick={() => { setMiembroEditado(miembro); setIsModalOpen(true); }} />
+                    <DeleteIcon className={styles.delete_icon} onClick={() => onDeleteMiembro(miembro.identificacion)} />
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={8} style={{ textAlign: 'center' }}>
+                  No se encontraron miembros con los criterios de búsqueda.
                 </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </TableContainer>

@@ -63,44 +63,56 @@ function Footer() {
                 </div>
             </div>
             <div className={style.seccion_two_footer}>
-                <div className={style.socialMedia}>
-                    <a href="">
-                        <Facebook sx={{
-                            color: "white",
-                            transition: "color 0.1s ease-in-out",
-                            "&:hover": {
-                                color: "yellow", // Cambia de color en hover
-                            },
-                        }} />
-                    </a>
-                    <a href="">
-                        <WhatsApp sx={{
-                            color: "white",
-                            transition: "color 0.1s ease-in-out",
-                            "&:hover": {
-                                color: "yellow", // Cambia de color en hover
-                            },
-                        }} />
-                    </a>
-                    <a href="">
-                        <Instagram sx={{
-                            color: "white",
-                            transition: "color 0.1s ease-in-out",
-                            "&:hover": {
-                                color: "yellow", // Cambia de color en hover
-                            },
-                        }} />
-                    </a>
-                    <a href="">
-                        <Email sx={{
-                            color: "white",
-                            transition: "color 0.1s ease-in-out",
-                            "&:hover": {
-                                color: "yellow", // Cambia de color en hover
-                            },
-                        }} />
-                    </a>
-                </div>
+            <div className={style.socialMedia}>
+    <a 
+        href="https://www.facebook.com/valhallagymoficial?locale=es_LA" 
+        target="_blank" 
+        rel="noopener noreferrer"
+    >
+        <Facebook sx={{
+            color: "white",
+            transition: "color 0.1s ease-in-out",
+            "&:hover": {
+                color: "yellow",
+            },
+        }} />
+    </a>
+
+    <a href="">
+        <WhatsApp sx={{
+            color: "white",
+            transition: "color 0.1s ease-in-out",
+            "&:hover": {
+                color: "yellow",
+            },
+        }} />
+    </a>
+
+    <a 
+        href="https://www.instagram.com/valhalla__gym?igsh=a3lhbGJnbHpmNzNx" 
+        target="_blank" 
+        rel="noopener noreferrer"
+    >
+        <Instagram sx={{
+            color: "white",
+            transition: "color 0.1s ease-in-out",
+            "&:hover": {
+                color: "yellow",
+            },
+        }} />
+    </a>
+
+    <a href="">
+        <Email sx={{
+            color: "white",
+            transition: "color 0.1s ease-in-out",
+            "&:hover": {
+                color: "yellow",
+            },
+        }} />
+    </a>
+</div>
+
                 <p>Derechos reservados 2025 - GymManager S&P SOFT SOLUTION</p>
             </div>
         </footer>

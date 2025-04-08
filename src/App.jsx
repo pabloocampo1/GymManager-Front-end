@@ -15,6 +15,8 @@ import Profile from './Pages/ProfileGym/ProfileGym'
 import ContactHome from './Pages/SectionHomePages/ContactHome/ContactHome'
 import EventHome from './Pages/SectionHomePages/EventsHome/EventHome'
 import ControlAcces from './Pages/ControlAcces'
+import ForgotPassword from './Pages/ValidationPasswordForget/ValidationPassword'
+import SecurityCode from './Pages/ValidationCodPassword/Validationcod'
 
 
 function App() {
@@ -32,6 +34,8 @@ function App() {
                 </Route>
 
                 <Route path="/login" element={<Login />} />
+                <Route path='/ForgetPass' element={<ForgotPassword/>}/>
+                <Route path='/CodePass' element={<SecurityCode/>}/>
                 {/* Rutas privadas: el layout se encargará de mostrar el sidebar */}
                 <Route path="/dashboard" element={<PrivateLayout />}>
                     <Route index element={<Dashboard />} />

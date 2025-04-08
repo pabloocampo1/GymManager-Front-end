@@ -33,8 +33,8 @@ const ContactHome = () => {
                                 <div className={style.details_about_contact} >
                                     <h3>Telefonos de contacto</h3>
                                     <ol>
-                                        <li>343434</li>
-                                        <li>34343</li>
+                                        <li>314 5755765</li>
+                                        <li>320 4040869</li>
                                     </ol>
                                 </div>
                             </div>
@@ -43,10 +43,10 @@ const ContactHome = () => {
                                     <EmailIcon fontSize='large' sx={{ color: "white" }}> </EmailIcon>
                                 </div>
                                 <div className={style.details_about_contact} >
-                                    <h3>Telefonos de contacto</h3>
+                                    <h3>Correos de Contacto</h3>
                                     <ol>
-                                        <li>343434</li>
-                                        <li>34343</li>
+                                        <li>pabloocampo@gmail.com</li>
+                                        <li>mateocarmona@gmail.com</li>
                                     </ol>
                                 </div></div>
                             <div className={style.information_items_item}>
@@ -54,10 +54,10 @@ const ContactHome = () => {
                                     <LocationOnIcon fontSize='large' sx={{ color: "white" }} />
                                 </div>
                                 <div className={style.details_about_contact} >
-                                    <h3>Telefonos de contacto</h3>
+                                    <h3>Lugar de recidencia</h3>
                                     <ol>
-                                        <li>343434</li>
-                                        <li>34343</li>
+                                        <li>Carrera 49 #12-15</li>
+                                        
                                     </ol>
                                 </div>
                             </div>
@@ -66,10 +66,11 @@ const ContactHome = () => {
                                     <AccessTimeFilledIcon fontSize='large' sx={{ color: "white" }} />
                                 </div>
                                 <div className={style.details_about_contact} >
-                                    <h3>Telefonos de contacto</h3>
+                                    <h3>Horarios</h3>
                                     <ol>
-                                        <li>343434</li>
-                                        <li>34343</li>
+                                        <li>lunes - Viernes : 5am/10pm</li>
+                                        <li>sabado - Festivos - domingo : 7am/12pm</li>
+                                        
                                     </ol>
                                 </div></div>
                         </div>
@@ -139,13 +140,29 @@ const ContactHome = () => {
                                 </form>
                             </div>
                             <div className={style.send_mesagge_socialMedia_container}>
-                                    <p>Redes sociales : </p>
-                                    <div>
-                                        <Facebook sx={{marginRight:1, marginLeft:1}}/>
-                                        <Instagram sx={{marginRight:1}}/>
-                                        <WhatsApp sx={{marginRight:1}}/>
-                                    </div>
+                                <p>Redes sociales : </p>
+                                <div>
+                                    <a 
+                                        href="https://www.facebook.com/valhallagymoficial?locale=es_LA" 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                    >
+                                        <Facebook sx={{ marginRight: 1, marginLeft: 1 }} />
+                                    </a>
+
+                                    <a 
+                                        href="https://www.instagram.com/valhalla__gym?igsh=a3lhbGJnbHpmNzNx" 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                    >
+                                        <Instagram sx={{ marginRight: 1 }} />
+                                    </a>
+
+                                    <WhatsApp sx={{ marginRight: 1 }} />
+                                </div>
                             </div>
+
+
                         </div>
                     </div>
                 </Box>

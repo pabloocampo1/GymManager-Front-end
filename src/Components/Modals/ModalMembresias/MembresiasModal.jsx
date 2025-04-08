@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./MembresiasModal.module.css";
 import ClearIcon from "@mui/icons-material/Clear";
+import { motion, AnimatePresence } from "framer-motion";
 
 const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando }) => {
   const [nombre, setNombre] = useState("");
@@ -67,77 +68,107 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando }) => {
   };
 
   return (
-    isOpen && (
-      <div className={styles.modalOverlay} onClick={handleOverlayClick}>
-        <div className={styles.modalContainer}>
-          <div className={styles.modalCloseContainer}>
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className={styles.modalOverlay}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={handleOverlayClick}
+        >
+          <motion.div
+            className={styles.modalContainer}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+           <div className={styles.modalCloseContainer}>
             <ClearIcon className={styles.closeButton} onClick={onClose} />
           </div>
-          <h2>{membresiaEditando ? "Editar Membresía" : "Agregar Membresía"}</h2>
-          <form onSubmit={handleSubmit}>
-            <div className={styles.formRow}>
-              <div className={styles.formGroup}>
-                <label htmlFor="nombre" className={styles.label}>Nombre Membresía</label>
-                <input
-                  type="text"
-                  id="nombre"
-                  className={styles.input}
-                  placeholder="Nombre"
-                  value={nombre}
-                  onChange={(e) => setNombre(e.target.value)}
-                  required
-                />
+            <h2>
+              {membresiaEditando ? "Editar Membresía" : "Agregar Membresía"}
+            </h2>
+            <form onSubmit={handleSubmit}>
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="nombre" className={styles.label}>
+                    Nombre Membresía
+                  </label>
+                  <input
+                    type="text"
+                    id="nombre"
+                    className={styles.input}
+                    placeholder="Nombre"
+                    value={nombre}
+                    onChange={(e) => setNombre(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <label htmlFor="tipo" className={styles.label}>
+                    Tipo
+                  </label>
+                  <select
+                    id="tipo"
+                    className={styles.select}
+                    value={tipo}
+                    onChange={(e) => setTipo(e.target.value)}
+                  >
+                    <option value="Oro">Oro</option>
+                    <option value="Plata">Plata</option>
+                    <option value="Bronce">Bronce</option>
+                  </select>
+                </div>
               </div>
-              <div className={styles.formGroup}>
-                <label htmlFor="tipo" className={styles.label}>Tipo</label>
-                <select
-                  id="tipo"
-                  className={styles.select}
-                  value={tipo}
-                  onChange={(e) => setTipo(e.target.value)}
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="duracion" className={styles.label}>
+                    Duración en Días
+                  </label>
+                  <input
+                    type="text"
+                    id="duracion"
+                    className={styles.input}
+                    placeholder="Duración"
+                    value={duracion}
+                    onChange={handleDuracionChange}
+                    required
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <label htmlFor="precio" className={styles.label}>
+                    Precio
+                  </label>
+                  <input
+                    type="text"
+                    id="precio"
+                    className={styles.input}
+                    placeholder="Precio"
+                    value={precio}
+                    onChange={handlePrecioChange}
+                    required
+                  />
+                </div>
+              </div>
+              <div className={styles.buttonContainer}>
+                <button
+                  type="button"
+                  className={styles.cancelButton}
+                  onClick={onClose}
                 >
-                  <option value="Oro">Oro</option>
-                  <option value="Plata">Plata</option>
-                  <option value="Bronce">Bronce</option>
-                </select>
+                  Cancelar
+                </button>
+                <button type="submit" className={styles.addButton}>
+                  {membresiaEditando ? "Guardar Cambios" : "Agregar"}
+                </button>
               </div>
-            </div>
-            <div className={styles.formRow}>
-              <div className={styles.formGroup}>
-                <label htmlFor="duracion" className={styles.label}>Duración en Días</label>
-                <input
-                  type="text"
-                  id="duracion"
-                  className={styles.input}
-                  placeholder="Duración"
-                  value={duracion}
-                  onChange={handleDuracionChange}
-                  required
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label htmlFor="precio" className={styles.label}>Precio</label>
-                <input
-                  type="text"
-                  id="precio"
-                  className={styles.input}
-                  placeholder="Precio"
-                  value={precio}
-                  onChange={handlePrecioChange}
-                  required
-                />
-              </div>
-            </div>
-            <div className={styles.buttonContainer}>
-              <button type="button" className={styles.cancelButton} onClick={onClose}>Cancelar</button>
-              <button type="submit" className={styles.addButton}>
-                {membresiaEditando ? "Guardar Cambios" : "Agregar"}
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    )
+            </form>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
