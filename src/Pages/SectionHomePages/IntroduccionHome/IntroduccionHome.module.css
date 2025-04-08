@@ -80,7 +80,30 @@
     display: flex;
     border-radius: 50%;
     width: calc(70% * 4); 
-}
+}.typewriter {
+    display: inline-block;
+    white-space: pre;
+  }
+  
+  .cursor {
+    display: inline-block;
+    width: 1px;
+    height: 1em;
+    background-color: white;
+    margin-left: 2px;
+    animation: blink 0.7s steps(1) infinite;
+    vertical-align: bottom;
+  }
+  
+  @keyframes blink {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+  
 
 
 

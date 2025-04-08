@@ -136,7 +136,7 @@ function Login() {
                     label="Guardar contraseña"
                   />
                 </FormGroup>
-                <Link to="/">Olvidaste tu contraseña?</Link>
+                <Link to="/ForgetPass">Olvidaste tu contraseña?</Link>
               </div>
               <button type="button" onClick={goToDashboard}>
                 Ingresar
