@@ -20,59 +20,59 @@ function Dashboard() {
     const [titleReport, setTitleReport] = useState("BIENVENIDO!");
     const [userName, setUserName] = useState("Nombre De Usuario");
     const [activeButtonDownloadReport, setActiveButtonDownloadReport] = useState(true);
-    const [isGeneratingPDF, setIsGeneratingPDF] = useState(false); 
+    const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
     const [loandingDownload, setLoandingDownload] = useState(false);
 
-    
-    
+
+
     useEffect(() => {
         if (isGeneratingPDF) {
             setLoandingDownload(true)
             generatePdf();
         }
-    }, [isGeneratingPDF]); 
+    }, [isGeneratingPDF]);
 
     const downloadPdf = () => {
         setTitleReport("Informe");
         setUserName("");
         setActiveButtonDownloadReport(false);
-        setIsGeneratingPDF(true); 
+        setIsGeneratingPDF(true);
     };
 
     const generatePdf = async () => {
         const dateReport = `${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}`;
         const element = componentRef.current;
-      
+
         setTimeout(async () => {
-          const canvas = await html2canvas(element, { scale: 2, ignoreElements: (el) => el.classList && el.classList.contains("no-print") });
-          const imgData = canvas.toDataURL("image/png");
-      
-          const pdf = new jsPDF("p", "mm", "a4");
-          const imgWidth = 190; 
-          const pageHeight = pdf.internal.pageSize.getHeight(); 
-          const imgHeight = (canvas.height * imgWidth) / canvas.width; 
-          let heightLeft = imgHeight;
-          let position = 10; 
-      
-          pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
-          heightLeft -= pageHeight;
-    
-          while (heightLeft > 0) {
-            pdf.addPage();
-            position = 10; 
-            pdf.addImage(imgData, "PNG", 10, position - (imgHeight - heightLeft), imgWidth, imgHeight);
+            const canvas = await html2canvas(element, { scale: 2, ignoreElements: (el) => el.classList && el.classList.contains("no-print") });
+            const imgData = canvas.toDataURL("image/png");
+
+            const pdf = new jsPDF("p", "mm", "a4");
+            const imgWidth = 190;
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 10;
+
+            pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
-          }
-      
-          pdf.save(`Reporte del dia: ${dateReport}.pdf`);
-      
-          setTitleReport("BIENVENIDO!");
-          setUserName("Nombre De Usuario");
-          setActiveButtonDownloadReport(true);
-          setIsGeneratingPDF(false);
-          setLoandingDownload(false);
+
+            while (heightLeft > 0) {
+                pdf.addPage();
+                position = 10;
+                pdf.addImage(imgData, "PNG", 10, position - (imgHeight - heightLeft), imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+
+            pdf.save(`Reporte del dia: ${dateReport}.pdf`);
+
+            setTitleReport("BIENVENIDO!");
+            setUserName("Nombre De Usuario");
+            setActiveButtonDownloadReport(true);
+            setIsGeneratingPDF(false);
+            setLoandingDownload(false);
         }, 300);
-      };
+    };
 
     return (
         <Box ref={componentRef}
@@ -85,11 +85,11 @@ function Dashboard() {
         >
             <Box
                 sx={{
-                    width:"100%",
-                    height:"15vh",
-                    display:"flex",
-                    justifyContent:"space-between",
-                    alignItems:"center"
+                    width: "100%",
+                    height: "15vh",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center"
                 }}>
                 <Typography
                     variant="h4"
@@ -101,7 +101,7 @@ function Dashboard() {
                     {titleReport} <span style={{ fontWeight: 300, fontSize: "1.30rem" }}> {userName} </span>
                 </Typography>
                 <LoandingDownloadReport open={loandingDownload} text={"Descargando informe en pdf"} />
-                {activeButtonDownloadReport && (<Button color="#FFDB00" variant="contained" sx={{backgroundColor:"", border:"2px solid #FFDB00"}} onClick={downloadPdf}>PDF  <UploadFileIcon /></Button>)}
+                {activeButtonDownloadReport && (<Button color="#FFDB00" variant="contained" sx={{ backgroundColor: "", border: "2px solid #FFDB00" }} onClick={downloadPdf}>PDF  <UploadFileIcon /></Button>)}
             </Box>
             <FirstDataCards />
 
@@ -195,15 +195,24 @@ function Dashboard() {
                     height: "50vh",
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "space-between",
+                    justifyContent: "space-around",
                     marginTop: "50px",
                 }}
             >
                 <PieChartActiveAndInactiveMembers />
                 <PiePromGender />
+
+            </Box>
+            <Box
+            sx={{
+                width:"100%",
+                display:"flex",
+                justifyContent:"space-around",
+                alignItems:"center"
+            }}>
+                <ChartTotalUser />
                 <ListNewUsers />
             </Box>
-            <ChartTotalUser />
         </Box>
     );
 }

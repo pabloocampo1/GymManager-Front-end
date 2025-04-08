@@ -9,7 +9,7 @@ export default function PieChartActiveAndInactiveMembers() {
 
         <Box
             sx={{ 
-                width: "35%",
+                width: "40%",
                 backgroundColor:"white",
                 borderRadius:"15px"
             }}>

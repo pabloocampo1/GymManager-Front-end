@@ -24,7 +24,7 @@ export default function ChartTotalUser() {
  
 
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{ width: '70%' }}>
       
       <BarChart
         dataset={datasetTotalUser}
