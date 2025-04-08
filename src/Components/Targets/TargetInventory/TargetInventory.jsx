@@ -31,7 +31,7 @@ const TargetInventory = ({ inventory, onDelete, onEdit }) => {
         
         <div className={styles.eventDetails}>
           <div className={styles.detailItem}>
-            <span className={styles.detailLabel}>Categoria</span>
+            <span className={styles.detailLabel}>Categoria:  </span>
             <span className={styles.detailValue}>{inventory.categoria}</span>
           </div>
         </div>

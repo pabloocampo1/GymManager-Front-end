@@ -11,6 +11,8 @@ import React, { useState, useMemo } from "react";
 import styles from "./Miembros.module.css";
 import MiembrosModal from "../../Components/Modals/ModalMiembros/MiembrosModal.jsx";
 import ConfirmatioModalMiembros from "../../Components/Modals/ModalMiembros/ConfirmationModalMiembros/MiembrosConfirmation.jsx";
+import ActiveButton from "../../Components/Buttons/ButtonActive.jsx"
+import InactiveButton from "../../Components/Buttons/ButtonInactive.jsx"
 
 const MiembrosModalComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -60,6 +62,21 @@ const MiembrosModalComponent = () => {
     setSearchTerm(event.target.value);
   };
 
+  // Función para determinar si una membresía está activa
+  const isMembresiaActiva = (miembro) => {
+    // Verificamos si el miembro tiene el estado explícitamente como "Activo"
+    if (miembro.estado === "Activo") return true;
+    
+    // Si no tiene estado explícito, verificamos fechas
+    if (miembro.fechaInscripcion) {
+      const fechaFin = new Date(miembro.fechaInscripcion);
+      const hoy = new Date();
+      return fechaFin >= hoy;
+    }
+    
+    return false; // Si no hay fecha de fin, consideramos inactivo por defecto
+  };
+
   // Memoized filtering of members
   const filteredMiembros = useMemo(() => {
     let result = miembros;
@@ -75,7 +92,10 @@ const MiembrosModalComponent = () => {
     } 
     // Si no hay búsqueda, aplicar solo el filtro
     else if (selectedFilter !== "Todos") {
-      result = result.filter((miembro) => miembro.estado === selectedFilter);
+      result = result.filter((miembro) => 
+        (selectedFilter === "Activo" && isMembresiaActiva(miembro)) || 
+        (selectedFilter === "Inactivo" && !isMembresiaActiva(miembro))
+      );
     }
 
     return result;
@@ -85,6 +105,18 @@ const MiembrosModalComponent = () => {
   const titleToShow = searchTerm 
     ? `Búsqueda: ${searchTerm}` 
     : `Filtrado por: ${selectedFilter}`;
+    
+  // Función para renderizar la celda de estado con el estilo adecuado
+  const renderEstadoCell = (miembro) => {
+    const esActivo = isMembresiaActiva(miembro);
+    const estadoTexto = esActivo ? <ActiveButton text={"Activo"}/> : <InactiveButton text={"Inactivo"}/>;
+    
+    return (
+      <TableCell className={estadoTexto}>
+        {estadoTexto}
+      </TableCell>
+    );
+  };
 
   return (
     <div className={styles.miembros_container}>
@@ -178,9 +210,7 @@ const MiembrosModalComponent = () => {
                   <TableCell>{miembro.identificacion}</TableCell>
                   <TableCell>{miembro.nombre}</TableCell>
                   <TableCell>{miembro.telefono}</TableCell>
-                  <TableCell className={miembro.estado === "Activo" ? styles.estado_activo : styles.estado_inactivo}>
-                    {miembro.estado}
-                  </TableCell>
+                  {renderEstadoCell(miembro)}
                   <TableCell>{miembro.membresia}</TableCell>
                   <TableCell>{miembro.fechaInscripcion}</TableCell>
                   <TableCell>{miembro.finMembresia}</TableCell>

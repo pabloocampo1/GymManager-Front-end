@@ -108,7 +108,7 @@ function SideBar() {
             </div> 
 
             <div className={style.UtilsSideBar}>
-                <div className={activeLink === "perfil" ? style.activeLink : ""} onClick={() => handleClick("perfil")}>
+                <div className={activeLink === "perfil" ? style.activeLink : ""} onClick={() => {handleClick("perfil"), handleNavigate("/dashboard/perfil") } }>
                     <Link to="/dashboard/perfil">
                         {profileImage ? (
                             <div className={style.profileImageContainer}>
@@ -120,7 +120,7 @@ function SideBar() {
                     </Link>
                 </div>
                 <div>
-                    <Link to="/login"><LogoutIcon /></Link>
+                    <Link to="/"><LogoutIcon /></Link>
                 </div>
             </div>
         </div>
