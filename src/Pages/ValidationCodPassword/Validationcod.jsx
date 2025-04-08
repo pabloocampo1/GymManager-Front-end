@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import imageLogo from "../../assets/images/logoprincipal.png";
-import imageSecurityCode from "../../assets/images/pasword.png";
+import imageSecurityCode from "../../assets/images/reallypass2.svg";
 import iconArrowLeft from "../../assets/icons/left-arrow.png";
 import style from "../ValidationPasswordForget/ValidationPassword.module.css";
 
@@ -31,7 +31,7 @@ function SecurityCode() {
         </div>
         <div className={style.recover_image_content}>
           <h2>
-            <span>Bien</span>venido
+            <span>Recupera t</span>u cuenta
           </h2>
           <img src={imageSecurityCode} alt="imagen de seguridad" className={style.imagen} />
         </div>

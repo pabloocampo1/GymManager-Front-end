@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import imageLogo from "../../assets/images/logoprincipal.png";
-import imageForgotPassword from "../../assets/images/pasword2.png";
+import imageForgotPassword from "../../assets/images/reallypass.svg";
 import iconArrowLeft from "../../assets/icons/left-arrow.png";
 import style from "./ValidationPassword.module.css";
 
@@ -31,7 +31,7 @@ function ForgotPassword() {
         </div>
         <div className={style.recover_image_content}>
           <h2>
-            <span>Bien</span>venido
+            <span>Verificar </span> correo
           </h2>
           <img src={imageForgotPassword} alt="imagen de recuperación" className={style.imagen}/>
         </div>
