@@ -45,8 +45,8 @@ const ContactHome = () => {
                                 <div className={style.details_about_contact} >
                                     <h3>Correos de Contacto</h3>
                                     <ol>
-                                        <li>pabloocampo@gmail.com</li>
-                                        <li>mateocarmona@gmail.com</li>
+                                        <li>pablampo@gmail.com</li>
+                                        <li>mateocarna@gmail.com</li>
                                     </ol>
                                 </div></div>
                             <div className={style.information_items_item}>

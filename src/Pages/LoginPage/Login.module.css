@@ -27,8 +27,8 @@
 }
 
 .loadingLine {
-  background-color: rgba(255, 230, 1); /* Un poco más sólido */
-  /* Ligero desenfoque */
+  background-color: rgba(255, 230, 1); 
+  
   position: absolute;
   z-index: 10001;
   transform-origin: center;

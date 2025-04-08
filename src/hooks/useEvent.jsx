@@ -14,7 +14,6 @@ const useEvent = () => {
                 setEvents(response);
             } catch (err) {
                 
-
                 setError(err);
               } 
         }

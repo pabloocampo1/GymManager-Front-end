@@ -8,6 +8,7 @@ import useEvent from '../../../hooks/useEvent';
 const EventHome = () => {
 
     const { events } = useEvent([]);
+    
     return (
         <div id='events' className={style.EventHome_container}>
             <div className={style.EventHome_intro}>

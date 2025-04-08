@@ -7,7 +7,7 @@ import { Box, Typography } from '@mui/material';
 function PiePromGender() {
     return (
         <Box  sx={{ 
-            width: "35%",
+            width: "40%",
             backgroundColor:"white",
             borderRadius:"15px"
         }}>

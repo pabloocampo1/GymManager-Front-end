@@ -163,9 +163,13 @@ function Login() {
             <motion.div
               className={style.loadingLine}
               variants={lineVariants}
-              initial="line"
+              
               animate={loadingStage}
             />
+            hollllllllllllllllllllllldsd
+            dsdsds
+            dsd
+            <img src="../../assets/images/imagenFondoHome.jpg" alt="" />
           </motion.div>
         )}
       </AnimatePresence>
