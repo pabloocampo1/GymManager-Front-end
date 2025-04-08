@@ -46,7 +46,13 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando }) => {
 
   const handlePrecioChange = (e) => {
     let rawValue = e.target.value.replace(/[^0-9]/g, "");
-    setPrecio(rawValue);
+    let numericValue = Number(rawValue);
+    let formattedValue = new Intl.NumberFormat("es-CO", {
+      style: "currency",
+      currency: "COP",
+      minimumFractionDigits: 0,
+    }).format(numericValue);
+    setPrecio(formattedValue);
   };
 
   const handleSubmit = (e) => {

@@ -1,9 +1,20 @@
 import styles from "./MembresiasConfirmation.module.css";
+import { motion, AnimatePresence } from "framer-motion";
 const ConfirmationModalMembresias= ({ onClose, onConfirm })=>{
+
+    const handleOverlayClick = (e) => {
+        if (e.target.classList.contains(styles.DivConteiner)) {
+          onClose();
+        }
+      };
     
     return(
-
-        <div className={styles.DivConteiner} >
+        <AnimatePresence>
+        <motion.div className={styles.DivConteiner}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={handleOverlayClick}>
             <div className={styles.Contenedorinfo}>
                 <div className={styles.TitleCOnteiner}>
                     <h2>¿Desea eliminar esta membresia?</h2>
@@ -14,7 +25,8 @@ const ConfirmationModalMembresias= ({ onClose, onConfirm })=>{
                 </div>
             </div>
             
-        </div>
+        </motion.div>
+        </AnimatePresence>
     )
 }
 

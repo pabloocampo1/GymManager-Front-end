@@ -57,7 +57,7 @@ const MiembrosModalComponent = () => {
     setAnchorEl(null);
   };
 
-  // Handle search input change
+
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -77,7 +77,7 @@ const MiembrosModalComponent = () => {
     return false; // Si no hay fecha de fin, consideramos inactivo por defecto
   };
 
-  // Memoized filtering of members
+
   const filteredMiembros = useMemo(() => {
     let result = miembros;
 

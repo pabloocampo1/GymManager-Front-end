@@ -28,19 +28,17 @@ const MembresiaModal = () => {
     if (option) {
       setSelectedFilter(option);
       setActiveFilterType("filter");
-      // Si se selecciona un filtro, limpiamos la búsqueda
+
       setSearchTerm("");
     }
     setAnchorEl(null);
   };
 
-  // Handle search input change
+
   const handleSearchChange = (event) => {
     const value = event.target.value;
     setSearchTerm(value);
-    
-    // Cambiamos al tipo de filtro de búsqueda si hay texto
-    // O volvemos al filtro normal si se borró el texto
+
     if (value) {
       setActiveFilterType("search");
     } else if (!value && activeFilterType === "search") {
@@ -48,16 +46,16 @@ const MembresiaModal = () => {
     }
   };
 
-  // Filtrado según el tipo activo
+
   const filteredMembresias = membresias.filter((m) => {
     if (activeFilterType === "search" && searchTerm) {
-      // Solo aplicamos búsqueda si está activa y hay texto
+
       return m.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         m.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
         m.precio.toString().includes(searchTerm.toLowerCase()) ||
         m.duracion.toLowerCase().includes(searchTerm.toLowerCase());
     } else {
-      // Por defecto, usamos el filtro por tipo
+
       return selectedFilter === "Todos" || m.type === selectedFilter;
     }
   });
@@ -89,7 +87,7 @@ const MembresiaModal = () => {
     setIsDeleteModalOpen(true);
   };
 
-  // Determinar el título del filtro actual
+
   const getFilterTitle = () => {
     if (activeFilterType === "search" && searchTerm) {
       return `Búsqueda: ${searchTerm}`;
