@@ -39,26 +39,27 @@ const ProfileGym = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    // Save the image to localStorage when submitting the form
-    if (previewImage) {
-      localStorage.setItem('profileImage', previewImage);
-      
-      // Dispatch a custom event to notify other components about the profile update
-      const event = new CustomEvent('profileUpdated', { 
-        detail: { profileImage: previewImage } 
-      });
-      window.dispatchEvent(event);
-    }
-    
-    console.log("Datos actualizados:", formData);
-    console.log("Imagen actualizada:", profileImage);
-    
-    // Show success message
-    alert("Datos actualizados correctamente");
-  };
+ 
+const handleSubmit = (e) => {
+  e.preventDefault();
+
+  if (previewImage) {
+    localStorage.setItem("profileImage", previewImage);
+
+    const event = new CustomEvent("profileUpdated", {
+      detail: { profileImage: previewImage },
+    });
+    window.dispatchEvent(event);
+  }
+
+  localStorage.setItem("nombreUsuario", formData.nombre);
+
+  console.log("Datos actualizados:", formData);
+  console.log("Imagen actualizada:", profileImage);
+
+  alert("Datos actualizados correctamente");
+};
+
 
   return (
     <>

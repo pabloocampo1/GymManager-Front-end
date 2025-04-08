@@ -31,6 +31,13 @@ function Dashboard() {
             generatePdf();
         }
     }, [isGeneratingPDF]);
+    useEffect(() => {
+        const savedName = localStorage.getItem("nombreUsuario");
+        if (savedName) {
+          setUserName(savedName);
+        }
+      }, []);
+      
 
     const downloadPdf = () => {
         setTitleReport("Informe");
