@@ -13,11 +13,14 @@ import ContactMailIcon from '@mui/icons-material/ContactMail';
 import EventIcon from '@mui/icons-material/Event';
 import AttachEmailIcon from '@mui/icons-material/AttachEmail';
 import InventoryIcon from '@mui/icons-material/Inventory';
+import ExitConfirm from "./ExitConfirmation/ExitConfirmation"
 
 function SideBar() {
     const [activeLink, setActiveLink] = useState("");
     const [profileImage, setProfileImage] = useState(null);
     const navigate = useNavigate();
+    const [mostrarModal, setMostrarModal] = useState(false);
+
 
     const handleClick = (link) => {
         setActiveLink(link)
@@ -69,6 +72,7 @@ function SideBar() {
     }, []);
 
     return (
+        <div className={style.mmm}>
         <div className={style.container_sideBar}>
 
             <div className={style.imageContainer}>
@@ -119,12 +123,27 @@ function SideBar() {
                         )}
                     </Link>
                 </div>
-                <div>
-                    <Link to="/"><LogoutIcon /></Link>
+                <div onClick={() => setMostrarModal(true)} style={{ cursor: 'pointer' }}>
+                    <LogoutIcon />
                 </div>
+
             </div>
+            
         </div>
+        {mostrarModal && (
+            <ExitConfirm 
+            onConfirm={() => {
+            setMostrarModal(false);
+            navigate("/"); // o cerrar sesión aquí
+        }}
+        onClose={() => setMostrarModal(false)}
+        />
+)}
+
+        </div>
+        
     );
+    
 }
 
 export default SideBar;
