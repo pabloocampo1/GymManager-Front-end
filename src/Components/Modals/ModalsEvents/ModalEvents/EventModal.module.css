@@ -1,39 +1,44 @@
-._privateLayout_main_1ub0z_23{
+/* Estilos generales del contenedor principal */
+._privateLayout_main_1ub0z_23 {
   height: auto;
   width: auto;
 }
+
+/* Estilos para el overlay del modal (fondo oscuro) */
 .modalOverlay {
-  position: absolute; /* Asegura que cubra toda la pantalla */
+  position: absolute; /* Cubre toda la pantalla */
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5); /* Fondo negro con 50% de opacidad */
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
 }
 
+/* Estilos para el contenido del modal (la ventana blanca) */
 .modalContent {
   position: relative;
   background: white;
   padding: 25px;
   border-radius: 10px;
   width: 800px;
-  max-width: 90vw;
+  max-width: 90vw; /* Para que no se desborde en pantallas pequeñas */
   text-align: center;
-  z-index: 1001;
+  z-index: 1001; /* Asegura que esté por encima del overlay */
 }
 
-.modalClosebtn{
+/* Estilos para el contenedor del botón de cerrar */
+.modalClosebtn {
   width: 100%;
   height: auto;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end; /* Alinea el botón a la derecha */
 }
 
-
+/* Estilos para el título del modal */
 .modalContent h2 {
   text-align: center;
   margin-bottom: 20px;
@@ -41,27 +46,31 @@
   font-weight: bold;
 }
 
+/* Estilos para las filas del formulario */
 .formRow {
   display: flex;
-  gap: 20px;
+  gap: 20px; /* Espacio entre los elementos de la fila */
   margin-bottom: 15px;
-  align-items: center;
+  align-items: center; /* Alinea verticalmente los elementos */
 }
 
+/* Estilos para los grupos de elementos del formulario (label e input/select) */
 .formGroup {
-  flex: 1;
+  flex: 1; /* Permite que los grupos crezcan para ocupar el espacio disponible */
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Alinea label e input verticalmente */
 }
 
+/* Estilos para las etiquetas (labels) */
 label {
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 5px;
-  display: block;
+  display: block; /* Asegura que la etiqueta ocupe toda la línea */
   text-align: left;
 }
 
+/* Estilos para los campos de entrada (inputs) y selectores */
 input,
 select {
   width: 100%;
@@ -69,15 +78,14 @@ select {
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
-  height: 38px;
+  height: 38px; /* Altura uniforme para inputs y selects */
 }
 
-/* 📌 Apartado de imagen actualizado */
+/* 📌 Estilos para el área de carga de la imagen */
 .imageUpload {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  border: 2px dashed #ccc;
+ 
   padding: 10px;
   width: 130px;
   height: 130px;
@@ -85,43 +93,20 @@ select {
   text-align: center;
 }
 
-.imagePreview {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-/* 📌 Botón de subida de imagen */
-.uploadBtn {
-  padding: 10px 15px;
-  border: 2px solid #888;
-  border-radius: 5px;
-  background: white;
-  cursor: pointer;
-  text-align: center;
-  font-size: 14px;
-  font-weight: bold;
-  color: black;
-  transition: background 0.3s, border-color 0.3s;
-  display: inline-block;
-}
-
-.uploadBtn:hover {
-  background: #f0f0f0;
-  border-color: #555;
-}
-
+/* 📌 Estilos para el botón de subida de imagen (oculto) */
 input[type="file"] {
   display: none;
 }
 
-.buttonContainer {
+/* Estilos para el contenedor de los botones de acción (Cancelar, Agregar/Editar) */
+.formActions {
   display: flex;
-  justify-content: flex-end;
-  gap: 10px;
+  justify-content: flex-end; /* Alinea los botones a la derecha */
+  gap: 10px; /* Espacio entre los botones */
   margin-top: 20px;
 }
 
+/* Estilos para el botón de Cancelar */
 .cancelBtn {
   background: black;
   color: white;
@@ -136,6 +121,7 @@ input[type="file"] {
   background: #333;
 }
 
+/* Estilos para el botón de Agregar/Editar */
 .addBtn {
   background: #D3D837;
   color: black;

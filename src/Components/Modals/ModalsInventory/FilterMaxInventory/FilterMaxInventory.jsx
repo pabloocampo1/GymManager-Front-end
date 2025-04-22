@@ -3,115 +3,112 @@ import { motion } from "framer-motion";
 import styles from "./FilterMaxInventory.module.css";
 
 const FilterMaxInventory = ({ items, onClose, onUpdateItems }) => {
-  const [selectedFilter, setSelectedFilter] = useState("");
-  const [selectedItemIds, setSelectedItemIds] = useState([]);
-  const [displayItems, setDisplayItems] = useState([]);
+  const [filterType, setFilterType] = useState("");
+  const [itemsToUpdate, setItemsToUpdate] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
 
   useEffect(() => {
-    let filteredItems = [];
-    if (selectedFilter === "aceptable-deplorable") {
-      filteredItems = items.filter((item) => item.estado === "Aceptable");
-    } else if (selectedFilter === "deplorable-aceptable") {
-      filteredItems = items.filter((item) => item.estado === "Deplorable");
-    }
-    setDisplayItems(filteredItems);
-    setSelectedItemIds([]);
-  }, [selectedFilter, items]);
+     // Inicialmente mostrar todos los items
+    setItemsToUpdate([]); // Limpiar la selección al abrir el modal
+    setFilterType(""); // Resetear el tipo de filtro
+  }, [items, onClose]);
 
   const handleContainerClick = (e) => {
     e.stopPropagation();
   };
 
-  const handleFilterChange = (e) => {
-    setSelectedFilter(e.target.value);
-    setSelectedItemIds([]);
+  const handleFilterTypeChange = (e) => {
+    setFilterType(e.target.value);
+    setItemsToUpdate([]); // Limpiar la selección al cambiar el filtro
   };
 
-  const handleItemSelect = (itemId) => {
-    setSelectedItemIds((prevSelectedItemIds) =>
-      prevSelectedItemIds.includes(itemId)
-        ? prevSelectedItemIds.filter((id) => id !== itemId)
-        : [...prevSelectedItemIds, itemId]
+  const handleItemCheckboxChange = (itemId) => {
+    setItemsToUpdate((prev) =>
+      prev.includes(itemId) ? prev.filter((id) => id !== itemId) : [...prev, itemId]
     );
   };
 
-  const handleAccept = () => {
-    if (!selectedFilter || selectedItemIds.length === 0) {
-      alert("Debe seleccionar un filtro y al menos un elemento");
+  const handleApplyFilter = () => {
+    if (!filterType || itemsToUpdate.length === 0) {
+      alert("Por favor, selecciona un tipo de filtro y al menos un elemento.");
       return;
     }
-    const newState =
-      selectedFilter === "deplorable-aceptable" ? "Aceptable" : "Deplorable";
+
+    const newState = filterType === "aceptable" ? "Aceptable" : "Deplorable";
     const updatedItems = items.map((item) =>
-      selectedItemIds.includes(item.id) ? { ...item, estado: newState } : item
+      itemsToUpdate.includes(item.id) ? { ...item, estado: newState } : item
     );
     onUpdateItems(updatedItems);
     onClose();
   };
 
+  const itemsToShow = filterType
+    ? items.filter(item => item.estado.toLowerCase() === filterType)
+    : items;
+
   return (
     <div className={styles._inventory_container_ovjvj_11}>
-    <motion.div 
-      className={styles.ConteinerFilterMax}
-      onClick={handleContainerClick}
-      initial={{ opacity: 0, y: -100, scale: 0.8 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: 100, scale: 0.8 }}
-      transition={{ type: "spring", stiffness: 100, damping: 10 }}
-    >
-      <div className={styles.HeaderFilterMax}>
-        <h2>Filtrado Máximo de Inventario</h2>
-        <select
-          value={selectedFilter}
-          onChange={handleFilterChange}
-          className={styles.selectFilter}
-        >
-          <option value="">Selecciona el filtrado:</option>
-          <option value="aceptable-deplorable">Aceptable a Deplorable</option>
-          <option value="deplorable-aceptable">Deplorable a Aceptable</option>
-        </select>
-      </div>
+      <motion.div
+        className={styles.ConteinerFilterMax}
+        onClick={handleContainerClick}
+        initial={{ opacity: 0, y: -100, scale: 0.8 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 100, scale: 0.8 }}
+        transition={{ type: "spring", stiffness: 100, damping: 10 }}
+      >
+        <div className={styles.HeaderFilterMax}>
+          <h2>Filtrado Máximo de Estado</h2>
+          <select
+            value={filterType}
+            onChange={handleFilterTypeChange}
+            className={styles.selectFilter}
+          >
+            <option value="">Selecciona el estado a filtrar</option>
+            <option value="aceptable">Aceptable</option>
+            <option value="deplorable">Deplorable</option>
+          </select>
+        </div>
 
-      <div className={styles.listFilterMax}>
-        {displayItems.length > 0 ? (
-          <div className={styles.itemsGrid}>
-            {displayItems.map((item) => (
-              <div key={item.id} className={styles.filterItem}>
-                {item.image && (
-                  <img
-                    src={item.image}
-                    alt={item.nombre}
-                    className={styles.smallImage}
+        <div className={styles.listFilterMax}>
+          {itemsToShow.length > 0 ? (
+            <div className={styles.itemsGrid}>
+              {itemsToShow.map((item) => (
+                <div key={item.id} className={styles.filterItem}>
+                  {(item.image || item.imagen) && (
+                    <img
+                      src={item.image || item.imagen}
+                      alt={item.nombre}
+                      className={styles.smallImage}
+                    />
+                  )}
+                  <span className={styles.itemName}>{item.nombre}</span>
+                  <input
+                    type="checkbox"
+                    checked={itemsToUpdate.includes(item.id)}
+                    onChange={() => handleItemCheckboxChange(item.id)}
+                    className={styles.itemCheckbox}
                   />
-                )}
-                <span className={styles.itemName}>{item.nombre}</span>
-                <input
-                  type="checkbox"
-                  checked={selectedItemIds.includes(item.id)}
-                  onChange={() => handleItemSelect(item.id)}
-                  className={styles.itemCheckbox}
-                />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p>{selectedFilter ? "No hay Objetos por el filtro seleccionado" : "Selecciona una opción de filtrado"}</p>
-        )}
-      </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p>{filterType ? `No hay objetos con estado "${filterType}"` : "Selecciona un estado para filtrar"}</p>
+          )}
+        </div>
 
-      <div className={styles.modalActions}>
-        <button
-          onClick={handleAccept}
-          disabled={selectedItemIds.length === 0 || !selectedFilter}
-          className={styles.acceptButton}
-        >
-          Aceptar Cambios
-        </button>
-        <button onClick={onClose} className={styles.cancelButton}>
-          Cancelar
-        </button>
-      </div>
-    </motion.div>
+        <div className={styles.modalActions}>
+          <button
+            onClick={handleApplyFilter}
+            disabled={itemsToUpdate.length === 0 || !filterType}
+            className={styles.acceptButton}
+          >
+            Cambiar Estado
+          </button>
+          <button onClick={onClose} className={styles.cancelButton}>
+            Cancelar
+          </button>
+        </div>
+      </motion.div>
     </div>
   );
 };

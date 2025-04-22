@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion"; // Importamos framer-motion
 import styles from "./ProfileGym.module.css";
 
 const ProfileGym = () => {
@@ -13,7 +14,6 @@ const ProfileGym = () => {
   const [profileImage, setProfileImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   
-  // Check if there's a saved profile image in localStorage on component mount
   useEffect(() => {
     const savedImage = localStorage.getItem('profileImage');
     if (savedImage) {
@@ -29,8 +29,6 @@ const ProfileGym = () => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setProfileImage(file);
-      
-      // Create a preview of the selected image
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewImage(reader.result);
@@ -39,49 +37,33 @@ const ProfileGym = () => {
     }
   };
 
- 
-const handleSubmit = (e) => {
-  e.preventDefault();
-
-  if (previewImage) {
-    localStorage.setItem("profileImage", previewImage);
-
-    const event = new CustomEvent("profileUpdated", {
-      detail: { profileImage: previewImage },
-    });
-    window.dispatchEvent(event);
-  }
-
-  localStorage.setItem("nombreUsuario", formData.nombre);
-
-  console.log("Datos actualizados:", formData);
-  console.log("Imagen actualizada:", profileImage);
-
-  alert("Datos actualizados correctamente");
-};
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (previewImage) {
+      localStorage.setItem("profileImage", previewImage);
+      const event = new CustomEvent("profileUpdated", { detail: { profileImage: previewImage } });
+      window.dispatchEvent(event);
+    }
+    localStorage.setItem("nombreUsuario", formData.nombre);
+    alert("Datos actualizados correctamente");
+  };
 
   return (
-    <>
-      <h2 className={styles.title}>Datos Personales</h2>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+      
       <div className={styles.profileContainer}>
+      <h2 className={styles.title}>Datos Personales</h2>
         <div className={styles.contentLayout}>
-          {/* Columna izquierda con la imagen */}
           <div className={styles.imageColumn}>
-            <div className={styles.profileImagePreview}>
+            <motion.div className={styles.profileImagePreview} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
               {previewImage ? (
-                <img 
-                  src={previewImage} 
-                  alt="Vista previa de perfil" 
-                  className={styles.previewImage}
-                />
+                <img src={previewImage} alt="Vista previa de perfil" className={styles.previewImage} />
               ) : (
                 <div className={styles.noImagePlaceholder}>
                   <span>Sin imagen</span>
                 </div>
               )}
-            </div>
-            
+            </motion.div>
             <div className={styles.uploadButtonContainer}>
               <label htmlFor="profileImage" className={styles.customFileUpload}>
                 Cambiar imagen
@@ -95,69 +77,31 @@ const handleSubmit = (e) => {
               />
             </div>
           </div>
-          
-          {/* Columna derecha con el formulario */}
+
           <div className={styles.formColumn}>
             <form onSubmit={handleSubmit} className={styles.form}>
               <div className={styles.formGroup}>
                 <label>Nombre:</label>
-                <input
-                  type="text"
-                  name="nombre"
-                  value={formData.nombre}
-                  onChange={handleChange}
-                />
+                <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} />
               </div>
-              
-              <div className={styles.formGroup}>
-                <label>Correo:</label>
-                <input
-                  type="email"
-                  name="correo"
-                  value={formData.correo}
-                  onChange={handleChange}
-                />
-              </div>
-              
               <div className={styles.formGroup}>
                 <label>Contraseña:</label>
-                <input
-                  type="password"
-                  name="contraseña"
-                  value={formData.contraseña}
-                  onChange={handleChange}
-                  placeholder="********"
-                />
+                <input type="password" name="contraseña" value={formData.contraseña} onChange={handleChange} placeholder="********" />
               </div>
-              
               <div className={styles.formGroup}>
                 <label>Clientes Activos:</label>
-                <input
-                  type="number"
-                  name="clientes"
-                  value={formData.clientes}
-                  onChange={handleChange}
-                />
+                <input type="number" name="clientes" value={formData.clientes} onChange={handleChange} />
               </div>
-              
               <div className={styles.formGroup}>
                 <label>Nombre del Gimnasio:</label>
-                <input
-                  type="text"
-                  name="nombreGimnasio"
-                  value={formData.nombreGimnasio}
-                  onChange={handleChange}
-                />
+                <input type="text" name="nombreGimnasio" value={formData.nombreGimnasio} onChange={handleChange} />
               </div>
-              
-              <button type="submit" className={styles.updateButton}>
-                Actualizar Datos
-              </button>
+              <button type="submit" className={styles.updateButton}>Actualizar Datos</button>
             </form>
           </div>
         </div>
       </div>
-    </>
+    </motion.div>
   );
 };
 
