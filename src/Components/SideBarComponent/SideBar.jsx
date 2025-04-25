@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import style from './SideBar.module.css'
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -13,11 +13,13 @@ import ContactMailIcon from '@mui/icons-material/ContactMail';
 import EventIcon from '@mui/icons-material/Event';
 import AttachEmailIcon from '@mui/icons-material/AttachEmail';
 import InventoryIcon from '@mui/icons-material/Inventory';
+import { AuthContext } from '../../Context/AuthContext';
 
 function SideBar() {
     const [activeLink, setActiveLink] = useState("");
     const [profileImage, setProfileImage] = useState(null);
     const navigate = useNavigate();
+    const {logout} = useContext(AuthContext);
 
     const handleClick = (link) => {
         setActiveLink(link)
@@ -120,7 +122,7 @@ function SideBar() {
                     </Link>
                 </div>
                 <div>
-                    <Link to="/"><LogoutIcon /></Link>
+                    <LogoutIcon onClick={() => logout()} />
                 </div>
             </div>
         </div>

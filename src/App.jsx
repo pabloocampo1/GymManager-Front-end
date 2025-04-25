@@ -17,38 +17,52 @@ import EventHome from './Pages/SectionHomePages/EventsHome/EventHome'
 import ControlAcces from './Pages/ControlAcces'
 import ForgotPassword from './Pages/ValidationPasswordForget/ValidationPassword'
 import SecurityCode from './Pages/ValidationCodPassword/Validationcod'
+import { AuthContextProvider } from './Context/AuthContext'
+import PrivateRoute from './Routes/PrivateRoute'
 
 
 function App() {
-   
+
 
     return (
 
         <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<PublicLayout />}>
-                    <Route index element={<Home />} />
-                    <Route path="/contact" element={<ContactHome />} />
-                    <Route path="/eventsHome" element={<EventHome />} />
+            <AuthContextProvider>
+                <Routes>
+                    <Route path="/" element={<PublicLayout />}>
+                        <Route index element={<Home />} />
+                        <Route path="/contact" element={<ContactHome />} />
+                        <Route path="/eventsHome" element={<EventHome />} />
+                        <Route index element={<Dashboard />} />
+                        <Route path='acceso' element={<ControlAcces />}></Route>
+                        <Route path='miembros' element={<Miembros />}></Route>
+                        <Route path='membresias' element={<Membresias />}></Route>
+                        <Route path="correo" element={<Promotions />} />
+                        <Route path="eventos" element={<Events />} />
+                        <Route path="inventario" element={<Inventory />} />
+                        <Route path="perfil" element={<Profile />} />
+                    </Route>
 
-                </Route>
+                    <Route path="/login" element={<Login />} />
+                    <Route path='/ForgetPass' element={<ForgotPassword />} />
+                    <Route path='/CodePass' element={<SecurityCode />} />
 
-                <Route path="/login" element={<Login />} />
-                <Route path='/ForgetPass' element={<ForgotPassword/>}/>
-                <Route path='/CodePass' element={<SecurityCode/>}/>
-                {/* Rutas privadas: el layout se encargará de mostrar el sidebar */}
-                <Route path="/dashboard" element={<PrivateLayout />}>
-                    <Route index element={<Dashboard />} />
-                    <Route path='acceso' element={<ControlAcces />}></Route>
-                    <Route path='miembros' element={<Miembros />}></Route>
-                    <Route path='membresias' element={<Membresias />}></Route>
-                    <Route path="correo" element={<Promotions />} />
-                    <Route path="eventos" element={<Events />} />
-                    <Route path="inventario" element={<Inventory />} />
-                    <Route path="perfil" element={<Profile />} />
-                </Route>
-                <Route path="*" element={<NotFound />} />
-            </Routes>
+
+                    <Route path="/dashboard" element={<PrivateRoute />}>
+                        <Route  element={<PrivateLayout />} >
+                            <Route index element={<Dashboard />} />
+                            <Route path='acceso' element={<ControlAcces />}></Route>
+                            <Route path='miembros' element={<Miembros />}></Route>
+                            <Route path='membresias' element={<Membresias />}></Route>
+                            <Route path="correo" element={<Promotions />} />
+                            <Route path="eventos" element={<Events />} />
+                            <Route path="inventario" element={<Inventory />} />
+                            <Route path="perfil" element={<Profile />} />
+                        </Route>
+                    </Route>
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+            </AuthContextProvider>
         </BrowserRouter>
 
 
