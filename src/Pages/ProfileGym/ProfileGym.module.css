@@ -1,16 +1,35 @@
 /* ProfileGym.module.css */
+.HeaderContainer {
+  display: flex;
+  align-items: center; /* centra verticalmente */
+  justify-content: space-between; /* o usa 'flex-start' si no quieres separar tanto */
+  margin-bottom: 1rem;
+  gap: 1rem; /* espacio entre elementos si los quieres más pegados */
+  flex-wrap: wrap; /* por si en pantallas pequeñas deben caer a otra línea */
+}
 .title {
   font-size: 30px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
   margin: 7px;
   color: #333;
- 
 }
+.openModalBtn{
+  background-color: #d3d837;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s, transform 0.3s ease;
+  border: none;
+  font-weight: bold;
+}
+
 
 .profileContainer {
   max-width: 900px;
-  margin: 30px auto 30px auto;
+  margin: 25px auto 25px auto;
   padding: 30px;
   background: #f9f9f9;
   border-radius: 12px;

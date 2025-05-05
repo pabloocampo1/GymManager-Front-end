@@ -12,33 +12,34 @@ import DocumentViewer from "../../DocumentViewer";
 
 const TargetEvent = ({ event, onDelete, onEdit }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  
-  const getEventStatus = (eventDate) => {
+
+  const getEventStatus = (fechaEvento) => {
     const today = new Date();
-    const eventDateObj = new Date(eventDate);
     today.setHours(0, 0, 0, 0);
-    eventDateObj.setHours(0, 0, 0, 0);
-    
-    if (eventDateObj.getTime() === today.getTime()) {
-      return "today";
-    } else if (eventDateObj > today) {
-      return "upcoming";
+  
+    const [year, month, day] = fechaEvento.split("-").map(Number);
+    const eventDate = new Date(year, month - 1, day); 
+  
+    if (eventDate.getTime() === today.getTime()) {
+      return "today"; 
+    } else if (eventDate > today) {
+      return "upcoming"; 
     } else {
-      return "expired";
+      return "expired"; 
     }
   };
   
-  const eventStatus = getEventStatus(event.fecha);
-  
-  // Obtenemos la URL de la imagen (utilizando cualquier propiedad donde pueda estar)
+
+  const eventStatus = getEventStatus(event.fechaEvento);
+
   const imageUrl = event.image || event.imagen || event.imagenFile || null;
-  
+
   const handleEditClick = () => {
     if (onEdit) onEdit();
   };
-  
+
   const handleDeleteClick = () => setIsDeleteModalOpen(true);
-  
+
   return (
     <div className={styles.eventCard}>
       <div className={styles.imageContainer}>
@@ -48,10 +49,10 @@ const TargetEvent = ({ event, onDelete, onEdit }) => {
           className={styles.eventImage}
         />
       </div>
-      
+
       <div className={styles.eventContent}>
         <h3 className={styles.eventTitle}>{event.nombre}</h3>
-        
+
         <div className={styles.eventDetails}>
           <div className={styles.detailItem}>
             <span className={styles.detailLabel}>Lugar</span>
@@ -62,12 +63,12 @@ const TargetEvent = ({ event, onDelete, onEdit }) => {
             <span className={styles.detailValue}>{event.fechaEvento}</span>
           </div>
         </div>
-        
+
         <div className={styles.eventActions}>
           {eventStatus === "expired" && <ButtonInactive text="Vencido" />}
           {eventStatus === "today" && <ButtonActive text="En proceso" />}
           {eventStatus === "upcoming" && <ButtonInTime text="Disponible" />}
-          
+
           <div className={styles.iconButtons}>
             <IconButton className={styles.editButton} onClick={handleEditClick}>
               <EditIcon fontSize="small" />
@@ -78,18 +79,19 @@ const TargetEvent = ({ event, onDelete, onEdit }) => {
           </div>
         </div>
       </div>
-      
-      {/* Modal de eliminación renderizado en el <body> */}
-      {isDeleteModalOpen && ReactDOM.createPortal(
-        <ConfirmationModalEvent
-          onClose={() => setIsDeleteModalOpen(false)}
-          onConfirm={() => {
-            setIsDeleteModalOpen(false);
-            if (onDelete) onDelete(event);
-          }}
-        />,
-        document.body
-      )}
+
+      {/* Modal para confirmar eliminación */}
+      {isDeleteModalOpen &&
+        ReactDOM.createPortal(
+          <ConfirmationModalEvent
+            onClose={() => setIsDeleteModalOpen(false)}
+            onConfirm={() => {
+              setIsDeleteModalOpen(false);
+              if (onDelete) onDelete(event);
+            }}
+          />,
+          document.body
+        )}
     </div>
   );
 };
