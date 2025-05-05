@@ -9,7 +9,7 @@ import DataUserAccesAllInfo from './DataUserAccesAllInfo';
 const DataUserAccesUI = ({ dataUser = [], isUserSelect, message }) => {
     const [open, setOpen] = useState(false);
     const [dataByUserSelect, setDataUserSelect] = useState({});
-    
+
 
     const handleOpen = (infoUser) => {
         setDataUserSelect(infoUser)
@@ -36,6 +36,7 @@ const DataUserAccesUI = ({ dataUser = [], isUserSelect, message }) => {
                             key={index}
                             sx={{
                                 width: "100%",
+                                height:"50px",
                                 display: "flex",
                                 justifyContent: "space-between",
                                 p: "10px 20px",
@@ -45,9 +46,16 @@ const DataUserAccesUI = ({ dataUser = [], isUserSelect, message }) => {
 
                             }}
                         >
-                            <Typography variant="h6">{user.name}</Typography>
-                            <Typography variant="body2">DNI: {user.DNI}</Typography>
-                            {user.estado == "Activa" ?  (<ButtonActive text={user.estado}></ButtonActive>) : (<ButtonInactive text={user.estado} />)}
+                            <Box sx={{width:"33.3%", display:"flex", justifyContent:"start",alignItems:"center", flexDirection:"column"} }>
+                                <Typography variant="p">{user.name}</Typography>
+                            </Box>
+                            <Box sx={{width:"33.3%", display:"flex", justifyContent:"center"}}>
+                                <Typography variant="p">{user.DNI}</Typography>
+                            </Box>
+                            <Box sx={{width:"33.3%", display:"flex", justifyContent:"end"}}>
+                                {user.estado == "Activa" ? (<ButtonActive text={user.estado}></ButtonActive>) : (<ButtonInactive text={user.estado} />)}
+                            </Box>
+
                         </Box>
                     ))
                 ) : (
@@ -57,7 +65,7 @@ const DataUserAccesUI = ({ dataUser = [], isUserSelect, message }) => {
             }
             {open && <DataUserAccesAllInfo open={open} onClose={handleClose} data={dataByUserSelect} message={message} />
             }
-           
+
         </Box>
     );
 };

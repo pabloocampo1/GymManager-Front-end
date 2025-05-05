@@ -9,11 +9,11 @@ export default function PieChartActiveAndInactiveMembers() {
 
         <Box
             sx={{ 
-                width: "40%",
+                width: "45%",
                 backgroundColor:"white",
                 borderRadius:"15px"
             }}>
-            <Typography variant='p'>Minetros activo e inactivos</Typography>
+            <Typography variant='p'>Miembros activo e inactivos</Typography>
             <PieChart
 
                 series={[

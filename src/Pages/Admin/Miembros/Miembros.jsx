@@ -9,10 +9,10 @@ import TableRow from "@mui/material/TableRow";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React, { useState, useMemo } from "react";
 import styles from "./Miembros.module.css";
-import MiembrosModal from "../../Components/Modals/ModalMiembros/MiembrosModal.jsx";
-import ConfirmatioModalMiembros from "../../Components/Modals/ModalMiembros/ConfirmationModalMiembros/MiembrosConfirmation.jsx";
-import ActiveButton from "../../Components/Buttons/ButtonActive.jsx"
-import InactiveButton from "../../Components/Buttons/ButtonInactive.jsx"
+import MiembrosModal from "../../../Components/Modals/ModalMiembros/MiembrosModal.jsx";
+import ConfirmatioModalMiembros from "../../../Components/Modals/ModalMiembros/ConfirmationModalMiembros/MiembrosConfirmation.jsx";
+import ActiveButton from "../../../Components/Buttons/ButtonActive.jsx"
+import InactiveButton from "../../../Components/Buttons/ButtonInactive.jsx"
 
 const MiembrosModalComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

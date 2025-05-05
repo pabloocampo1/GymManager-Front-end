@@ -1,17 +1,17 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import imageLogo from "../../assets/images/logoprincipal.png";
-import imageLogin from "../../assets/images/logo_login_yellow.png";
-import iconArrowLeft from "../../assets/icons/left-arrow.png";
+import imageLogo from "../../../assets/images/logoprincipal.png";
+import imageLogin from "../../../assets/images/logo_login_yellow.png";
+import iconArrowLeft from "../../../assets/icons/left-arrow.png";
 import style from "./Login.module.css";
 import { Box, Checkbox, FormControlLabel, FormGroup, Typography } from "@mui/material";
 import { Password } from "@mui/icons-material";
-import { AuthContext } from "../../Context/AuthContext";
-import SimpleBackdrop from "../../Components/SimpleBackdrop";
+
+import SimpleBackdrop from "../../../Components/SimpleBackdrop";
+import { AuthContext } from "../../../Context/AuthContext";
 
 function Login() {
-
     const navigate = useNavigate();
     const { state, singIn } = useContext(AuthContext);
     const [dataCredentials, setDataCredentials] = useState({
@@ -37,20 +37,18 @@ function Login() {
         })
         if (state.isAuthenticated) {
             setIsAuthenticated(true)
+            setIsLoanding(false)
             
         } else {
             setIsAuthenticated(false)
+            setIsLoanding(false)
         }
 
-        setTimeout(() => {
-            setIsLoanding(false)
-       }, 1000)
+       
 
-        console.log(state.isAuthenticated);
-        
+           
+       
 
-
-        
     };
 
     const handleCkeck = (event) => {
@@ -77,7 +75,7 @@ function Login() {
                 </div>
                 <div className={style.container_image_contain}>
                     <h2>
-                        <span>Bien</span>venido
+                        <span>Bien</span>venid@
                     </h2>
                     <img src={imageLogin} alt="logo del login" />
                 </div>

@@ -72,7 +72,9 @@ export const AuthContextProvider = ({ children }) => {
                         type: "signIn",
                         payload: userLogged
                     })
-                    localStorage.setItem("userAuthGymManager", JSON.stringify(userLogged))
+                   if(autologin){
+                        localStorage.setItem("userAuthGymManager", JSON.stringify(userLogged))
+                   }
                     
                     if (response.data.status) {
                         navigateTo("/dashboard")

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import style from './SideBar.module.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import imageLogo from '../../assets/images/logoprincipal.png'
 
@@ -16,20 +16,67 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import { AuthContext } from '../../Context/AuthContext';
 
 function SideBar() {
-    const [activeLink, setActiveLink] = useState("");
-    const [profileImage, setProfileImage] = useState(null);
     const navigate = useNavigate();
-    const {logout} = useContext(AuthContext);
+    const location = useLocation();
+    const { logout } = useContext(AuthContext);
 
-    const handleClick = (link) => {
-        setActiveLink(link)
-    }
+    const [activeLink, setActiveLink] = useState("");
 
-    const handleNavigate = (path) => {
+    const [profileImage, setProfileImage] = useState(null);
+
+    const routeMap = {
+        "/dashboard": "inicio",
+        "/dashboard/miembros": "Miembros",
+        "/dashboard/membresias": "Membresias",
+        "/dashboard/acceso": "Registro",
+        "/dashboard/eventos": "Eventos",
+        "/dashboard/correo": "Email",
+        "/dashboard/inventario": "Inventario",
+        "/dashboard/perfil": "perfil"
+    };
+
+    
+    useEffect(() => {
+        const current = routeMap[location.pathname] || "inicio";
+        setActiveLink(current);
+        localStorage.setItem('activeLink', current);
+    }, [location.pathname]);
+
+   
+    useEffect(() => {
+        const storedLink = localStorage.getItem('activeLink');
+        if (storedLink) {
+            setActiveLink(storedLink);
+        }
+        loadProfileImage();
+
+        const handleProfileUpdate = () => loadProfileImage();
+        window.addEventListener('profileUpdated', handleProfileUpdate);
+
+        return () => {
+            window.removeEventListener('profileUpdated', handleProfileUpdate);
+        };
+    }, []);
+
+   
+    useEffect(() => {
+        const handleStorageChange = (e) => {
+            if (e.key === 'profileImage') {
+                loadProfileImage();
+            }
+        };
+        window.addEventListener('storage', handleStorageChange);
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+        };
+    }, []);
+
+    const handleNavigate = (path, name) => {
+        setActiveLink(name);
+        localStorage.setItem('activeLink', name); 
         navigate(path);
-    }
+    };
 
-    // Function to load profile image from localStorage
     const loadProfileImage = () => {
         const savedImage = localStorage.getItem('profileImage');
         if (savedImage) {
@@ -37,80 +84,46 @@ function SideBar() {
         }
     };
 
-    useEffect(() => {
-        handleClick("inicio");
-        loadProfileImage();
-        
-    
-        const handleProfileUpdate = () => {
-            loadProfileImage();
-        };
-        
-        window.addEventListener('profileUpdated', handleProfileUpdate);
-        
-
-        return () => {
-            window.removeEventListener('profileUpdated', handleProfileUpdate);
-        };
-    }, []);
-
-    
-    useEffect(() => {
-        
-        const handleStorageChange = (e) => {
-            if (e.key === 'profileImage') {
-                loadProfileImage();
-            }
-        };
-        
-        window.addEventListener('storage', handleStorageChange);
-        
-        return () => {
-            window.removeEventListener('storage', handleStorageChange);
-        };
-    }, []);
-
     return (
         <div className={style.container_sideBar}>
-
             <div className={style.imageContainer}>
                 <img src={imageLogo} alt="logo gymManager" />
             </div>
 
             <div className={style.navegationList}>
-                <div
-                    className={activeLink === "inicio" ? style.activeLink : "inicio"}
-                    onClick={() => { handleClick("inicio"), handleNavigate("/dashboard") }}>
+                <div className={activeLink === "inicio" ? style.activeLink : ""}
+                    onClick={() => handleNavigate("/dashboard", "inicio")}>
                     <HomeIcon sx={{ color: "white" }} /><p>Inicio</p>
                 </div>
                 <div className={activeLink === "Miembros" ? style.activeLink : ""}
-                    onClick={() => { handleClick("Miembros"), handleNavigate("/dashboard/miembros") }}>
-                    <GroupAddRoundedIcon sx={{ color: "white" }}></GroupAddRoundedIcon><p>Miembros</p>
+                    onClick={() => handleNavigate("/dashboard/miembros", "Miembros")}>
+                    <GroupAddRoundedIcon sx={{ color: "white" }} /><p>Miembros</p>
                 </div>
                 <div className={activeLink === "Membresias" ? style.activeLink : ""}
-                    onClick={() => { handleClick("Membresias"), handleNavigate("/dashboard/membresias") }}>
+                    onClick={() => handleNavigate("/dashboard/membresias", "Membresias")}>
                     <LocalActivityIcon sx={{ color: "white" }} /><p>Membresias</p>
                 </div>
                 <div className={activeLink === "Registro" ? style.activeLink : ""}
-                    onClick={() => { handleClick("Registro"), handleNavigate("/dashboard/acceso") }}>
-                    <ContactMailIcon sx={{ color: "white" }} /> <p>Control de acceso</p>
+                    onClick={() => handleNavigate("/dashboard/acceso", "Registro")}>
+                    <ContactMailIcon sx={{ color: "white" }} /><p>Control de acceso</p>
                 </div>
                 <div className={activeLink === "Eventos" ? style.activeLink : ""}
-                    onClick={() => { handleClick("Eventos"), handleNavigate("/dashboard/eventos") }}>
-                    <EventIcon sx={{ color: "white" }} />  <p>Eventos</p>
+                    onClick={() => handleNavigate("/dashboard/eventos", "Eventos")}>
+                    <EventIcon sx={{ color: "white" }} /><p>Eventos</p>
                 </div>
                 <div className={activeLink === "Email" ? style.activeLink : ""}
-                    onClick={() => { handleClick("Email"), handleNavigate("/dashboard/correo") }} >
+                    onClick={() => handleNavigate("/dashboard/correo", "Email")}>
                     <AttachEmailIcon sx={{ color: "white" }} /><p>Email</p>
                 </div>
                 <div className={activeLink === "Inventario" ? style.activeLink : ""}
-                    onClick={() => { handleClick("Inventario"), handleNavigate("/dashboard/inventario") }}>
-                    <InventoryIcon sx={{ color: "white" }} /> <p >Inventario</p>
+                    onClick={() => handleNavigate("/dashboard/inventario", "Inventario")}>
+                    <InventoryIcon sx={{ color: "white" }} /><p>Inventario</p>
                 </div>
-            </div> 
+            </div>
 
             <div className={style.UtilsSideBar}>
-                <div className={activeLink === "perfil" ? style.activeLink : ""} onClick={() => {handleClick("perfil"), handleNavigate("/dashboard/perfil") } }>
+                <div className={activeLink === "perfil" ? style.activeLink : ""}
+                    onClick={() => handleNavigate("/dashboard/perfil", "perfil")}>
                     <Link to="/dashboard/perfil">
                         {profileImage ? (
                             <div className={style.profileImageContainer}>

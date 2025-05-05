@@ -4,10 +4,10 @@ import {
     Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import SearchInput from '../Components/SearchInputComponent';
-import ModalVisitRegular from '../Components/Modals/ModalVisitRegular';
-import DataUserAccesUI from '../Components/Modals/DataUserAccesSummaryUI';
-import ShowMessageSuccess from '../Components/ShowMessageSuccess';
+import SearchInput from '../../Components/SearchInputComponent';
+import ModalVisitRegular from '../../Components/Modals/ModalVisitRegular';
+import DataUserAccesUI from '../../Components/Modals/DataUserAccesSummaryUI';
+import ShowMessageSuccess from '../../Components/ShowMessageSuccess';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
 
 function ControlAcces() {
