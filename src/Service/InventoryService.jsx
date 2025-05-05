@@ -11,7 +11,7 @@ const InventoryService = {
 
   getAllItems: async () => {
     try {
-      const response = await api.get(`/inventory`);
+      const response = await api.get(`/api/inventory`);
       return response.data.map(normalizeImageResponse);
     } catch (error) {
       console.error('Error getting inventory items:', error);
@@ -21,7 +21,7 @@ const InventoryService = {
 
   getItemById: async (id) => {
     try {
-      const response = await api.get(`/inventory/${id}`);
+      const response = await api.get(`/api/inventory/${id}`);
       return normalizeImageResponse(response.data);
     } catch (error) {
       console.error(`Error getting inventory item with ID ${id}:`, error);
@@ -47,7 +47,7 @@ const InventoryService = {
         formData.append('imagenFile', item.image);
       }
 
-      const response = await api.post(`/inventory`, formData, {
+      const response = await api.post(`/api/inventory`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -83,7 +83,7 @@ const InventoryService = {
         formData.append('imagenFile', item.image);
       }
 
-      const response = await api.put(`/inventory/${id}`, formData, {
+      const response = await api.put(`/api/inventory/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -98,7 +98,7 @@ const InventoryService = {
 
   deleteItem: async (id) => {
     try {
-      const response = await api.delete(`/inventory/${id}`);
+      const response = await api.delete(`/api/inventory/${id}`);
       return response.data;
     } catch (error) {
       console.error(`Error deleting inventory item with ID ${id}:`, error);
@@ -111,7 +111,7 @@ const InventoryService = {
 // Aquí está el código para la actualización en bloque de los items
 const bulkUpdateItems = async (items) => {
   try {
-    const response = await api.put(`/inventory/updateEstados`, items);
+    const response = await api.put(`/api/inventory/updateEstados`, items);
     return response.data; // Si no es necesario normalizar la respuesta
   } catch (error) {
     console.error('Error bulk updating inventory items:', error);

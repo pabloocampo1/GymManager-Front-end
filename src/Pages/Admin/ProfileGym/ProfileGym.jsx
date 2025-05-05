@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion"; // Importamos framer-motion
 import styles from "./ProfileGym.module.css";
-import PrivateDataModal from "../../Components/Modals/ModalProfile/ModalDataPrivate"
+import PrivateDataModal from "../../../Components/Modals/ModalProfile/ModalDataPrivate"
 
 const ProfileGym = () => {
   const [formData, setFormData] = useState({
