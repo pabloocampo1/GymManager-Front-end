@@ -52,6 +52,14 @@ seccion de eventos
     margin-top: 50px;
     padding-bottom: 50px;
 }
+.eventlist{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
 
 .events_items_container h2{
     text-align: center;

@@ -1,25 +1,27 @@
-/* ProfileGym.module.css con diseño de dos columnas */
-
+/* ProfileGym.module.css */
 .title {
   font-size: 30px;
   font-weight: bold;
   margin-bottom: 20px;
-  margin: 35px;
+  margin: 7px;
+  color: #333;
+ 
 }
 
 .profileContainer {
-  max-width: 850px;
-  margin: 39px auto 30px 35px;
-  padding: 35px;
+  max-width: 900px;
+  margin: 30px auto 30px auto;
+  padding: 30px;
   background: #f9f9f9;
-  border-radius: 8px;
+  border-radius: 12px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
   text-align: left;
 }
 
 .contentLayout {
   display: flex;
   flex-direction: row;
-  gap: 40px;
+  gap: 30px;
 }
 
 .imageColumn {
@@ -27,10 +29,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .formColumn {
   flex: 1;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .profileImagePreview {
@@ -43,7 +53,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f0f0f0;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
 }
 
 .previewImage {
@@ -60,6 +71,7 @@
   justify-content: center;
   align-items: center;
   color: #666;
+  font-size: 16px;
 }
 
 .uploadButtonContainer {
@@ -75,14 +87,14 @@
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.3s ease;
   border: none;
   font-weight: bold;
-  text-align: center;
 }
 
 .customFileUpload:hover {
   background-color: #e5c100;
+  transform: scale(1.1);
 }
 
 .fileInput {
@@ -111,6 +123,7 @@
   border-radius: 8px;
   font-size: 16px;
   outline: none;
+  transition: border 0.3s ease;
 }
 
 .formGroup input:focus {
@@ -127,7 +140,7 @@
   font-size: 16px;
   cursor: pointer;
   margin-top: 20px;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.3s ease;
   font-weight: bold;
   display: block;
   margin-left: auto;
@@ -136,9 +149,10 @@
 
 .updateButton:hover {
   background-color: #e5c100;
+  transform: scale(1.05);
 }
 
-/* Responsive design para móviles */
+/* Responsive design */
 @media (max-width: 768px) {
   .contentLayout {
     flex-direction: column;
