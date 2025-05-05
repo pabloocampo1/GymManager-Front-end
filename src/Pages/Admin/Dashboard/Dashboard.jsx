@@ -1,19 +1,19 @@
 import { Box, Typography, Paper, Button } from "@mui/material";
-import CustomAxis from "../../Components/Charts/BarChartOne";
-import ChartMembership from "../../Components/Charts/ChartMembership";
-import TickPlacementBars from "../../Components/Charts/ChartPrice/TrickChart";
-import BarsDatasetToTal from "../../Components/Charts/ChartTotalUserByMonth/TotalUserByMonth";
+import CustomAxis from "../../../Components/Charts/BarChartOne";
+import ChartMembership from "../../../Components/Charts/ChartMembership";
+import TickPlacementBars from "../../../Components/Charts/ChartPrice/TrickChart";
+import BarsDatasetToTal from "../../../Components/Charts/ChartTotalUserByMonth/TotalUserByMonth";
 import UploadFileIcon from '@mui/icons-material/UploadFile';
-import PieActiveArc from "../../Components/Charts/Pie/PieMembershipMoreUsed";
-import PieChartActiveAndInactiveMembers from "../../Components/Charts/Pie/PieChartActiveAndInactiveMembers";
-import FirstDataCards from "../../Components/DasboardComponents/firstDataCards_div/firstDataCards";
-import PiePromGender from "../../Components/Charts/Pie/PiePromGender";
+import PieActiveArc from "../../../Components/Charts/Pie/PieMembershipMoreUsed";
+import PieChartActiveAndInactiveMembers from "../../../Components/Charts/Pie/PieChartActiveAndInactiveMembers";
+import FirstDataCards from "../../../Components/DasboardComponents/firstDataCards_div/firstDataCards";
+import PiePromGender from "../../../Components/Charts/Pie/PiePromGender";
 import React, { useEffect, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import LoandingDownloadReport from "../../Components/LoandingDownloadReport";
-import ListNewUsers from "../../Components/Charts/ListNewUsers";
-import ChartTotalUser from "../../Components/Charts/ChartTotalUser";
+import LoandingDownloadReport from "../../../Components/LoandingDownloadReport";
+import ListNewUsers from "../../../Components/Charts/ListNewUsers";
+import ChartTotalUser from "../../../Components/Charts/ChartTotalUser";
 
 function Dashboard() {
     const componentRef = useRef();
