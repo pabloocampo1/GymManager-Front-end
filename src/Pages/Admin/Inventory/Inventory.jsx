@@ -4,10 +4,10 @@ import { Menu, MenuItem } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import SyncIcon from '@mui/icons-material/Sync';
 import styles from "./Inventory.module.css";
-import InventoryModal from "../../Components/Modals/ModalsInventory/ModalInventory/InventoryModal";
-import TargetInventory from "../../Components/Targets/TargetInventory/TargetInventory";
-import FilterMaxInventory from "../../Components/Modals/ModalsInventory/FilterMaxInventory/FilterMaxInventory";
-import InventoryService from "../../Service/InventoryService"; // Make sure to adjust the path as needed
+import InventoryModal from "../../../Components/Modals/ModalsInventory/ModalInventory/InventoryModal";
+import TargetInventory from "../../../Components/Targets/TargetInventory/TargetInventory";
+import FilterMaxInventory from "../../../Components/Modals/ModalsInventory/FilterMaxInventory/FilterMaxInventory";
+import InventoryService from "../../../Service/InventoryService"; // Make sure to adjust the path as needed
 
 const Inventory = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

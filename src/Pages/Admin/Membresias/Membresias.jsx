@@ -9,8 +9,8 @@ import TableRow from "@mui/material/TableRow";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React, { useState } from "react";
 import styles from "./Membresias.module.css";
-import MembresiasModal from "../../Components/Modals/ModalMembresias/MembresiasModal.jsx";
-import ConfirmatioModalMembresia from "../../Components/Modals/ModalMembresias/ConfirmationModalMembresias/MembresiasConfirmation.jsx";
+import MembresiasModal from "../../../Components/Modals/ModalMembresias/MembresiasModal.jsx";
+import ConfirmatioModalMembresia from "../../../Components/Modals/ModalMembresias/ConfirmationModalMembresias/MembresiasConfirmation.jsx";
 
 const MembresiaModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

@@ -1,54 +1,71 @@
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom'
 import './App.css'
-import Login from './Pages/LoginPage/Login'
-import Home from './Pages/Home/Home'
-import PublicLayout from './Layouts/PublicLayout/PublicLayout'
-import PrivateLayout from './Layouts/PrivateLayout/PrivateLayout'
-import Dashboard from './Pages/Dashboard/Dashboard'
-import Promotions from './Pages/Mail/Mail'
-import Events from './Pages/Events/Events'
+import Login from './Pages/Auth/LoginPage/Login'
+import Home from './Pages/SectionHomePages/Home/Home'
+import Dashboard from './Pages/Admin/Dashboard/Dashboard'
+import Promotions from './Pages/Admin/Mail/Mail'
+import Events from './Pages/Admin/Events/Events'
 import NotFound from './Pages/NotFound/NotFound'
-import Inventory from './Pages/Inventory/Inventory'
-import Membresias from './Pages/Membresias/Membresias'
-import Miembros from './Pages/Miembros/Miembros'
-import Profile from './Pages/ProfileGym/ProfileGym'
+import Inventory from './Pages/Admin/Inventory/Inventory'
+import Membresias from './Pages/Admin/Membresias/Membresias'
+import Miembros from './Pages/Admin/Miembros/Miembros'
+import Profile from './Pages/Admin/ProfileGym/ProfileGym'
 import ContactHome from './Pages/SectionHomePages/ContactHome/ContactHome'
 import EventHome from './Pages/SectionHomePages/EventsHome/EventHome'
-import ControlAcces from './Pages/ControlAcces'
-import ForgotPassword from './Pages/ValidationPasswordForget/ValidationPassword'
-import SecurityCode from './Pages/ValidationCodPassword/Validationcod'
+import ControlAcces from './Pages/Admin/ControlAcces'
+import ForgotPassword from './Pages/Auth/ValidationPasswordForget/ValidationPassword'
+import SecurityCode from './Pages/Auth/ValidationCodPassword/Validationcod'
+import PublicLayout from './Layouts/PublicLayout/PublicLayout'
+import PrivateLayout from './Layouts/PrivateLayout/PrivateLayout'
+import { AuthContextProvider } from './Context/AuthContext'
+import PrivateRoute from './Routes/PrivateRoute'
+import GuestRoute from './Routes/GuestRoute'
 
 
 function App() {
-   
+
 
     return (
 
         <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<PublicLayout />}>
-                    <Route index element={<Home />} />
-                    <Route path="/contact" element={<ContactHome />} />
-                    <Route path="/eventsHome" element={<EventHome />} />
+            <AuthContextProvider>
+                <Routes>
+                    <Route path="/" element={<PublicLayout />}>
+                        <Route index element={<Home />} />
+                        <Route path="/contact" element={<ContactHome />} />
+                        <Route path="/eventsHome" element={<EventHome />} />
+                        <Route index element={<Dashboard />} />
+                        <Route path='acceso' element={<ControlAcces />}></Route>
+                        <Route path='miembros' element={<Miembros />}></Route>
+                        <Route path='membresias' element={<Membresias />}></Route>
+                        <Route path="correo" element={<Promotions />} />
+                        <Route path="eventos" element={<Events />} />
+                        <Route path="inventario" element={<Inventory />} />
+                        <Route path="perfil" element={<Profile />} />
+                    </Route>
 
-                </Route>
+                    <Route path='/login' element={<GuestRoute />}>
+                        <Route index element={<Login />} />
+                    </Route>
+                    <Route path='/ForgetPass' element={<ForgotPassword />} />
+                    <Route path='/resetPassword' element={<SecurityCode />} />
 
-                <Route path="/login" element={<Login />} />
-                <Route path='/ForgetPass' element={<ForgotPassword/>}/>
-                <Route path='/CodePass' element={<SecurityCode/>}/>
-                {/* Rutas privadas: el layout se encargará de mostrar el sidebar */}
-                <Route path="/dashboard" element={<PrivateLayout />}>
-                    <Route index element={<Dashboard />} />
-                    <Route path='acceso' element={<ControlAcces />}></Route>
-                    <Route path='miembros' element={<Miembros />}></Route>
-                    <Route path='membresias' element={<Membresias />}></Route>
-                    <Route path="correo" element={<Promotions />} />
-                    <Route path="eventos" element={<Events />} />
-                    <Route path="inventario" element={<Inventory />} />
-                    <Route path="perfil" element={<Profile />} />
-                </Route>
-                <Route path="*" element={<NotFound />} />
-            </Routes>
+
+                    <Route path="/dashboard" element={<PrivateRoute />}>
+                        <Route  element={<PrivateLayout />} >
+                            <Route index element={<Dashboard />} />
+                            <Route path='acceso' element={<ControlAcces />}></Route>
+                            <Route path='miembros' element={<Miembros />}></Route>
+                            <Route path='membresias' element={<Membresias />}></Route>
+                            <Route path="correo" element={<Promotions />} />
+                            <Route path="eventos" element={<Events />} />
+                            <Route path="inventario" element={<Inventory />} />
+                            <Route path="perfil" element={<Profile />} />
+                        </Route>
+                    </Route>
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+            </AuthContextProvider>
         </BrowserRouter>
 
 

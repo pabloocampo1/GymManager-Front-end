@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { PlusCircle, Search } from "lucide-react";
 import { Menu, MenuItem } from "@mui/material";
 import styles from "./Eventos.module.css";
-import EventModal from "../../Components/Modals/ModalsEvents/ModalEvents/EventModal";
-import TargetEvent from "../../Components/Targets/TargetEvent/TargetEvent";
+import EventModal from "../../../Components/Modals/ModalsEvents/ModalEvents/EventModal";
+import TargetEvent from "../../../Components/Targets/TargetEvent/TargetEvent";
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import EventService from "../../Service/EventsService"; 
+import EventService from "../../../Service/EventsService"; 
 
 function Events() {
   const [isModalOpen, setIsModalOpen] = useState(false);
