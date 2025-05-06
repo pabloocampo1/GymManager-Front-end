@@ -1,8 +1,9 @@
 import { api } from '../Service/api.jsx';
 
 const normalizeImageResponse = (item) => {
-  if (item.imagen && !item.image) {
-    item.image = item.imagen;
+  // Cambia 'imagen' por 'imagenUrl' para que coincida con tu DTO
+  if (item.imagenUrl && !item.image) {
+    item.image = item.imagenUrl;
   }
   return item;
 };
