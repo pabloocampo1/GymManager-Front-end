@@ -62,7 +62,7 @@ export const AuthContextProvider = ({ children }) => {
                 if (response.status == 201) {
                     const userLogged = {
                         username: response.data.username,
-                        role: response.data.role.replace(/[\\[\]" ]/g, '').split(',')[0],
+                        role: response.data.role,
                         token: response.data.jwt,
                         isAuthenticated: response.data.status,
                         rememberPassword: autologin
@@ -74,6 +74,8 @@ export const AuthContextProvider = ({ children }) => {
                     })
                    if(autologin){
                         localStorage.setItem("userAuthGymManager", JSON.stringify(userLogged))
+                        console.log(localStorage.getItem("userAuthGymManager"));
+                        
                    }
                     
                     if (response.data.status) {
