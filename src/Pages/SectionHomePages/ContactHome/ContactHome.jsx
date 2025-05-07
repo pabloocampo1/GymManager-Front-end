@@ -9,8 +9,10 @@ import { Facebook, Instagram, Send, WhatsApp } from '@mui/icons-material';
 import MapLocation from '../../../Components/MapLocation';
 import AccordionTransition from '../AccordionContactHome/AccordionContactHome';
 import { sendContactEmail } from '../../../Service/HomeEmailService';
+import ReCAPTCHA from "react-google-recaptcha";
 
 const ContactHome = () => {
+    const onChange = () => {}
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -181,6 +183,11 @@ const ContactHome = () => {
                                         value={formData.message}
                                         onChange={handleChange}
                                         required
+                                    />
+                                    <ReCAPTCHA
+                                    sitekey="6LfArTArAAAAAPxWG4v5Z6ktodfQzQN42wdFm_My"
+                                    onChange={onChange}
+                                    
                                     />
                                     <Button
                                         variant="contained"
