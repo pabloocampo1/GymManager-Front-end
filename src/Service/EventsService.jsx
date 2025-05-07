@@ -14,7 +14,7 @@ const EventService = {
   
   getAllEvents: async () => {
     try {
-      const response = await api.get(`/Eventos`);
+      const response = await api.get(`/api/Eventos`);
       
       return response.data.map(normalizeImageResponse);
     } catch (error) {
@@ -26,7 +26,7 @@ const EventService = {
  
   getEventById: async (id) => {
     try {
-      const response = await api.get(`/Eventos/${id}`);
+      const response = await api.get(`/api/Eventos/${id}`);
       return normalizeImageResponse(response.data);
     } catch (error) {
       console.error(`Error getting event with ID ${id}:`, error);
@@ -54,7 +54,7 @@ const EventService = {
         throw new Error('Se requiere una imagen válida para crear un evento.');
       }
       
-      const response = await api.post(`/Eventos`, formData, {
+      const response = await api.post(`/api/Eventos`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -93,7 +93,7 @@ const EventService = {
         formData.append('imagenFile', event.image);
       }
       
-      const response = await api.put(`/Eventos/${id}`, formData, {
+      const response = await api.put(`/api/Eventos/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -109,7 +109,7 @@ const EventService = {
  
   deleteEvent: async (id) => {
     try {
-      const response = await api.delete(`/Eventos/${id}`);
+      const response = await api.delete(`/api/Eventos/${id}`);
       return response.data;
     } catch (error) {
       console.error(`Error deleting event with ID ${id}:`, error);
@@ -120,7 +120,7 @@ const EventService = {
   
   bulkUpdateEvents: async (events) => {
     try {
-      const response = await api.put(`/Eventos/bulk-update`, { events });
+      const response = await api.put(`/api/Eventos/bulk-update`, { events });
       return response.data.map(normalizeImageResponse);
     } catch (error) {
       console.error('Error bulk updating events:', error);

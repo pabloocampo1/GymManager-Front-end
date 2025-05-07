@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import styles from "./MiembrosModal.module.css";
 import ClearIcon from "@mui/icons-material/Clear";
 import { motion, AnimatePresence } from "framer-motion";
+import MiembrosService from "../../../Service/MiembrosService.jsx";
+
 
 const MiembrosModal = ({
   isOpen,
   onClose,
   onAdd,
-  miembros,
   miembroSeleccionado,
 }) => {
   const [formData, setFormData] = useState({
@@ -69,9 +70,9 @@ const MiembrosModal = ({
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const {
       nombre,
       identificacion,
@@ -83,7 +84,7 @@ const MiembrosModal = ({
       fechaInscripcion,
       telefonoEmergencia,
     } = formData;
-
+  
     // Validación de campos obligatorios
     const camposObligatorios = [
       nombre,
@@ -96,21 +97,21 @@ const MiembrosModal = ({
       fechaInscripcion,
       telefonoEmergencia,
     ];
-
+  
     if (camposObligatorios.some((campo) => !campo)) {
       alert("Por favor, completa todos los campos.");
       return;
     }
-
+  
     // Validación de fecha de nacimiento
     const fechaActual = new Date();
     const fechaNacimientoDate = new Date(fechaNacimiento);
-
+  
     if (fechaNacimientoDate >= fechaActual) {
       alert("La fecha de nacimiento debe ser anterior a la fecha actual.");
       return;
     }
-
+  
     // Validación de identificación en modo edición
     if (
       miembroSeleccionado &&
@@ -119,42 +120,49 @@ const MiembrosModal = ({
       alert("No se puede modificar el número de identificación.");
       return;
     }
-
-    if (miembroSeleccionado) {
-      // Editar un miembro existente
-      onAdd({
-        tipo: "editar",
-        miembro: formData,
-      });
-    } else {
-      // Agregar un nuevo miembro
-      const existe = miembros.some((m) => m.identificacion === identificacion);
-      if (existe) {
-        alert("Error: La identificación ya está registrada.");
-        return;
+  
+    try {
+      if (miembroSeleccionado) {
+        // Editar un miembro existente
+        const actualizado = await MiembrosService.updateMiembro(
+          miembroSeleccionado.identificacion,
+          formData
+        );
+        // Si la actualización fue exitosa, refrescar la lista de miembros
+        onAdd({
+          tipo: "editar",
+          miembro: actualizado,
+        });
+      } else {
+        // Agregar un nuevo miembro
+        const nuevoMiembro = await MiembrosService.createMiembro(formData);
+        onAdd({
+          tipo: "agregar",
+          miembro: nuevoMiembro,
+        });
       }
-
-      onAdd({
-        tipo: "agregar",
-        miembro: formData,
+  
+      // Reiniciar formulario y cerrar modal
+      setFormData({
+        nombre: "",
+        identificacion: "",
+        fechaNacimiento: "",
+        telefono: "",
+        email: "",
+        genero: "",
+        membresia: "",
+        fechaInscripcion: "",
+        telefonoEmergencia: "",
       });
+      onClose();
+    } catch (error) {
+      console.error("Error al procesar la solicitud:", error);
+      alert("Hubo un error al guardar el miembro.");
+      console.log(formData); // Verifica los datos que se están enviando
+
     }
-
-    // Reiniciar formulario y cerrar modal
-    setFormData({
-      nombre: "",
-      identificacion: "",
-      fechaNacimiento: "",
-      telefono: "",
-      email: "",
-      genero: "",
-      membresia: "",
-      fechaInscripcion: "",
-      telefonoEmergencia: "",
-    });
-
-    onClose();
   };
+  
 
   return (
     <AnimatePresence>

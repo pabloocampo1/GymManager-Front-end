@@ -27,7 +27,7 @@ const EventHome = () => {
     }
 
     if (error) {
-        return <p style={{ color: "red" }}>Error al cargar eventos: {error}</p>;
+        return <p style={{ color: "white" }}>No hay Eventos disponibles</p>;
     }
 
     return (

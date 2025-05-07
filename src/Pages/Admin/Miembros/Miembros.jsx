@@ -13,6 +13,8 @@ import MiembrosModal from "../../../Components/Modals/ModalMiembros/MiembrosModa
 import ConfirmatioModalMiembros from "../../../Components/Modals/ModalMiembros/ConfirmationModalMiembros/MiembrosConfirmation.jsx";
 import ActiveButton from "../../../Components/Buttons/ButtonActive.jsx"
 import InactiveButton from "../../../Components/Buttons/ButtonInactive.jsx"
+import MiembrosService from "../../../Service/MiembrosService.jsx";
+import { useEffect } from "react";
 
 const MiembrosModalComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,19 +26,53 @@ const MiembrosModalComponent = () => {
   const [miembrosToDelete, setMiembrosToDelete] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  // Función para agregar un nuevo miembro
-  const handleAgregarOEditarMiembro = (datos) => {
-    if (datos.tipo === 'agregar') {
-      // Lógica para agregar un nuevo miembro
-      setMiembros([...miembros, datos.miembro]);
-    } else if (datos.tipo === 'editar') {
-      // Lógica para editar un miembro existente
-      const miembrosActualizados = miembros.map(m => 
-        m.identificacion === datos.miembro.identificacion ? datos.miembro : m
+  useEffect(() => {
+    const fetchMiembros = async () => {
+      try {
+        const data = await MiembrosService.getAllMiembros();
+        setMiembros(data);
+      } catch (error) {
+        console.error("No se pudieron cargar los miembros:", error);
+      }
+    };
+  
+    fetchMiembros();
+  }, []);
+  
+  const handleMiembroAdd = (data) => {
+    if (data.tipo === "agregar") {
+      setMiembros([...miembros, data.miembro]);
+    } else if (data.tipo === "editar") {
+      const updatedMembers = miembros.map((miembro) =>
+        miembro.identificacion === data.miembro.identificacion ? data.miembro : miembro
       );
-      setMiembros(miembrosActualizados);
+      setMiembros(updatedMembers);
     }
   };
+  
+
+  // Función para agregar un nuevo miembro
+  const handleAgregarOEditarMiembro = async (datos) => {
+    try {
+      if (datos.tipo === 'agregar') {
+        const nuevoMiembro = await MiembrosService.createMiembro(datos.miembro);
+        console.log(nuevoMiembro); // Verifica lo que se recibe del backend
+        setMiembros([...miembros, nuevoMiembro]);
+      } else if (datos.tipo === 'editar') {
+        const miembroActualizado = await MiembrosService.updateMiembro(
+          datos.miembro.identificacion,
+          datos.miembro
+        );
+        const miembrosActualizados = miembros.map(m =>
+          m.identificacion === miembroActualizado.identificacion ? miembroActualizado : m
+        );
+        setMiembros(miembrosActualizados);
+      }
+    } catch (error) {
+      console.error("Error al agregar/editar miembro:", error);
+    }
+  };
+  
 
   const onDeleteMiembro = (id) => {
     // Guarda el ID de la membresía a eliminar
@@ -246,13 +282,19 @@ const MiembrosModalComponent = () => {
         <ConfirmatioModalMiembros
           onClose={() => setIsDeleteModalOpen(false)}
           onConfirm={() => {
-            // Elimina el miembro cuando se confirma
-            setMiembros((prevMiembros) =>
-              prevMiembros.filter((m) => m.identificacion !== miembrosToDelete)
-            );
-            setIsDeleteModalOpen(false);
-            setMiembrosToDelete(null); // Limpia el estado después de eliminar
+            MiembrosService.deleteMiembro(miembrosToDelete)
+              .then(() => {
+                setMiembros((prevMiembros) =>
+                  prevMiembros.filter((m) => m.identificacion !== miembrosToDelete)
+                );
+                setIsDeleteModalOpen(false);
+                setMiembrosToDelete(null);
+              })
+              .catch((error) => {
+                console.error("Error al eliminar miembro:", error);
+              });
           }}
+          
         />
       )}
     </div>

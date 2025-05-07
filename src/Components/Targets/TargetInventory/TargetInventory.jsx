@@ -24,7 +24,7 @@ const TargetInventory = ({ inventory, onDelete, onEdit }) => {
   const eventStatus = getEventStatus();
   
   // Obtenemos la URL de la imagen (utilizando cualquier propiedad donde pueda estar)
-  const imageUrl = inventory.image || inventory.imagen || inventory.imagenFile || 'https://via.placeholder.com/400x300?text=Imagen+no+disponible';  //console.log('[Card] imageUrl:', imageUrl, 'inventory:', inventory);
+  const imageUrl = inventory.image || inventory.imagen || inventory.imagenFile || 'https://via.placeholder.com/400x300?text=Imagen%20no%20disponible';
   
   const handleConfirmDelete = () => {
     onDelete(inventory.id);

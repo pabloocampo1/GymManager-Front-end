@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion"; // Importamos framer-motion
 import styles from "./ProfileGym.module.css";
+import PrivateDataModal from "../../../Components/Modals/ModalProfile/ModalDataPrivate"
 
 const ProfileGym = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ const ProfileGym = () => {
   
   const [profileImage, setProfileImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   
   useEffect(() => {
     const savedImage = localStorage.getItem('profileImage');
@@ -52,7 +54,13 @@ const ProfileGym = () => {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
       
       <div className={styles.profileContainer}>
-      <h2 className={styles.title}>Datos Personales</h2>
+      <div className={styles.HeaderContainer}>
+        <h2 className={styles.title}>Datos Personales</h2>
+        <button type="button" className={styles.openModalBtn} onClick={() => setShowModal(true)}>
+          Datos Privados
+        </button>
+      </div>
+      
         <div className={styles.contentLayout}>
           <div className={styles.imageColumn}>
             <motion.div className={styles.profileImagePreview} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
@@ -80,6 +88,7 @@ const ProfileGym = () => {
 
           <div className={styles.formColumn}>
             <form onSubmit={handleSubmit} className={styles.form}>
+            
               <div className={styles.formGroup}>
                 <label>Nombre:</label>
                 <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} />
@@ -100,6 +109,14 @@ const ProfileGym = () => {
             </form>
           </div>
         </div>
+        {showModal && (
+        <PrivateDataModal
+        correo={formData.correo}
+        onClose={() => setShowModal(false)}
+        onCorreoChange={(newCorreo) => setFormData({ ...formData, correo: newCorreo })}
+        onPasswordChange={(newPass) => setFormData({ ...formData, contraseña: newPass })}
+        />
+        )}
       </div>
     </motion.div>
   );

@@ -33,12 +33,18 @@ const FilterMaxInventory = ({ items, onClose, onUpdateItems }) => {
       alert("Por favor, selecciona un tipo de filtro y al menos un elemento.");
       return;
     }
-
-    const newState = filterType === "aceptable" ? "Aceptable" : "Deplorable";
-    const updatedItems = items.map((item) =>
-      itemsToUpdate.includes(item.id) ? { ...item, estado: newState } : item
-    );
-    onUpdateItems(updatedItems);
+  
+    // Definir el nuevo estado basado en el tipo de filtro
+    const newState = filterType === "aceptable" ? "Deplorable" : "Aceptable";
+    
+    // Crear un array de objetos con id y nuevo estado para el backend
+    const itemsToSend = itemsToUpdate.map(itemId => ({
+      id: itemId,
+      estado: newState
+    }));
+  
+    // Enviar solo los IDs y los nuevos estados al backend
+    onUpdateItems(itemsToSend);
     onClose();
   };
 
@@ -64,8 +70,8 @@ const FilterMaxInventory = ({ items, onClose, onUpdateItems }) => {
             className={styles.selectFilter}
           >
             <option value="">Selecciona el estado a filtrar</option>
-            <option value="aceptable">Aceptable</option>
-            <option value="deplorable">Deplorable</option>
+            <option value="aceptable">Aceptable a deplorable</option>
+            <option value="deplorable">Deplorable a aceptable </option>
           </select>
         </div>
 
