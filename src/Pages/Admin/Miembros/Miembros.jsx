@@ -13,6 +13,8 @@ import MiembrosModal from "../../../Components/Modals/ModalMiembros/MiembrosModa
 import ConfirmatioModalMiembros from "../../../Components/Modals/ModalMiembros/ConfirmationModalMiembros/MiembrosConfirmation.jsx";
 import ActiveButton from "../../../Components/Buttons/ButtonActive.jsx"
 import InactiveButton from "../../../Components/Buttons/ButtonInactive.jsx"
+import MiembrosService from "../../../Service/MiembrosService.jsx";
+import { useEffect } from "react";
 
 const MiembrosModalComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,19 +26,42 @@ const MiembrosModalComponent = () => {
   const [miembrosToDelete, setMiembrosToDelete] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
+  useEffect(() => {
+    const fetchMiembros = async () => {
+      try {
+        const data = await MiembrosService.getAllMiembros();
+        setMiembros(data);
+      } catch (error) {
+        console.error("No se pudieron cargar los miembros:", error);
+      }
+    };
+  
+    fetchMiembros();
+  }, []);
+  
+
   // Función para agregar un nuevo miembro
-  const handleAgregarOEditarMiembro = (datos) => {
-    if (datos.tipo === 'agregar') {
-      // Lógica para agregar un nuevo miembro
-      setMiembros([...miembros, datos.miembro]);
-    } else if (datos.tipo === 'editar') {
-      // Lógica para editar un miembro existente
-      const miembrosActualizados = miembros.map(m => 
-        m.identificacion === datos.miembro.identificacion ? datos.miembro : m
-      );
-      setMiembros(miembrosActualizados);
+  const handleAgregarOEditarMiembro = async (datos) => {
+    try {
+      if (datos.tipo === 'agregar') {
+        const nuevoMiembro = await MiembrosService.createMiembro(datos.miembro);
+        console.log(nuevoMiembro); // Verifica lo que se recibe del backend
+        setMiembros([...miembros, nuevoMiembro]);
+      } else if (datos.tipo === 'editar') {
+        const miembroActualizado = await MiembrosService.updateMiembro(
+          datos.miembro.identificationNumber,
+          datos.miembro
+        );
+        const miembrosActualizados = miembros.map(m =>
+          m.identificationNumber === miembroActualizado.identificationNumber ? miembroActualizado : m
+        );
+        setMiembros(miembrosActualizados);
+      }
+    } catch (error) {
+      console.error("Error al agregar/editar miembro:", error);
     }
   };
+  
 
   const onDeleteMiembro = (id) => {
     // Guarda el ID de la membresía a eliminar
@@ -58,8 +83,9 @@ const MiembrosModalComponent = () => {
   };
 
 
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
   };
 
   // Función para determinar si una membresía está activa
@@ -68,8 +94,8 @@ const MiembrosModalComponent = () => {
     if (miembro.estado === "Activo") return true;
     
     // Si no tiene estado explícito, verificamos fechas
-    if (miembro.fechaInscripcion) {
-      const fechaFin = new Date(miembro.fechaInscripcion);
+    if (miembro.joinDate) {
+      const fechaFin = new Date(miembro.joinDate);
       const hoy = new Date();
       return fechaFin >= hoy;
     }
@@ -79,27 +105,27 @@ const MiembrosModalComponent = () => {
 
 
   const filteredMiembros = useMemo(() => {
-    let result = miembros;
-
-    // Si hay un término de búsqueda, aplicar solo la búsqueda
+    let result = [...miembros];
+  
     if (searchTerm) {
       const searchTermLower = searchTerm.toLowerCase();
-      result = miembros.filter((miembro) => 
-        miembro.identificacion.toLowerCase().includes(searchTermLower) ||
-        miembro.nombre.toLowerCase().includes(searchTermLower) ||
-        miembro.telefono.toLowerCase().includes(searchTermLower)
+      result = result.filter((miembro) => 
+        miembro.identificationNumber.toString().includes(searchTermLower) || 
+        miembro.fullName.toLowerCase().includes(searchTermLower) ||
+        miembro.phone.toString().includes(searchTermLower)
       );
-    } 
-    // Si no hay búsqueda, aplicar solo el filtro
-    else if (selectedFilter !== "Todos") {
+    }
+  
+    if (selectedFilter !== "Todos") {
       result = result.filter((miembro) => 
         (selectedFilter === "Activo" && isMembresiaActiva(miembro)) || 
         (selectedFilter === "Inactivo" && !isMembresiaActiva(miembro))
       );
     }
-
+    
     return result;
   }, [miembros, selectedFilter, searchTerm]);
+  
 
   // Determinar qué criterio mostrar (búsqueda tiene prioridad)
   const titleToShow = searchTerm 
@@ -206,22 +232,22 @@ const MiembrosModalComponent = () => {
           <TableBody>
             {filteredMiembros.length > 0 ? (
               filteredMiembros.map((miembro) => (
-                <TableRow key={miembro.identificacion || `temp-${Date.now()}`}>
-                  <TableCell>{miembro.identificacion}</TableCell>
-                  <TableCell>{miembro.nombre}</TableCell>
-                  <TableCell>{miembro.telefono}</TableCell>
+                <TableRow key={miembro.identificationNumber}>
+                  <TableCell>{miembro.identificationNumber}</TableCell>
+                  <TableCell>{miembro.fullName}</TableCell>
+                  <TableCell>{miembro.phone}</TableCell>
                   {renderEstadoCell(miembro)}
-                  <TableCell>{miembro.membresia}</TableCell>
-                  <TableCell>{miembro.fechaInscripcion}</TableCell>
+                  <TableCell>{miembro.membershipType}</TableCell>
+                  <TableCell>{miembro.joinDate}</TableCell>
                   <TableCell>{miembro.finMembresia}</TableCell>
                   <TableCell>
                     <FaPen className={styles.edit_icon} onClick={() => { setMiembroEditado(miembro); setIsModalOpen(true); }} />
-                    <DeleteIcon className={styles.delete_icon} onClick={() => onDeleteMiembro(miembro.identificacion)} />
+                    <DeleteIcon className={styles.delete_icon} onClick={() => onDeleteMiembro(miembro.identificationNumber)} />
                   </TableCell>
                 </TableRow>
               ))
             ) : (
-              <TableRow>
+              <TableRow >
                 <TableCell colSpan={8} style={{ textAlign: 'center' }}>
                   No se encontraron miembros con los criterios de búsqueda.
                 </TableCell>
@@ -246,13 +272,19 @@ const MiembrosModalComponent = () => {
         <ConfirmatioModalMiembros
           onClose={() => setIsDeleteModalOpen(false)}
           onConfirm={() => {
-            // Elimina el miembro cuando se confirma
-            setMiembros((prevMiembros) =>
-              prevMiembros.filter((m) => m.identificacion !== miembrosToDelete)
-            );
-            setIsDeleteModalOpen(false);
-            setMiembrosToDelete(null); // Limpia el estado después de eliminar
+            MiembrosService.deleteMiembro(miembrosToDelete)
+              .then(() => {
+                setMiembros((prevMiembros) =>
+                  prevMiembros.filter((m) => m.identificationNumber !== miembrosToDelete)
+                );
+                setIsDeleteModalOpen(false);
+                setMiembrosToDelete(null);
+              })
+              .catch((error) => {
+                console.error("Error al eliminar miembro:", error);
+              });
           }}
+          
         />
       )}
     </div>

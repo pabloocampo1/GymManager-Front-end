@@ -2,24 +2,25 @@ import { useEffect, useState } from "react";
 import styles from "./MiembrosModal.module.css";
 import ClearIcon from "@mui/icons-material/Clear";
 import { motion, AnimatePresence } from "framer-motion";
+import MiembrosService from "../../../Service/MiembrosService.jsx";
+
 
 const MiembrosModal = ({
   isOpen,
   onClose,
   onAdd,
-  miembros,
   miembroSeleccionado,
 }) => {
   const [formData, setFormData] = useState({
-    nombre: "",
-    identificacion: "",
-    fechaNacimiento: "",
-    telefono: "",
+    fullName: "",
+    identificationNumber: "",
+    birthDate: "",
+    phone: "",
     email: "",
-    genero: "",
-    membresia: "",
-    fechaInscripcion: "",
-    telefonoEmergencia: "",
+    gender: "",
+    membershipType: "",
+    joinDate: "",
+    emergencyPhone: "",
   });
 
   // 🔍 Verifica cuando cambia `miembroSeleccionado`
@@ -30,15 +31,15 @@ const MiembrosModal = ({
     } else {
       // Resetear todos los campos
       setFormData({
-        nombre: "",
-        identificacion: "",
-        fechaNacimiento: "",
-        telefono: "",
+        fullName: "",
+        identificationNumber: "",
+        birthDate: "",
+        phone: "",
         email: "",
-        genero: "",
-        membresia: "",
-        fechaInscripcion: "",
-        telefonoEmergencia: "",
+        gender: "",
+        membershipType: "",
+        joinDate: "",
+        emergencyPhone: "",
       });
     }
   }, [miembroSeleccionado]);
@@ -55,11 +56,11 @@ const MiembrosModal = ({
     const { name, value } = e.target;
 
     // Validaciones específicas para los campos numéricos
-    if (["telefono", "telefonoEmergencia", "identificacion"].includes(name)) {
+    if (["phone", "emergencyPhone", "identificationNumber"].includes(name)) {
       const numericValue = value.replace(/[^0-9]/g, ""); // Solo números
 
       // Si está en modo edición, no permitir cambiar la identificación
-      if (name === "identificacion" && miembroSeleccionado) {
+      if (name === "identificationNumber" && miembroSeleccionado) {
         return;
       }
 
@@ -69,92 +70,99 @@ const MiembrosModal = ({
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const {
-      nombre,
-      identificacion,
-      fechaNacimiento,
-      telefono,
+      fullName,
+      identificationNumber,
+      birthDate,
+      phone,
       email,
-      genero,
-      membresia,
-      fechaInscripcion,
-      telefonoEmergencia,
+      gender,
+      membershipType,
+      joinDate,
+      emergencyPhone,
     } = formData;
-
+  
     // Validación de campos obligatorios
     const camposObligatorios = [
-      nombre,
-      identificacion,
-      fechaNacimiento,
-      telefono,
+      fullName,
+      identificationNumber,
+      birthDate,
+      phone,
       email,
-      genero,
-      membresia,
-      fechaInscripcion,
-      telefonoEmergencia,
+      gender,
+      membershipType,
+      joinDate,
+      emergencyPhone,
     ];
-
+  
     if (camposObligatorios.some((campo) => !campo)) {
       alert("Por favor, completa todos los campos.");
       return;
     }
-
+  
     // Validación de fecha de nacimiento
     const fechaActual = new Date();
-    const fechaNacimientoDate = new Date(fechaNacimiento);
-
+    const fechaNacimientoDate = new Date(birthDate);
+  
     if (fechaNacimientoDate >= fechaActual) {
       alert("La fecha de nacimiento debe ser anterior a la fecha actual.");
       return;
     }
-
+  
     // Validación de identificación en modo edición
     if (
       miembroSeleccionado &&
-      miembroSeleccionado.identificacion !== identificacion
+      miembroSeleccionado.identificationNumber !== identificationNumber
     ) {
       alert("No se puede modificar el número de identificación.");
       return;
     }
-
-    if (miembroSeleccionado) {
-      // Editar un miembro existente
-      onAdd({
-        tipo: "editar",
-        miembro: formData,
-      });
-    } else {
-      // Agregar un nuevo miembro
-      const existe = miembros.some((m) => m.identificacion === identificacion);
-      if (existe) {
-        alert("Error: La identificación ya está registrada.");
-        return;
+  
+    try {
+      if (miembroSeleccionado) {
+        // Editar un miembro existente
+        const actualizado = await MiembrosService.updateMiembro(
+          miembroSeleccionado.identificationNumber,
+          formData
+        );
+        // Si la actualización fue exitosa, refrescar la lista de miembros
+        onAdd({
+          tipo: "editar",
+          miembro: actualizado,
+        });
+      } else {
+        // Agregar un nuevo miembro
+        const nuevoMiembro = await MiembrosService.createMiembro(formData);
+        onAdd({
+          tipo: "agregar",
+          miembro: nuevoMiembro,
+        });
       }
-
-      onAdd({
-        tipo: "agregar",
-        miembro: formData,
+  
+      // Reiniciar formulario y cerrar modal
+      setFormData({
+        fullName: "",
+        identificationNumber: "",
+        birthDate: "",
+        phone: "",
+        email: "",
+        gender: "",
+        membershipType: "",
+        joinDate: "",
+        emergencyPhone: "",
       });
+      onClose();
+    } catch (error) {
+      console.error("Error al procesar la solicitud:", error);
+      alert("Hubo un error al guardar el miembro.");
+      console.log(formData); // Verifica los datos que se están enviando
+
     }
-
-    // Reiniciar formulario y cerrar modal
-    setFormData({
-      nombre: "",
-      identificacion: "",
-      fechaNacimiento: "",
-      telefono: "",
-      email: "",
-      genero: "",
-      membresia: "",
-      fechaInscripcion: "",
-      telefonoEmergencia: "",
-    });
-
-    onClose();
   };
+  
 
   return (
     <AnimatePresence>
@@ -189,32 +197,32 @@ const MiembrosModal = ({
 
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
-                  <label htmlFor="nombre" className={styles.label}>
+                  <label htmlFor="fullName" className={styles.label}>
                     Nombre Completo
                   </label>
                   <input
                     type="text"
-                    id="nombre"
-                    name="nombre"
+                    id="fullName"
+                    name="fullName"
                     className={styles.input}
                     placeholder="Nombre Completo"
-                    value={formData.nombre}
+                    value={formData.fullName}
                     onChange={handleChange}
                     required
                   />
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label htmlFor="identificacion" className={styles.label}>
+                  <label htmlFor="identificationNumber" className={styles.label}>
                     Número de Identificación
                   </label>
                   <input
                     type="text"
-                    id="identificacion"
-                    name="identificacion"
+                    id="identificationNumber"
+                    name="identificationNumber"
                     className={styles.input}
                     placeholder="Número de Identificación"
-                    value={formData.identificacion}
+                    value={formData.identificationNumber}
                     onChange={handleChange}
                     readOnly={!!miembroSeleccionado}
                     required
@@ -222,15 +230,15 @@ const MiembrosModal = ({
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label htmlFor="fechaNacimiento" className={styles.label}>
+                  <label htmlFor="birthDate" className={styles.label}>
                     Fecha de Nacimiento
                   </label>
                   <input
                     type="date"
-                    id="fechaNacimiento"
-                    name="fechaNacimiento"
+                    id="birthDate"
+                    name="birthDate"
                     className={styles.input}
-                    value={formData.fechaNacimiento}
+                    value={formData.birthDate}
                     onChange={handleChange}
                     max={new Date().toISOString().split("T")[0]}
                     required
@@ -240,16 +248,16 @@ const MiembrosModal = ({
 
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
-                  <label htmlFor="telefono" className={styles.label}>
+                  <label htmlFor="phone" className={styles.label}>
                     Teléfono
                   </label>
                   <input
                     type="text"
-                    id="telefono"
-                    name="telefono"
+                    id="phone"
+                    name="phone"
                     className={styles.input}
-                    placeholder="Teléfono"
-                    value={formData.telefono}
+                    placeholder="Telefono"
+                    value={formData.phone}
                     onChange={handleChange}
                     required
                   />
@@ -272,14 +280,14 @@ const MiembrosModal = ({
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label htmlFor="genero" className={styles.label}>
+                  <label htmlFor="gender" className={styles.label}>
                     Género
                   </label>
                   <select
-                    id="genero"
-                    name="genero"
+                    id="gender"
+                    name="gender"
                     className={styles.select}
-                    value={formData.genero}
+                    value={formData.gender}
                     onChange={handleChange}
                     required
                   >
@@ -297,14 +305,14 @@ const MiembrosModal = ({
 
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
-                  <label htmlFor="membresia" className={styles.label}>
+                  <label htmlFor="membershipType" className={styles.label}>
                     Tipo de Membresía
                   </label>
                   <select
-                    id="membresia"
-                    name="membresia"
+                    id="membershipType"
+                    name="membershipType"
                     className={styles.select}
-                    value={formData.membresia}
+                    value={formData.membershipType}
                     onChange={handleChange}
                     required
                   >
@@ -316,31 +324,31 @@ const MiembrosModal = ({
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label htmlFor="fechaInscripcion" className={styles.label}>
+                  <label htmlFor="joinDate" className={styles.label}>
                     Fecha de Inscripción
                   </label>
                   <input
                     type="date"
-                    id="fechaInscripcion"
-                    name="fechaInscripcion"
+                    id="joinDate"
+                    name="joinDate"
                     className={styles.input}
-                    value={formData.fechaInscripcion}
+                    value={formData.joinDate}
                     onChange={handleChange}
                     required
                   />
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label htmlFor="telefonoEmergencia" className={styles.label}>
+                  <label htmlFor="emergencyPhone" className={styles.label}>
                     Teléfono de Emergencia
                   </label>
                   <input
                     type="text"
-                    id="telefonoEmergencia"
-                    name="telefonoEmergencia"
+                    id="emergencyPhone"
+                    name="emergencyPhone"
                     className={styles.input}
                     placeholder="Teléfono de Emergencia"
-                    value={formData.telefonoEmergencia}
+                    value={formData.emergencyPhone}
                     onChange={handleChange}
                     required
                   />
