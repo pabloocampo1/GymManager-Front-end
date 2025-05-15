@@ -3,7 +3,7 @@ import { api } from './api';
 const MiembrosService = {
   getAllMiembros: async () => {
     try {
-      const response = await api.get('/api/miembros');
+      const response = await api.get(`/api/miembros`);
       return response.data;
     } catch (error) {
       console.error('Error obteniendo miembros:', error);

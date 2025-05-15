@@ -7,10 +7,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import DeleteIcon from "@mui/icons-material/Delete";
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./Membresias.module.css";
 import MembresiasModal from "../../../Components/Modals/ModalMembresias/MembresiasModal.jsx";
 import ConfirmatioModalMembresia from "../../../Components/Modals/ModalMembresias/ConfirmationModalMembresias/MembresiasConfirmation.jsx";
+import MembresiaService from "../../../Service/MembresiaService.jsx";
+import { useEffect } from "react";
 
 const MembresiaModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,6 +25,19 @@ const MembresiaModal = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeFilterType, setActiveFilterType] = useState("filter"); // "filter" o "search"
 
+  useEffect(() => {
+    const fetchMembresias = async () => {
+      try {
+        const data = await MembresiaService.getAllMembresia();
+        setMembresias(data);
+      } catch (error) {
+        console.error("No se pudieron cargar las membresias:", error);
+      }
+    };
+
+    fetchMembresias();
+  }, []);
+
   const handleOpenMenu = (event) => setAnchorEl(event.currentTarget);
   const handleCloseMenu = (option) => {
     if (option) {
@@ -33,7 +48,6 @@ const MembresiaModal = () => {
     }
     setAnchorEl(null);
   };
-
 
   const handleSearchChange = (event) => {
     const value = event.target.value;
@@ -46,47 +60,67 @@ const MembresiaModal = () => {
     }
   };
 
-
   const filteredMembresias = membresias.filter((m) => {
     if (activeFilterType === "search" && searchTerm) {
-
-      return m.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        m.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        m.precio.toString().includes(searchTerm.toLowerCase()) ||
-        m.duracion.toLowerCase().includes(searchTerm.toLowerCase());
+      return (
+        m.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
     } else {
-
       return selectedFilter === "Todos" || m.type === selectedFilter;
     }
   });
 
-  const handleAddMembresia = (newMembresia) => {
-    if (membresiaEditando) {
-      setMembresias((prevMembresias) =>
-        prevMembresias.map((m) =>
-          m.id === membresiaEditando.id ? newMembresia : m
-        )
-      );
-      setMembresiaEditando(null);
-    } else {
-      setMembresias([
-        ...membresias,
-        { id: membresias.length + 1, ...newMembresia },
-      ]);
+  // 👉 Agregar o editar membresía
+  const handleAddMembresia = async (membresia) => {
+    console.log("al enviar" + membresia.id)
+   
+    
+    try {
+      if (membresia.id) {
+        const updated = await MembresiaService.updateMembresia(
+          membresiaEditando.id,
+          membresia
+        );
+        setMembresias((prev) =>
+          prev.map((m) => (m.id === updated.id ? updated : m))
+        );
+        console.log(membresiaEditando);
+        setMembresiaEditando(membresia);
+      } else {
+        const nueva = await MembresiaService.createMembresia(membresia);
+        console.log("nueva"+ nueva);
+        console.log("mr"+ membresias);
+        
+        setMembresias((prev) => [...prev, nueva]);
+      }
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Error al guardar membresía:", error);
     }
-    setIsModalOpen(false);
   };
 
+  // 👉 Editar
   const handleEditMembresia = (membresia) => {
     setMembresiaEditando(membresia);
     setIsModalOpen(true);
   };
 
-  const handleDeleteMembresia = (id) => {
-    setMembresiaToDelete(id);
+  const confirmDeleteMembresia = (id) => {
+    setMembresiaToDelete(id); // usamos solo uno
     setIsDeleteModalOpen(true);
   };
 
+  // 👉 Eliminar
+  const handleDeleteMembresia = async () => {
+    try {
+      await MembresiaService.deleteMembresia(membresiaToDelete);
+      setMembresias((prev) => prev.filter((m) => m.id !== membresiaToDelete));
+      setIsDeleteModalOpen(false);
+      setMembresiaToDelete(null);
+    } catch (error) {
+      console.error("Error al eliminar membresía:", error);
+    }
+  };
 
   const getFilterTitle = () => {
     if (activeFilterType === "search" && searchTerm) {
@@ -112,8 +146,8 @@ const MembresiaModal = () => {
           />
         </div>
 
-        <Button 
-          className={styles.filter_boton} 
+        <Button
+          className={styles.filter_boton}
           onClick={handleOpenMenu}
           disabled={activeFilterType === "search" && searchTerm}
         >
@@ -141,33 +175,40 @@ const MembresiaModal = () => {
         </Button>
       </div>
 
-      <h2 className={styles.filtered_title}>
-        {getFilterTitle()}
-      </h2>
+      <h2 className={styles.filtered_title}>{getFilterTitle()}</h2>
 
-      <TableContainer className={styles.membresia_table} style={{ backgroundColor: '#F9F9F9', border:'4px solid #F9F9F9', borderRadius:'30px' }}>
-        <Table sx={{ 
-          borderCollapse: 'separate',
-          borderSpacing: '0 5px',
-          '& td, & th': { 
-            border: 'none' 
-          },
-          '& tbody tr': {
-            backgroundColor: 'white',
-          },
-          '& tbody tr td': {
-            padding: '10px 16px',
-          },
-          '& tbody tr td:first-of-type': {
-            borderRadius: '35px 0 0 35px',
-          },
-          '& tbody tr td:last-child': {
-            borderRadius: '0 35px 35px 0',
-          },
-          '& tbody': {
-            backgroundColor: '#F9F9F9',
-          }
-        }}>
+      <TableContainer
+        className={styles.membresia_table}
+        style={{
+          backgroundColor: "#F9F9F9",
+          border: "4px solid #F9F9F9",
+          borderRadius: "30px",
+        }}
+      >
+        <Table
+          sx={{
+            borderCollapse: "separate",
+            borderSpacing: "0 5px",
+            "& td, & th": {
+              border: "none",
+            },
+            "& tbody tr": {
+              backgroundColor: "white",
+            },
+            "& tbody tr td": {
+              padding: "10px 16px",
+            },
+            "& tbody tr td:first-of-type": {
+              borderRadius: "35px 0 0 35px",
+            },
+            "& tbody tr td:last-child": {
+              borderRadius: "0 35px 35px 0",
+            },
+            "& tbody": {
+              backgroundColor: "#F9F9F9",
+            },
+          }}
+        >
           <TableHead>
             <TableRow>
               <TableCell>Nombre</TableCell>
@@ -182,8 +223,8 @@ const MembresiaModal = () => {
               filteredMembresias.map((membresia) => (
                 <TableRow key={membresia.id}>
                   <TableCell>{membresia.name}</TableCell>
-                  <TableCell>{membresia.duracion}</TableCell>
-                  <TableCell>{membresia.precio}</TableCell>
+                  <TableCell>{membresia.duration}</TableCell>
+                  <TableCell>{membresia.price}</TableCell>
                   <TableCell>{membresia.type}</TableCell>
                   <TableCell>
                     <FaPen
@@ -192,14 +233,14 @@ const MembresiaModal = () => {
                     />
                     <DeleteIcon
                       className={styles.delete_icon}
-                      onClick={() => handleDeleteMembresia(membresia.id)}
+                      onClick={() => confirmDeleteMembresia(membresia.id)}
                     />
                   </TableCell>
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={5} style={{ textAlign: 'center' }}>
+                <TableCell colSpan={5} style={{ textAlign: "center" }}>
                   No se encontraron membresías con los criterios de búsqueda.
                 </TableCell>
               </TableRow>
@@ -218,14 +259,11 @@ const MembresiaModal = () => {
       )}
       {isDeleteModalOpen && (
         <ConfirmatioModalMembresia
-          onClose={() => setIsDeleteModalOpen(false)}
-          onConfirm={() => {
-            setMembresias((prevMembresias) =>
-              prevMembresias.filter((m) => m.id !== membresiaToDelete)
-            );
+          onClose={() => {
             setIsDeleteModalOpen(false);
             setMembresiaToDelete(null);
           }}
+          onConfirm={handleDeleteMembresia}
         />
       )}
     </div>

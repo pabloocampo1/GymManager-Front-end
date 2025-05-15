@@ -2,25 +2,34 @@ import React, { useState, useEffect } from "react";
 import styles from "./MembresiasModal.module.css";
 import ClearIcon from "@mui/icons-material/Clear";
 import { motion, AnimatePresence } from "framer-motion";
+import SimpleBackdrop from "../../SimpleBackdrop";
 
-const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando }) => {
-  const [nombre, setNombre] = useState("");
-  const [tipo, setTipo] = useState("Oro");
-  const [duracion, setDuracion] = useState("");
-  const [precio, setPrecio] = useState("");
+const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
+  const [name, setName] = useState();
+  const [type, setType] = useState();
+  const [duration, setDuration] = useState();
+  const [price, setPrice] = useState();
+  const [isLoanding, setisLoanding]= useState(false);
+  const [id, setId]= useState();
 
   // 📌 Efecto para cargar datos cuando se edita una membresía
   useEffect(() => {
+   
+    
     if (membresiaEditando) {
-      setNombre(membresiaEditando.name);
-      setTipo(membresiaEditando.type);
-      setDuracion(membresiaEditando.duracion.replace(" Días", ""));
-      setPrecio(membresiaEditando.precio);
+      setName(membresiaEditando.name);
+      setType(membresiaEditando.type);
+      setDuration(membresiaEditando.duration);
+      setPrice(membresiaEditando.price);
+      setId(membresiaEditando.id)
+      console.log(membresiaEditando.id);
+      
     } else {
-      setNombre("");
-      setTipo("Oro");
-      setDuracion("");
-      setPrecio("");
+      setName("");
+      setType("");
+      setDuration("");
+      setPrice("");
+      setId(null)
     }
   }, [membresiaEditando]);
 
@@ -33,14 +42,14 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando }) => {
   const handleDuracionChange = (e) => {
     let rawValue = e.target.value.replace(/[^0-9]/g, "");
     if (rawValue === "") {
-      setDuracion("");
+      setDuration("");
     } else {
       let numericValue = parseInt(rawValue, 10);
       if (numericValue > 366) {
         alert("Por favor, agrega un número menor o igual a 365.");
         return;
       }
-      setDuracion(numericValue.toString());
+      setDuration(numericValue.toString());
     }
   };
 
@@ -52,29 +61,49 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando }) => {
       currency: "COP",
       minimumFractionDigits: 0,
     }).format(numericValue);
-    setPrecio(formattedValue);
+    setPrice(formattedValue);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    setisLoanding(true)
     e.preventDefault();
-    if (!nombre || !duracion || !precio || !tipo) {
+  
+    // Validación básica
+    if (!name || !duration || !price || !type) {
+      setisLoanding(false)
       alert("Por favor, completa todos los campos.");
       return;
     }
+  
+    // Construir el objeto membresía como espera el backend
+    const membresiaData = {
+      id: id,
+      name: name,
+      duration: parseInt(duration), // ⚠️ Asumimos que el backend espera un número
+      price: parseFloat(price),   // ⚠️ Asegúrate que el precio es tipo `number`
+      type: type
+    };
+  
+    try {
+      console.log("data que se envia" + membresiaData.name);
+      
+      await onAdd(membresiaData); // Este método llama al `create` o `update` según corresponda
+       setisLoanding(false)
+      onClose(); // Cierra el modal después de éxito
+    } catch (error) {
+       setisLoanding(false)
+      console.error("Error al enviar la membresía:", error);
+      alert("Ocurrió un error al guardar la membresía.");
+    }
+    setisLoanding(false)
 
-    onAdd({
-      id: membresiaEditando ? membresiaEditando.id : Date.now(),
-      name: nombre,
-      duracion: `${duracion} Días`,
-      precio,
-      type: tipo,
-    });
-
-    onClose();
+    
   };
+  
 
   return (
     <AnimatePresence>
+      <SimpleBackdrop open={isLoanding} />
       {isOpen && (
         <motion.div
           className={styles.modalOverlay}
@@ -99,28 +128,28 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando }) => {
             <form onSubmit={handleSubmit}>
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
-                  <label htmlFor="nombre" className={styles.label}>
+                  <label htmlFor="name" className={styles.label}>
                     Nombre Membresía
                   </label>
                   <input
                     type="text"
-                    id="nombre"
+                    id="name"
                     className={styles.input}
                     placeholder="Nombre"
-                    value={nombre}
-                    onChange={(e) => setNombre(e.target.value)}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     required
                   />
                 </div>
                 <div className={styles.formGroup}>
-                  <label htmlFor="tipo" className={styles.label}>
+                  <label htmlFor="type" className={styles.label}>
                     Tipo
                   </label>
                   <select
-                    id="tipo"
+                    id="type"
                     className={styles.select}
-                    value={tipo}
-                    onChange={(e) => setTipo(e.target.value)}
+                    value={type}
+                    onChange={(e) => setType(e.target.value)}
                   >
                     <option value="Oro">Oro</option>
                     <option value="Plata">Plata</option>
@@ -130,29 +159,29 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando }) => {
               </div>
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
-                  <label htmlFor="duracion" className={styles.label}>
+                  <label htmlFor="duration" className={styles.label}>
                     Duración en Días
                   </label>
                   <input
                     type="text"
-                    id="duracion"
+                    id="duration"
                     className={styles.input}
                     placeholder="Duración"
-                    value={duracion}
+                    value={duration}
                     onChange={handleDuracionChange}
                     required
                   />
                 </div>
                 <div className={styles.formGroup}>
-                  <label htmlFor="precio" className={styles.label}>
+                  <label htmlFor="price" className={styles.label}>
                     Precio
                   </label>
                   <input
-                    type="text"
-                    id="precio"
+                    type="price"
+                    id="price"
                     className={styles.input}
                     placeholder="Precio"
-                    value={precio}
+                    value={price}
                     onChange={handlePrecioChange}
                     required
                   />
