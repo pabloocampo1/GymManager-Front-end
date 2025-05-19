@@ -72,9 +72,6 @@ const MembresiaModal = () => {
 
   // 👉 Agregar o editar membresía
   const handleAddMembresia = async (membresia) => {
-    console.log("al enviar" + membresia.id)
-   
-    
     try {
       if (membresia.id) {
         const updated = await MembresiaService.updateMembresia(
@@ -84,13 +81,9 @@ const MembresiaModal = () => {
         setMembresias((prev) =>
           prev.map((m) => (m.id === updated.id ? updated : m))
         );
-        console.log(membresiaEditando);
         setMembresiaEditando(membresia);
       } else {
         const nueva = await MembresiaService.createMembresia(membresia);
-        console.log("nueva"+ nueva);
-        console.log("mr"+ membresias);
-        
         setMembresias((prev) => [...prev, nueva]);
       }
       setIsModalOpen(false);
@@ -212,7 +205,7 @@ const MembresiaModal = () => {
           <TableHead>
             <TableRow>
               <TableCell>Nombre</TableCell>
-              <TableCell>Duración</TableCell>
+              <TableCell>Duración Dias</TableCell>
               <TableCell>Precio</TableCell>
               <TableCell>Tipo</TableCell>
               <TableCell>Opciones</TableCell>

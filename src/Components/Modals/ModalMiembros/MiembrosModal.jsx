@@ -1,16 +1,11 @@
 import { useEffect, useState } from "react";
 import styles from "./MiembrosModal.module.css";
 import ClearIcon from "@mui/icons-material/Clear";
-import { motion, AnimatePresence } from "framer-motion";
+import {motion, AnimatePresence } from "framer-motion";
 import MiembrosService from "../../../Service/MiembrosService.jsx";
+import MembresiaService from "../../../Service/MembresiaService.jsx";
 
-
-const MiembrosModal = ({
-  isOpen,
-  onClose,
-  onAdd,
-  miembroSeleccionado,
-}) => {
+const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
   const [formData, setFormData] = useState({
     fullName: "",
     identificationNumber: "",
@@ -22,6 +17,20 @@ const MiembrosModal = ({
     joinDate: "",
     emergencyPhone: "",
   });
+  const [membresias, setMembresias] = useState([]);
+
+  useEffect(() => {
+    const obtenerMembresias = async () => {
+      try {
+        const data = await MembresiaService.getAllMembresia(); // Asegúrate de que exista esta función
+        setMembresias(data);
+      } catch (error) {
+        console.error("Error al obtener las membresías:", error);
+      }
+    };
+
+    obtenerMembresias();
+  }, []);
 
   // 🔍 Verifica cuando cambia `miembroSeleccionado`
   useEffect(() => {
@@ -72,7 +81,7 @@ const MiembrosModal = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const {
       fullName,
       identificationNumber,
@@ -84,7 +93,7 @@ const MiembrosModal = ({
       joinDate,
       emergencyPhone,
     } = formData;
-  
+
     // Validación de campos obligatorios
     const camposObligatorios = [
       fullName,
@@ -97,21 +106,21 @@ const MiembrosModal = ({
       joinDate,
       emergencyPhone,
     ];
-  
+
     if (camposObligatorios.some((campo) => !campo)) {
       alert("Por favor, completa todos los campos.");
       return;
     }
-  
+
     // Validación de fecha de nacimiento
     const fechaActual = new Date();
     const fechaNacimientoDate = new Date(birthDate);
-  
+
     if (fechaNacimientoDate >= fechaActual) {
       alert("La fecha de nacimiento debe ser anterior a la fecha actual.");
       return;
     }
-  
+
     // Validación de identificación en modo edición
     if (
       miembroSeleccionado &&
@@ -120,7 +129,7 @@ const MiembrosModal = ({
       alert("No se puede modificar el número de identificación.");
       return;
     }
-  
+
     try {
       if (miembroSeleccionado) {
         // Editar un miembro existente
@@ -141,7 +150,7 @@ const MiembrosModal = ({
           miembro: nuevoMiembro,
         });
       }
-  
+
       // Reiniciar formulario y cerrar modal
       setFormData({
         fullName: "",
@@ -157,12 +166,9 @@ const MiembrosModal = ({
       onClose();
     } catch (error) {
       console.error("Error al procesar la solicitud:", error);
-      alert("Hubo un error al guardar el miembro.");
-      console.log(formData); // Verifica los datos que se están enviando
-
+      alert("Hubo un error al guardar el miembro."); // Verifica los datos que se están enviando
     }
   };
-  
 
   return (
     <AnimatePresence>
@@ -213,7 +219,10 @@ const MiembrosModal = ({
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label htmlFor="identificationNumber" className={styles.label}>
+                  <label
+                    htmlFor="identificationNumber"
+                    className={styles.label}
+                  >
                     Número de Identificación
                   </label>
                   <input
@@ -317,9 +326,11 @@ const MiembrosModal = ({
                     required
                   >
                     <option value="">Seleccionar</option>
-                    <option value="Oro">Oro</option>
-                    <option value="Plata">Plata</option>
-                    <option value="Bronce">Bronce</option>
+                    {membresias.map((membresia) => (
+                      <option key={membresia.id} value={membresia.name}>
+                        {membresia.name}
+                      </option>
+                    ))}
                   </select>
                 </div>
 

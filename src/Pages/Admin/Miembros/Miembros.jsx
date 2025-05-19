@@ -41,36 +41,27 @@ const MiembrosModalComponent = () => {
   
 
   // Función para agregar un nuevo miembro
-  const handleAgregarOEditarMiembro = async (datos) => {
-    try {
-      if (datos.tipo === 'agregar') {
-        const nuevoMiembro = await MiembrosService.createMiembro(datos.miembro);
-        console.log(nuevoMiembro); // Verifica lo que se recibe del backend
-        setMiembros([...miembros, nuevoMiembro]);
-      } else if (datos.tipo === 'editar') {
-        const miembroActualizado = await MiembrosService.updateMiembro(
-          datos.miembro.identificationNumber,
-          datos.miembro
-        );
-        const miembrosActualizados = miembros.map(m =>
-          m.identificationNumber === miembroActualizado.identificationNumber ? miembroActualizado : m
-        );
-        setMiembros(miembrosActualizados);
-      }
-    } catch (error) {
-      console.error("Error al agregar/editar miembro:", error);
-    }
-  };
+  const handleAgregarOEditarMiembro = (datos) => {
+  if (datos.tipo === 'agregar') {
+    setMiembros((prev) => [...prev, datos.miembro]);
+  } else if (datos.tipo === 'editar') {
+    const miembrosActualizados = miembros.map((m) =>
+      m.identificationNumber === datos.miembro.identificationNumber
+        ? datos.miembro
+        : m
+    );
+    setMiembros(miembrosActualizados);
+  }
+};
+
   
 
   const onDeleteMiembro = (id) => {
-    // Guarda el ID de la membresía a eliminar
     setMiembrosToDelete(id);
-    // Abre el modal de confirmación
     setIsDeleteModalOpen(true);
   };
 
-  // Manejo de menú de filtros
+
   const handleOpenMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -88,19 +79,16 @@ const MiembrosModalComponent = () => {
     setSearchTerm(value);
   };
 
-  // Función para determinar si una membresía está activa
+
   const isMembresiaActiva = (miembro) => {
-    // Verificamos si el miembro tiene el estado explícitamente como "Activo"
     if (miembro.estado === "Activo") return true;
-    
-    // Si no tiene estado explícito, verificamos fechas
     if (miembro.joinDate) {
       const fechaFin = new Date(miembro.joinDate);
       const hoy = new Date();
       return fechaFin >= hoy;
     }
     
-    return false; // Si no hay fecha de fin, consideramos inactivo por defecto
+    return false; 
   };
 
 
@@ -127,12 +115,10 @@ const MiembrosModalComponent = () => {
   }, [miembros, selectedFilter, searchTerm]);
   
 
-  // Determinar qué criterio mostrar (búsqueda tiene prioridad)
   const titleToShow = searchTerm 
     ? `Búsqueda: ${searchTerm}` 
     : `Filtrado por: ${selectedFilter}`;
     
-  // Función para renderizar la celda de estado con el estilo adecuado
   const renderEstadoCell = (miembro) => {
     const esActivo = isMembresiaActiva(miembro);
     const estadoTexto = esActivo ? <ActiveButton text={"Activo"}/> : <InactiveButton text={"Inactivo"}/>;
@@ -162,7 +148,6 @@ const MiembrosModalComponent = () => {
           />
         </div>
 
-        {/* Botón de filtro */}
         <button className={styles.filter_boton} onClick={handleOpenMenu}>
           <FaFilter className={styles.filter_icon} /> Filtrar
         </button>
@@ -176,7 +161,6 @@ const MiembrosModalComponent = () => {
           <MenuItem onClick={() => handleCloseMenu("Todos")}>Todos</MenuItem>
         </Menu>
 
-        {/* Botón para agregar nuevo miembro */}
         <button
           className={styles.add_boton}
           onClick={() => {
@@ -188,12 +172,10 @@ const MiembrosModalComponent = () => {
         </button>
       </div>
 
-      {/* Muestra solo un criterio a la vez (búsqueda tiene prioridad) */}
       <h2 className={styles.filtered_title}>
         {titleToShow}
       </h2>
 
-      {/* Tabla de miembros */}
       <TableContainer className={styles.miembros_table} style={{ backgroundColor: '#F9F9F9', border:'4px solid #F9F9F9', borderRadius :'30px' }}>
         <Table sx={{ 
           borderCollapse: 'separate',
@@ -257,7 +239,6 @@ const MiembrosModalComponent = () => {
         </Table>
       </TableContainer>
 
-      {/* Modal de agregar miembros */}
       {isModalOpen && (
         <MiembrosModal
           isOpen={isModalOpen}

@@ -6,7 +6,7 @@ import SimpleBackdrop from "../../SimpleBackdrop";
 
 const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
   const [name, setName] = useState();
-  const [type, setType] = useState();
+  const [type, setType] = useState("Oro");
   const [duration, setDuration] = useState();
   const [price, setPrice] = useState();
   const [isLoanding, setisLoanding]= useState(false);
@@ -14,22 +14,19 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
 
   // 📌 Efecto para cargar datos cuando se edita una membresía
   useEffect(() => {
-   
-    
     if (membresiaEditando) {
       setName(membresiaEditando.name);
       setType(membresiaEditando.type);
       setDuration(membresiaEditando.duration);
       setPrice(membresiaEditando.price);
       setId(membresiaEditando.id)
-      console.log(membresiaEditando.id);
       
     } else {
       setName("");
-      setType("");
+      setType("Oro");
       setDuration("");
       setPrice("");
-      setId(null)
+      setId("")
     }
   }, [membresiaEditando]);
 
@@ -53,7 +50,7 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
     }
   };
 
-  const handlePrecioChange = (e) => {
+  /*const handlePrecioChange = (e) => {
     let rawValue = e.target.value.replace(/[^0-9]/g, "");
     let numericValue = Number(rawValue);
     let formattedValue = new Intl.NumberFormat("es-CO", {
@@ -62,7 +59,7 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
       minimumFractionDigits: 0,
     }).format(numericValue);
     setPrice(formattedValue);
-  };
+  };*/
 
   const handleSubmit = async (e) => {
     setisLoanding(true)
@@ -80,13 +77,11 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
       id: id,
       name: name,
       duration: parseInt(duration), // ⚠️ Asumimos que el backend espera un número
-      price: parseFloat(price),   // ⚠️ Asegúrate que el precio es tipo `number`
+      price: parseInt(price),   // ⚠️ Asegúrate que el precio es tipo `number`
       type: type
     };
   
     try {
-      console.log("data que se envia" + membresiaData.name);
-      
       await onAdd(membresiaData); // Este método llama al `create` o `update` según corresponda
        setisLoanding(false)
       onClose(); // Cierra el modal después de éxito
@@ -177,12 +172,12 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
                     Precio
                   </label>
                   <input
-                    type="price"
+                    type="number"
                     id="price"
                     className={styles.input}
                     placeholder="Precio"
                     value={price}
-                    onChange={handlePrecioChange}
+                    onChange={(e) => setPrice(e.target.value)}
                     required
                   />
                 </div>
