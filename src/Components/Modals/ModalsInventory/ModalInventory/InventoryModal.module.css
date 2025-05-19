@@ -1,5 +1,5 @@
 .modalOverlay {
-  position: absolute; /* Asegura que cubra toda la pantalla */
+  position: absolute; 
   top: 0;
   left: 0;
   width: 100%;
@@ -55,18 +55,18 @@
 .select {
   flex-grow: 1; 
   min-width: 200px; 
-  max-width: 100%; /* No se desborden */
+  max-width: 100%; 
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-/* 📌 Hacer que algunos campos ocupen dos columnas si es necesario */
+
 .fullRow {
   grid-column: span 3;
 }
 
-/* 📌 Estilo para la imagen */
+
 .imageUpload {
   display: flex;
   flex-direction: column;
@@ -92,7 +92,7 @@
   object-fit: contain;
 }
 
-/* 📌 Botones */
+
 .buttonContainer {
   display: flex;
   justify-content: flex-end;

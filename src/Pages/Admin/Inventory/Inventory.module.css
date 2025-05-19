@@ -5,27 +5,27 @@
 
 .inventory_container {
   width: 100%;
-  height: 100vh; /* Changed from min-height to height */
+  height: 100vh; 
   background-color: white;
   position: relative;
   padding: 40px;
-  overflow-y: auto; /* Adds vertical scrolling */
+  overflow-y: auto; 
 }
 
 .inventoryList {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 15px;
-  height: 374px; /* Altura fija */
+  height: 374px; 
   max-height: 374px;
-  overflow-y: auto; /* Scroll vertical */
-  overflow-x: hidden; /* Evitar scroll horizontal */
+  overflow-y: auto; 
+  overflow-x: hidden; 
   padding-right: 10px;
   margin-top: 20px;
   width: 100%;
   scrollbar-width: thin;
   scrollbar-color: #D3D837 #f1f1f1;
-  grid-auto-rows: min-content; /* Asegura que las filas no se expandan */
+  grid-auto-rows: min-content; 
 }
 
 

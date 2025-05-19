@@ -7,7 +7,7 @@ const ProfileGym = () => {
   const [formData, setFormData] = useState({
     nombre: "Juan Pérez",
     correo: "juanperez@example.com",
-    contraseña: "",
+    contraseña: "pepito",
     clientes: "150",
     nombreGimnasio: "FitLife Gym",
   });
