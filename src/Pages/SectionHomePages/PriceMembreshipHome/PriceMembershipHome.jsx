@@ -25,7 +25,7 @@ const PriceMembershipHome = () => {
         <div id='price' className={style.priceMembership_container}>
             <h2 className={style.h2_title}>Nuestros Precios</h2>
             <div ref={ref} className={style.tipePrice_container}>
-                {[...Array(4)].map((_, index) => (
+                {[...Array(7)].map((_, index) => (
                     <motion.div
                         key={index}
                         ref={(el) => (tiltRefs.current[index] = el)}

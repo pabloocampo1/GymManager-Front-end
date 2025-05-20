@@ -1,24 +1,33 @@
-/* Estilos generales del modal */
-._inventory_container_ovjvj_11 {
-    width: auto;
-    height: auto;
-    position: relative;
+
+.overlay{
+      position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1002; 
+
 }
-
-
-.ConteinerFilterMax {  /* Cambiado de absolute a fixed */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.ConteinerFilterMax { 
+    position: fixed;
+    align-items: center;
+  justify-content: center;
+    top:10%;
+    left: 33%;
+    transform: translate(-10%, -33%);
     background-color: white;
     border-radius: 8px;
     padding: 20px;
     max-width: 800px;
-    width: 90%;  /* Ajustado para responsividad */
+    width: 90%;  
     max-height: 100vh;
-      /* Límite de altura máxima */
-    overflow-y: auto;  /* Scroll si es necesario */
-    z-index: 1002;  /* Asegurar visibilidad */
+      
+    overflow-y: auto;  
+    z-index: 1003;  
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     
 }
