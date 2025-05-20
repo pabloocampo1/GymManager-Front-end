@@ -39,6 +39,7 @@
     "react-window": "^1.8.11",
     "styled-components": "^6.1.15",
     "swapy": "^1.0.5",
+    "sweetalert2": "^11.21.2",
     "vanilla-tilt": "^1.8.1"
   },
   "devDependencies": {

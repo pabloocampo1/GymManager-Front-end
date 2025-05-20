@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Eye, EyeOff } from "lucide-react";
 import styles from "./ModalDataPrivate.module.css";
+import Swal from 'sweetalert2';
 
 const PrivateDataModal = ({
   correo,
@@ -21,7 +22,13 @@ const PrivateDataModal = ({
 
   const handleEnviarCodigo = () => {
     setCodigoEnviado(true);
-    alert("Codigo enviado via Correo");
+    Swal.fire({
+       icon: 'success',
+      title: 'Correo enviado',
+      text: 'Revisar el correo',
+      confirmButtonText: 'Entendido'
+    })
+  
   };
 
   const handleVerificarCodigo = () => {
@@ -33,22 +40,38 @@ const PrivateDataModal = ({
     }
   };
 
-  const handleGuardar = () => {
-    if (!verificado) {
-      alert("insertar codigo antes de guardar cambios");
-      return;
-    }
-    
-    if (nuevaPass !== confirmPass) {
-      setPasswordsMatch(false);
-      return;
-    }
-    
-    onCorreoChange(email);
-    onPasswordChange(nuevaPass);
-    alert("Cambios correctamente guardados");
-    onClose();
-  };
+ const handleGuardar = () => {
+  if (!verificado) {
+    Swal.fire({
+      icon: 'success',
+      title: 'Verificación requerida',
+      text: 'Debes insertar el código antes de guardar los cambios.',
+      confirmButtonText: 'Entendido'
+    });
+    return;
+  }
+
+  if (nuevaPass !== confirmPass) {
+    setPasswordsMatch(false);
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Las contraseñas no coinciden.',
+      confirmButtonText: 'Corregir'
+    });
+    return;
+  }
+
+  onCorreoChange(email);
+  onPasswordChange(nuevaPass);
+  Swal.fire({
+    icon: 'success',
+    title: 'Cambios guardados',
+    text: 'Tus datos han sido actualizados correctamente.',
+    confirmButtonText: 'Aceptar'
+  });
+  onClose();
+};
 
   return (
     <motion.div
