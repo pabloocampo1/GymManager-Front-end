@@ -12,6 +12,7 @@ const MiembrosModal = ({
   miembroSeleccionado,
 }) => {
   const [formData, setFormData] = useState({
+    id:"",
     fullName: "",
     identificationNumber: "",
     birthDate: "",
@@ -19,7 +20,6 @@ const MiembrosModal = ({
     email: "",
     gender: "",
     membershipType: "",
-    joinDate: "",
     emergencyPhone: "",
   });
 
@@ -31,6 +31,7 @@ const MiembrosModal = ({
     } else {
       // Resetear todos los campos
       setFormData({
+        id:"",
         fullName: "",
         identificationNumber: "",
         birthDate: "",
@@ -38,7 +39,6 @@ const MiembrosModal = ({
         email: "",
         gender: "",
         membershipType: "",
-        joinDate: "",
         emergencyPhone: "",
       });
     }
@@ -74,6 +74,7 @@ const MiembrosModal = ({
     e.preventDefault();
   
     const {
+      id,
       fullName,
       identificationNumber,
       birthDate,
@@ -81,12 +82,13 @@ const MiembrosModal = ({
       email,
       gender,
       membershipType,
-      joinDate,
+    
       emergencyPhone,
     } = formData;
   
     // Validación de campos obligatorios
     const camposObligatorios = [
+      id,
       fullName,
       identificationNumber,
       birthDate,
@@ -94,7 +96,7 @@ const MiembrosModal = ({
       email,
       gender,
       membershipType,
-      joinDate,
+    
       emergencyPhone,
     ];
   
@@ -125,7 +127,7 @@ const MiembrosModal = ({
       if (miembroSeleccionado) {
         // Editar un miembro existente
         const actualizado = await MiembrosService.updateMiembro(
-          miembroSeleccionado.identificationNumber,
+          miembroSeleccionado.id,
           formData
         );
         // Si la actualización fue exitosa, refrescar la lista de miembros
@@ -144,6 +146,7 @@ const MiembrosModal = ({
   
       // Reiniciar formulario y cerrar modal
       setFormData({
+        id:"",
         fullName: "",
         identificationNumber: "",
         birthDate: "",
@@ -151,7 +154,6 @@ const MiembrosModal = ({
         email: "",
         gender: "",
         membershipType: "",
-        joinDate: "",
         emergencyPhone: "",
       });
       onClose();
@@ -321,21 +323,6 @@ const MiembrosModal = ({
                     <option value="Plata">Plata</option>
                     <option value="Bronce">Bronce</option>
                   </select>
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="joinDate" className={styles.label}>
-                    Fecha de Inscripción
-                  </label>
-                  <input
-                    type="date"
-                    id="joinDate"
-                    name="joinDate"
-                    className={styles.input}
-                    value={formData.joinDate}
-                    onChange={handleChange}
-                    required
-                  />
                 </div>
 
                 <div className={styles.formGroup}>

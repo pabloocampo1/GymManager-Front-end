@@ -3,7 +3,7 @@ import { api } from './api';
 const MiembrosService = {
   getAllMiembros: async () => {
     try {
-      const response = await api.get(`/api/miembros`);
+      const response = await api.get(`/api/members`);
       return response.data;
     } catch (error) {
       console.error('Error obteniendo miembros:', error);
@@ -13,7 +13,7 @@ const MiembrosService = {
 
   createMiembro: async (miembro) => {
     try {
-      const response = await api.post('/api/miembros', miembro);
+      const response = await api.post('/api/members', miembro);
       return response.data;
     } catch (error) {
       console.error('Error creando miembro:', error);
@@ -23,7 +23,7 @@ const MiembrosService = {
 
   updateMiembro: async (id, miembro) => {
     try {
-      const response = await api.put(`/api/miembros/${id}`, miembro);
+      const response = await api.put(`/api/members/update/${id}`, miembro);
       return response.data;
     } catch (error) {
       console.error(`Error actualizando miembro ${id}:`, error);
@@ -33,7 +33,7 @@ const MiembrosService = {
 
   deleteMiembro: async (id) => {
     try {
-      const response = await api.delete(`/api/miembros/${id}`);
+      const response = await api.delete(`/api/members/${id}`);
       return response.data;
     } catch (error) {
       console.error(`Error eliminando miembro ${id}:`, error);
