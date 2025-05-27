@@ -3,6 +3,7 @@ import styles from "./MembresiasModal.module.css";
 import ClearIcon from "@mui/icons-material/Clear";
 import { motion, AnimatePresence } from "framer-motion";
 import SimpleBackdrop from "../../SimpleBackdrop";
+import Swal from 'sweetalert2';
 
 const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
   const [name, setName] = useState();
@@ -43,7 +44,12 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
     } else {
       let numericValue = parseInt(rawValue, 10);
       if (numericValue > 366) {
-        alert("Por favor, agrega un número menor o igual a 365.");
+        Swal.fire({
+              icon: 'warning',
+              title: 'Maximo de días',
+              text: 'Los dias de la membresia no pueden ser superiores a un año',
+              confirmButtonText: 'Entendido'
+            })
         return;
       }
       setDuration(numericValue.toString());
@@ -68,7 +74,12 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
     // Validación básica
     if (!name || !duration || !price || !type) {
       setisLoanding(false)
-      alert("Por favor, completa todos los campos.");
+      Swal.fire({
+            icon: 'warning',
+            title: 'Campos incompletos',
+            text: 'Por favor completa todos los campos',
+            confirmButtonText: 'Entendido'
+          })
       return;
     }
   
@@ -88,7 +99,12 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
     } catch (error) {
        setisLoanding(false)
       console.error("Error al enviar la membresía:", error);
-      alert("Ocurrió un error al guardar la membresía.");
+      Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error al crear la membresia',
+            confirmButtonText: 'Entendido'
+          })
     }
     setisLoanding(false)
 

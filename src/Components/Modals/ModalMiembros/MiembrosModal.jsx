@@ -4,6 +4,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import {motion, AnimatePresence } from "framer-motion";
 import MiembrosService from "../../../Service/MiembrosService.jsx";
 import MembresiaService from "../../../Service/MembresiaService.jsx";
+import Swal from 'sweetalert2';
 
 const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
   const [formData, setFormData] = useState({
@@ -108,7 +109,12 @@ const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
     ];
 
     if (camposObligatorios.some((campo) => !campo)) {
-      alert("Por favor, completa todos los campos.");
+      Swal.fire({
+                   icon: 'info',
+                  title: 'Campos incompletos',
+                  text: 'Por favor completa todos los campos',
+                  confirmButtonText: 'Entendido'
+                })
       return;
     }
 
@@ -117,7 +123,12 @@ const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
     const fechaNacimientoDate = new Date(birthDate);
 
     if (fechaNacimientoDate >= fechaActual) {
-      alert("La fecha de nacimiento debe ser anterior a la fecha actual.");
+      Swal.fire({
+                  icon: 'warning',
+                  title: 'Fecha incorrecta',
+                  text: 'La fecha de nacimiento debe de ser anterior a la fecha actual',
+                  confirmButtonText: 'Entendido'
+                })
       return;
     }
 
@@ -126,7 +137,12 @@ const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
       miembroSeleccionado &&
       miembroSeleccionado.identificationNumber !== identificationNumber
     ) {
-      alert("No se puede modificar el número de identificación.");
+      Swal.fire({
+                  icon: 'warning',
+                  title: 'Identificacion',
+                  text: 'No puedes modificar la identificacion',
+                  confirmButtonText: 'Entendido'
+                })
       return;
     }
 
@@ -166,7 +182,12 @@ const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
       onClose();
     } catch (error) {
       console.error("Error al procesar la solicitud:", error);
-      alert("Hubo un error al guardar el miembro."); // Verifica los datos que se están enviando
+      Swal.fire({
+                  icon: 'error',
+                  title: 'Error',
+                  text: 'Error al crear el miembro, la identificacion ya existe',
+                  confirmButtonText: 'Entendido'
+                }) // Verifica los datos que se están enviando
     }
   };
 
