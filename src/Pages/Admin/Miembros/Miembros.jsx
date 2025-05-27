@@ -129,12 +129,11 @@ const MiembrosModalComponent = () => {
   }, [miembros, selectedFilter, searchTerm]);
   
 
-  // Determinar qué criterio mostrar (búsqueda tiene prioridad)
   const titleToShow = searchTerm 
     ? `Búsqueda: ${searchTerm}` 
     : `Filtrado por: ${selectedFilter}`;
     
-  // Función para renderizar la celda de estado con el estilo adecuado
+
   const renderEstadoCell = (miembro) => {
     const esActivo = isMembresiaActiva(miembro);
     const estadoTexto = esActivo ? <ActiveButton text={"Activo"}/> : <InactiveButton text={"Inactivo"}/>;
