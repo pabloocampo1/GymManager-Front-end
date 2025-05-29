@@ -222,7 +222,7 @@ const MembresiaModal = () => {
             {filteredMembresias.length > 0 ? (
               filteredMembresias.map((membresia) => (
                 <TableRow key={membresia.id}>
-                  <TableCell>{membresia.name}</TableCell>
+                  <TableCell>{membresia.title}</TableCell>
                   <TableCell>{membresia.duration}</TableCell>
                   <TableCell>{membresia.price}</TableCell>
                   <TableCell>{membresia.type}</TableCell>

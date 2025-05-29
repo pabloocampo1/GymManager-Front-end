@@ -3,31 +3,19 @@ import { Box, Typography, Modal, Button, TextField, Autocomplete, Stack } from '
 import { CloseOutlined } from '@mui/icons-material';
 import ButtonActive from '../Buttons/ButtonActive';
 import ButtonInactive from '../Buttons/ButtonInactive';
+import { api } from '../../Service/api';
+import PaymentComponent from '../PaymentComponent/PaymentComponent';
 
-export default function DataUserAccesAllInfo({ open, onClose, data = {}, message }) {
+export default function DataUserAccesAllInfo({ open, onClose, userId, message,  }) {
     const [isUpdateMembership, setIsUpdateMembership] = useState(false);
     const [openUpdate, setOpenUpdate] = useState(false);
-    const mem = [
-        {
-            "title": "Tipo Membresia 1",
-        },
-        {
-            "title": "Tipo Membresia 2",
-        },
-        {
-            "title": "Tipo Membresia 3",
-        },
-    ]
-    const defaultProps = {
-        options: mem,
-        getOptionLabel: (option) => option.title,
-    };
+    const [dataUser, setDataUser] = useState([])
 
-    const [optionMembership, setOptionMembership] = useState(null);
+
 
     const InfoBox = ({ label, value }) => (
         <Box sx={{
-            width: "200px",
+            width: "160px",
             height: "100px",
             display: "flex",
             flexDirection: "column",
@@ -45,11 +33,54 @@ export default function DataUserAccesAllInfo({ open, onClose, data = {}, message
         </Box>
     );
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('es-ES', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric'
+        });
+    };
+
+    const calculateRemainingDays = (finishDateStr) => {
+        const today = new Date();
+        const finishDate = new Date(finishDateStr);
+        const diff = finishDate.getTime() - today.getTime();
+        const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
+        return daysLeft > 0 ? daysLeft : 0;
+    };
+
+    const accessLog = async (data) => {
+        try{
+            const response = await api.get(`/api/accessLog/save/${data.id}`)
+            if (!response.data){
+                alert("Algo en el sistema no responde.")
+                return;
+            }
+            onClose();
+            
+        }catch(Error){
+            console.error(Error);
+            
+        }
+    }
+
+
 
     useEffect(() => {
-console.log("se actualizo");
+        const fetchDataUser = async () => {
+            try {
+                const response = await api.get(`/api/members/getFullData/${userId}`);
+                setDataUser(response.data)
+ 
+            } catch (error) {
+                console.error(error);
+            }
+        }
 
-    }, [isUpdateMembership] )
+        fetchDataUser()
+
+    }, [isUpdateMembership])
 
     return (
         <Box>
@@ -65,97 +96,71 @@ console.log("se actualizo");
                         top: "50%",
                         left: "50%",
                         transform: "translate(-50%, -50%)",
-                        minWidth: "900px",
+                        width:"80vw",
+                        maxWidth: "70vw",
                         bgcolor: "#F9F9F9",
+                        maxHeight: "95vh",
+                        overflowY: "auto",
+                        overflowX: "hidden",
                         boxShadow: 24,
                         p: 3,
                         borderRadius: "15px",
-                        display:"flex",
-                        flexDirection:"column",
-                        alignItems:"center"
+                        display: "flex",
+                        alignItems: "center"
                     }}
                 >
-                    <Box sx={{width:"100%", display: "flex", justifyContent: "space-between", mb: 2 }}>
-                        <Typography variant="h6">Información del usuario - Membresía</Typography>
-                        <CloseOutlined onClick={onClose} sx={{ cursor: 'pointer' }} />
-                    </Box>
-
                     <Box sx={{
                         display: "flex",
-                        flexWrap: "wrap",
-                        gap: "16px",
-                        mb: 4
+                        width:"100%",
+                        flexDirection:"column",
+                        alignItems: "center",
+                        justifyContent:"center",
+                       
                     }}>
-                        <InfoBox label="Nombre" value={data.name} />
-                        <InfoBox label="Identificación" value={data.DNI} />
-                        <InfoBox label="Tipo de Membresía" value={data.tipoMembresia} />
-                        <InfoBox
-                            label="Estado de Membresía"
-                            value={data.estado === "Activa"
-                                ? <ButtonActive text={data.estado} />
-                                : <ButtonInactive text={data.estado} />
-                            }
-                        />
-                        <InfoBox label="Inicio de Membresía" value={data.inicio} />
-                        <InfoBox label="Fin de Membresía" value={data.fin} />
-                        <InfoBox label="Días Restantes" value={data.diasRestantes} />
-                    </Box>
-
-                    <Box sx={{ display: "flex", justifyContent: "center", gap: 2 }}>
-                        {data.estado !== "Activa" && (
-                            <Button variant="text" onClick={() => setOpenUpdate(true)}>
-                                Restaurar Membresía
-                            </Button>
-                        )}
-                        {data.estado === "Activa" && (
-                            <Button variant="outlined" onClick={() => { message(); onClose(); }}>
-                                Registrar Entrada
-                            </Button>
-                        )}
-                    </Box>
-
-                    {openUpdate && (
-                        <Box sx={{
-                            mt: 6,
-                            width: "50%",
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            bgcolor: "white",
-                            borderRadius: "10px",
-                            p: 3
-                        }}>
-                            <Box>
-                                <Stack spacing={1} sx={{ width: 300 }}>
-
-                                    <Autocomplete
-                                        {...defaultProps}
-                                        id="controlled-demo"
-                                        value={optionMembership}
-                                        onChange={(event, newValue) => {
-                                            setOptionMembership(newValue);
-                                        }}
-                                        renderInput={(params) => (
-                                            <TextField {...params} label="Tipo De Membresia" variant="standard" />
-                                        )}
-                                    />
-
-                                </Stack>
-                            </Box>
-
-                            <Box sx={{ mt: 2, display: "flex", gap: 2 }}>
-                                <Button variant="outlined" onClick={() => setOpenUpdate(false)}>Cancelar</Button>
-                                <Button variant="contained" color="success" onClick={() => {
-                                    setIsUpdateMembership(true);
-                                    setOptionMembership(null)
-                                    setOpenUpdate(false)
-                                }}>Confirmar</Button>
-                            </Box>
+                        <Box sx={{ width: "100%", display: "flex", justifyContent: "space-between", mb: 2 }}>
+                            <Typography variant="h6">Información del usuario - Membresía</Typography>
+                           
                         </Box>
-                    )}
+
+                        <Box sx={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            gap: "16px",
+                            mb: 4
+                        }}>
+                            <InfoBox label="Nombre" value={dataUser.fullName} />
+                            <InfoBox label="Identificación" value={dataUser.dni} />
+                            <InfoBox label="Nombre de Membresía" value={dataUser.nameMembership} />
+                            <InfoBox
+                                label="Estado de Membresía"
+                                value={dataUser.stateOfMembership
+                                    ? <ButtonActive text="Activa" />
+                                    : <ButtonInactive text="Vencida" />
+                                }
+                            />
+                            <InfoBox label="Inicio de Membresía" value={formatDate(dataUser.dateStart)} />
+                            <InfoBox label="Fin de Membresía" value={formatDate(dataUser.dateFinished)} />
+                            <InfoBox label="Días Restantes" value={calculateRemainingDays(dataUser.dateFinished)} />
+                        </Box>
+
+                        <Box sx={{ display: "flex", justifyContent: "center", gap: 2 }}>
+                            {!dataUser.stateOfMembership && (
+                                <Button variant="text" onClick={() => setOpenUpdate(true)}>
+                                    Restaurar Membresía
+                                </Button>
+                            )}
+                            {dataUser.stateOfMembership && (
+                                <Button variant="outlined" onClick={() => { message(); accessLog(dataUser) }}>
+                                    Registrar Entrada
+                                </Button>
+                            )}
+                        </Box>
+                    </Box>
+
+                    {openUpdate && (<PaymentComponent userInfo={dataUser} isUpdateMembership={() => setIsUpdateMembership(true)} closeUpdateSubscription={() => {setIsUpdateMembership(true) ,setOpenUpdate(false)}} />)}
+                    <CloseOutlined onClick={onClose} sx={{ cursor: 'pointer', position:"absolute", top:"2%", right:"2%" }} />
                 </Box>
-            </Modal>
-        </Box>
+            </Modal >
+        </Box >
     );
 }
