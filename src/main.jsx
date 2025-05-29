@@ -5,8 +5,8 @@ import App from './App.jsx'
 import {QRCodeSVG} from 'qrcode.react';
 
 createRoot(document.getElementById('root')).render(
-  //<StrictMode>
-   
+  <StrictMode>
+
     <App />
-  //</StrictMode>,
+  </StrictMode>,
 )
