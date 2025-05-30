@@ -23,6 +23,7 @@ import GuestRoute from './Routes/GuestRoute'
 
 
 import { GoogleOAuthProvider } from '@react-oauth/google'
+import ActivityRegister from './Pages/Admin/Dashboard/ActivityRegister'
 
 function App() {
     const clientId = "161148106630-1e8ad1edsce66mqtrt42roin5llu7ipb.apps.googleusercontent.com";
@@ -58,7 +59,8 @@ function App() {
                             <Route path="/dashboard" element={<PrivateRoute />}>
                                 <Route element={<PrivateLayout />} >
                                     <Route index element={<Dashboard />} />
-                                    <Route path='acceso' element={<ControlAcces />}></Route>
+                                    <Route path='acceso' element={<ControlAcces />}>
+                                    </Route>
                                     <Route path='miembros' element={<Miembros />}></Route>
                                     <Route path='membresias' element={<Membresias />}></Route>
                                     <Route path="correo" element={<Promotions />} />

@@ -14,6 +14,7 @@ import jsPDF from "jspdf";
 import LoandingDownloadReport from "../../../Components/LoandingDownloadReport";
 import ListNewUsers from "../../../Components/Charts/ListNewUsers";
 import ChartTotalUser from "../../../Components/Charts/ChartTotalUser";
+import { LegendToggle, ShowChart } from "@mui/icons-material";
 
 function Dashboard() {
     const componentRef = useRef();
@@ -104,7 +105,7 @@ function Dashboard() {
                         paddingBottom: "40px",
                     }}
                 >
-                    {titleReport} <span style={{ fontWeight: 300, fontSize: "1.30rem" }}> {userName} </span>
+                    {titleReport}  <span style={{ fontWeight: 300, fontSize: "1.30rem" }}> {userName}  <ShowChart />  <ShowChart /> </span>
                 </Typography>
                 <LoandingDownloadReport open={loandingDownload} text={"Descargando informe en pdf"} />
                 {activeButtonDownloadReport && (<Button color="#FFDB00" variant="contained" sx={{ backgroundColor: "", border: "2px solid #FFDB00" }} onClick={downloadPdf}>PDF  <UploadFileIcon /></Button>)}

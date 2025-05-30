@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Typography, Modal, Button, TextField, Autocomplete, Stack } from '@mui/material';
-import { CloseOutlined } from '@mui/icons-material';
+import { CloseOutlined, LocalActivity } from '@mui/icons-material';
 import ButtonActive from '../Buttons/ButtonActive';
 import ButtonInactive from '../Buttons/ButtonInactive';
 import { api } from '../../Service/api';
@@ -146,12 +146,12 @@ export default function DataUserAccesAllInfo({ open, onClose, userId, message,  
                         <Box sx={{ display: "flex", justifyContent: "center", gap: 2 }}>
                             {!dataUser.stateOfMembership && (
                                 <Button variant="text" onClick={() => setOpenUpdate(true)}>
-                                    Restaurar Membresía
+                                    <LocalActivity />  Restaurar Membresía 
                                 </Button>
                             )}
                             {dataUser.stateOfMembership && (
                                 <Button variant="outlined" onClick={() => { message(); accessLog(dataUser) }}>
-                                    Registrar Entrada
+                                    <LocalActivity /> Registrar Entrada
                                 </Button>
                             )}
                         </Box>

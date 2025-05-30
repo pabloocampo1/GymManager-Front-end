@@ -54,7 +54,7 @@ const DataUserAccesUI = ({ dataUser = [], isUserSelect, message, searchBy }) => 
                                 <Typography variant="p">{user.dni}</Typography>
                             </Box>
                             <Box sx={{ width: "33.3%", display: "flex", justifyContent: "end" }}>
-                                {user.membershipStatus ? (<ButtonActive text="Activo"></ButtonActive>) : (<ButtonInactive text="Activo" />)}
+                                {user.membershipStatus ? (<ButtonActive text="Activo"></ButtonActive>) : (<ButtonInactive text="Vencida" />)}
                             </Box>
 
                         </Box>

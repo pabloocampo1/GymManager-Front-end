@@ -73,11 +73,13 @@ export const AuthContextProvider = ({ children }) => {
                         type: "signIn",
                         payload: userLogged
                     })
-
+                    setAuthToken(userLogged.token);
 
                     if (autologin) {
                         localStorage.setItem("userAuthGymManager", JSON.stringify(userLogged))
                     }
+
+
 
 
                     if (response.data.status) {
@@ -103,21 +105,25 @@ export const AuthContextProvider = ({ children }) => {
             const response = await api.post("/api/auth/signWithGoogle", { token: googleToken });
 
             const userLogged = {
+
                 username: response.data.username,
                 role: response.data.role,
                 token: response.data.jwt,
-                isAuthenticated: true,
+                isAuthenticated: response.data.status,
                 rememberPassword: true
+
+
             };
 
             dispatch({ type: "signIn", payload: userLogged });
-            setAuthToken(userLogged.token); 
+            setAuthToken(userLogged.token);
             localStorage.setItem("userAuthGymManager", JSON.stringify(userLogged));
+            console.log(userLogged);
             navigateTo("/dashboard");
 
         } catch (err) {
             console.error("Error al iniciar sesión con Google", err);
-              localStorage.removeItem("userAuthGymManager")
+            localStorage.removeItem("userAuthGymManager")
         }
     };
 
@@ -128,9 +134,7 @@ export const AuthContextProvider = ({ children }) => {
         navigateTo("/login")
     }
 
-    useEffect(() => {
-        setAuthToken(state.token);
-    }, [state.token]);
+    
 
     useEffect(() => {
         const checkJwt = async () => {

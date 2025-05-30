@@ -10,7 +10,10 @@ import DataUserAccesUI from '../../Components/Modals/DataUserAccesSummaryUI';
 import ShowMessageSuccess from '../../Components/ShowMessageSuccess';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
 import { api } from '../../Service/api';
-import  imageSearch  from "../../assets/images/undraw_search-control_k649.svg"
+import imageSearch from "../../assets/images/undraw_search-control_k649.svg"
+import { Outlet } from 'react-router-dom';
+import ActivityRegister from './Dashboard/ActivityRegister';
+import { AddCard, AppRegistrationOutlined, LocalActivity } from '@mui/icons-material';
 
 function ControlAcces() {
     const [isUserSelected, setIsUserSelected] = useState(false);
@@ -18,6 +21,7 @@ function ControlAcces() {
     const [showMessage, setShowMessage] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [userData, setUserData] = useState('');
+    const [showActivity, setShowActivity] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -45,6 +49,7 @@ function ControlAcces() {
 
     const handleInputSearch = (value) => {
         setSearchTerm(value);
+        setShowActivity(false)
         setIsUserSelected(true);
     };
 
@@ -64,7 +69,7 @@ function ControlAcces() {
                 flexDirection: 'column',
             }}
         >
-            {open && <ModalVisitRegular open={open} handleClose={handleClose}  ShowMessageSuccess={mostrarMensaje} />}
+            {open && <ModalVisitRegular open={open} handleClose={handleClose} ShowMessageSuccess={mostrarMensaje} />}
 
             <Box
                 sx={{
@@ -88,62 +93,91 @@ function ControlAcces() {
                 <Typography variant="body1" sx={{ opacity: '0.50' }}>
                     Registrar entrada de miembros y visitas
                 </Typography>
-                <Button
-                    onClick={handleOpen}
-                    variant="outlined"
-                    sx={{  border:"2px solid rgb(255, 219, 0)", color: 'rgb(0, 0, 0)' }}
-                >
-                    Visita Regular
-                </Button>
+                <Box >
+                    <Button
+                        onClick={() => { setShowActivity(true) }}
+                        variant="outlined"
+                        sx={{mr:"20px", borderColor:"black", color:"black"}}
+                    >
+                        <AppRegistrationOutlined sx={{color:'black'}} />
+                        Ver Actividad
+                    </Button>
+                   <Button
+                        onClick={() => { handleOpen() }}
+                        variant="outlined"
+                        sx={{mr:"20px", borderColor:"black", color:"black"}}
+                    >
+                        <AddCard />
+                        Visita Regular
+                    </Button>
+                </Box>
             </Box>
 
             <Box
                 sx={{
                     bgcolor: 'white',
                     width: '100%',
-                    height: '60vh',
+                    height: '70vh',
                     borderRadius: '15px',
+                    overflowY: "auto",
+                    overflowX: "hidden",
+                    position: "relative",
+                    pt: "0px"
                 }}
             >
+
                 <Box
                     sx={{
                         width: '100%',
+                        height: "80px",
                         display: 'flex',
                         justifyContent: 'center',
                         pt: '20px',
+                        position: "sticky",
+                        bgcolor: "white",
+                        top: "0%",
+                        right: "2%"
                     }}
                 >
                     <SearchInput onSearch={handleInputSearch} />
                     <Box>
                         <QrCode2Icon />
                     </Box>
-                </Box>
 
-                <Box
-                    sx={{
-                        width: '100%',
-                        display: 'flex',
-                        borderRadius: '15px',
-                        overflow: 'hidden',
-                        justifyContent: 'center',
-                        pt: '20px',
-                    }}
-                >
-                    {searchTerm === '' ? (
-                        <Box sx={{display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column" }}>
-                            <Typography sx={{color:"GrayText", fontSize:"20px", pb:"20px", pt:"20px"}}>No hay busquedas</Typography>
-                            <img width={300} src={imageSearch} alt="search_image" />
-                        </Box>
-                    ) : (
-                        <DataUserAccesUI
-                            dataUser={userData}
-                            isUserSelect={isUserSelected}
-                            message={mostrarMensaje}
-                            searchBy={searchTerm}
-                           
-                        />
-                    )}
+
+
                 </Box>
+                {showActivity ? (
+                    <ActivityRegister />
+                ) : (
+                    <Box
+                        sx={{
+                            width: '100%',
+                            display: 'flex',
+                            borderRadius: '15px',
+                            overflow: 'hidden',
+                            justifyContent: 'center',
+                            pt: '20px',
+                        }}
+                    >
+                        {searchTerm === '' ? (
+                            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
+                                <Typography sx={{ color: "GrayText", fontSize: "20px", pb: "20px", pt: "20px" }}>No hay busquedas</Typography>
+                                <img width={300} src={imageSearch} alt="search_image" />
+                            </Box>
+                        ) : (
+                            <DataUserAccesUI
+                                dataUser={userData}
+                                isUserSelect={isUserSelected}
+                                message={mostrarMensaje}
+                                searchBy={searchTerm}
+
+                            />
+                        )}
+                    </Box>
+                )}
+
+
             </Box>
 
             {showMessage && (
@@ -153,7 +187,7 @@ function ControlAcces() {
                     type={'success'}
                 />
             )}
-             
+
         </Box>
     );
 }

@@ -42,6 +42,8 @@ export default function ModalVisitRegular({ open, handleClose , ShowMessageSucce
                 setErrorRequest(true)
                 return;
             }
+            
+              ShowMessageSuccess()
           handleClose()
         } catch (Error) {
             console.error(Error);
@@ -50,7 +52,7 @@ export default function ModalVisitRegular({ open, handleClose , ShowMessageSucce
         }
 
         setIslOanding(false)
-        ShowMessageSuccess()
+      
     };
 
     return (
