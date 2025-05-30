@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import styles from "./MiembrosModal.module.css";
 import ClearIcon from "@mui/icons-material/Clear";
-import {motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import MiembrosService from "../../../Service/MiembrosService.jsx";
-import MembresiaService from "../../../Service/MembresiaService.jsx";
-import Swal from 'sweetalert2';
 
 const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
   const [formData, setFormData] = useState({
+    id: "",
     fullName: "",
     identificationNumber: "",
     birthDate: "",
@@ -15,32 +14,15 @@ const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
     email: "",
     gender: "",
     membershipType: "",
-    joinDate: "",
     emergencyPhone: "",
   });
-  const [membresias, setMembresias] = useState([]);
 
-  useEffect(() => {
-    const obtenerMembresias = async () => {
-      try {
-        const data = await MembresiaService.getAllMembresia(); // Asegúrate de que exista esta función
-        setMembresias(data);
-      } catch (error) {
-        console.error("Error al obtener las membresías:", error);
-      }
-    };
-
-    obtenerMembresias();
-  }, []);
-
-  // 🔍 Verifica cuando cambia `miembroSeleccionado`
   useEffect(() => {
     if (miembroSeleccionado) {
-      // Clonar el objeto para evitar modificaciones directas
       setFormData({ ...miembroSeleccionado });
     } else {
-      // Resetear todos los campos
       setFormData({
+        id: "",
         fullName: "",
         identificationNumber: "",
         birthDate: "",
@@ -48,11 +30,10 @@ const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
         email: "",
         gender: "",
         membershipType: "",
-        joinDate: "",
         emergencyPhone: "",
       });
     }
-  }, [miembroSeleccionado]);
+  }, []);
 
   if (!isOpen) return null;
 
@@ -65,11 +46,9 @@ const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Validaciones específicas para los campos numéricos
     if (["phone", "emergencyPhone", "identificationNumber"].includes(name)) {
-      const numericValue = value.replace(/[^0-9]/g, ""); // Solo números
+      const numericValue = value.replace(/[^0-9]/g, "");
 
-      // Si está en modo edición, no permitir cambiar la identificación
       if (name === "identificationNumber" && miembroSeleccionado) {
         return;
       }
@@ -83,111 +62,72 @@ const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const {
-      fullName,
-      identificationNumber,
-      birthDate,
-      phone,
-      email,
-      gender,
-      membershipType,
-      joinDate,
-      emergencyPhone,
-    } = formData;
-
-    // Validación de campos obligatorios
-    const camposObligatorios = [
-      fullName,
-      identificationNumber,
-      birthDate,
-      phone,
-      email,
-      gender,
-      membershipType,
-      joinDate,
-      emergencyPhone,
-    ];
-
-    if (camposObligatorios.some((campo) => !campo)) {
-      Swal.fire({
-                   icon: 'info',
-                  title: 'Campos incompletos',
-                  text: 'Por favor completa todos los campos',
-                  confirmButtonText: 'Entendido'
-                })
-      return;
-    }
-
-    // Validación de fecha de nacimiento
     const fechaActual = new Date();
-    const fechaNacimientoDate = new Date(birthDate);
+    const fechaNacimientoDate = new Date(formData.birthDate);
 
     if (fechaNacimientoDate >= fechaActual) {
-      Swal.fire({
-                  icon: 'warning',
-                  title: 'Fecha incorrecta',
-                  text: 'La fecha de nacimiento debe de ser anterior a la fecha actual',
-                  confirmButtonText: 'Entendido'
-                })
+      alert("La fecha de nacimiento debe ser anterior a la fecha actual.");
       return;
     }
 
-    // Validación de identificación en modo edición
     if (
       miembroSeleccionado &&
-      miembroSeleccionado.identificationNumber !== identificationNumber
+      miembroSeleccionado.identificationNumber !== formData.identificationNumber
     ) {
-      Swal.fire({
-                  icon: 'warning',
-                  title: 'Identificacion',
-                  text: 'No puedes modificar la identificacion',
-                  confirmButtonText: 'Entendido'
-                })
+      alert("No se puede modificar el número de identificación.");
       return;
     }
 
-    try {
-      if (miembroSeleccionado) {
-        // Editar un miembro existente
-        const actualizado = await MiembrosService.updateMiembro(
-          miembroSeleccionado.identificationNumber,
-          formData
-        );
-        // Si la actualización fue exitosa, refrescar la lista de miembros
-        onAdd({
-          tipo: "editar",
-          miembro: actualizado,
-        });
-      } else {
-        // Agregar un nuevo miembro
-        const nuevoMiembro = await MiembrosService.createMiembro(formData);
-        onAdd({
-          tipo: "agregar",
-          miembro: nuevoMiembro,
-        });
-      }
+    if (miembroSeleccionado) {
+      const actualizado = await MiembrosService.updateMiembro(
+        miembroSeleccionado.id,
+        formData
+      );
 
-      // Reiniciar formulario y cerrar modal
-      setFormData({
-        fullName: "",
-        identificationNumber: "",
-        birthDate: "",
-        phone: "",
-        email: "",
-        gender: "",
-        membershipType: "",
-        joinDate: "",
-        emergencyPhone: "",
+      onAdd({
+        tipo: "editar",
+        miembro: actualizado,
       });
       onClose();
-    } catch (error) {
-      console.error("Error al procesar la solicitud:", error);
-      Swal.fire({
-                  icon: 'error',
-                  title: 'Error',
-                  text: 'Error al crear el miembro, la identificacion ya existe',
-                  confirmButtonText: 'Entendido'
-                }) // Verifica los datos que se están enviando
+    } else {
+      try {
+        console.log("el dto que va: " + formData);
+        onAdd({
+          tipo: "agregar",
+          miembro: {
+            gymMemberDto: {
+              identificationNumber: formData.identificationNumber,
+              fullName: formData.fullName,
+              birthDate: formData.birthDate,
+              phone: formData.phone,
+              email: formData.email,
+              gender: formData.gender,
+              emergencyPhone: formData.emergencyPhone,
+            },
+            saleDto: {
+              membershipId: 2,
+              purchaseMethod: "Efectivo",
+              receptionistName: "Carlos",
+            },
+          },
+        });
+        // Reiniciar formulario y cerrar modal
+        setFormData({
+          id: "",
+          fullName: "",
+          identificationNumber: "",
+          birthDate: "",
+          phone: "",
+          email: "",
+          gender: "",
+          membershipType: "",
+          emergencyPhone: "",
+        });
+        onClose();
+      } catch (error) {
+        console.error("Error al procesar la solicitud:", error);
+        alert("Hubo un error al guardar el miembro.");
+      }
     }
   };
 
@@ -347,27 +287,10 @@ const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
                     required
                   >
                     <option value="">Seleccionar</option>
-                    {membresias.map((membresia) => (
-                      <option key={membresia.id} value={membresia.name}>
-                        {membresia.name}
-                      </option>
-                    ))}
+                    <option value="Oro">Oro</option>
+                    <option value="Plata">Plata</option>
+                    <option value="Bronce">Bronce</option>
                   </select>
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="joinDate" className={styles.label}>
-                    Fecha de Inscripción
-                  </label>
-                  <input
-                    type="date"
-                    id="joinDate"
-                    name="joinDate"
-                    className={styles.input}
-                    value={formData.joinDate}
-                    onChange={handleChange}
-                    required
-                  />
                 </div>
 
                 <div className={styles.formGroup}>

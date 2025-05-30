@@ -13,10 +13,10 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
   const [isLoanding, setisLoanding]= useState(false);
   const [id, setId]= useState();
 
-  // 📌 Efecto para cargar datos cuando se edita una membresía
+
   useEffect(() => {
     if (membresiaEditando) {
-      setName(membresiaEditando.name);
+      setName(membresiaEditando.title);
       setType(membresiaEditando.type);
       setDuration(membresiaEditando.duration);
       setPrice(membresiaEditando.price);
@@ -71,7 +71,7 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
     setisLoanding(true)
     e.preventDefault();
   
-    // Validación básica
+    
     if (!name || !duration || !price || !type) {
       setisLoanding(false)
       Swal.fire({
@@ -83,19 +83,21 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
       return;
     }
   
-    // Construir el objeto membresía como espera el backend
+    
     const membresiaData = {
       id: id,
-      name: name,
-      duration: parseInt(duration), // ⚠️ Asumimos que el backend espera un número
-      price: parseInt(price),   // ⚠️ Asegúrate que el precio es tipo `number`
+      title: name,
+      duration: parseInt(duration), 
+      price: parseFloat(price),  
       type: type
     };
   
     try {
-      await onAdd(membresiaData); // Este método llama al `create` o `update` según corresponda
+      console.log("data que se envia" + membresiaData.name);
+      
+      await onAdd(membresiaData); 
        setisLoanding(false)
-      onClose(); // Cierra el modal después de éxito
+      onClose(); 
     } catch (error) {
        setisLoanding(false)
       console.error("Error al enviar la membresía:", error);
@@ -158,7 +160,7 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
                   </label>
                   <select
                     id="type"
-                    className={styles.select}
+                    className={styles.select} 
                     value={type}
                     onChange={(e) => setType(e.target.value)}
                   >
