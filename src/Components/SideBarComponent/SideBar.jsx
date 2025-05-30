@@ -32,7 +32,8 @@ function SideBar() {
         "/dashboard/eventos": "Eventos",
         "/dashboard/correo": "Email",
         "/dashboard/inventario": "Inventario",
-        "/dashboard/perfil": "perfil"
+        "/dashboard/perfil": "perfil",
+        "dashboard/perfil/profiles": "perfil"
     };
 
     

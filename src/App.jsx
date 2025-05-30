@@ -20,6 +20,7 @@ import PrivateLayout from './Layouts/PrivateLayout/PrivateLayout'
 import { AuthContextProvider } from './Context/AuthContext'
 import PrivateRoute from './Routes/PrivateRoute'
 import GuestRoute from './Routes/GuestRoute'
+import ProfilesGym from './Pages/Admin/ProfilesGym/ProfilesGym'
 
 
 function App() {
@@ -34,14 +35,7 @@ function App() {
                         <Route index element={<Home />} />
                         <Route path="/contact" element={<ContactHome />} />
                         <Route path="/eventsHome" element={<EventHome />} />
-                        <Route index element={<Dashboard />} />
-                        <Route path='acceso' element={<ControlAcces />}></Route>
-                        <Route path='miembros' element={<Miembros />}></Route>
-                        <Route path='membresias' element={<Membresias />}></Route>
-                        <Route path="correo" element={<Promotions />} />
-                        <Route path="eventos" element={<Events />} />
-                        <Route path="inventario" element={<Inventory />} />
-                        <Route path="perfil" element={<Profile />} />
+                        
                     </Route>
 
                     <Route path='/login' element={<GuestRoute />}>
@@ -61,6 +55,10 @@ function App() {
                             <Route path="eventos" element={<Events />} />
                             <Route path="inventario" element={<Inventory />} />
                             <Route path="perfil" element={<Profile />} />
+                            
+                            <Route path="perfil/profiles" element={<ProfilesGym />} /> 
+                            
+                            
                         </Route>
                     </Route>
                     <Route path="*" element={<NotFound />} />

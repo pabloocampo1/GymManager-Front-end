@@ -7,10 +7,35 @@ const normalizeImageResponse = (event) => {
   return event;
 };
 
+
 const EventService = {
   getAllEvents: async () => {
     try {
       const response = await api.get(`/api/Eventos`);
+      return response.data.map(normalizeImageResponse);
+    } catch (error) {
+      console.error('Error getting events:', error);
+      throw error;
+    }
+  },
+
+  updatePassWord: async (correo, nuevaPass) => {
+  try {
+    const response = await api.put(`/api/Usuarios/update-password`, {
+      email: correo,
+      newPassword: nuevaPass,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error al actualizar la contraseña:", error);
+    throw error;
+  }
+},
+
+  getAllEventspublic: async () => {
+    try {
+      const response = await api.get(`/api/Eventos/public`);
       return response.data.map(normalizeImageResponse);
     } catch (error) {
       console.error('Error getting events:', error);

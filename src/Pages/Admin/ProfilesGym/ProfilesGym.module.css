@@ -1,0 +1,467 @@
+.HeaderContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Botón de confirmación personalizado para SweetAlert2 */
+.swal2-confirm.mi-boton-confirmar.swal2-styled {
+  display: inline-block !important;
+  background-color: #ffffff !important;
+  border: 1px solid #D3D837 !important;
+  color: black !important;
+}
+
+.swal2-confirm.mi-boton-confirmar.swal2-styled:focus {
+  box-shadow: 0 0 0 3px rgba(211, 216, 55, 0.5) !important;
+}
+
+.swal2-confirm.mi-boton-confirmar.swal2-styled:hover {
+  background-color: #f5f5f5 !important;
+}
+
+/* Título principal */
+.title {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 5px;
+  color: #333;
+}
+
+/* Botón para abrir modal */
+.openModalBtn {
+  background-color: #d3d837;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  transition: background-color 0.3s, transform 0.3s ease;
+}
+
+.openModalBtn:hover {
+  background-color: #e5c100;
+  transform: scale(1.05);
+}
+
+/* Contenedor principal del perfil */
+.profileContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+/* Layout de contenido: imagen + formulario */
+.contentLayout {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
+
+/* Columna de la imagen de perfil */
+.imageColumn {
+  flex: 0 0 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Columna del formulario */
+.formColumn {
+  flex: 1;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Vista previa de la imagen de perfil */
+.profileImagePreview {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 15px;
+  border: 2px solid #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+.previewImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Placeholder para cuando no hay imagen */
+.noImagePlaceholder {
+  width: 100%;
+  height: 100%;
+  background-color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #666;
+  font-size: 16px;
+}
+
+/* Contenedor para el botón de subir archivo */
+.uploadButtonContainer {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Botón personalizado para subir archivo */
+.customFileUpload {
+  background-color: #d3d837;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  transition: background-color 0.3s, transform 0.3s ease;
+}
+
+.customFileUpload:hover {
+  background-color: #e5c100;
+  transform: scale(1.1);
+}
+
+/* Input file oculto */
+.fileInput {
+  display: none;
+}
+
+/* Formulario */
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Grupo de formulario */
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.formGroup label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.formGroup input,
+.formGroup select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+.formGroup input:focus,
+.formGroup select:focus {
+  border: 1px solid #d3d837;
+  box-shadow: 0 0 5px rgba(211, 216, 55, 0.5);
+}
+
+.selectInput {
+  background-color: white;
+  height: 42px;
+}
+
+/* Botón de actualización */
+.updateButton {
+  background-color: #d3d837;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-weight: bold;
+  display: block;
+  margin-left: auto;
+  transition: background-color 0.3s, transform 0.3s ease;
+}
+
+.updateButton:hover {
+  background-color: #e5c100;
+  transform: scale(1.05);
+}
+
+/* Grid para mostrar perfiles */
+.profilesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+/* Tarjeta de perfil */
+.profileCard {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.profileCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Contenedor de la imagen dentro de la tarjeta */
+.profileImageContainer {
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 20px 0;
+}
+
+/* Imagen en la tarjeta de perfil */
+.profileCardImage {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #d3d837;
+}
+
+/* Iniciales en la tarjeta, si no hay imagen */
+.profileInitials {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #d3d837;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+/* Información dentro de la tarjeta */
+.profileInfo {
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.profileInfo h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+/* Etiqueta del tipo de membresía */
+.membershipType {
+  background-color: #d3d837;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 15px;
+  display: inline-block;
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+
+/* Email y teléfono */
+.emailPhone {
+  color: #666;
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+/* Fecha en la tarjeta */
+.date {
+  color: #999;
+  font-size: 12px;
+  margin-top: 15px;
+}
+
+/* Área de acciones (editar, eliminar) */
+.cardActions {
+  display: flex;
+  padding: 15px;
+  background-color: #f9f9f9;
+  gap: 10px;
+}
+
+.editButton,
+.deleteButton {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.editButton {
+  background-color: #d3d837;
+  color: white;
+}
+
+.editButton:hover {
+  background-color: #c4c930;
+  transform: scale(1.05);
+}
+
+.deleteButton {
+  background-color: #f5f5f5;
+  color: #d63031;
+}
+
+.deleteButton:hover {
+  background-color: #fff0f0;
+  transform: scale(1.05);
+}
+
+/* Barra de búsqueda */
+.searchBar {
+  margin-bottom: 25px;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s;
+  background-color: white;
+}
+
+.searchInput:focus {
+  border-color: #d3d837;
+  box-shadow: 0 0 8px rgba(211, 216, 55, 0.4);
+  outline: none;
+}
+
+/* Mensaje cuando no hay perfiles */
+.noProfiles {
+  text-align: center;
+  margin-top: 50px;
+  color: #666;
+  font-size: 18px;
+  padding: 30px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Estilos para modal */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modalContent {
+  background-color: white;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modalHeader {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modalTitle {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.modalCloseBtn {
+  background: none;
+  border: none;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.3s;
+}
+
+.modalCloseBtn:hover {
+  color: #d3d837;
+}
+
+.modalBody {
+  padding: 20px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .contentLayout {
+    flex-direction: column;
+  }
+
+  .imageColumn {
+    flex: 1 1 auto;
+    max-width: 100%;
+  }
+
+  .formColumn {
+    max-width: 100%;
+  }
+
+  .profilesGrid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 500px) {
+  .title {
+    font-size: 24px;
+  }
+
+  .openModalBtn,
+  .customFileUpload,
+  .updateButton {
+    font-size: 13px;
+    padding: 7px 14px;
+  }
+}

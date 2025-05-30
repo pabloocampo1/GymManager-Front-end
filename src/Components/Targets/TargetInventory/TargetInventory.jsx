@@ -1,17 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import CloseIcon from "@mui/icons-material/Close";
 import styles from "./TargetInventory.module.css";
 import ButtonInactive from "../../Buttons/ButtonInactive";
 import ButtonInTime from "../../Buttons/ButtonInTime";
-import ConfirmationModalInventory from "../../Modals/ModalsInventory/ConfirmationModalInventory/ConfirmationModalInventory";
 import DocumentViewer from "../../DocumentViewer";
+import Swal from "sweetalert2";
 
 const TargetInventory = ({ inventory, onDelete, onEdit }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   const getEventStatus = () => {
     const estado = inventory.estado;
     if (estado === "Aceptable") {
@@ -22,13 +19,32 @@ const TargetInventory = ({ inventory, onDelete, onEdit }) => {
   };
 
   const eventStatus = getEventStatus();
-  
-  // Obtenemos la URL de la imagen (utilizando cualquier propiedad donde pueda estar)
   const imageUrl = inventory.image || inventory.imagen || inventory.imagenFile || 'https://via.placeholder.com/400x300?text=Imagen%20no%20disponible';
-  
-  const handleConfirmDelete = () => {
-    onDelete(inventory.id);
-    setIsModalOpen(false);
+
+  const handleDeleteClick = () => {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: `Se eliminará el elemento con el nombre: ${inventory.nombre}`,
+      icon: 'warning',
+      showCancelButton: true,
+      reverseButtons: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Eliminar',
+      cancelButtonColor: '#000000',
+      confirmButtonColor: '#D3D837',
+      customClass: {
+        confirmButton: 'mi-boton-confirmar',
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        onDelete(inventory.id);
+        Swal.fire(
+          '¡Eliminado!',
+          'El elemento ha sido eliminado correctamente.',
+          'success'
+        );
+      }
+    });
   };
 
   return (
@@ -59,19 +75,12 @@ const TargetInventory = ({ inventory, onDelete, onEdit }) => {
             <IconButton className={styles.editButton} onClick={() => onEdit(inventory)}>
               <EditIcon fontSize="small" />
             </IconButton>
-            <IconButton className={styles.deleteButton} onClick={() => setIsModalOpen(true)}>
+            <IconButton className={styles.deleteButton} onClick={handleDeleteClick}>
               <DeleteIcon fontSize="small" />
             </IconButton>
           </div>
         </div>
       </div>
-
-      {isModalOpen && (
-        <ConfirmationModalInventory
-          onClose={() => setIsModalOpen(false)}
-          onConfirm={handleConfirmDelete}
-        />
-      )}
     </div>
   );
 };

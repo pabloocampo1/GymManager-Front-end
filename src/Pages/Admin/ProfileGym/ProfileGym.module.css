@@ -14,16 +14,21 @@
   margin: 5px;
   color: #333;
 }
-.openModalBtn{
-  background-color: #d3d837;
-  color: white;
+.openModalBtn {
+  background-color: #f5f5f5; /* Same as deleteButton */
+  color: #d63031; /* Same as deleteButton */
   padding: 8px 16px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
-  transition: background-color 0.3s, transform 0.3s ease;
-  border: none;
   font-weight: bold;
+  border: none;
+  transition: background-color 0.3s, transform 0.3s ease;
+}
+
+.openModalBtn:hover {
+  background-color: #fff0f0; /* Same as deleteButton:hover */
+  transform: scale(1.05);
 }
 
 
@@ -164,6 +169,18 @@
   display: block;
   margin-left: auto;
   margin-right: 0;
+}
+.ingresoPerfiles{
+  background-color: #d3d837;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s, transform 0.3s ease;
+  border: none;
+  font-weight: bold;
+  margin-top: 15px;
 }
 
 .updateButton:hover {
