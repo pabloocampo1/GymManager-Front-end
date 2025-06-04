@@ -3,37 +3,52 @@ import styles from "./MiembrosModal.module.css";
 import ClearIcon from "@mui/icons-material/Clear";
 import { motion, AnimatePresence } from "framer-motion";
 import MiembrosService from "../../../Service/MiembrosService.jsx";
+import MembresiaService from "../../../Service/MembresiaService.jsx";
 
 const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
   const [formData, setFormData] = useState({
-    id: "",
     fullName: "",
     identificationNumber: "",
     birthDate: "",
     phone: "",
     email: "",
     gender: "",
-    membershipType: "",
+    membershipId: "",
     emergencyPhone: "",
   });
+  const [membresias, setMembresias] = useState([]);
+
+  useEffect(() => {
+    const cargarMembresias = async () => {
+      try {
+        console.log('Cargando membresías...');
+        const data = await MembresiaService.getAllMembresia();
+        console.log('Membresías cargadas:', data);
+        setMembresias(data);
+      } catch (error) {
+        console.error("Error al cargar las membresías:", error);
+      }
+    };
+
+    cargarMembresias();
+  }, []);
 
   useEffect(() => {
     if (miembroSeleccionado) {
       setFormData({ ...miembroSeleccionado });
     } else {
       setFormData({
-        id: "",
         fullName: "",
         identificationNumber: "",
         birthDate: "",
         phone: "",
         email: "",
         gender: "",
-        membershipType: "",
+        membershipId: "",
         emergencyPhone: "",
       });
     }
-  }, []);
+  }, [miembroSeleccionado]);
 
   if (!isOpen) return null;
 
@@ -45,17 +60,16 @@ const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log('Campo cambiado:', name, 'Valor:', value);
 
     if (["phone", "emergencyPhone", "identificationNumber"].includes(name)) {
       const numericValue = value.replace(/[^0-9]/g, "");
-
-      if (name === "identificationNumber" && miembroSeleccionado) {
-        return;
-      }
-
-      setFormData((prev) => ({ ...prev, [name]: numericValue }));
+      setFormData(prev => ({ ...prev, [name]: numericValue }));
+    } else if (name === "membershipId") {
+      console.log('Seleccionando membresía:', value);
+      setFormData(prev => ({ ...prev, [name]: value }));
     } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
+      setFormData(prev => ({ ...prev, [name]: value }));
     }
   };
 
@@ -91,42 +105,58 @@ const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
       onClose();
     } else {
       try {
-        console.log("el dto que va: " + formData);
+        // Validar que todos los campos requeridos estén presentes
+        if (!formData.identificationNumber || !formData.fullName || !formData.birthDate || 
+            !formData.phone || !formData.email || !formData.gender || !formData.membershipId || 
+            !formData.emergencyPhone) {
+          alert("Por favor, complete todos los campos requeridos");
+          return;
+        }
+
+        // Formatear los datos
+        const memberData = {
+          gymMemberDto: {
+            identificationNumber: formData.identificationNumber.trim(),
+            fullName: formData.fullName.trim(),
+            birthDate: formData.birthDate,
+            phone: formData.phone.trim(),
+            email: formData.email.trim(),
+            gender: formData.gender,
+            emergencyPhone: formData.emergencyPhone.trim()
+          },
+          saleDto: {
+            membershipId: parseInt(formData.membershipId),
+            purchaseMethod: "Efectivo",
+            receptionistName: "Sistema"
+          }
+        };
+
+        console.log('Datos del formulario:', formData);
+        console.log('Datos formateados para enviar:', memberData);
+        
+        const nuevoMiembro = await MiembrosService.createMiembro(memberData);
+        console.log('Respuesta del servidor:', nuevoMiembro);
+        
         onAdd({
           tipo: "agregar",
-          miembro: {
-            gymMemberDto: {
-              identificationNumber: formData.identificationNumber,
-              fullName: formData.fullName,
-              birthDate: formData.birthDate,
-              phone: formData.phone,
-              email: formData.email,
-              gender: formData.gender,
-              emergencyPhone: formData.emergencyPhone,
-            },
-            saleDto: {
-              membershipId: 2,
-              purchaseMethod: "Efectivo",
-              receptionistName: "Carlos",
-            },
-          },
+          miembro: nuevoMiembro
         });
+
         // Reiniciar formulario y cerrar modal
         setFormData({
-          id: "",
           fullName: "",
           identificationNumber: "",
           birthDate: "",
           phone: "",
           email: "",
           gender: "",
-          membershipType: "",
+          membershipId: "",
           emergencyPhone: "",
         });
         onClose();
       } catch (error) {
         console.error("Error al procesar la solicitud:", error);
-        alert("Hubo un error al guardar el miembro.");
+        alert("Hubo un error al guardar el miembro. Por favor, verifica los datos e intenta nuevamente.");
       }
     }
   };
@@ -275,21 +305,23 @@ const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
 
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
-                  <label htmlFor="membershipType" className={styles.label}>
+                  <label htmlFor="membershipId" className={styles.label}>
                     Tipo de Membresía
                   </label>
                   <select
-                    id="membershipType"
-                    name="membershipType"
+                    id="membershipId"
+                    name="membershipId"
                     className={styles.select}
-                    value={formData.membershipType}
+                    value={formData.membershipId}
                     onChange={handleChange}
                     required
                   >
                     <option value="">Seleccionar</option>
-                    <option value="Oro">Oro</option>
-                    <option value="Plata">Plata</option>
-                    <option value="Bronce">Bronce</option>
+                    {membresias.map((membresia) => (
+                      <option key={membresia.id} value={membresia.id}>
+                        {membresia.title}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
@@ -326,7 +358,6 @@ const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
           </motion.div>
         </motion.div>
       )}
-      ;
     </AnimatePresence>
   );
 };

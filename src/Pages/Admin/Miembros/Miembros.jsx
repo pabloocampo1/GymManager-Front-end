@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import DeleteIcon from "@mui/icons-material/Delete";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import styles from "./Miembros.module.css";
 import MiembrosModal from "../../../Components/Modals/ModalMiembros/MiembrosModal.jsx";
 import ConfirmatioModalMiembros from "../../../Components/Modals/ModalMiembros/ConfirmationModalMiembros/MiembrosConfirmation.jsx";
@@ -25,14 +25,26 @@ const MiembrosModalComponent = () => {
   const [searchTerm, setSearchTerm] = useState(""); 
   const [miembrosToDelete, setMiembrosToDelete] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [membershipData, setMembershipData] = useState({});
 
   useEffect(() => {
     const fetchMiembros = async () => {
       try {
         const data = await MiembrosService.getAllMiembros();
         setMiembros(data);
-       
         
+        // Obtener datos de membresía para cada miembro
+        data.forEach(async (miembro) => {
+          try {
+            const membershipInfo = await MiembrosService.getMembershipData(miembro.id);
+            setMembershipData(prev => ({
+              ...prev,
+              [miembro.id]: membershipInfo
+            }));
+          } catch (error) {
+            console.error(`Error al obtener membresía para miembro ${miembro.id}:`, error);
+          }
+        });
       } catch (error) {
         console.error("No se pudieron cargar los miembros:", error);
       }
@@ -40,20 +52,28 @@ const MiembrosModalComponent = () => {
   
     fetchMiembros();
   }, []);
-  
 
   // Función para agregar un nuevo miembro
   const handleAgregarOEditarMiembro = async (datos) => {
     try {
       if (datos.tipo === 'agregar') {
         const nuevoMiembro = await MiembrosService.createMiembro(datos.miembro);
-        console.log(nuevoMiembro); // Verifica lo que se recibe del backend
+        const membershipInfo = await MiembrosService.getMembershipData(nuevoMiembro.id);
+        setMembershipData(prev => ({
+          ...prev,
+          [nuevoMiembro.id]: membershipInfo
+        }));
         setMiembros([...miembros, nuevoMiembro]);
       } else if (datos.tipo === 'editar') {
         const miembroActualizado = await MiembrosService.updateMiembro(
           datos.miembro.id,
           datos.miembro
         );
+        const membershipInfo = await MiembrosService.getMembershipData(miembroActualizado.id);
+        setMembershipData(prev => ({
+          ...prev,
+          [miembroActualizado.id]: membershipInfo
+        }));
         const miembrosActualizados = miembros.map(m =>
           m.id === miembroActualizado.id ? miembroActualizado : m
         );
@@ -63,16 +83,12 @@ const MiembrosModalComponent = () => {
       console.error("Error al agregar/editar miembro:", error);
     }
   };
-  
 
   const onDeleteMiembro = (id) => {
-    // Guarda el ID de la membresía a eliminar
     setMiembrosToDelete(id);
-    // Abre el modal de confirmación
     setIsDeleteModalOpen(true);
   };
 
-  // Manejo de menú de filtros
   const handleOpenMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -84,27 +100,35 @@ const MiembrosModalComponent = () => {
     setAnchorEl(null);
   };
 
-
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearchTerm(value);
   };
 
-  // Función para determinar si una membresía está activa
-  const isMembresiaActiva = (miembro) => {
-    // Verificamos si el miembro tiene el estado explícitamente como "Activo"
-    if (miembro.estado === "Activo") return true;
-    
-    // Si no tiene estado explícito, verificamos fechas
-    if (miembro.joinDate) {
-      const fechaFin = new Date(miembro.joinDate);
-      const hoy = new Date();
-      return fechaFin >= hoy;
-    }
-    
-    return false; // Si no hay fecha de fin, consideramos inactivo por defecto
+  const isMembresiaActiva = useCallback((miembro) => {
+    const memberData = membershipData[miembro.id];
+    if (!memberData) return false;
+    return memberData.stateOfMembership;
+  }, [membershipData]);
+
+  const formatearFecha = (fecha) => {
+    if (!fecha) return '-';
+    const date = new Date(fecha);
+    return date.toLocaleDateString('es-ES', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    });
   };
 
+  const calcularDiasRestantes = (fechaFin) => {
+    if (!fechaFin) return 0;
+    const hoy = new Date();
+    const finFecha = new Date(fechaFin);
+    const diferencia = finFecha.getTime() - hoy.getTime();
+    const diasRestantes = Math.ceil(diferencia / (1000 * 60 * 60 * 24));
+    return diasRestantes > 0 ? diasRestantes : 0;
+  };
 
   const filteredMiembros = useMemo(() => {
     let result = [...miembros];
@@ -126,13 +150,11 @@ const MiembrosModalComponent = () => {
     }
     
     return result;
-  }, [miembros, selectedFilter, searchTerm]);
-  
+  }, [miembros, selectedFilter, searchTerm, isMembresiaActiva]);
 
   const titleToShow = searchTerm 
-    ?  `Búsqueda:  ${searchTerm} ` 
-    :  `Filtrado por:  ${selectedFilter} `; 
-    
+    ? `Búsqueda: ${searchTerm}` 
+    : `Filtrado por: ${selectedFilter}`; 
 
   const renderEstadoCell = (miembro) => {
     const esActivo = isMembresiaActiva(miembro);
@@ -147,11 +169,9 @@ const MiembrosModalComponent = () => {
 
   return (
     <div className={styles.miembros_container}>
-      {/* Header */}
       <div className={styles.miembros_header}>
         <h2 className={styles.miembros_title}>Miembros</h2>
 
-        {/* Barra de búsqueda */}
         <div className={styles.search_container}>
           <FaSearch className={styles.search_icon} />
           <input
@@ -163,7 +183,6 @@ const MiembrosModalComponent = () => {
           />
         </div>
 
-        {/* Botón de filtro */}
         <button className={styles.filter_boton} onClick={handleOpenMenu}>
           <FaFilter className={styles.filter_icon} /> Filtrar
         </button>
@@ -177,7 +196,6 @@ const MiembrosModalComponent = () => {
           <MenuItem onClick={() => handleCloseMenu("Todos")}>Todos</MenuItem>
         </Menu>
 
-        {/* Botón para agregar nuevo miembro */}
         <button
           className={styles.add_boton}
           onClick={() => {
@@ -189,12 +207,10 @@ const MiembrosModalComponent = () => {
         </button>
       </div>
 
-      {/* Muestra solo un criterio a la vez (búsqueda tiene prioridad) */}
       <h2 className={styles.filtered_title}>
         {titleToShow}
       </h2>
 
-      {/* Tabla de miembros */}
       <TableContainer className={styles.miembros_table} style={{ backgroundColor: '#F9F9F9', border:'4px solid #F9F9F9', borderRadius :'30px' }}>
         <Table sx={{ 
           borderCollapse: 'separate',
@@ -224,32 +240,37 @@ const MiembrosModalComponent = () => {
               <TableCell>Nombre</TableCell>
               <TableCell>Teléfono</TableCell>
               <TableCell>Estado Membresía</TableCell>
-              <TableCell>Tipo de Membresía</TableCell>
+              <TableCell>Nombre Membresía</TableCell>
               <TableCell>Inicio Membresía</TableCell>
               <TableCell>Fin Membresía</TableCell>
+              <TableCell>Días Restantes</TableCell>
               <TableCell>Opciones</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {filteredMiembros.length > 0 ? (
-              filteredMiembros.map((miembro) => (
-                <TableRow key={miembro.identificationNumber}>
-                  <TableCell>{miembro.identificationNumber}</TableCell>
-                  <TableCell>{miembro.fullName}</TableCell>
-                  <TableCell>{miembro.phone}</TableCell>
-                  {renderEstadoCell(miembro)}
-                  <TableCell>{miembro.membershipType}</TableCell>
-                  <TableCell>{miembro.joinDate}</TableCell>
-                  <TableCell>{miembro.finMembresia}</TableCell>
-                  <TableCell>
-                    <FaPen className={styles.edit_icon} onClick={() => { setMiembroEditado(miembro); setIsModalOpen(true); }} />
-                    <DeleteIcon className={styles.delete_icon} onClick={() => onDeleteMiembro(miembro.id)} />
-                  </TableCell>
-                </TableRow>
-              ))
+              filteredMiembros.map((miembro) => {
+                const memberData = membershipData[miembro.id] || {};
+                return (
+                  <TableRow key={miembro.identificationNumber}>
+                    <TableCell>{miembro.identificationNumber}</TableCell>
+                    <TableCell>{miembro.fullName}</TableCell>
+                    <TableCell>{miembro.phone}</TableCell>
+                    {renderEstadoCell(miembro)}
+                    <TableCell>{memberData.nameMembership || '-'}</TableCell>
+                    <TableCell>{formatearFecha(memberData.dateStart)}</TableCell>
+                    <TableCell>{formatearFecha(memberData.dateFinished)}</TableCell>
+                    <TableCell>{calcularDiasRestantes(memberData.dateFinished)}</TableCell>
+                    <TableCell>
+                      <FaPen className={styles.edit_icon} onClick={() => { setMiembroEditado(miembro); setIsModalOpen(true); }} />
+                      <DeleteIcon className={styles.delete_icon} onClick={() => onDeleteMiembro(miembro.id)} />
+                    </TableCell>
+                  </TableRow>
+                );
+              })
             ) : (
-              <TableRow >
-                <TableCell colSpan={8} style={{ textAlign: 'center' }}>
+              <TableRow>
+                <TableCell colSpan={9} style={{ textAlign: 'center' }}>
                   No se encontraron miembros con los criterios de búsqueda.
                 </TableCell>
               </TableRow>
@@ -258,7 +279,6 @@ const MiembrosModalComponent = () => {
         </Table>
       </TableContainer>
 
-      {/* Modal de agregar miembros */}
       {isModalOpen && (
         <MiembrosModal
           isOpen={isModalOpen}
@@ -285,7 +305,6 @@ const MiembrosModalComponent = () => {
                 console.error("Error al eliminar miembro:", error);
               });
           }}
-          
         />
       )}
     </div>

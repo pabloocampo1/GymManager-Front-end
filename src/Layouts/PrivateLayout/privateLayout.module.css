@@ -1,20 +1,21 @@
 .privateLayout_container{
     display: flex;
-    position: relative;
+    min-height: 100vh;
+    width: 100%;
 }
 
 .privateLayout_sidebar{
     width:25vw;
+    position: relative;
+    z-index: 1;
 }
-
-
 
 .privateLayout_main{
     width: 75vw;
     height: auto;
+    position: relative;
+    z-index: 1;
 }
-
-
 
 @media (max-width:1024px){
   .privateLayout_sidebar{

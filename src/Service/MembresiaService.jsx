@@ -1,6 +1,15 @@
 import { api } from './api';
 
 const MembresiaService = {
+  getAllMembresiaPublic: async () => {
+    try {
+      const response = await api.get(`/api/membership/public`);
+      return response.data;
+    } catch (error) {
+      console.error('Error obteniendo membresias:', error);
+      throw error;
+    }
+  },
   getAllMembresia: async () => {
     try {
       const response = await api.get(`/api/membership`);
@@ -13,7 +22,11 @@ const MembresiaService = {
 
   createMembresia: async (membresia) => {
     try {
-      const response = await api.post('/api/membership', membresia);
+      const membresiaData = {
+        ...membresia,
+        benefits: membresia.benefits || []
+      };
+      const response = await api.post('/api/membership', membresiaData);
       return response.data;
     } catch (error) {
       console.error('Error creando membresia:', error);
@@ -23,10 +36,13 @@ const MembresiaService = {
 
   updateMembresia: async (id, membresia) => {
     try {
-      const response = await api.put(`/api/membership/${id}`, membresia);
+      const membresiaData = {
+        ...membresia,
+        benefits: membresia.benefits || []
+      };
+      const response = await api.put(`/api/membership/${id}`, membresiaData);
       return response.data;
     } catch (error) {
-      console.log(error)
       console.error(`Error actualizando membresia ${id}:`, error);
       throw error;
     }

@@ -8,14 +8,14 @@ export default function SearchInput({ onSearch }) {
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
     if (onSearch) {
-      onSearch(event.target.value); // Llamar a la función de búsqueda
+      onSearch(event.target.value); 
     }
   };
 
   return (
     <TextField
       variant="outlined"
-      size="small" // Hace el input más compacto
+      size="small" 
       fullWidth
       placeholder="Buscar..."
       value={searchTerm}
@@ -25,8 +25,8 @@ export default function SearchInput({ onSearch }) {
         backgroundColor: "white",
         borderRadius: "5px",
         "& .MuiOutlinedInput-root": {
-          height: "36px", // Ajusta la altura
-          fontSize: "14px", // Reduce el tamaño del texto
+          height: "36px", 
+          fontSize: "14px", 
         },
       }}
       InputProps={{

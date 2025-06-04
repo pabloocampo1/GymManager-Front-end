@@ -194,10 +194,10 @@
   background-color: var(--primary-color);
   border: none;
   border-radius: 10px;
-  color: rgb(39, 39, 39);
+  color: rgb(0, 0, 0);
   font-weight: 700;
   font-size: 1rem;
-  margin-top: 10px;
+  margin-top: 40px;
 }
 
 .forgetPasswoedSection {
@@ -206,7 +206,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
 }
 
 .forgetPasswoedSection a {

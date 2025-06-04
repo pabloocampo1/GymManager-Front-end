@@ -4,21 +4,15 @@ const API_URL = 'http://localhost:8080';
 
 export const api = axios.create({
   baseURL: API_URL,
-  timeout: 10000,
+  timeout: 40000,
 });
 
-api.interceptors.request.use(
-  (config) => {
-    const user = JSON.parse(localStorage.getItem('userAuthGymManager'));
-    const token = user?.token;
-
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
+export const setAuthToken = (token) => {
+  console.log(token);
+  
+  if (token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  } else {
+    delete api.defaults.headers.common["Authorization"];
   }
-);
+};
