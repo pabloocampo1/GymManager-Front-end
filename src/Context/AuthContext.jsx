@@ -77,14 +77,11 @@ export const AuthContextProvider = ({ children }) => {
                         type: "signIn",
                         payload: userLogged
                     })
-                    setAuthToken(userLogged.token);
+                   setAuthToken(userLogged.token);
 
                     if (autologin) {
                         localStorage.setItem("userAuthGymManager", JSON.stringify(userLogged))
                     }
-
-
-
 
                     if (response.data.status) {
                         navigateTo("/dashboard")
@@ -115,12 +112,10 @@ export const AuthContextProvider = ({ children }) => {
                 token: response.data.jwt,
                 isAuthenticated: response.data.status,
                 rememberPassword: true
-
-
             };
 
             dispatch({ type: "signIn", payload: userLogged });
-            setAuthToken(userLogged.token);
+           setAuthToken(response.data.jwt);
             localStorage.setItem("userAuthGymManager", JSON.stringify(userLogged));
             console.log(userLogged);
             navigateTo("/dashboard");
@@ -155,6 +150,7 @@ export const AuthContextProvider = ({ children }) => {
                         type: "signIn",
                         payload: userLogged
                     })
+                    setAuthToken(userLogged.token);
                 } else {
                     logout();
                 }

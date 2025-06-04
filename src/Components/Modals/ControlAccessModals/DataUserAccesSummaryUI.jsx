@@ -1,10 +1,10 @@
 import { Box, Typography } from '@mui/material';
 
-import ButtonActive from '../Buttons/ButtonActive';
-import ButtonInactive from '../Buttons/ButtonInactive';
+import ButtonActive from '../../Buttons/ButtonActive';
+import ButtonInactive from '../../Buttons/ButtonInactive';
 import { useEffect, useState } from 'react';
 import DataUserAccesAllInfo from './DataUserAccesAllInfo';
-import noData from "../../assets/images/undraw_no-data_ig65.svg"
+import noData from "../../../assets/images/undraw_no-data_ig65.svg"
 
 const DataUserAccesUI = ({ dataUser = [], isUserSelect, message, searchBy }) => {
     const [open, setOpen] = useState(false);

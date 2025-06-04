@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Typography, Modal, Button, TextField, Autocomplete, Stack } from '@mui/material';
 import { CloseOutlined, LocalActivity } from '@mui/icons-material';
-import ButtonActive from '../Buttons/ButtonActive';
-import ButtonInactive from '../Buttons/ButtonInactive';
-import { api } from '../../Service/api';
-import PaymentComponent from '../PaymentComponent/PaymentComponent';
+import ButtonActive from '../../Buttons/ButtonActive';
+import ButtonInactive from '../../Buttons/ButtonInactive';
+import { api } from '../../../Service/api';
+import PaymentComponent from '../../PaymentComponent/PaymentComponent';
 
-export default function DataUserAccesAllInfo({ open, onClose, userId, message,  }) {
+export default function DataUserAccesAllInfo({ open, onClose, userId, message, }) {
     const [isUpdateMembership, setIsUpdateMembership] = useState(false);
     const [openUpdate, setOpenUpdate] = useState(false);
     const [dataUser, setDataUser] = useState([])
+    const [isLoadUser, setIsLoadUser] = useState(false)
 
 
 
@@ -51,17 +52,17 @@ export default function DataUserAccesAllInfo({ open, onClose, userId, message,  
     };
 
     const accessLog = async (data) => {
-        try{
+        try {
             const response = await api.get(`/api/accessLog/save/${data.id}`)
-            if (!response.data){
+            if (!response.data) {
                 alert("Algo en el sistema no responde.")
                 return;
             }
             onClose();
-            
-        }catch(Error){
+
+        } catch (Error) {
             console.error(Error);
-            
+
         }
     }
 
@@ -70,9 +71,11 @@ export default function DataUserAccesAllInfo({ open, onClose, userId, message,  
     useEffect(() => {
         const fetchDataUser = async () => {
             try {
+                setIsLoadUser(false)
                 const response = await api.get(`/api/members/getFullData/${userId}`);
                 setDataUser(response.data)
- 
+                setIsLoadUser(true)
+
             } catch (error) {
                 console.error(error);
             }
@@ -96,7 +99,7 @@ export default function DataUserAccesAllInfo({ open, onClose, userId, message,  
                         top: "50%",
                         left: "50%",
                         transform: "translate(-50%, -50%)",
-                        width:"80vw",
+                        width: "80vw",
                         maxWidth: "70vw",
                         bgcolor: "#F9F9F9",
                         maxHeight: "95vh",
@@ -111,54 +114,52 @@ export default function DataUserAccesAllInfo({ open, onClose, userId, message,  
                 >
                     <Box sx={{
                         display: "flex",
-                        width:"100%",
-                        flexDirection:"column",
+                        width: "100%",
+                        flexDirection: "column",
                         alignItems: "center",
-                        justifyContent:"center",
-                       
+                        justifyContent: "center",
+
                     }}>
                         <Box sx={{ width: "100%", display: "flex", justifyContent: "space-between", mb: 2 }}>
                             <Typography variant="h6">Información del usuario - Membresía</Typography>
-                           
+
                         </Box>
 
-                        <Box sx={{
-                            display: "flex",
-                            flexWrap: "wrap",
-                            gap: "16px",
-                            mb: 4
-                        }}>
-                            <InfoBox label="Nombre" value={dataUser.fullName} />
-                            <InfoBox label="Identificación" value={dataUser.dni} />
-                            <InfoBox label="Nombre de Membresía" value={dataUser.nameMembership} />
-                            <InfoBox
-                                label="Estado de Membresía"
-                                value={dataUser.stateOfMembership
-                                    ? <ButtonActive text="Activa" />
-                                    : <ButtonInactive text="Vencida" />
-                                }
-                            />
-                            <InfoBox label="Inicio de Membresía" value={formatDate(dataUser.dateStart)} />
-                            <InfoBox label="Fin de Membresía" value={formatDate(dataUser.dateFinished)} />
-                            <InfoBox label="Días Restantes" value={calculateRemainingDays(dataUser.dateFinished)} />
-                        </Box>
-
-                        <Box sx={{ display: "flex", justifyContent: "center", gap: 2 }}>
-                            {!dataUser.stateOfMembership && (
-                                <Button variant="text" onClick={() => setOpenUpdate(true)}>
-                                    <LocalActivity />  Restaurar Membresía 
-                                </Button>
-                            )}
-                            {dataUser.stateOfMembership && (
-                                <Button variant="outlined" onClick={() => { message(); accessLog(dataUser) }}>
-                                    <LocalActivity /> Registrar Entrada
-                                </Button>
-                            )}
-                        </Box>
+                        {isLoadUser ? (
+                            <><Box sx={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                gap: "16px",
+                                mb: 4
+                            }}>
+                                <InfoBox label="Nombre" value={dataUser.fullName} />
+                                <InfoBox label="Identificación" value={dataUser.dni} />
+                                <InfoBox label="Nombre de Membresía" value={dataUser.nameMembership} />
+                                <InfoBox
+                                    label="Estado de Membresía"
+                                    value={dataUser.stateOfMembership
+                                        ? <ButtonActive text="Activa" />
+                                        : <ButtonInactive text="Vencida" />} />
+                                <InfoBox label="Inicio de Membresía" value={formatDate(dataUser.dateStart)} />
+                                <InfoBox label="Fin de Membresía" value={formatDate(dataUser.dateFinished)} />
+                                <InfoBox label="Días Restantes" value={calculateRemainingDays(dataUser.dateFinished)} />
+                            </Box><Box sx={{ display: "flex", justifyContent: "center", gap: 2 }}>
+                                    {!dataUser.stateOfMembership && (
+                                        <Button variant="text" onClick={() => setOpenUpdate(true)}>
+                                            <LocalActivity />  Restaurar Membresía
+                                        </Button>
+                                    )}
+                                    {dataUser.stateOfMembership && (
+                                        <Button variant="outlined" onClick={() => { message(); accessLog(dataUser); } }>
+                                            <LocalActivity /> Registrar Entrada
+                                        </Button>
+                                    )}
+                                </Box> </>
+                        ) : "Cargando miembro..."}
                     </Box>
 
-                    {openUpdate && (<PaymentComponent userInfo={dataUser} isUpdateMembership={() => setIsUpdateMembership(true)} closeUpdateSubscription={() => {setIsUpdateMembership(true) ,setOpenUpdate(false)}} />)}
-                    <CloseOutlined onClick={onClose} sx={{ cursor: 'pointer', position:"absolute", top:"2%", right:"2%" }} />
+                    {openUpdate && (<PaymentComponent userInfo={dataUser} isUpdateMembership={() => setIsUpdateMembership(true)} closeUpdateSubscription={() => { setIsUpdateMembership(true), setOpenUpdate(false) }} />)}
+                    <CloseOutlined onClick={onClose} sx={{ cursor: 'pointer', position: "absolute", top: "2%", right: "2%" }} />
                 </Box>
             </Modal >
         </Box >
