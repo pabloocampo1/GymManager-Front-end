@@ -28,7 +28,7 @@ const MiembrosService = {
         method: 'POST',
         data: data
       });
-      const response = await api.post('/api/members/save', data);
+      const response = await api.post('/api/members', data);
       console.log('Respuesta del servidor:', response);
       return response.data;
     } catch (error) {
