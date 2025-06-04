@@ -12,7 +12,7 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
   const [isLoanding, setisLoanding]= useState(false);
   const [id, setId]= useState();
 
-  // 📌 Efecto para cargar datos cuando se edita una membresía
+
   useEffect(() => {
    
     
@@ -68,28 +68,28 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
     setisLoanding(true)
     e.preventDefault();
   
-    // Validación básica
+    
     if (!name || !duration || !price || !type) {
       setisLoanding(false)
       alert("Por favor, completa todos los campos.");
       return;
     }
   
-    // Construir el objeto membresía como espera el backend
+    
     const membresiaData = {
       id: id,
-      name: name,
-      duration: parseInt(duration), // ⚠️ Asumimos que el backend espera un número
-      price: parseFloat(price),   // ⚠️ Asegúrate que el precio es tipo `number`
+      title: name,
+      duration: parseInt(duration), 
+      price: parseFloat(price),  
       type: type
     };
   
     try {
       console.log("data que se envia" + membresiaData.name);
       
-      await onAdd(membresiaData); // Este método llama al `create` o `update` según corresponda
+      await onAdd(membresiaData); 
        setisLoanding(false)
-      onClose(); // Cierra el modal después de éxito
+      onClose(); 
     } catch (error) {
        setisLoanding(false)
       console.error("Error al enviar la membresía:", error);
@@ -147,7 +147,7 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
                   </label>
                   <select
                     id="type"
-                    className={styles.select}
+                    className={styles.select} 
                     value={type}
                     onChange={(e) => setType(e.target.value)}
                   >

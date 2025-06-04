@@ -2,7 +2,8 @@ import { useEffect, useReducer } from "react";
 import { createContext } from "react";
 import { validateAuthSingIn } from "../Utils/AuthUtils";
 import { api } from "../Service/api";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { setAuthToken } from "../Service/api";
 
 
 export const AuthContext = createContext();
@@ -71,17 +72,20 @@ export const AuthContextProvider = ({ children }) => {
                         isAuthenticated: response.data.status,
                         rememberPassword: autologin
                     }
-                
+
                     dispatch({
                         type: "signIn",
                         payload: userLogged
                     })
-                   if(autologin){
+                    setAuthToken(userLogged.token);
+
+                    if (autologin) {
                         localStorage.setItem("userAuthGymManager", JSON.stringify(userLogged))
-                        console.log(localStorage.getItem("userAuthGymManager"));
-                        
-                   }
-                    
+                    }
+
+
+
+
                     if (response.data.status) {
                         navigateTo("/dashboard")
                     }
@@ -100,62 +104,88 @@ export const AuthContextProvider = ({ children }) => {
 
     }
 
+    const singInWithGoogle = async (googleToken) => {
+        try {
+            const response = await api.post("/api/auth/signWithGoogle", { token: googleToken });
+
+            const userLogged = {
+
+                username: response.data.username,
+                role: response.data.role,
+                token: response.data.jwt,
+                isAuthenticated: response.data.status,
+                rememberPassword: true
+
+
+            };
+
+            dispatch({ type: "signIn", payload: userLogged });
+            setAuthToken(userLogged.token);
+            localStorage.setItem("userAuthGymManager", JSON.stringify(userLogged));
+            console.log(userLogged);
+            navigateTo("/dashboard");
+
+        } catch (err) {
+            console.error("Error al iniciar sesión con Google", err);
+            localStorage.removeItem("userAuthGymManager")
+        }
+    };
+
+
     const logout = () => {
         dispatch({ type: "logout" })
         localStorage.removeItem("userAuthGymManager")
         navigateTo("/login")
     }
 
+    
+
     useEffect(() => {
-        
         const checkJwt = async () => {
-            const userLogged = localStorage.getItem("userAuthGymManager");
+            const userLoggedRaw = localStorage.getItem("userAuthGymManager");
 
-            const verifyJwt = async (jwt) => {
+            if (!userLoggedRaw) return;
 
-                try {
-                    const response = await api.get(`/api/auth/validate/${jwt}`, {
-                        headers: {
-                            Authorization: `Bearer ${jwt}`,
-                        },
-                    })
+            const userLogged = JSON.parse(userLoggedRaw);
 
-                    if (response.status == 401) {
-                        logout()
-                    }
-
-                    return response.data;
-                } catch (error) {
-                    console.log(error);
-
-                }
-            };
-
-            if (userLogged) {
-                const userLoggedParsed = JSON.parse(userLogged);
-
-                const isValid = await verifyJwt(userLoggedParsed.token);
-
-
+            if (userLogged.rememberPassword) {
+                const isValid = await verifyJwt(userLogged.token);
                 if (isValid) {
                     dispatch({
                         type: "signIn",
-                        payload: userLoggedParsed
+                        payload: userLogged
                     })
                 } else {
                     logout();
                 }
+            } else {
+                localStorage.removeItem("userAuthGymManager");
             }
+        };
 
+        const verifyJwt = async (jwt) => {
+            try {
+                const response = await api.get(`/api/auth/validate/${jwt}`, {
+                    headers: {
+                        Authorization: `Bearer ${jwt}`,
+                    },
+                });
+
+                return response.status !== 401;
+            } catch (error) {
+                console.log(error);
+                return false;
+            }
         };
 
         checkJwt();
-    }, [state.isAuthenticated]);
+    }, []);
+
 
 
 
     return (
-        <AuthContext.Provider value={{ state, singIn, logout }}>
+        <AuthContext.Provider value={{ state, singIn, logout, singInWithGoogle }}>
             {children}
         </AuthContext.Provider>
     );

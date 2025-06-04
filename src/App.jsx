@@ -23,26 +23,38 @@ import GuestRoute from './Routes/GuestRoute'
 import ProfilesGym from './Pages/Admin/ProfilesGym/ProfilesGym'
 
 
-function App() {
+import { GoogleOAuthProvider } from '@react-oauth/google'
+import ActivityRegister from './Pages/Admin/Dashboard/ActivityRegister'
 
+function App() {
+    const clientId = "161148106630-1e8ad1edsce66mqtrt42roin5llu7ipb.apps.googleusercontent.com";
 
     return (
 
         <BrowserRouter>
-            <AuthContextProvider>
-                <Routes>
-                    <Route path="/" element={<PublicLayout />}>
-                        <Route index element={<Home />} />
-                        <Route path="/contact" element={<ContactHome />} />
-                        <Route path="/eventsHome" element={<EventHome />} />
-                        
-                    </Route>
+            <GoogleOAuthProvider clientId={clientId}>
+                <AuthContextProvider>
+                    <AuthContextProvider>
+                        < Routes >
+                            <Route path="/" element={<PublicLayout />}>
+                                <Route index element={<Home />} />
+                                <Route path="/contact" element={<ContactHome />} />
+                                <Route path="/eventsHome" element={<EventHome />} />
+                                <Route index element={<Dashboard />} />
+                                <Route path='acceso' element={<ControlAcces />}></Route>
+                                <Route path='miembros' element={<Miembros />}></Route>
+                                <Route path='membresias' element={<Membresias />}></Route>
+                                <Route path="correo" element={<Promotions />} />
+                                <Route path="eventos" element={<Events />} />
+                                <Route path="inventario" element={<Inventory />} />
+                                <Route path="perfil" element={<Profile />} />
+                            </Route>
 
-                    <Route path='/login' element={<GuestRoute />}>
-                        <Route index element={<Login />} />
-                    </Route>
-                    <Route path='/ForgetPass' element={<ForgotPassword />} />
-                    <Route path='/resetPassword' element={<SecurityCode />} />
+                            <Route path='/login' element={<GuestRoute />}>
+                                <Route index element={<Login />} />
+                            </Route>
+                            <Route path='/ForgetPass' element={<ForgotPassword />} />
+                            <Route path='/resetPassword' element={<SecurityCode />} />
 
 
                     <Route path="/dashboard" element={<PrivateRoute />}>
@@ -55,15 +67,13 @@ function App() {
                             <Route path="eventos" element={<Events />} />
                             <Route path="inventario" element={<Inventory />} />
                             <Route path="perfil" element={<Profile />} />
-                            
-                            <Route path="perfil/profiles" element={<ProfilesGym />} /> 
-                            
-                            
                         </Route>
                     </Route>
                     <Route path="*" element={<NotFound />} />
                 </Routes>
+              </AuthContextProvider>
             </AuthContextProvider>
+          </GoogleOAuthProvider>
         </BrowserRouter>
 
 
@@ -71,3 +81,4 @@ function App() {
 }
 
 export default App
+

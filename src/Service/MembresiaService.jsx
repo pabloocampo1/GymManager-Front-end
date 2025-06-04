@@ -3,7 +3,7 @@ import { api } from './api';
 const MembresiaService = {
   getAllMembresia: async () => {
     try {
-      const response = await api.get(`/api/membresias`);
+      const response = await api.get(`/api/membership`);
       return response.data;
     } catch (error) {
       console.error('Error obteniendo membresias:', error);
@@ -13,7 +13,7 @@ const MembresiaService = {
 
   createMembresia: async (membresia) => {
     try {
-      const response = await api.post('/api/membresias', membresia);
+      const response = await api.post('/api/membership', membresia);
       return response.data;
     } catch (error) {
       console.error('Error creando membresia:', error);
@@ -23,7 +23,7 @@ const MembresiaService = {
 
   updateMembresia: async (id, membresia) => {
     try {
-      const response = await api.put(`/api/membresias/${id}`, membresia);
+      const response = await api.put(`/api/membership/${id}`, membresia);
       return response.data;
     } catch (error) {
       console.log(error)
@@ -34,7 +34,7 @@ const MembresiaService = {
 
   deleteMembresia: async (id) => {
     try {
-      const response = await api.delete(`/api/membresias/${id}`);
+      const response = await api.delete(`/api/membership/${id}`);
       return response.data;
     } catch (error) {
       console.error(`Error eliminando membresia ${id}:`, error);

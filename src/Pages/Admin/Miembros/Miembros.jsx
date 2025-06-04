@@ -31,6 +31,8 @@ const MiembrosModalComponent = () => {
       try {
         const data = await MiembrosService.getAllMiembros();
         setMiembros(data);
+       
+        
       } catch (error) {
         console.error("No se pudieron cargar los miembros:", error);
       }
@@ -49,11 +51,11 @@ const MiembrosModalComponent = () => {
         setMiembros([...miembros, nuevoMiembro]);
       } else if (datos.tipo === 'editar') {
         const miembroActualizado = await MiembrosService.updateMiembro(
-          datos.miembro.identificationNumber,
+          datos.miembro.id,
           datos.miembro
         );
         const miembrosActualizados = miembros.map(m =>
-          m.identificationNumber === miembroActualizado.identificationNumber ? miembroActualizado : m
+          m.id === miembroActualizado.id ? miembroActualizado : m
         );
         setMiembros(miembrosActualizados);
       }
@@ -127,12 +129,11 @@ const MiembrosModalComponent = () => {
   }, [miembros, selectedFilter, searchTerm]);
   
 
-  // Determinar qué criterio mostrar (búsqueda tiene prioridad)
   const titleToShow = searchTerm 
     ? `Búsqueda: ${searchTerm}` 
     : `Filtrado por: ${selectedFilter}`;
     
-  // Función para renderizar la celda de estado con el estilo adecuado
+
   const renderEstadoCell = (miembro) => {
     const esActivo = isMembresiaActiva(miembro);
     const estadoTexto = esActivo ? <ActiveButton text={"Activo"}/> : <InactiveButton text={"Inactivo"}/>;
@@ -242,7 +243,7 @@ const MiembrosModalComponent = () => {
                   <TableCell>{miembro.finMembresia}</TableCell>
                   <TableCell>
                     <FaPen className={styles.edit_icon} onClick={() => { setMiembroEditado(miembro); setIsModalOpen(true); }} />
-                    <DeleteIcon className={styles.delete_icon} onClick={() => onDeleteMiembro(miembro.identificationNumber)} />
+                    <DeleteIcon className={styles.delete_icon} onClick={() => onDeleteMiembro(miembro.id)} />
                   </TableCell>
                 </TableRow>
               ))
@@ -275,7 +276,7 @@ const MiembrosModalComponent = () => {
             MiembrosService.deleteMiembro(miembrosToDelete)
               .then(() => {
                 setMiembros((prevMiembros) =>
-                  prevMiembros.filter((m) => m.identificationNumber !== miembrosToDelete)
+                  prevMiembros.filter((m) => m.id !== miembrosToDelete)
                 );
                 setIsDeleteModalOpen(false);
                 setMiembrosToDelete(null);

@@ -6,7 +6,7 @@ import {QRCodeSVG} from 'qrcode.react';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-   
+
     <App />
   </StrictMode>,
 )

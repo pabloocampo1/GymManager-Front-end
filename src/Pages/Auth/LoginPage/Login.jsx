@@ -10,10 +10,11 @@ import { Password } from "@mui/icons-material";
 
 import SimpleBackdrop from "../../../Components/SimpleBackdrop";
 import { AuthContext } from "../../../Context/AuthContext";
+import { GoogleLogin } from "@react-oauth/google";
 
 function Login() {
     const navigate = useNavigate();
-    const { state, singIn } = useContext(AuthContext);
+    const { state, singIn, singInWithGoogle } = useContext(AuthContext);
     const [dataCredentials, setDataCredentials] = useState({
         username: "",
         password: ""
@@ -29,8 +30,8 @@ function Login() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         setIsLoanding(true)
-    
-        await singIn(dataCredentials,rememberPassword );
+
+        await singIn(dataCredentials, rememberPassword);
         setDataCredentials({
             username: "",
             password: ""
@@ -38,16 +39,16 @@ function Login() {
         if (state.isAuthenticated) {
             setIsAuthenticated(true)
             setIsLoanding(false)
-            
+
         } else {
             setIsAuthenticated(false)
             setIsLoanding(false)
         }
 
-       
 
-           
-       
+
+
+
 
     };
 
@@ -141,8 +142,16 @@ function Login() {
                                 </FormGroup>
                                 <Link to="/ForgetPass">Olvidaste tu contraseña?</Link>
                             </div>
+                            <GoogleLogin
+                                onSuccess={credentialResponse => {
+                                    singInWithGoogle(credentialResponse.credential); 
+                                }}
+                                onError={() => {
+                                    console.log("Login Failed");
+                                }}
+                            />
                             <button type="submit" >
-                                Ingresar
+                                Iniciar sesion
                             </button>
                         </form>
 
