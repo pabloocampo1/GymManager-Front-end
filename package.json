@@ -20,10 +20,12 @@
     "@react-oauth/google": "^0.12.2",
     "axios": "^1.8.4",
     "bootstrap": "^5.3.3",
-    "framer-motion": "^12.12.1",
+    "file-saver": "^2.0.5",
+    "framer-motion": "^12.6.3",
     "html2canvas": "^1.4.1",
     "html5-qrcode": "^2.3.8",
     "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.476.0",
     "qrcode.react": "^4.2.0",
@@ -41,7 +43,8 @@
     "styled-components": "^6.1.15",
     "swapy": "^1.0.5",
     "sweetalert2": "^11.21.2",
-    "vanilla-tilt": "^1.8.1"
+    "vanilla-tilt": "^1.8.1",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

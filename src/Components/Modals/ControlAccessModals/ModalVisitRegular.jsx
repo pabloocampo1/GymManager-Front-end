@@ -4,11 +4,11 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Add, ArrowBack } from '@mui/icons-material';
 import { Button, TextField } from '@mui/material';
-import ShowMessageSuccess from '../ShowMessageSuccess';
+import ShowMessageSuccess from '../../ShowMessageSuccess';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { api } from '../../Service/api';
-import SimpleBackdrop from "../SimpleBackdrop";
+import { api } from '../../../Service/api';
+import SimpleBackdrop from "../../SimpleBackdrop";
 
 export default function ModalVisitRegular({ open, handleClose , ShowMessageSuccess}) {
 
