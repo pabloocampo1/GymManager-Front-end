@@ -23,31 +23,37 @@ const MiembrosService = {
 
   createMiembro: async (data) => {
     try {
-      console.log('Datos enviados al endpoint /api/members/save:', {
-        url: '/api/members/save',
+      console.log('Datos enviados al crear miembro:', {
+        url: '/api/members',
         method: 'POST',
         data: data
       });
       const response = await api.post('/api/members', data);
-      console.log('Respuesta del servidor:', response);
       return response.data;
     } catch (error) {
       console.error('Error al crear miembro:', error);
-      console.error('Detalles del error:', {
-        status: error.response?.status,
-        data: error.response?.data,
-        headers: error.response?.headers
-      });
       throw error;
     }
   },
 
   updateMiembro: async (id, miembro) => {
     try {
-      const response = await api.put(`/api/members/update/${id}`, miembro);
+      console.log('Datos enviados para actualización:', {
+        url: `/api/members/${id}`,
+        method: 'PUT',
+        data: miembro
+      });
+      const response = await api.put(`/api/members/${id}`, miembro);
+      console.log('Respuesta de actualización:', response);
       return response.data;
     } catch (error) {
       console.error(`Error actualizando miembro ${id}:`, error);
+      console.error('Detalles del error:', {
+        mensaje: error.message,
+        status: error.response?.status,
+        data: error.response?.data,
+        headers: error.response?.headers
+      });
       throw error;
     }
   },
