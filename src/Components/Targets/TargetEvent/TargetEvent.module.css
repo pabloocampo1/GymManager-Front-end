@@ -1,3 +1,4 @@
+
 .eventCard {
   display: flex;
   align-items: center;
@@ -30,11 +31,10 @@
 }
 
 .eventDetails {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
   margin-bottom: 16px;
-  
 }
 
 .detailItem {

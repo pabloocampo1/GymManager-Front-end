@@ -59,10 +59,7 @@ const TargetEvent = ({ event, onDelete, onEdit }) => {
       <div className={styles.eventContent}>
         <h3 className={styles.eventTitle}>{event.nombre}</h3>
         <div className={styles.eventDetails}>
-          <div className={styles.detailItem}>
-            <span className={styles.detailLabel}>Lugar</span>
-            <span className={styles.detailValue}>{event.lugar}</span>
-          </div>
+          
           <div className={styles.detailItem}>
             <span className={styles.detailLabel}>Fecha</span>
             <span className={styles.detailValue}>{event.fechaEvento}</span>
