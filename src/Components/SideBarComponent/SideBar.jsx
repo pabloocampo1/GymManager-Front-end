@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import style from './SideBar.module.css'
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
@@ -13,15 +13,12 @@ import ContactMailIcon from '@mui/icons-material/ContactMail';
 import EventIcon from '@mui/icons-material/Event';
 import AttachEmailIcon from '@mui/icons-material/AttachEmail';
 import InventoryIcon from '@mui/icons-material/Inventory';
-import { AuthContext } from '../../Context/AuthContext';
 
-function SideBar() {
+function SideBar({ onLogoutClick }) {
     const navigate = useNavigate();
     const location = useLocation();
-    const { logout } = useContext(AuthContext);
 
     const [activeLink, setActiveLink] = useState("");
-
     const [profileImage, setProfileImage] = useState(null);
 
     const routeMap = {
@@ -35,7 +32,6 @@ function SideBar() {
         "/dashboard/perfil": "perfil",
         "dashboard/perfil/profiles": "perfil"
     };
-
     
     useEffect(() => {
         const current = routeMap[location.pathname] || "inicio";
@@ -136,7 +132,7 @@ function SideBar() {
                     </Link>
                 </div>
                 <div>
-                    <LogoutIcon onClick={() => logout()} />
+                    <LogoutIcon onClick={onLogoutClick} />
                 </div>
             </div>
         </div>
