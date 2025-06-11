@@ -5,7 +5,7 @@ import { axisClasses } from '@mui/x-charts/ChartsAxis';
 const chartSetting = {
   yAxis: [
     {
-     
+    
     },
   ],
   width: 900,
@@ -26,8 +26,8 @@ const dataSet = (data) => {
     
     data.forEach(element => {
       const item = {
-        register:element["totalWithSubscription"],
-        regularVisit: element["totalWithoutSubscription"],
+        members:element["members"],
+        visits: element["visits"],
        
       }
        switch (element.month) {
@@ -91,14 +91,14 @@ const dataSet = (data) => {
 
 }
 
-export default function BarsDatasetToTal({ dataList = []}) {
+export default function BarsDatasetToTalAccessMembersAndVisits({ dataList = []}) {
   return (
     <BarChart
       dataset={dataSet(dataList)}
       xAxis={[{ scaleType: 'band', dataKey: 'month' }]}
       series={[
-        { dataKey: 'register', label: 'Registrados', valueFormatter },
-        { dataKey: 'regularVisit', label: 'Visitas regulares', valueFormatter },
+        { dataKey: 'members', label: 'Acceso de miembros', valueFormatter },
+        { dataKey: 'visits', label: 'Accesso de visitas regulares', valueFormatter },
         
       ]}
       {...chartSetting}

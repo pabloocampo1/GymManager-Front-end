@@ -6,6 +6,14 @@ import ButtonInactive from '../../Buttons/ButtonInactive';
 import { api } from '../../../Service/api';
 import PaymentComponent from '../../PaymentComponent/PaymentComponent';
 
+
+ export  const calculateRemainingDays = (finishDateStr) => {
+        const today = new Date();
+        const finishDate = new Date(finishDateStr);
+        const diff = finishDate.getTime() - today.getTime();
+        const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
+        return daysLeft > 0 ? daysLeft : 0;
+    };
 export default function DataUserAccesAllInfo({ open, onClose, userId, message, }) {
     const [isUpdateMembership, setIsUpdateMembership] = useState(false);
     const [openUpdate, setOpenUpdate] = useState(false);
@@ -43,13 +51,7 @@ export default function DataUserAccesAllInfo({ open, onClose, userId, message, }
         });
     };
 
-    const calculateRemainingDays = (finishDateStr) => {
-        const today = new Date();
-        const finishDate = new Date(finishDateStr);
-        const diff = finishDate.getTime() - today.getTime();
-        const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
-        return daysLeft > 0 ? daysLeft : 0;
-    };
+   
 
     const accessLog = async (data) => {
         try {

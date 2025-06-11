@@ -1,33 +1,26 @@
 import * as React from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
-import { axisClasses } from '@mui/x-charts/ChartsAxis';
+import { DataObjectSharp } from '@mui/icons-material';
 
-const chartSetting = {
-  yAxis: [
-    {
-     
-    },
-  ],
-  width: 900,
-  height: 300,
-  sx: {
-    [`.${axisClasses.left} .${axisClasses.label}`]: {
-      transform: 'translate(-20px, 0)',
-    },
-  },
-};
+
+
 
 function valueFormatter(value) {
-    return `${value}`;
-  }
+  return `${value} Uusuarios totales`;
+}
 
-const dataSet = (data) => {
-    const listReturn = [];
+const chartSetting = {
+  
+  height: 400,
+};
+
+function changeNumberOfMontByTheNameAndReturn(data) {
+     const listReturn = [];
     
     data.forEach(element => {
       const item = {
-        register:element["totalWithSubscription"],
-        regularVisit: element["totalWithoutSubscription"],
+        month:element["month"],
+        total: element["total"],
        
       }
        switch (element.month) {
@@ -91,16 +84,19 @@ const dataSet = (data) => {
 
 }
 
-export default function BarsDatasetToTal({ dataList = []}) {
+export default function GridDemo({ dataList = []}) {
+
+  if(!dataList) {
+    return <div>Cargando or not data</div>
+  }
+
   return (
     <BarChart
-      dataset={dataSet(dataList)}
-      xAxis={[{ scaleType: 'band', dataKey: 'month' }]}
-      series={[
-        { dataKey: 'register', label: 'Registrados', valueFormatter },
-        { dataKey: 'regularVisit', label: 'Visitas regulares', valueFormatter },
-        
-      ]}
+      dataset={changeNumberOfMontByTheNameAndReturn(dataList)}
+      yAxis={[{ scaleType: 'band', dataKey: 'month' }]}
+      series={[{ dataKey: 'total', label: 'Acceso de usuarios con membresia', valueFormatter }]}
+      layout="horizontal"
+      grid={{ vertical: true }}
       {...chartSetting}
     />
   );

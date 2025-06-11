@@ -10,8 +10,8 @@ export default function CustomAxis() {
       <Box sx={{ flexGrow: 1 }}>
         <SparkLineChart
           plotType="bar"
-          data={[1, 4, 2, 5, 7, 2, 4, 6]}
-          height={200}
+          data={[8, 4, 2, 5, 7, 2, 4, 6, 7 , 9]}
+          height={230}
           showTooltip
           showHighlight
           xAxis={{
@@ -25,6 +25,8 @@ export default function CustomAxis() {
               new Date(2021, 0, 1),
               new Date(2022, 0, 1),
               new Date(2023, 0, 1),
+              new Date(2024, 0, 1),
+              new Date(2025, 0, 1),
             ],
             valueFormatter: (value) => value.getFullYear(),
           }}

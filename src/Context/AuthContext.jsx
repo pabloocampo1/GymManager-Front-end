@@ -14,7 +14,8 @@ const initialValue = JSON.parse(localStorage.getItem("userAuthGymManager")) || {
     role: null,
     isAuthenticated: false,
     token: null,
-    rememberPassword: false
+    rememberPassword: false,
+    isAuthReady: false
 };
 
 const authReduce = (state, action) => {
@@ -28,6 +29,7 @@ const authReduce = (state, action) => {
                 token: action.payload.token,
                 isAuthenticated: action.payload.isAuthenticated,
                 rememberPassword: action.payload.rememberPassword,
+                 isAuthReady: true 
             };
         case "singUp":
             return {
@@ -42,6 +44,12 @@ const authReduce = (state, action) => {
                 token: null,
                 isAuthenticated: false,
                 rememberPassword: false,
+                 isAuthReady: true 
+            };
+        case "authReady":
+            return {
+                ...state,
+                isAuthReady: true
             };
         default:
             return state;
@@ -77,7 +85,7 @@ export const AuthContextProvider = ({ children }) => {
                         type: "signIn",
                         payload: userLogged
                     })
-                   setAuthToken(userLogged.token);
+                    setAuthToken(userLogged.token);
 
                     if (autologin) {
                         localStorage.setItem("userAuthGymManager", JSON.stringify(userLogged))
@@ -115,7 +123,7 @@ export const AuthContextProvider = ({ children }) => {
             };
 
             dispatch({ type: "signIn", payload: userLogged });
-           setAuthToken(response.data.jwt);
+            setAuthToken(response.data.jwt);
             localStorage.setItem("userAuthGymManager", JSON.stringify(userLogged));
             console.log(userLogged);
             navigateTo("/dashboard");
@@ -133,14 +141,16 @@ export const AuthContextProvider = ({ children }) => {
         navigateTo("/login")
     }
 
-    
+
 
     useEffect(() => {
         const checkJwt = async () => {
             const userLoggedRaw = localStorage.getItem("userAuthGymManager");
 
-            if (!userLoggedRaw) return;
-
+            if (!userLoggedRaw) {
+            dispatch({ type: "authReady" }); // 👉 Autenticación lista pero sin sesión
+            return;
+        }
             const userLogged = JSON.parse(userLoggedRaw);
 
             if (userLogged.rememberPassword) {
@@ -156,6 +166,7 @@ export const AuthContextProvider = ({ children }) => {
                 }
             } else {
                 localStorage.removeItem("userAuthGymManager");
+            dispatch({ type: "authReady" });
             }
         };
 
@@ -167,9 +178,14 @@ export const AuthContextProvider = ({ children }) => {
                     },
                 });
 
-                return response.status !== 401;
+                if (response.status == 401 || response.status == 400) {
+                    logout();
+                }
+
+                return response.data;
             } catch (error) {
                 console.log(error);
+                logout();
                 return false;
             }
         };

@@ -89,8 +89,6 @@ const ActivityRegister = () => {
                         setDeleteSuccess(false)
                     }, [2000])
 
-
-
                     break;
                 }
 
