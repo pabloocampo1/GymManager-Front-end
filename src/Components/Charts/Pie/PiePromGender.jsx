@@ -1,10 +1,25 @@
 import React from 'react';
-import { genderProm } from '../webUsageStats';
 import { PieChart } from '@mui/x-charts';
 import { Box, Typography } from '@mui/material';
 
 
-function PiePromGender() {
+ const getDataGender = (data) => {
+    const listToReturn =  [];
+    data.forEach(element => {
+        const itemToAdd = {
+            label:element["gender"],
+            value: element["total"]
+        }
+       listToReturn.push(itemToAdd)
+    });
+    return listToReturn;
+ }
+
+
+function PiePromGender({dataList = []}) {
+
+
+
     return (
         <Box  sx={{ 
             width: "45%",
@@ -16,7 +31,7 @@ function PiePromGender() {
 
                 series={[
                     {
-                        data: genderProm,
+                        data: getDataGender(dataList),
                         highlightScope: { fade: "global", highlight: "item" },
                         faded: { innerRadius: 30, additionalRadius: -30, color: "gray" },
                         label: "",

@@ -2,97 +2,71 @@ import * as React from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { Box, Typography } from '@mui/material';
 
+
 const months = [
-  'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+  'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+  'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
 ];
 
-const premium = [
-  150000, // Enero
-  155000, // Febrero
-  160000, // Marzo
-  157000, // Abril
-  162000, // Mayo
-  165000, // Junio
-  167000, // Julio
-  170000, // Agosto
-  168000, // Septiembre
-  172000, // Octubre
-  175000, // Noviembre
-  180000  // Diciembre
-];
 
-const basic = [
-  150000, // Enero
-  103000, // Febrero
-  105000, // Marzo
-  102000, // Abril
-  107000, // Mayo
-  110000, // Junio
-  112000, // Julio
-  115000, // Agosto
-  113000, // Septiembre
-  117000, // Octubre
-  120000, // Noviembre
-  123000  // Diciembre
-];
-
-const biweekly = [
-  150000,
-  133000,
-  135000, // Marzo
-  132000, // Abril
-  137000, // Mayo
-  140000, // Junio
-  142000, // Julio
-  145000, // Agosto
-  143000, // Septiembre
-  147000, // Octubre
-  150000, // Noviembre
-  153000  // Diciembre
-];
-
-const lineChartsParams = {
-  series: [
-    {
-      label: 'Premium',
-      data: premium,
-      showMark: true,
-    },
-    {
-      label: 'Básica',
-      data: basic,
-      showMark: true,
-    },
-    {
-      label: 'Estudiantil',
-      data: biweekly,
-      showMark: true,
-    },
-  ],
-  width: 550,
-  height: 300,
-};
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
 }).format;
 
-export default function ChartMembership() {
+
+function returnDataChart(data) {
+  const seriesList = [];
+
+  const memberships = data.memberships;
+
+  Object.keys(memberships).forEach(membershipName => {
+    const serie = {
+      label: membershipName,
+      data: memberships[membershipName],
+      showMark:true,
+    }
+    seriesList.push(serie)
+  });
+ 
+  
+
+  const lineChartsParams = {
+    series:seriesList,
+    width: 850,
+    height: 300,
+  };
+  
+  return lineChartsParams;
+}
+
+// 
+
+export default function ChartMembership({ data = {} }) {
+
+  if (!data || !data.memberships) {
+    return <div>Cargando datos...</div>;
+  }
+
+ 
+
+
   return (
     <Box sx={{
-      width: '55%',
+      width: '100%',
       display: "flex",
       justifyContent: "center",
       flexDirection: "column",
-      alignItems:"center"
+      alignItems: "center"
     }}>
-      <Typography variant='p' sx={{ textAlign: "center" }}>Ingresos monetarios por cada membresia - por mes</Typography>
+      <Typography variant='p' sx={{ textAlign: "center", pb: "20px", pt: "20px" }}>Ingresos monetarios por cada membresia - {new Date().getFullYear()}</Typography>
       <LineChart
-        {...lineChartsParams}
+        {...returnDataChart(data)}
         xAxis={[{ data: months, scaleType: 'point' }]}
-        series={lineChartsParams.series.map((series) => ({
+         margin={{ top: 70, right: 50, bottom: 30, left: 80 }} 
+           sx={{ '& .MuiChartsTooltip-tooltip': { fontSize: '28px' } }} 
+        series={ returnDataChart(data).series.map((series) => ({
           ...series,
           valueFormatter: (v) => (v === null ? '' : currencyFormatter(v)),
         }))}

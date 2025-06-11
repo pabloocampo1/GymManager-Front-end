@@ -121,13 +121,13 @@ const MiembrosModal = ({
                         "emergencyPhone": formData.emergencyPhone,
                     },
                     saleDto: {
-                        "membershipId": 2,
+                        "membershipId": 9,
                         "purchaseMethod": "Efectivo",
                         "receptionistName": "Carlos"
                     }
                 },
                 });
-                // Reiniciar formulario y cerrar modal
+                
                 setFormData({
                     id: "",
                     fullName: "",
