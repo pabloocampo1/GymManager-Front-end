@@ -23,17 +23,22 @@ const MiembrosService = {
 
   createMiembro: async (data) => {
     try {
-      console.log('Datos enviados al endpoint /api/members/save:', {
-        url: '/api/members/save',
-        method: 'POST',
-        data: data
-      });
       const response = await api.post('/api/members', data);
-      console.log('Respuesta del servidor:', response);
       return response.data;
     } catch (error) {
       console.error('Error al crear miembro:', error);
+      throw error;
+    }
+  },
+
+  updateMiembro: async (id, miembro) => {
+    try {;
+      const response = await api.put(`/api/members/${id}`, miembro);
+      return response.data;
+    } catch (error) {
+      console.error(`Error actualizando miembro ${id}:`, error);
       console.error('Detalles del error:', {
+        mensaje: error.message,
         status: error.response?.status,
         data: error.response?.data,
         headers: error.response?.headers
@@ -42,12 +47,21 @@ const MiembrosService = {
     }
   },
 
-  updateMiembro: async (id, miembro) => {
+  updateMembership: async (memberId, memberData) => {
     try {
-      const response = await api.put(`/api/members/update/${id}`, miembro);
-      return response.data;
+      const response = await api.post("/api/sales/save", {
+        userId: memberId,
+        membershipId: parseInt(memberData.membershipId),
+        purchaseMethod: "Efectivo",
+        receptionistName: "Sistema"
+      });
+      
+      if (response.status === 200 || response.status === 201) {
+        return response.data;
+      }
+      throw new Error('Error al actualizar la membresía');
     } catch (error) {
-      console.error(`Error actualizando miembro ${id}:`, error);
+      console.error('Error al actualizar la membresía:', error);
       throw error;
     }
   },

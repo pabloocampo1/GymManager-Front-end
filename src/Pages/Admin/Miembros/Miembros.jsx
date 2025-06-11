@@ -57,28 +57,23 @@ const MiembrosModalComponent = () => {
   const handleAgregarOEditarMiembro = async (datos) => {
     try {
       if (datos.tipo === 'agregar') {
-        const nuevoMiembro = await MiembrosService.createMiembro(datos.miembro);
-        const membershipInfo = await MiembrosService.getMembershipData(nuevoMiembro.id);
+        const nuevoMiembro = datos.miembro;
+        setMiembros(prevMiembros => [...prevMiembros, nuevoMiembro]);
         setMembershipData(prev => ({
           ...prev,
-          [nuevoMiembro.id]: membershipInfo
+          [nuevoMiembro.id]: datos.miembro.membershipData
         }));
-        setMiembros([...miembros, nuevoMiembro]);
       } else if (datos.tipo === 'editar') {
-        const miembroActualizado = await MiembrosService.updateMiembro(
-          datos.miembro.id,
-          datos.miembro
+        const miembroActualizado = datos.miembro;
+        setMiembros(prevMiembros => 
+          prevMiembros.map(m => m.id === miembroActualizado.id ? miembroActualizado : m)
         );
-        const membershipInfo = await MiembrosService.getMembershipData(miembroActualizado.id);
         setMembershipData(prev => ({
           ...prev,
-          [miembroActualizado.id]: membershipInfo
+          [miembroActualizado.id]: datos.miembro.membershipData
         }));
-        const miembrosActualizados = miembros.map(m =>
-          m.id === miembroActualizado.id ? miembroActualizado : m
-        );
-        setMiembros(miembrosActualizados);
       }
+      setIsModalOpen(false);
     } catch (error) {
       console.error("Error al agregar/editar miembro:", error);
     }
