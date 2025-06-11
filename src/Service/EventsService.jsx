@@ -7,6 +7,12 @@ const normalizeImageResponse = (event) => {
   return event;
 };
 
+const isEventAvailable = (event) => {
+  if (!event.fechaEvento) return false;
+  const eventDate = new Date(event.fechaEvento);
+  const currentDate = new Date();
+  return eventDate >= currentDate;
+};
 
 const EventService = {
   getAllEvents: async () => {
@@ -20,23 +26,25 @@ const EventService = {
   },
 
   updatePassWord: async (correo, nuevaPass) => {
-  try {
-    const response = await api.put(`/api/Usuarios/update-password`, {
-      email: correo,
-      newPassword: nuevaPass,
-    });
+    try {
+      const response = await api.put(`/api/Usuarios/update-password`, {
+        email: correo,
+        newPassword: nuevaPass,
+      });
 
-    return response.data;
-  } catch (error) {
-    console.error("Error al actualizar la contraseña:", error);
-    throw error;
-  }
-},
+      return response.data;
+    } catch (error) {
+      console.error("Error al actualizar la contraseña:", error);
+      throw error;
+    }
+  },
 
   getAllEventspublic: async () => {
     try {
       const response = await api.get(`/api/Eventos/public`);
-      return response.data.map(normalizeImageResponse);
+      const events = response.data.map(normalizeImageResponse);
+      // Filter out expired events
+      return events.filter(isEventAvailable);
     } catch (error) {
       console.error('Error getting events:', error);
       throw error;

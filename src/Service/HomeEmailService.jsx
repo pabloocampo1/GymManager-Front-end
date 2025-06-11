@@ -5,7 +5,8 @@ export const sendContactEmail = async (emailData) => {
     const formattedData = {
       name: emailData.name,
       email: emailData.email,
-      message: emailData.message
+      message: emailData.message,
+      captchaToken: emailData.captchaToken
     };
     const response = await api.post("/api/contact/send", formattedData);
     return response.data;

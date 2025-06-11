@@ -25,6 +25,7 @@ import ProfilesGym from './Pages/Admin/ProfilesGym/ProfilesGym'
 
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import ActivityRegister from './Pages/Admin/Dashboard/ActivityRegister'
+import TerminosYCondiciones from './Pages/TerminosYCondiciones/TerminosYCondiciones'
 
 function App() {
     const clientId = "161148106630-1e8ad1edsce66mqtrt42roin5llu7ipb.apps.googleusercontent.com";
@@ -47,7 +48,7 @@ function App() {
                                 <Route path="correo" element={<Promotions />} />
                                 <Route path="eventos" element={<Events />} />
                                 <Route path="inventario" element={<Inventory />} />
-                                <Route path="perfil" element={<Profile />} />
+                                
                             </Route>
 
                             <Route path='/login' element={<GuestRoute />}>
@@ -67,6 +68,7 @@ function App() {
                             <Route path="eventos" element={<Events />} />
                             <Route path="inventario" element={<Inventory />} />
                             <Route path="perfil" element={<Profile />} />
+                            <Route path="perfil/TyC" element={<TerminosYCondiciones />} />
                         </Route>
                     </Route>
                     <Route path="*" element={<NotFound />} />

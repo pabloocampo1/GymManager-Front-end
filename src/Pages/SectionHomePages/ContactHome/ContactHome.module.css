@@ -218,8 +218,15 @@
     text-decoration: none;
 }
 
+.recaptcha {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
 
-
+.recaptcha > div {
+    background: transparent;
+}
 
 @media (min-width: 1024px) {}
 

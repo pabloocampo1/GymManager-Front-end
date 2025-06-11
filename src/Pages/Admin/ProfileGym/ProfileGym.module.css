@@ -1,84 +1,103 @@
 /* ProfileGym.module.css */
+:root {
+  --primary-yellow: #FFD700;
+  --dark-gray: #333333;
+  --light-gray: #f4f4f4;
+  --medium-gray: #666666;
+  --hover-yellow: #FFE44D;
+  --border-color: #e0e0e0;
+}
+
+.profileContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: var(--light-gray);
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+  top: 0;
+}
+
 .HeaderContainer {
   display: flex;
-  align-items: center; /* centra verticalmente */
-  justify-content: space-between; /* o usa 'flex-start' si no quieres separar tanto */
-  margin-bottom: 1rem;
-  gap: 1rem; /* espacio entre elementos si los quieres más pegados */
-  flex-wrap: wrap; /* por si en pantallas pequeñas deben caer a otra línea */
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+  position: relative;
+  padding-bottom: 1.5rem;
 }
+
+/* Línea divisora con gradiente */
+.HeaderContainer::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, var(--primary-yellow), var(--dark-gray));
+}
+
 .title {
-  font-size: 30px;
-  font-weight: bold;
-  margin-bottom: 12px;
-  margin: 5px;
-  color: #333;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--dark-gray);
+  margin: 0;
+  letter-spacing: 1px;
 }
+
 .openModalBtn {
-  background-color: #f5f5f5; /* Same as deleteButton */
-  color: #d63031; /* Same as deleteButton */
-  padding: 8px 16px;
-  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background-color: white;
+  color: var(--dark-gray);
+  padding: 0.8rem 1.5rem;
+  border: 2px solid var(--primary-yellow);
+  border-radius: 50px;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
-  border: none;
-  transition: background-color 0.3s, transform 0.3s ease;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
 }
 
 .openModalBtn:hover {
-  background-color: #fff0f0; /* Same as deleteButton:hover */
-  transform: scale(1.05);
-}
-
-
-.profileContainer {
-  max-width: 900px;
-  margin: 20px auto 20px auto;
-  padding: 30px;
-  background: #f9f9f9;
-  border-radius: 12px;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-  text-align: left;
+  background-color: var(--primary-yellow);
+  color: var(--dark-gray);
+  transform: translateY(-2px);
 }
 
 .contentLayout {
-  display: flex;
-  flex-direction: row;
-  gap: 30px;
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 3rem;
 }
 
 .imageColumn {
-  flex: 0 0 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.formColumn {
-  flex: 1;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
 }
 
 .profileImagePreview {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
+  width: 250px;
+  height: 250px;
+  border-radius: 20px;
   overflow: hidden;
-  margin-bottom: 15px;
-  border: 2px solid #ddd;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f0f0f0;
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  border: 2px solid var(--primary-yellow);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.profileImagePreview:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .previewImage {
@@ -90,115 +109,143 @@
 .noImagePlaceholder {
   width: 100%;
   height: 100%;
-  background-color: #e0e0e0;
+  background-color: var(--light-gray);
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #666;
-  font-size: 16px;
+  color: var(--medium-gray);
+  font-size: 1rem;
 }
 
 .uploadButtonContainer {
-  margin-top: 15px;
+  width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .customFileUpload {
-  background-color: #d3d837;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 8px;
+  width: 100%;
+  background-color: var(--primary-yellow);
+  color: var(--dark-gray);
+  padding: 1rem;
+  border-radius: 50px;
   cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s, transform 0.3s ease;
+  font-size: 0.9rem;
+  text-align: center;
+  transition: all 0.3s ease;
   border: none;
-  font-weight: bold;
 }
 
 .customFileUpload:hover {
-  background-color: #e5c100;
-  transform: scale(1.1);
+  background-color: var(--hover-yellow);
+  transform: translateY(-2px);
+}
+
+.ingresoPerfiles {
+  width: 100%;
+  background-color: white;
+  color: var(--dark-gray);
+  padding: 1rem;
+  border-radius: 50px;
+  border: 2px solid var(--dark-gray);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.ingresoPerfiles:hover {
+  background-color: var(--dark-gray);
+  color: var(--primary-yellow);
+  transform: translateY(-2px);
 }
 
 .fileInput {
   display: none;
 }
 
+.formColumn {
+  padding: 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
 .form {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
 }
 
 .formGroup {
-  margin-bottom: 20px;
+  margin-bottom: 0;
 }
 
 .formGroup label {
-  font-weight: bold;
-  margin-bottom: 8px;
   display: block;
+  font-size: 0.9rem;
+  color: var(--medium-gray);
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.5px;
 }
 
 .formGroup input {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 16px;
-  outline: none;
-  transition: border 0.3s ease;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--light-gray);
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
 }
 
 .formGroup input:focus {
-  border: 1px solid #d3d837;
-  box-shadow: 0 0 5px rgba(211, 216, 55, 0.5);
+  border-color: var(--primary-yellow);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+}
+
+.formGroup input::placeholder {
+  color: #999;
 }
 
 .updateButton {
-  background-color: #d3d837;
-  color: white;
+  grid-column: 1 / -1;
+  background-color: var(--primary-yellow);
+  color: var(--dark-gray);
   border: none;
-  padding: 10px 25px;
-  border-radius: 8px;
-  font-size: 16px;
+  padding: 1rem;
+  border-radius: 50px;
+  font-size: 1rem;
   cursor: pointer;
-  margin-top: 20px;
-  transition: background-color 0.3s, transform 0.3s ease;
-  font-weight: bold;
-  display: block;
-  margin-left: auto;
-  margin-right: 0;
-}
-.ingresoPerfiles{
-  background-color: #d3d837;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s, transform 0.3s ease;
-  border: none;
-  font-weight: bold;
-  margin-top: 15px;
+  transition: all 0.3s ease;
+  margin-top: 2rem;
+  letter-spacing: 0.5px;
+  font-weight: 500;
 }
 
 .updateButton:hover {
-  background-color: #e5c100;
-  transform: scale(1.05);
+  background-color: var(--hover-yellow);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
+@media (max-width: 968px) {
   .contentLayout {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
-  
+
+  .form {
+    grid-template-columns: 1fr;
+  }
+
+  .profileContainer {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
   .imageColumn {
-    margin-bottom: 30px;
-  }
-  
-  .formColumn {
-    width: 100%;
+    margin-bottom: 2rem;
   }
 }

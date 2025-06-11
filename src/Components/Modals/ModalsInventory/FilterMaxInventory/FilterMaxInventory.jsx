@@ -5,10 +5,13 @@ import styles from "./FilterMaxInventory.module.css";
 const FilterMaxInventory = ({ items, onClose, onUpdateItems }) => {
   const [filterType, setFilterType] = useState("");
   const [itemsToUpdate, setItemsToUpdate] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setItemsToUpdate([]);
     setFilterType("");
+    setError(null);
   }, [items]); 
 
   const handleContainerClick = (e) => {
@@ -18,6 +21,7 @@ const FilterMaxInventory = ({ items, onClose, onUpdateItems }) => {
   const handleFilterTypeChange = (e) => {
     setFilterType(e.target.value);
     setItemsToUpdate([]);
+    setError(null);
   };
 
   const handleItemCheckboxChange = (itemId) => {
@@ -26,23 +30,35 @@ const FilterMaxInventory = ({ items, onClose, onUpdateItems }) => {
         ? prev.filter((id) => id !== itemId)
         : [...prev, itemId]
     );
+    setError(null);
   };
 
-  const handleApplyFilter = () => {
+  const handleApplyFilter = async () => {
     if (!filterType || itemsToUpdate.length === 0) {
-      alert("Por favor, selecciona un tipo de filtro y al menos un elemento.");
+      setError("Por favor, selecciona un tipo de filtro y al menos un elemento.");
       return;
     }
 
-    const newState = filterType === "aceptable" ? "Deplorable" : "Aceptable";
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      // Mantener consistencia con los estados usados en el resto de la aplicación
+      const newState = filterType === "aceptable" ? "Deplorable" : "Aceptable";
 
-    const itemsToSend = itemsToUpdate.map((id) => ({
-      id,
-      estado: newState,
-    }));
+      const itemsToSend = itemsToUpdate.map((id) => ({
+        id,
+        estado: newState,
+      }));
 
-    onUpdateItems(itemsToSend);
-    onClose();
+      await onUpdateItems(itemsToSend);
+      onClose();
+    } catch (err) {
+      setError("Error al actualizar los estados. Por favor intenta de nuevo.");
+      console.error("Error updating items:", err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const itemsToShow = filterType
@@ -67,12 +83,15 @@ const FilterMaxInventory = ({ items, onClose, onUpdateItems }) => {
               value={filterType}
               onChange={handleFilterTypeChange}
               className={styles.selectFilter}
+              disabled={isLoading}
             >
               <option value="">Selecciona el estado a filtrar</option>
               <option value="aceptable">Aceptable a deplorable</option>
               <option value="deplorable">Deplorable a aceptable</option>
             </select>
           </div>
+
+          {error && <div className={styles.errorMessage}>{error}</div>}
 
           <div className={styles.listFilterMax}>
             {itemsToShow.length > 0 ? (
@@ -92,6 +111,7 @@ const FilterMaxInventory = ({ items, onClose, onUpdateItems }) => {
                       checked={itemsToUpdate.includes(item.id)}
                       onChange={() => handleItemCheckboxChange(item.id)}
                       className={styles.itemCheckbox}
+                      disabled={isLoading}
                     />
                   </div>
                 ))}
@@ -108,12 +128,16 @@ const FilterMaxInventory = ({ items, onClose, onUpdateItems }) => {
           <div className={styles.modalActions}>
             <button
               onClick={handleApplyFilter}
-              disabled={itemsToUpdate.length === 0 || !filterType}
+              disabled={itemsToUpdate.length === 0 || !filterType || isLoading}
               className={styles.acceptButton}
             >
-              Cambiar Estado
+              {isLoading ? "Actualizando..." : "Cambiar Estado"}
             </button>
-            <button onClick={onClose} className={styles.cancelButton}>
+            <button 
+              onClick={onClose} 
+              className={styles.cancelButton}
+              disabled={isLoading}
+            >
               Cancelar
             </button>
           </div>

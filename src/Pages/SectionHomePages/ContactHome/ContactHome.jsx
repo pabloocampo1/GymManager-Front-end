@@ -12,7 +12,12 @@ import { sendContactEmail } from '../../../Service/HomeEmailService';
 import ReCAPTCHA from "react-google-recaptcha";
 
 const ContactHome = () => {
-    const onChange = () => {}
+    const [captchaToken, setCaptchaToken] = useState(null);
+    
+    const onChange = (token) => {
+        setCaptchaToken(token);
+    }
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -29,7 +34,6 @@ const ContactHome = () => {
             [name]: value
         }));
         
-        // Reiniciar mensajes cuando el usuario modifica el formulario
         setError(null);
         setSuccess(false);
     };
@@ -40,20 +44,26 @@ const ContactHome = () => {
         setError(null);
         
         try {
-            // Validar que todos los campos estén completos
+         
             if (!formData.name || !formData.email || !formData.message) {
                 throw new Error("Por favor completa todos los campos");
             }
             
-            // Validar formato de email
+           
+            if (!captchaToken) {
+                throw new Error("Por favor verifica que no eres un robot");
+            }
+
+          
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(formData.email)) {
                 throw new Error("Por favor ingresa un correo electrónico válido");
             }
             
-            await sendContactEmail(formData);
+            await sendContactEmail({ ...formData, captchaToken });
             setSuccess(true);
             setFormData({ name: '', email: '', message: '' });
+            setCaptchaToken(null);
             alert("Mensaje enviado con éxito");
         } catch (error) {
             const errorMessage = error.message || "Hubo un error al enviar el mensaje";
@@ -185,9 +195,11 @@ const ContactHome = () => {
                                         required
                                     />
                                     <ReCAPTCHA
-                                    sitekey="6LfArTArAAAAAPxWG4v5Z6ktodfQzQN42wdFm_My"
-                                    onChange={onChange}
-                                    
+                                        sitekey="6LfArTArAAAAAPxWG4v5Z6ktodfQzQN42wdFm_My"
+                                        onChange={onChange}
+                                        theme="dark"
+                                        size="normal"
+                                        className={style.recaptcha}
                                     />
                                     <Button
                                         variant="contained"
