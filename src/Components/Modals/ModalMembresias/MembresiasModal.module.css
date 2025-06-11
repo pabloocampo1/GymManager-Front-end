@@ -20,15 +20,16 @@
   max-width: 90vw;
   text-align: center;
 }
-.closeButton{
-  cursor: pointer;
-}
 
-.modalCloseContainer{
+.modalCloseContainer {
   width: 100%;
   height: auto;
   display: flex;
   justify-content: end;
+}
+
+.closeButton {
+  cursor: pointer;
 }
 
 .modalContainer h2 {
@@ -41,7 +42,7 @@
 
 .formRow {
   display: flex;
-  gap: 20px; /* Mayor separación entre los elementos */
+  gap: 20px;
   margin-bottom: 15px;
 }
 
@@ -58,12 +59,18 @@
   margin-bottom: 5px;
 }
 
-.input, 
+.input,
 .select {
-  padding: 10px; /* Más espacio en los inputs */
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 14px;
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: #D3D837;
 }
 
 .buttonContainer {
@@ -72,6 +79,7 @@
   gap: 10px;
   margin-top: 20px;
 }
+
 .buttonContainer button {
   margin-top: 30px;
 }
@@ -102,5 +110,73 @@
 
 .cancelButton:hover {
   background: #cfcfcf;
-  ;
+}
+
+/* Estilos para la sección de beneficios */
+.benefitsSection {
+  margin-top: 1.5rem;
+  width: 100%;
+  text-align: left;
+}
+
+.benefitRow {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  align-items: center;
+}
+
+.benefitInput {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.benefitInput:focus {
+  outline: none;
+  border-color: #D3D837;
+}
+
+.removeBenefitButton {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.removeBenefitButton:disabled {
+  color: #ddd;
+  cursor: not-allowed;
+}
+
+.removeBenefitButton:not(:disabled):hover {
+  color: #ff4444;
+}
+
+.addBenefitButton {
+  background: none;
+  border: 1px dashed #D3D837;
+  color: #666;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  width: 100%;
+  justify-content: center;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.addBenefitButton:hover {
+  background-color: #f9f9f9;
+  color: #333;
 }

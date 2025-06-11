@@ -2,7 +2,7 @@
     width: 100%;
     min-height: 100vh;
     background-color: var(--colorByBackgrounds);
-    padding: 20px 100px ;
+    padding: 20px 100px;
 }
 
 .h2_title{
@@ -12,6 +12,13 @@
     color: white;
 }
 
+.error_message {
+    text-align: center;
+    color: var(--textSecond-color);
+    font-size: 1.1rem;
+    margin-top: 20px;
+}
+
 .tipePrice_container{
     width: 100%;
     height: auto;
@@ -19,66 +26,110 @@
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
 }
- .content_container_price{
+
+.content_container_price{
     min-height: 300px;
     border-radius: 20px;
     border: 0.5px solid var(--primary-color);
-    
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: var(--colorByBackgrounds);
+    transition: transform 0.3s ease;
 }
- .content_container_price h3{
+
+.content_container_price:hover {
+    transform: translateY(-5px);
+}
+
+.content_container_price h3{
     padding-top: 20px;
     padding-bottom: 10px;
     color: var(--textSecond-color);
     font-size: 1rem;
 }
- .content_container_price p{
+
+.content_container_price p{
     color: white;
     font-weight: bold;
     font-size: 1.90rem;
     padding-bottom: 40px;
 }
- .content_container_price p span{
+
+.content_container_price p span{
     color: var(--textSecond-color);
     font-size: .90rem;
 }
- 
- .content_container_price div{
+
+.content_container_price div{
     width: 80%;
     color: var(--textSecond-color);
-    
-}
- 
-.content_container_price div ul li{
-    color: var(--textSecond-color);
-    padding-bottom: 10px;
-    list-style: none;
 }
 
+.benefits_list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.benefits_list li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    color: var(--textSecond-color);
+    font-size: 0.9rem;
+}
+
+.check_icon {
+    color: var(--primary-color);
+}
+
+.subscribe_button {
+    background-color: var(--primary-color);
+    color: black;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    width: 80%;
+}
+
+.subscribe_button:hover {
+    background-color: var(--primarySecond-color);
+}
+
+/* Estilos específicos para cada tipo de membresía */
+.oro {
+    border-top: 5px solid #FFD700;
+}
+
+.plata {
+    border-top: 5px solid #C0C0C0;
+}
+
+.bronce {
+    border-top: 5px solid #CD7F32;
+}
 
 @media (max-width: 768px) {
     .priceMembership_container{
-        padding: 20px 50px ;
+        padding: 20px 50px;
         padding-bottom: 100px;
-        
     }
    
     .h2_title{
-       
         padding-top: 50px;
-       
-        
     }
-    
-  }
+}
 
-
-  
 @media (max-width: 480px) {
-    
-
     .tipePrice_container{
         width: 100%;
         height: auto;
@@ -86,8 +137,8 @@
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 20px;
     }
+
     .priceMembership_container{
-        max-width:100vh ;
+        max-width: 100vh;
     }
-  
-  }
+}

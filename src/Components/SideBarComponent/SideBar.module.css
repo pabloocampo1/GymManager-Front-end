@@ -81,44 +81,47 @@
     color: white;
 }
 
-
-.activeLink {
+/* Estilo para elementos activos en la navegación */
+.navegationList .activeLink {
     border: 1px solid var(--primary-color);
     color: black;
     border-radius: 4px;
 }
 
-.activeLink link {
-    color: black;
+/* Estilo específico para el contenedor de la foto de perfil cuando está activo */
+.UtilsSideBar .activeLink .profileImageContainer {
+    border: 3px solid var(--primary-color);
+    padding: 3px;
+    background-color: black;
 }
 
-
+/* Contenedor base de la foto de perfil */
 .profileImageContainer {
-    width: 30px;
-    height: 30px;
+    width: 38px;
+    height: 38px;
     border-radius: 10%;
-    overflow: auto;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 1px solid rgba(255, 255, 255, 0.3);
-  }
-  
-  .profileImage {
+    transition: all 0.3s ease;
+    padding: 3px;
+    background-color: black;
+}
+
+.profileImage {
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-  
- 
-  .UtilsSideBar a {
+    border-radius: 8%;
+}
+
+.UtilsSideBar a {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-
-
-
+}
 
 @media (max-width: 1024px) {
     
