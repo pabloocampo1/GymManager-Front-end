@@ -23,11 +23,6 @@ const MiembrosService = {
 
   createMiembro: async (data) => {
     try {
-      console.log('Datos enviados al crear miembro:', {
-        url: '/api/members',
-        method: 'POST',
-        data: data
-      });
       const response = await api.post('/api/members', data);
       return response.data;
     } catch (error) {
@@ -37,14 +32,8 @@ const MiembrosService = {
   },
 
   updateMiembro: async (id, miembro) => {
-    try {
-      console.log('Datos enviados para actualización:', {
-        url: `/api/members/${id}`,
-        method: 'PUT',
-        data: miembro
-      });
+    try {;
       const response = await api.put(`/api/members/${id}`, miembro);
-      console.log('Respuesta de actualización:', response);
       return response.data;
     } catch (error) {
       console.error(`Error actualizando miembro ${id}:`, error);

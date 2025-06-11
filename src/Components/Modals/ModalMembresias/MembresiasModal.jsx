@@ -52,7 +52,16 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
               title: 'Maximo de días',
               text: 'Los dias de la membresia no pueden ser superiores a un año',
               confirmButtonText: 'Entendido'
-            })
+        });
+        return;
+      }
+      if (numericValue < 1) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Mínimo de días',
+          text: 'Los días de la membresía no pueden ser menores a 1',
+          confirmButtonText: 'Entendido'
+        });
         return;
       }
       setDuration(numericValue.toString());

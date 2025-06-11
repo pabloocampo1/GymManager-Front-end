@@ -39,7 +39,6 @@ const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
         try {
           // Obtener los datos completos del miembro incluyendo su membresía
           const membershipData = await MiembrosService.getMembershipData(miembroSeleccionado.id);
-          console.log('Datos de membresía:', membershipData);
           setCurrentMembershipName(membershipData.nameMembership || "");
           setFormData({
             fullName: miembroSeleccionado.fullName || "",
