@@ -10,23 +10,23 @@ const PriceMembershipHome = () => {
     const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.5 });
     const tiltRefs = useRef([]);
     const [membresias, setMembresias] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const cargarMembresias = async () => {
             try {
-                setIsLoading(true);
+                setIsLoading(false);
                 setError(null);
                 const data = await MembresiaService.getAllMembresiaPublic();
                 if (Array.isArray(data)) {
                     setMembresias(data);
                 } else {
-                    setError('Error al cargar las membresías');
+                    setError('No se pudieron cargar las membresías');
                 }
             } catch (error) {
                 console.error('Error al cargar las membresías:', error);
-                setError('Error al cargar las membresías');
+                setError('Error al cargar las membresías. Por favor, intente más tarde.');
             } finally {
                 setIsLoading(false);
             }
@@ -61,7 +61,17 @@ const PriceMembershipHome = () => {
     if (error) {
         return (
             <div id='price' className={style.priceMembership_container}>
-                <h2 className={style.h2_title}>{error}</h2>
+                <h2 className={style.h2_title}>Nuestros Precios</h2>
+                <p className={style.error_message}>{error}</p>
+            </div>
+        );
+    }
+
+    if (!membresias || membresias.length === 0) {
+        return (
+            <div id='price' className={style.priceMembership_container}>
+                <h2 className={style.h2_title}>Nuestros Precios</h2>
+                <p className={style.error_message}>No hay membresías disponibles en este momento.</p>
             </div>
         );
     }

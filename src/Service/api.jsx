@@ -7,7 +7,6 @@ export const api = axios.create({
   timeout: 40000,
 });
 
-
 export const setAuthToken = (token) => {
   if (token) {
     api.defaults.headers.common.Authorization = `Bearer ${token}`;

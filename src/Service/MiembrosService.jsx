@@ -58,6 +58,25 @@ const MiembrosService = {
     }
   },
 
+  updateMembership: async (memberId, memberData) => {
+    try {
+      const response = await api.post("/api/sales/save", {
+        userId: memberId,
+        membershipId: parseInt(memberData.membershipId),
+        purchaseMethod: "Efectivo",
+        receptionistName: "Sistema"
+      });
+      
+      if (response.status === 200 || response.status === 201) {
+        return response.data;
+      }
+      throw new Error('Error al actualizar la membresía');
+    } catch (error) {
+      console.error('Error al actualizar la membresía:', error);
+      throw error;
+    }
+  },
+
   deleteMiembro: async (id) => {
     try {
       const response = await api.delete(`/api/members/${id}`);

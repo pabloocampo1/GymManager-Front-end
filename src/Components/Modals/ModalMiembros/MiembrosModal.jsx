@@ -17,6 +17,7 @@ const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
     emergencyPhone: "",
   });
   const [membresias, setMembresias] = useState([]);
+  const [currentMembershipName, setCurrentMembershipName] = useState("");
 
   // Cargar las membresías disponibles
   useEffect(() => {
@@ -38,12 +39,21 @@ const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
         try {
           // Obtener los datos completos del miembro incluyendo su membresía
           const membershipData = await MiembrosService.getMembershipData(miembroSeleccionado.id);
+          console.log('Datos de membresía:', membershipData);
+          setCurrentMembershipName(membershipData.nameMembership || "");
           setFormData({
-            ...miembroSeleccionado,
-            membershipId: membershipData.membershipId || ""
+            fullName: miembroSeleccionado.fullName || "",
+            identificationNumber: miembroSeleccionado.identificationNumber || "",
+            birthDate: miembroSeleccionado.birthDate || "",
+            phone: miembroSeleccionado.phone || "",
+            email: miembroSeleccionado.email || "",
+            gender: miembroSeleccionado.gender || "",
+            membershipId: membershipData.membershipId ? membershipData.membershipId.toString() : "",
+            emergencyPhone: miembroSeleccionado.emergencyPhone || ""
           });
         } catch (error) {
           console.error('Error al cargar datos del miembro:', error);
+          console.error('Detalles del error:', error.response?.data);
         }
       } else {
         setFormData({
@@ -56,6 +66,7 @@ const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
           membershipId: "",
           emergencyPhone: "",
         });
+        setCurrentMembershipName("");
       }
     };
     cargarDatosMiembro();
@@ -85,19 +96,14 @@ const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
   const handleMembershipUpdate = async (memberId, newMembershipId) => {
     try {
       const memberData = {
-        userId: memberId,
-        membershipId: parseInt(newMembershipId),
-        purchaseMethod: "Efectivo",
-        receptionistName: "Sistema"
+        membershipId: newMembershipId
       };
 
-      const response = await MiembrosService.updateMembership(memberId, memberData);
+      await MiembrosService.updateMembership(memberId, memberData);
       
-      if (response) {
-        // Obtener los datos actualizados de la membresía
-        const nuevosDataMembresia = await MiembrosService.getMembershipData(memberId);
-        return nuevosDataMembresia;
-      }
+      // Obtener los datos actualizados de la membresía
+      const nuevosDataMembresia = await MiembrosService.getMembershipData(memberId);
+      return nuevosDataMembresia;
     } catch (error) {
       console.error('Error al actualizar la membresía:', error);
       throw error;
@@ -117,6 +123,13 @@ const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
 
     if (miembroSeleccionado) {
       try {
+        // Validar campos requeridos para edición
+        if (!formData.identificationNumber || !formData.fullName || !formData.birthDate || 
+            !formData.phone || !formData.email || !formData.gender || !formData.emergencyPhone) {
+          alert("Por favor, complete todos los campos requeridos");
+          return;
+        }
+
         const memberData = {
           id: miembroSeleccionado.id,
           identificationNumber: formData.identificationNumber,
@@ -134,25 +147,22 @@ const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
           memberData
         );
 
-        // Si la membresía ha cambiado, actualizamos la membresía
-        if (formData.membershipId !== miembroSeleccionado.membershipId) {
-          const nuevosDataMembresia = await handleMembershipUpdate(
+        let nuevosDataMembresia;
+        // Solo actualizamos la membresía si se seleccionó una nueva
+        if (formData.membershipId && formData.membershipId !== "") {
+          nuevosDataMembresia = await handleMembershipUpdate(
             miembroSeleccionado.id,
             formData.membershipId
           );
-          
-          onAdd({
-            tipo: "editar",
-            miembro: { ...actualizado, membershipData: nuevosDataMembresia }
-          });
         } else {
-          // Si no hay cambio de membresía, mantenemos los datos actuales
-          const datosMembresia = await MiembrosService.getMembershipData(miembroSeleccionado.id);
-          onAdd({
-            tipo: "editar",
-            miembro: { ...actualizado, membershipData: datosMembresia }
-          });
+          // Si no se seleccionó una nueva membresía, mantenemos los datos actuales
+          nuevosDataMembresia = await MiembrosService.getMembershipData(miembroSeleccionado.id);
         }
+        
+        onAdd({
+          tipo: "editar",
+          miembro: { ...actualizado, membershipData: nuevosDataMembresia }
+        });
         
         onClose();
       } catch (error) {
@@ -367,9 +377,8 @@ const MiembrosModal = ({ isOpen, onClose, onAdd, miembroSeleccionado }) => {
                     className={styles.select}
                     value={formData.membershipId}
                     onChange={handleChange}
-                    required
                   >
-                    <option value="">Seleccionar</option>
+                    <option value="">{currentMembershipName || "Seleccionar"}</option>
                     {membresias.map((membresia) => (
                       <option key={membresia.id} value={membresia.id}>
                         {membresia.title}
