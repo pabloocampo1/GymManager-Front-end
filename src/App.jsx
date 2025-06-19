@@ -1,5 +1,5 @@
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom'
-import './App.css'
+
 import Login from './Pages/Auth/LoginPage/Login'
 import Home from './Pages/SectionHomePages/Home/Home'
 import Dashboard from './Pages/Admin/Dashboard/Dashboard'
@@ -24,6 +24,7 @@ import GuestRoute from './Routes/GuestRoute'
 
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import ActivityRegister from './Pages/Admin/Dashboard/ActivityRegister'
+import { ThemeContextProvider } from './Context/ThemeContext'
 
 function App() {
     const clientId = "161148106630-1e8ad1edsce66mqtrt42roin5llu7ipb.apps.googleusercontent.com";
@@ -33,7 +34,8 @@ function App() {
         <BrowserRouter>
             <GoogleOAuthProvider clientId={clientId}>
                 <AuthContextProvider>
-                    <AuthContextProvider>
+                    <ThemeContextProvider>
+                        <AuthContextProvider>
                         < Routes >
                             <Route path="/" element={<PublicLayout />}>
                                 <Route index element={<Home />} />
@@ -72,6 +74,7 @@ function App() {
                             <Route path="*" element={<NotFound />} />
                         </Routes >
                     </AuthContextProvider>
+                    </ThemeContextProvider>
                 </AuthContextProvider>
             </GoogleOAuthProvider>
         </BrowserRouter>

@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import style from "./PriceMembership.module.css";
+import { Box, Typography, Grid, Button, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { motion } from 'framer-motion';
-import { useInView } from "react-intersection-observer";
-import VanillaTilt from "vanilla-tilt";
-import MembresiaService from "../../../Service/MembresiaService";
+import { useInView } from 'react-intersection-observer';
+import VanillaTilt from 'vanilla-tilt';
+import MembresiaService from '../../../Service/MembresiaService';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const PriceMembershipHome = () => {
@@ -43,72 +43,126 @@ const PriceMembershipHome = () => {
                         max: 15,
                         speed: 400,
                         glare: true,
-                        "max-glare": 0.3,
+                        'max-glare': 0.3,
                     });
                 }
             });
         }
     }, [isLoading, membresias]);
 
+    const getBorderTop = (type) => {
+        switch (type.toLowerCase()) {
+            case 'oro':
+                return '5px solid #FFD700';
+            case 'plata':
+                return '5px solid #C0C0C0';
+            case 'bronce':
+                return '5px solid #CD7F32';
+            default:
+                return '5px solid var(--primary-color)';
+        }
+    };
+
     if (isLoading) {
         return (
-            <div id='price' className={style.priceMembership_container}>
-                <h2 className={style.h2_title}>Cargando membresías...</h2>
-            </div>
+            <Box id="price" sx={{ width: '100%', minHeight: '100vh', backgroundColor: 'background.default', px: { xs: '20px', md: '100px' }, py: 5 }}>
+                <Typography variant="h4" textAlign="center" sx={{ color:"text.primary", pt: 10, pb: 5 }}>Cargando membresías...</Typography>
+            </Box>
         );
     }
 
     if (error) {
         return (
-            <div id='price' className={style.priceMembership_container}>
-                <h2 className={style.h2_title}>Nuestros Precios</h2>
-                <p className={style.error_message}>{error}</p>
-            </div>
+            <Box id="price" sx={{ width: '100%', minHeight: '100vh', backgroundColor: 'background.default', px: { xs: '20px', md: '100px' }, py: 5 }}>
+                <Typography variant="h4" textAlign="center" sx={{ color:"text.primary", pt: 10, pb: 5 }}>Nuestros Precios</Typography>
+                <Typography textAlign="center" sx={{ color: 'var(--textSecond-color)', fontSize: '1.1rem', mt: 2 }}>{error}</Typography>
+            </Box>
         );
     }
 
     if (!membresias || membresias.length === 0) {
         return (
-            <div id='price' className={style.priceMembership_container}>
-                <h2 className={style.h2_title}>Nuestros Precios</h2>
-                <p className={style.error_message}>No hay membresías disponibles en este momento.</p>
-            </div>
+            <Box id="price" sx={{ width: '100%', minHeight: '100vh', backgroundColor: 'background.default', px: { xs: '20px', md: '100px' }, py: 5 }}>
+                <Typography variant="h4" textAlign="center" sx={{ color:"text.primary", pt: 10, pb: 5 }}>Nuestros Precios</Typography>
+                <Typography textAlign="center" sx={{ color: 'var(--textSecond-color)', fontSize: '1.1rem', mt: 2 }}>No hay membresías disponibles en este momento.</Typography>
+            </Box>
         );
     }
 
     return (
-        <div id='price' className={style.priceMembership_container}>
-            <h2 className={style.h2_title}>Nuestros Precios</h2>
-            <div ref={ref} className={style.tipePrice_container}>
+        <Box id="price" sx={{ width: '100%', minHeight: '100vh', backgroundColor: 'background.default', px: { xs: '20px', md: '100px' }, py: 5 }}>
+            <Typography variant="h4" textAlign="center" sx={{ color:"text.primary", pt: 10, pb: 5, fontWeight: 'bold' }}>Nuestros Precios</Typography>
+
+            <Grid container spacing={3} ref={ref}>
                 {membresias.map((membresia, index) => (
-                    <motion.div
-                        key={membresia.id}
-                        ref={(el) => (tiltRefs.current[index] = el)}
-                        className={`${style.content_container_price} ${style[membresia.type.toLowerCase()]}`}
-                        initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                        animate={{ opacity: inView ? 1 : 0, x: inView ? 0 : index % 2 === 0 ? -50 : 50 }}
-                        transition={{ duration: 1 }}
-                    >
-                        <h3>{membresia.title}</h3>
-                        <p>
-                            <span style={{ color: 'white' }}>$</span>
-                            {membresia.price.toLocaleString()}
-                            <span> / {membresia.duration} días</span>
-                        </p>
-                        <div>
-                            <ul className={style.benefits_list}>
-                                {membresia.benefits && membresia.benefits.map((benefit, idx) => (
-                                    <li key={idx}>
-                                        <CheckCircleIcon className={style.check_icon} />
-                                        {benefit}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </motion.div>
+                    <Grid item xs={12} sm={6} md={3} key={membresia.id}>
+                        <Box
+                            ref={(el) => (tiltRefs.current[index] = el)}
+                            component={motion.div}
+                            initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                            animate={{ opacity: inView ? 1 : 0, x: inView ? 0 : index % 2 === 0 ? -50 : 50 }}
+                            transition={{ duration: 1 }}
+                            sx={{
+                                // width:"300px",
+                                borderRadius: '20px',
+                                border: '0.5px solid #9b9b9b',
+                                borderTop: getBorderTop(membresia.type),
+                                minHeight: '300px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                bgcolor: 'background.default',
+                                transition: 'transform 0.3s ease',
+                                '&:hover': { transform: 'translateY(-5px)' },
+                                p: 2,
+                            }}
+                        >
+                            <Box>
+                                <Typography variant="h6" sx={{ color: 'var(--textSecond-color)', pt: 2, pb: 1, fontSize: '1rem' }}>
+                                    {membresia.title}
+                                </Typography>
+
+                                <Typography variant="h4" sx={{ color:"text.primary", fontWeight: 'bold', pb: 5, fontSize: '1.9rem' }}>
+                                    <span style={{ color: 'var(--textSecond-color)', fontSize: '0.9rem' }}>$</span>{membresia.price.toLocaleString()}
+                                    <span style={{ color: 'var(--textSecond-color)', fontSize: '0.9rem' }}> / {membresia.duration} días</span>
+                                </Typography>
+
+                                <List dense>
+                                    {membresia.benefits && membresia.benefits.map((benefit, idx) => (
+                                        <ListItem key={idx} sx={{ color: 'var(--textSecond-color)', fontSize: '0.9rem', pl: 0 }}>
+                                            <ListItemIcon sx={{ minWidth: '30px' }}>
+                                                <CheckCircleIcon sx={{ color: 'var(--primary-color)' }} />
+                                            </ListItemIcon>
+                                            <ListItemText primary={benefit} />
+                                        </ListItem>
+                                    ))}
+                                </List>
+                            </Box>
+
+                            {/* <Button
+                                variant="contained"
+                                sx={{
+                                    backgroundColor: 'var(--primary-color)',
+                                    color: 'black',
+                                    padding: '0.8rem 1.5rem',
+                                    borderRadius: '8px',
+                                    fontSize: '1rem',
+                                    fontWeight: 500,
+                                    cursor: 'pointer',
+                                    mt: 3,
+                                    mb: 2,
+                                    width: '80%',
+                                    '&:hover': { backgroundColor: 'var(--primarySecond-color)' },
+                                }}
+                            >
+                                Suscribirme
+                            </Button> */}
+                        </Box>
+                    </Grid>
                 ))}
-            </div>
-        </div>
+            </Grid>
+        </Box>
     );
 };
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import style from './SideBar.module.css'
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
@@ -13,6 +13,9 @@ import ContactMailIcon from '@mui/icons-material/ContactMail';
 import EventIcon from '@mui/icons-material/Event';
 import AttachEmailIcon from '@mui/icons-material/AttachEmail';
 import InventoryIcon from '@mui/icons-material/Inventory';
+import { ThemeContext } from '../../Context/ThemeContext';
+import { IconButton } from '@mui/material';
+import { MaterialUISwitch } from '../ButtonDarkMode';
 
 function SideBar({ onLogoutClick }) {
     const navigate = useNavigate();
@@ -20,6 +23,12 @@ function SideBar({ onLogoutClick }) {
 
     const [activeLink, setActiveLink] = useState("");
     const [profileImage, setProfileImage] = useState(null);
+    const { toggleDarkMode } = useContext(ThemeContext);
+    const [checked, setChecked] = useState(true);
+    const handleChecked = () => {
+        setChecked(event.target.checked);
+
+    }
 
     const routeMap = {
         "/dashboard": "inicio",
@@ -31,14 +40,14 @@ function SideBar({ onLogoutClick }) {
         "/dashboard/inventario": "Inventario",
         "/dashboard/perfil": "perfil"
     };
-    
+
     useEffect(() => {
         const current = routeMap[location.pathname] || "inicio";
         setActiveLink(current);
         localStorage.setItem('activeLink', current);
     }, [location.pathname]);
 
-   
+
     useEffect(() => {
         const storedLink = localStorage.getItem('activeLink');
         if (storedLink) {
@@ -54,7 +63,7 @@ function SideBar({ onLogoutClick }) {
         };
     }, []);
 
-   
+
     useEffect(() => {
         const handleStorageChange = (e) => {
             if (e.key === 'profileImage') {
@@ -69,7 +78,7 @@ function SideBar({ onLogoutClick }) {
 
     const handleNavigate = (path, name) => {
         setActiveLink(name);
-        localStorage.setItem('activeLink', name); 
+        localStorage.setItem('activeLink', name);
         navigate(path);
     };
 
@@ -118,6 +127,9 @@ function SideBar({ onLogoutClick }) {
             </div>
 
             <div className={style.UtilsSideBar}>
+                <div onClick={() => toggleDarkMode()}>
+                 <MaterialUISwitch sx={{ bgcolor: "none" }} checked={checked} onChange={handleChecked} />   
+                </div>
                 <div className={activeLink === "perfil" ? style.activeLink : ""}
                     onClick={() => handleNavigate("/dashboard/perfil", "perfil")}>
                     <Link to="/dashboard/perfil">

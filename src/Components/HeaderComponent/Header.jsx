@@ -1,85 +1,146 @@
-import React, { useState } from 'react';
-import style from './Header.module.css'
+import React, { useContext, useState } from 'react';
+import { Box, IconButton, Button, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import ImageLogoPrincipal from "../../assets/images/logoSinFondo.png"
+import ImageLogoPrincipal from '../../assets/images/logoSinFondo.png';
 import LoginIcon from '@mui/icons-material/Login';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuMobile from '../MenuMobileComponent/MenuMobile';
 
+import { ThemeContext } from '../../Context/ThemeContext';
+import { MaterialUISwitch } from '../ButtonDarkMode';
 
 function Header() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
+    const { toggleDarkMode } = useContext(ThemeContext);
+       const [checked, setChecked] = useState(true);
+        const handleChecked = () => {
+            setChecked(event.target.checked);
+    
+        }
+
 
     const handleShowMenu = () => {
-        if (isOpenMenu) {
-            setIsOpenMenu(false)
-        } else {
-            setIsOpenMenu(true)
-        }
-    }
+        setIsOpenMenu(!isOpenMenu);
+    };
 
     return (
-        <header className={style.headerContainer}>
-            <div className={style.header_image_logo}>
-                <img src={ImageLogoPrincipal} alt="logo principal vallhalla" />
-            </div>
-            {isOpenMenu ? <MenuMobile open={isOpenMenu} handleClose={handleShowMenu} /> : (<div className={style.header_navbar}>
-                <nav>
-                    <ol>
-                        <li>
-                            <Link to="/#home">
-                                Inicio
-                            </Link>
-                        </li>
+        <Box
+            component="header"
+            sx={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: { xs: '12vh', lg: '9vh' },
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                background: 'rgba(0, 0, 0, 0.2)',
+                backdropFilter: 'blur(9px)',
+                borderBottom: '1px solid rgb(96, 96, 96)',
+                zIndex: 1000,
+                px: { xs: 2, md: 10 },
+                transition: 'background 0.3s ease-in-out',
+            }}
+        >
+            {/* Logo */}
+            <Box sx={{ width: '20%', height: '100%' }}>
+                <Box
+                    component="img"
+                    src={ImageLogoPrincipal}
+                    alt="logo principal vallhalla"
+                    sx={{ width: { xs: 100, lg: 200 }, height: '100%' }}
+                />
+            </Box>
+
+            {/* Menu Desktop */}
+            {isOpenMenu ? (
+                <MenuMobile open={isOpenMenu} handleClose={handleShowMenu} />
+            ) : (
+                <Box
+                    component="nav"
+                    sx={{
+                        width: { xs: 0, md: '60%' },
+                        height: '100%',
+                        display: { xs: 'none', md: 'flex' },
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Box component="ol" sx={{ display: 'flex', p: 0, m: 0, listStyle: 'none' }}>
+                        {[
+                            { to: '/#home', label: 'Inicio' },
+                            { to: '/#aboutUs', label: 'Sobre nosotros' },
+                            { to: '/#price', label: 'Precios' },
+                            { to: 'eventsHome#events', label: 'Eventos' },
+                            { to: 'contact#contact', label: 'Contacto' },
+                        ].map((item, index) => (
+                            <Box component="li" key={index} sx={{ px: 2, display: 'flex', alignItems: 'center' }}>
+                                <Link to={item.to} style={{ textDecoration: 'none' }}>
+                                    <Typography
+                                        sx={{
+                                            '&:hover': { color: "primary.main" },
+                                            cursor: 'pointer',
+                                            color: "text.primary"
+                                        }}
+                                    >
+                                        {item.label}
+                                    </Typography>
+                                </Link>
+                            </Box>
+                        ))}
+                    </Box>
+                </Box>
+            )}
+
+            {/* Icons */}
+            <Box
+                sx={{
+                    width: '20%',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-end',
+                }}
+            >
+                <IconButton onClick={toggleDarkMode} sx={{ color: 'white', mr: 2 }}>
+                    <MaterialUISwitch sx={{bgcolor:"none"}}  checked={checked} onChange={handleChecked} />
+                </IconButton>
+
+                <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+                    <Link to="/login" style={{ textDecoration: 'none' }}>
+                        <Button
+                            variant="text"
+                            startIcon={<LoginIcon />}
+                            sx={{
+                                px: 2.8,
+                                py: 0.60,
+                                minWidth: 'auto',
+                                borderRadius: '15px', 
+                                color: 'primary.main',
+                                border:"1px solid #FFDB00",
+                                textTransform: 'none',
+                                fontWeight: '500',
+                                fontSize: '0.95rem',
+                                transition: 'all 0.3s ease',
+                                '&:hover': {
+                                    color: 'common.white',
+                                    transform: 'scale(1.05)',
+                                },
+                            }}
+                        >
+                            Ingresar
+                        </Button>
+                    </Link>
+                </Box>
 
 
-
-                        <li>
-                            <Link  to="/#aboutUs" href="#aboutUs">
-                                Sobre nosotros
-                            </Link>
-                        </li>
-
-                        <li>
-                            <Link to="/#price">
-                                Precios
-                            </Link>
-                        </li>
-
-                        <li>
-                            <Link  to="eventsHome#events">
-                                Eventos
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="contact#contact">
-                                Contacto
-                            </Link>
-                        </li>
-
-                    </ol>
-                </nav>
-            </div>)}
-            <div className={style.header_icon_login}>
-                <Link to="/login">
-                    <button>
-                        <p>Ingresar</p>
-                        <LoginIcon className={style.icon_login} />
-
-                    </button>
-
-                </Link>
-
-
-                <div className={style.inactive}>
-                    <MenuIcon
-                        className={`${style.menuHamburguesa}`}
-                        onClick={() => handleShowMenu()}
-                    />
-                </div>
-            </div>
-        </header>
+                <Box sx={{ display: { xs: 'inline-block', md: 'none' } }}>
+                    <MenuIcon sx={{ color: 'white', cursor: 'pointer' }} onClick={handleShowMenu} />
+                </Box>
+            </Box>
+        </Box>
     );
 }
 
-export default Header
+export default Header;
