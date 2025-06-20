@@ -5,10 +5,26 @@
   max-width: 450px;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  background-color: white;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
+  background-color: var(--card-bg);
   margin-bottom: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  color: var(--text-color);
 }
+
+.inventoriCard:hover{
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
+  transition: all 0.3s ease;
+
+}
+
+.inventoriCard.darkTheme {
+  background-color: var(--card-bg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+
 
 .eventImage {
   width: 100%;
@@ -21,22 +37,26 @@
 .eventContent {
   flex: 1;
   padding: 5px 10px;
+  color: var(--text-color);
 }
 
 .eventTitle {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 6px;
+  color: var(--text-color);
 }
 
 .detailLabel {
   font-size: 14px;
-  color: #777;
+  color: var(--textSecond-color);
+  transition: color 0.3s ease;
 }
 
 .detailValue {
   font-size: 16px;
   font-weight: 500;
+  color: var(--text-color);
 }
 
 .eventActions {
@@ -46,24 +66,8 @@
   margin-top: 10px;
 }
 
-.statusButton {
-  background-color: #00c853; /* más suave y profesional que #00ff00 */
-  color: white;
-  border: none;
-  border-radius: 12px;
-  padding: 6px 14px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.statusButton:hover {
-  background-color: #009624;
-}
-
 .iconButtons {
   display: flex;
-
 }
 
 .iconButtons button {
@@ -74,10 +78,10 @@
 
 .iconButtons svg {
   font-size: 20px;
-  color: #333;
+  color: var(--text-color);
   transition: color 0.2s;
 }
 
 .iconButtons svg:hover {
-  color: #555;
+  color: var(--primarySecond-color);
 }

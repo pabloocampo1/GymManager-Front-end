@@ -17,7 +17,6 @@ function Events() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Cargar eventos cuando el componente se monta
   useEffect(() => {
     fetchEvents();
   }, []);
@@ -50,21 +49,14 @@ function Events() {
     setLoading(true);
     try {
       if (editingEvent !== null) {
-        // Si estamos editando un evento existente
         const updatedEvent = await EventService.updateEvent(editingEvent.id, newEvent);
-        
-        // Actualizar el estado local
         setEvents(events.map(event => 
           event.id === updatedEvent.id ? updatedEvent : event
         ));
       } else {
-        // Si estamos creando un nuevo evento
         const addedEvent = await EventService.createEvent(newEvent);
-        
-        // Actualizar el estado local
         setEvents([...events, addedEvent]);
       }
-      
       setError(null);
     } catch (err) {
       console.error("Error al guardar evento:", err);
@@ -86,8 +78,6 @@ function Events() {
     setLoading(true);
     try {
       await EventService.deleteEvent(event.id);
-      
-      // Actualizar el estado local
       setEvents(events.filter(e => e.id !== event.id));
       setError(null);
     } catch (err) {
@@ -119,7 +109,9 @@ function Events() {
   return (
     <div className={styles.eventosContainer}>
       <div className={styles.eventoHeader}>
-        <h1 className={styles.eventosTitle}>Eventos</h1>
+        <div className={styles.headerLeft}>
+          <h1 className={styles.eventosTitle}>Eventos</h1>
+        </div>
         <div className={styles.eventosActions}>
           <div className={styles.eventosSearch}>
             <Search size={16} className={styles.searchIcon} />
@@ -133,7 +125,11 @@ function Events() {
           <button className={styles.filterButton} onClick={handleOpenMenu}>
             <FilterAltIcon /> Filtrar
           </button>
-          <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleCloseMenu}>
+          <Menu 
+            anchorEl={anchorEl} 
+            open={Boolean(anchorEl)} 
+            onClose={handleCloseMenu}
+          >
             <MenuItem onClick={() => handleFilterSelect("Todos")}>Todos</MenuItem>
             <MenuItem onClick={() => handleFilterSelect("crossfit")}>CrossFit</MenuItem>
             <MenuItem onClick={() => handleFilterSelect("natacion")}>Natación</MenuItem>
@@ -141,7 +137,7 @@ function Events() {
             <MenuItem onClick={() => handleFilterSelect("powerlifting")}>Powerlifting</MenuItem>
           </Menu>
           <button 
-            className={styles.addButton} 
+            className={styles.addButton}
             onClick={() => {
               setEditingEvent(null);
               setIsModalOpen(true);
@@ -173,10 +169,10 @@ function Events() {
       />
       
       <div className={styles.eventosList}>
-        
-        
         {!loading && filteredEvents.length === 0 && (
-          <p className={styles.emptyMessage}>No hay eventos que mostrar actualmente</p>
+          <p className={styles.emptyMessage}>
+            No hay eventos que mostrar actualmente
+          </p>
         )}
         
         {filteredEvents.map((event) => (

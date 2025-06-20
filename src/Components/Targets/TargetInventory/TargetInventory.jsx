@@ -8,7 +8,7 @@ import ButtonInTime from "../../Buttons/ButtonInTime";
 import DocumentViewer from "../../DocumentViewer";
 import Swal from "sweetalert2";
 
-const TargetInventory = ({ inventory, onDelete, onEdit }) => {
+const TargetInventory = ({ inventory, onDelete, onEdit, isDarkMode }) => {
   const getEventStatus = () => {
     const estado = inventory.estado;
     if (estado === "Aceptable") {
@@ -32,23 +32,27 @@ const TargetInventory = ({ inventory, onDelete, onEdit }) => {
       confirmButtonText: 'Eliminar',
       cancelButtonColor: '#000000',
       confirmButtonColor: '#D3D837',
+      background: isDarkMode ? '#2d2d2d' : '#ffffff',
+      color: isDarkMode ? '#e4e4e4' : '#000000',
       customClass: {
         confirmButton: 'mi-boton-confirmar',
       }
     }).then((result) => {
       if (result.isConfirmed) {
         onDelete(inventory.id);
-        Swal.fire(
-          '¡Eliminado!',
-          'El elemento ha sido eliminado correctamente.',
-          'success'
-        );
+        Swal.fire({
+          title: '¡Eliminado!',
+          text: 'El elemento ha sido eliminado correctamente.',
+          icon: 'success',
+          background: isDarkMode ? '#2d2d2d' : '#ffffff',
+          color: isDarkMode ? '#e4e4e4' : '#000000'
+        });
       }
     });
   };
 
   return (
-    <div className={styles.inventoriCard}>
+    <div className={`${styles.inventoriCard} ${isDarkMode ? styles.darkTheme : ''}`}>
       <div className={styles.imageContainer}>
         <DocumentViewer 
           imageUrl={imageUrl}
@@ -68,8 +72,8 @@ const TargetInventory = ({ inventory, onDelete, onEdit }) => {
         </div>
 
         <div className={styles.eventActions}>
-          {eventStatus === "Aceptable" && <ButtonInTime text="aceptable" />}
-          {eventStatus === "deplorable" && <ButtonInactive text="deplorable" />}
+          {eventStatus === "Aceptable" && <ButtonInTime text="aceptable" isDarkMode={isDarkMode} />}
+          {eventStatus === "deplorable" && <ButtonInactive text="deplorable" isDarkMode={isDarkMode} />}
 
           <div className={styles.iconButtons}>
             <IconButton className={styles.editButton} onClick={() => onEdit(inventory)}>

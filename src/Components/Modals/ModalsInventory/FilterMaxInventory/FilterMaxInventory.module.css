@@ -1,109 +1,129 @@
-.overlay{
-      position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4); 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1002; 
-
-}
-.ConteinerFilterMax { 
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1002;
+  }
+  
+  /* Contenedor principal del modal */
+  .ConteinerFilterMax {
     position: fixed;
     align-items: center;
-  justify-content: center;
-    top:10%;
+    justify-content: center;
+    top: 10%;
     left: 33%;
     transform: translate(-10%, -33%);
-    background-color: white;
+    background-color: var(--card-bg);
+    color: var(--text-color);
     border-radius: 8px;
     padding: 20px;
     max-width: 800px;
-    width: 90%;  
+    width: 90%;
     max-height: 100vh;
-      
-    overflow-y: auto;  
-    z-index: 1003;  
+    overflow-y: auto;
+    z-index: 1003;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    
-}
-
-.HeaderFilterMax {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Encabezado del modal */
+  .HeaderFilterMax {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
     align-items: center;
-}
-
-.selectFilter {
+  }
+  
+  .selectFilter {
     margin-top: 10px;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
-}
-
-.listFilterMax {
+    background: var(--input-bg);
+    color: var(--text-color);
+    font-size: 14px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  /* Contenedor de la lista */
+  .listFilterMax {
     max-height: 350px;
     overflow-y: auto;
     border: 1px solid #eee;
     padding: 10px;
-}
-
-.itemsGrid {
+    background-color: var(--input-bg);
+    border-radius: 6px;
+  }
+  
+  /* Grid de ítems */
+  .itemsGrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 15px;
     max-height: 300px;
     overflow-y: auto;
-}
-
-.filterItem {
+  }
+  
+  /* Item individual */
+  .filterItem {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid #eee;
+    border: 1px solid #ccc;
+    background: var(--card-bg);
     padding: 10px;
-    border-radius: 4px;
+    border-radius: 6px;
     text-align: center;
     position: relative;
-}
-
-.smallImage {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Imagen del ítem */
+  .smallImage {
     width: 100px;
     height: 100px;
     object-fit: cover;
     margin-bottom: 10px;
     border-radius: 4px;
-}
-
-.itemName {
+  }
+  
+  /* Nombre del ítem */
+  .itemName {
     margin-bottom: 10px;
     font-size: 0.9rem;
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
-
-.itemCheckbox {
+    color: var(--text-color);
+  }
+  
+  /* Checkbox personalizado */
+  .itemCheckbox {
     appearance: none;
     width: 20px;
     height: 20px;
-    border: 2px solid #D3D837;
+    border: 2px solid var(--primarySecond-color);
     border-radius: 4px;
     outline: none;
     cursor: pointer;
     position: absolute;
     bottom: 10px;
     right: 10px;
+    background: var(--input-bg);
+    transition: background 0.3s ease;
   }
   
-.itemCheckbox:checked {
-    background-color: #D3D837;
-    border-color: #D3D837;
+  .itemCheckbox:checked {
+    background-color: var(--primarySecond-color);
+    border-color: var(--primarySecond-color);
   }
   
   .itemCheckbox:checked::after {
@@ -114,85 +134,84 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
-
-.modalActions {
+  
+  /* Acciones del modal */
+  .modalActions {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     margin-top: 20px;
-    justify-content:end;
-}
-
-.acceptButton, .cancelButton {
+    gap: 10px;
+  }
+  
+  .acceptButton,
+  .cancelButton {
     padding: 10px 15px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin-right: 15px ;
-}
-
-.acceptButton {
+    font-weight: 500;
+  }
+  
+  .acceptButton {
     background-color: var(--primarySecond-color);
-    color: white;
-}
-
-.cancelButton {
+    color: #000;
+  }
+  
+  .cancelButton {
     background-color: #000000;
     color: white;
-}
-
-.acceptButton:disabled {
+  }
+  
+  .acceptButton:disabled {
     background-color: #cccccc;
     cursor: not-allowed;
-    
-}
-
-/* Scrollbar personalizado para listFilterMax */
-.listFilterMax::-webkit-scrollbar {
+  }
+  
+  /* Scrollbar personalizado */
+  .listFilterMax::-webkit-scrollbar {
     width: 8px;
-}
-
-.listFilterMax::-webkit-scrollbar-track {
+  }
+  .listFilterMax::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 4px;
-}
-
-.listFilterMax::-webkit-scrollbar-thumb {
+  }
+  .listFilterMax::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 4px;
-}
-
-.listFilterMax::-webkit-scrollbar-thumb:hover {
+  }
+  .listFilterMax::-webkit-scrollbar-thumb:hover {
     background: #555;
-}
-
-/* Ajustes responsivos */
-@media (max-width: 600px) {
+  }
+  
+  /* Responsive */
+  @media (max-width: 600px) {
     .ConteinerFilterMax {
-        width: 95%;
-        max-width: 100%;
-        margin: 0 10px;
+      width: 95%;
+      max-width: 100%;
+      margin: 0 10px;
     }
-
+  
     .itemsGrid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     }
-
+  
     .modalActions {
-        flex-direction: column;
-        gap: 10px;
+      flex-direction: column;
     }
-
-    .acceptButton, .cancelButton {
-        width: 100%;
+  
+    .acceptButton,
+    .cancelButton {
+      width: 100%;
     }
-}
-
-.errorMessage {
-  color: #dc3545;
-  background-color: #f8d7da;
-  border: 1px solid #f5c6cb;
-  border-radius: 4px;
-  padding: 10px;
-  margin: 10px 0;
-  text-align: center;
-}
+  }
+  
+  /* Mensaje de error */
+  .errorMessage {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px 0;
+    text-align: center;
+  }

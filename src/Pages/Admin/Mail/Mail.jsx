@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, MenuItem, Button } from "@mui/material";
 import { Filter } from "lucide-react";
 import "./Mail.css";
@@ -87,8 +87,11 @@ function Promotions() {
   };
 
   return (
-    <>
-      <h1 className="promotions-title">Promociones</h1>
+    <div className="promotions-wrapper">
+      <div className="promotions-header">
+        <h1 className="promotions-title">Promociones</h1>
+      </div>
+
       <form className="promotions-container" onSubmit={handleSubmit}>
         {error && <div className="error-message">{error}</div>}
         {success && <div className="success-message">Correo enviado exitosamente</div>}
@@ -111,7 +114,11 @@ function Promotions() {
             <Filter size={16} /> Filtrar
           </button>
 
-          <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => handleCloseMenu()}>
+          <Menu 
+            anchorEl={anchorEl} 
+            open={Boolean(anchorEl)} 
+            onClose={() => handleCloseMenu()}
+          >
             <MenuItem onClick={() => handleCloseMenu("Usuarios Activos")}>Usuarios Activos</MenuItem>
             <MenuItem onClick={() => handleCloseMenu("Usuarios Inactivos")}>Usuarios Inactivos</MenuItem>
             <MenuItem onClick={() => handleCloseMenu("Todos los usuarios")}>Todos los usuarios</MenuItem>
@@ -151,7 +158,7 @@ function Promotions() {
           {loading ? "Enviando..." : "Enviar"}
         </button>
       </form>
-    </>
+    </div>
   );
 }
 

@@ -1,5 +1,17 @@
 import { api } from '../Service/api.jsx';
 
+const dataURLtoFile = (dataurl, filename) => {
+  const arr = dataurl.split(',');
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], filename, { type: mime });
+};
+
 const normalizeImageResponse = (item) => {
   // Cambia 'imagen' por 'imagenUrl' para que coincida con tu DTO
   if (item.imagenUrl && !item.image) {
@@ -117,8 +129,5 @@ const InventoryService = {
     }
   }
 };
-
-
-
 
 export default InventoryService;

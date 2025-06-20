@@ -8,7 +8,7 @@ import InventoryModal from "../../../Components/Modals/ModalsInventory/ModalInve
 import TargetInventory from "../../../Components/Targets/TargetInventory/TargetInventory";
 import FilterMaxInventory from "../../../Components/Modals/ModalsInventory/FilterMaxInventory/FilterMaxInventory";
 import InventoryService from "../../../Service/InventoryService"; // Make sure to adjust the path as needed
-
+import { useTheme } from 'next-themes';
 const Inventory = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -19,6 +19,7 @@ const Inventory = () => {
   const [editingItem, setEditingItem] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   
   useEffect(() => {

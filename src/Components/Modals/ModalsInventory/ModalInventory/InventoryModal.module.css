@@ -1,5 +1,5 @@
 .modalOverlay {
-  position: absolute; 
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -8,90 +8,88 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
   z-index: 1000;
 }
 
 .modal {
   position: relative;
-  background: white;
+  background: var(--card-bg, white);
   padding: 25px;
   border-radius: 10px;
   width: 800px;
   max-width: 90vw;
   text-align: center;
-  z-index: 1001;
+  color: var(--text-color, black);
+  transition: all 0.3s ease;
 }
-.modalClosebtn{
+
+.modalClosebtn {
   width: 100%;
-  height: auto;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
+}
+
+.modalClosebtn svg {
+  color: inherit;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .title {
+  margin-top: 10px;
   margin-bottom: 38px;
   text-align: center;
-  margin-top: 10px;
 }
-
 
 .formRow {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 15px;
-  margin-bottom: 43px;
+  margin-bottom: 40px;
 }
-
 
 .formGroup {
-  
+  display: flex;
   flex-direction: column;
-  width: 100%; 
+  width: 100%;
 }
 
+.formGroup label {
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: var(--textSecond-color, #555);
+}
 
 .input,
 .select {
-  flex-grow: 1; 
-  min-width: 200px; 
-  max-width: 100%; 
   padding: 8px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 6px;
+  background: var(--input-bg, #f1f1f1);
+  color: black;
+  font-size: 14px;
+  transition: all 0.3s ease;
 }
 
-
-.fullRow {
-  grid-column: span 3;
+.select {
+  cursor: pointer;
 }
 
-
-.imageUpload {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 2px dashed #ccc;
-  padding: 10px;
-  width: 130px;
-  height: 130px;
-  justify-content: center;
-  text-align: center;
-}
-._formGroup_10700_71{
-  width: 231px;
-
-}
-._formGroup_1xbml_71{
-  width: 471px;
-    margin-left: -120px;
-}
-.imagePreview {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
+.imageUpload { 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  border: 2px dashed #ccc; 
+  padding: 10px; 
+  width: 130px; 
+  height: 130px; 
+  justify-content: center; 
+  text-align: center; 
+  transition: all 0.3s ease; }
+   .imagePreview { 
+    max-width: 100%; 
+    max-height: 100%; 
+    object-fit: contain; }
 
 .buttonContainer {
   display: flex;
@@ -107,13 +105,26 @@
   border: none;
   cursor: pointer;
   border-radius: 5px;
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
 .addBtn {
-  background: yellow;
+  background: #D3D837;
   color: black;
   padding: 8px 15px;
   border: none;
   cursor: pointer;
   border-radius: 5px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.addBtn:hover {
+  background: #e5c100;
+}
+
+.addBtn:disabled {
+  background: #a8a8a8;
+  cursor: not-allowed;
 }

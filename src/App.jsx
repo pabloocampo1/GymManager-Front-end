@@ -21,64 +21,75 @@ import { AuthContextProvider } from './Context/AuthContext'
 import PrivateRoute from './Routes/PrivateRoute'
 import GuestRoute from './Routes/GuestRoute'
 import ProfilesGym from './Pages/Admin/ProfilesGym/ProfilesGym'
-
-
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import ActivityRegister from './Pages/Admin/Dashboard/ActivityRegister'
 import TerminosYCondiciones from './Pages/TerminosYCondiciones/TerminosYCondiciones'
+import React, { createContext, useContext, useEffect, useState } from 'react'
+
+export const DarkModeContext = createContext()
 
 function App() {
-    const clientId = "161148106630-1e8ad1edsce66mqtrt42roin5llu7ipb.apps.googleusercontent.com";
+    const clientId = "161148106630-1e8ad1edsce66mqtrt42roin5llu7ipb.apps.googleusercontent.com"
+    const [darkMode, setDarkMode] = useState(() => {
+        const stored = localStorage.getItem('darkMode')
+        return stored ? JSON.parse(stored) : false
+    })
+
+    useEffect(() => {
+        if (darkMode) {
+            document.body.classList.add('dark-mode')
+        } else {
+            document.body.classList.remove('dark-mode')
+        }
+        localStorage.setItem('darkMode', JSON.stringify(darkMode))
+    }, [darkMode])
 
     return (
-
-        <BrowserRouter>
-            <GoogleOAuthProvider clientId={clientId}>
-                <AuthContextProvider>
+        <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
+            <BrowserRouter>
+                <GoogleOAuthProvider clientId={clientId}>
                     <AuthContextProvider>
-                        < Routes >
-                            <Route path="/" element={<PublicLayout />}>
-                                <Route index element={<Home />} />
-                                <Route path="/contact" element={<ContactHome />} />
-                                <Route path="/eventsHome" element={<EventHome />} />
-                                <Route index element={<Dashboard />} />
-                                <Route path='acceso' element={<ControlAcces />}></Route>
-                                <Route path='miembros' element={<Miembros />}></Route>
-                                <Route path='membresias' element={<Membresias />}></Route>
-                                <Route path="correo" element={<Promotions />} />
-                                <Route path="eventos" element={<Events />} />
-                                <Route path="inventario" element={<Inventory />} />
-                                
-                            </Route>
+                        <AuthContextProvider>
+                            <Routes>
+                                <Route path="/" element={<PublicLayout />}>
+                                    <Route index element={<Home />} />
+                                    <Route path="/contact" element={<ContactHome />} />
+                                    <Route path="/eventsHome" element={<EventHome />} />
+                                    <Route index element={<Dashboard />} />
+                                    <Route path='acceso' element={<ControlAcces />}></Route>
+                                    <Route path='miembros' element={<Miembros />}></Route>
+                                    <Route path='membresias' element={<Membresias />}></Route>
+                                    <Route path="correo" element={<Promotions />} />
+                                    <Route path="eventos" element={<Events />} />
+                                    <Route path="inventario" element={<Inventory />} />
+                                </Route>
 
-                            <Route path='/login' element={<GuestRoute />}>
-                                <Route index element={<Login />} />
-                            </Route>
-                            <Route path='/ForgetPass' element={<ForgotPassword />} />
-                            <Route path='/resetPassword' element={<SecurityCode />} />
+                                <Route path='/login' element={<GuestRoute />}>
+                                    <Route index element={<Login />} />
+                                </Route>
+                                <Route path='/ForgetPass' element={<ForgotPassword />} />
+                                <Route path='/resetPassword' element={<SecurityCode />} />
 
-
-                    <Route path="/dashboard" element={<PrivateRoute />}>
-                        <Route  element={<PrivateLayout />} >
-                            <Route index element={<Dashboard />} />
-                            <Route path='acceso' element={<ControlAcces />}></Route>
-                            <Route path='miembros' element={<Miembros />}></Route>
-                            <Route path='membresias' element={<Membresias />}></Route>
-                            <Route path="correo" element={<Promotions />} />
-                            <Route path="eventos" element={<Events />} />
-                            <Route path="inventario" element={<Inventory />} />
-                            <Route path="perfil" element={<Profile />} />
-                            <Route path="perfil/TyC" element={<TerminosYCondiciones />} />
-                        </Route>
-                    </Route>
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-              </AuthContextProvider>
-            </AuthContextProvider>
-          </GoogleOAuthProvider>
-        </BrowserRouter>
-
-
+                                <Route path="/dashboard" element={<PrivateRoute />}>
+                                    <Route element={<PrivateLayout />}>
+                                        <Route index element={<Dashboard />} />
+                                        <Route path='acceso' element={<ControlAcces />}></Route>
+                                        <Route path='miembros' element={<Miembros />}></Route>
+                                        <Route path='membresias' element={<Membresias />}></Route>
+                                        <Route path="correo" element={<Promotions />} />
+                                        <Route path="eventos" element={<Events />} />
+                                        <Route path="inventario" element={<Inventory />} />
+                                        <Route path="perfil" element={<Profile />} />
+                                        <Route path="perfil/TyC" element={<TerminosYCondiciones />} />
+                                    </Route>
+                                </Route>
+                                <Route path="*" element={<NotFound />} />
+                            </Routes>
+                        </AuthContextProvider>
+                    </AuthContextProvider>
+                </GoogleOAuthProvider>
+            </BrowserRouter>
+        </DarkModeContext.Provider>
     )
 }
 

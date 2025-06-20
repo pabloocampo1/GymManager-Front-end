@@ -41,26 +41,18 @@ const InventoryModal = ({
     setIsSubmitting(false);
   }, []);
 
-  
   const handleClose = useCallback(() => {
-    
     if (!isSubmitting) {
-      // Llamamos a onClose de inmediato para mejorar la experiencia del usuario
       onClose();
-      
-      
       if (closeTimeoutRef.current) {
         clearTimeout(closeTimeoutRef.current);
       }
-      
-      
       closeTimeoutRef.current = setTimeout(() => {
         resetForm();
       }, 100); 
     }
   }, [isSubmitting, onClose, resetForm]);
 
- 
   useEffect(() => {
     return () => {
       if (closeTimeoutRef.current) {
@@ -71,7 +63,6 @@ const InventoryModal = ({
 
   useEffect(() => {
     if (initialItemData && isOpen) {
-      
       const imageData = initialItemData.image || initialItemData.imagen || null;
       
       setFormData({
@@ -129,15 +120,11 @@ const InventoryModal = ({
       return;
     }
 
-   
     setIsSubmitting(true);
     
     try {
-     
       onClose();
       await onAddItem(formData);
-      
-      
       resetForm();
     } catch (error) {
       console.error("Error al guardar el item:", error);
@@ -146,7 +133,6 @@ const InventoryModal = ({
     }
   };
 
- 
   const modalVariants = {
     hidden: { scale: 0.8, opacity: 0 },
     visible: { scale: 1, opacity: 1, transition: { duration: 0.15 } },
@@ -298,7 +284,6 @@ const InventoryModal = ({
                     accept="image/png, image/jpeg"
                     disabled={isSubmitting}
                   />
-                  
                   
                   <DocumentViewer 
                     imageUrl={formData.image}

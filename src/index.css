@@ -1,28 +1,65 @@
-
-:root{
-    --primary-color:#FFDB00;
-    --primarySecond-color:#D3D837;
-    --textSecond-color:#9b9b9b;
-    --colorByBackgrounds: rgb(25, 25, 25,1);
-    --backgroundWhiteMiddle:#F9F9F9;
-}
-
-*{
+:root {
+    --primary-color: #FFDB00;
+    --primarySecond-color: #D3D837;
+    --textSecond-color: #9b9b9b;
+    --text-color: #111111;
+    --card-bg: #ffffff;
+    --input-bg: #f2f2f2;
+    --bg-color: #f9f9f9;
+    --border-color: #D3D837;
+  }
+  
+  body.dark-mode {
+    --bg-color: #161717;             /* Fondo general */
+    --card-bg: #1f1f1f;              /* Fondos de tarjetas/modales */
+    --input-bg: #222222;             /* Fondos de inputs */
+    --border-color: #333333;         /* Bordes sutiles */
+    --text-color: #e0e0e0;           /* Texto principal */
+    --textSecond-color: #b0b0b0;     /* Texto secundario */
+    --label-color: #aaaaaa;          /* Labels */
+    --btn-bg: #D3D837;               /* Botón principal */
+    --btn-hover-bg: #c4c92f;
+    --btn-text: #000000;
+    --error-bg: #3a1f1f;
+    --error-text: #f28b82;
+    --success-bg: #1f3321;
+    --success-text: #8fd19e;
+  }
+  
+  
+  * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-}
-html{
+  }
+  
+  html {
     font-family: "Inter", sans-serif;
-    scroll-padding-top: 12vh; 
-}
-body{
+    scroll-padding-top: 12vh;
+  }
+  
+  body {
     font-family: "Inter", sans-serif;
-    
-}
-
-
-
-
-
-
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+  
+  input, textarea, select {
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+  }
+  
+  /* Puedes seguir agregando aquí más elementos personalizados */
+  
+  .inventory_container,
+  ._inventoriCard_1wps6_1,
+  .inventory_header {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+  }
+  
+  .inventoryList::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+  }
+  
