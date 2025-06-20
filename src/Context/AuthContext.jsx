@@ -10,6 +10,7 @@ export const AuthContext = createContext();
 
 const initialValue = JSON.parse(localStorage.getItem("userAuthGymManager")) || {
     username: null,
+    email: null,
     role: null,
     isAuthenticated: false,
     token: null,
@@ -23,6 +24,7 @@ const authReduce = (state, action) => {
             return {
                 ...state,
                 username: action.payload.username,
+                email: action.payload.email,
                 role: action.payload.role,
                 token: action.payload.token,
                 isAuthenticated: action.payload.isAuthenticated,
@@ -37,6 +39,7 @@ const authReduce = (state, action) => {
             return {
                 ...state,
                 username: null,
+                email: null,
                 role: null,
                 token: null,
                 isAuthenticated: false,
@@ -71,6 +74,7 @@ export const AuthContextProvider = ({ children }) => {
                 if (response.status == 201) {
                     const userLogged = {
                         username: response.data.username,
+                        email: response.data.email,
                         role: response.data.role,
                         token: response.data.jwt,
                         isAuthenticated: response.data.status,
@@ -144,7 +148,7 @@ export const AuthContextProvider = ({ children }) => {
             const userLoggedRaw = localStorage.getItem("userAuthGymManager");
 
             if (!userLoggedRaw) {
-            dispatch({ type: "authReady" }); // 👉 Autenticación lista pero sin sesión
+            dispatch({ type: "authReady" }); 
             return;
         }
             const userLogged = JSON.parse(userLoggedRaw);

@@ -33,7 +33,7 @@ export function ThemeContextProvider({ children }) {
           },
           text: {
             primary: darkMode ? "#FFFFFF" : "#121212",
-            secondary: darkMode ? "#F9F9F9" : "#6FCFBC",
+            secondary: darkMode ? "#6FCFBC" : "#6FCFBC",
           }
         }
       }),

@@ -107,41 +107,18 @@ const InventoryService = {
     }
   },
 
-};
-
-// Aquí está el código para la actualización en bloque de los items
-const bulkUpdateItems = async (items) => {
-  try {
-    const response = await api.put(`/api/inventory/updateEstados`, items);
-    return response.data; // Si no es necesario normalizar la respuesta
-  } catch (error) {
-    console.error('Error bulk updating inventory items:', error);
-    throw error;
-  }
-};
-
-// Función auxiliar para convertir una URL de datos a un archivo
-function dataURLtoFile(dataurl, filename) {
-  if (!dataurl || typeof dataurl !== 'string' || !dataurl.startsWith('data:')) {
-    return null;
-  }
-
-  try {
-    const arr = dataurl.split(',');
-    const mime = arr[0].match(/:(.*?);/)[1];
-    const bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
-
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
+  bulkUpdateItems: async (items) => {
+    try {
+      const response = await api.put(`/api/inventory/updateEstados`, items);
+      return response.data;
+    } catch (error) {
+      console.error('Error bulk updating inventory items:', error);
+      throw error;
     }
-
-    return new File([u8arr], filename, { type: mime });
-  } catch (error) {
-    console.error('Error converting data URL to File:', error);
-    return null;
   }
-}
+};
+
+
+
 
 export default InventoryService;

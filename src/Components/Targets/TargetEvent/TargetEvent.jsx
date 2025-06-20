@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import React from "react";
 import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -7,12 +6,10 @@ import styles from "./TargetEvent.module.css";
 import ButtonActive from "../../Buttons/ButtonActive";
 import ButtonInactive from "../../Buttons/ButtonInactive";
 import ButtonInTime from "../../Buttons/ButtonInTime";
-import ConfirmationModalEvent from "../../Modals/ModalsEvents/ConfirmationModalEvents/ConfrimatiModalEvent";
 import DocumentViewer from "../../DocumentViewer";
+import Swal from "sweetalert2";
 
 const TargetEvent = ({ event, onDelete, onEdit }) => {
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
   const getEventStatus = (fechaEvento) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -27,7 +24,32 @@ const TargetEvent = ({ event, onDelete, onEdit }) => {
   const imageUrl = event.image || event.imagen || event.imagenFile || "";
 
   const handleEditClick = () => onEdit?.();
-  const handleDeleteClick = () => setIsDeleteModalOpen(true);
+
+  const handleDeleteClick = () => {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: `Se eliminará el evento con el nombre: ${event.nombre}`,
+      icon: 'warning',
+      showCancelButton: true,
+      reverseButtons: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar',
+      cancelButtonColor: '#000000',
+      confirmButtonColor: '#D3D837',
+      customClass: {
+        confirmButton: 'mi-boton-confirmar',
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        onDelete?.(event);
+        Swal.fire(
+          '¡Eliminado!',
+          'El evento ha sido eliminado correctamente.',
+          'success'
+        );
+      }
+    });
+  };
 
   return (
     <div className={styles.eventCard}>
@@ -37,10 +59,7 @@ const TargetEvent = ({ event, onDelete, onEdit }) => {
       <div className={styles.eventContent}>
         <h3 className={styles.eventTitle}>{event.nombre}</h3>
         <div className={styles.eventDetails}>
-          <div className={styles.detailItem}>
-            <span className={styles.detailLabel}>Lugar</span>
-            <span className={styles.detailValue}>{event.lugar}</span>
-          </div>
+          
           <div className={styles.detailItem}>
             <span className={styles.detailLabel}>Fecha</span>
             <span className={styles.detailValue}>{event.fechaEvento}</span>
@@ -60,17 +79,6 @@ const TargetEvent = ({ event, onDelete, onEdit }) => {
           </div>
         </div>
       </div>
-      {isDeleteModalOpen &&
-        ReactDOM.createPortal(
-          <ConfirmationModalEvent
-            onClose={() => setIsDeleteModalOpen(false)}
-            onConfirm={() => {
-              setIsDeleteModalOpen(false);
-              onDelete?.(event);
-            }}
-          />,
-          document.body
-        )}
     </div>
   );
 };

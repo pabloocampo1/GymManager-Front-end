@@ -17,14 +17,27 @@ import AccordionTransition from '../AccordionContactHome/AccordionContactHome';
 import { sendContactEmail } from '../../../Service/HomeEmailService';
 
 const ContactHome = () => {
-    const onChange = () => { };
-    const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+    const [captchaToken, setCaptchaToken] = useState(null);
+    
+    const onChange = (token) => {
+        setCaptchaToken(token);
+    }
+
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        message: ''
+    });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+        
         setError(null);
     };
 
@@ -34,14 +47,24 @@ const ContactHome = () => {
         setError(null);
 
         try {
-            if (!formData.name || !formData.email || !formData.message) throw new Error("Por favor completa todos los campos");
+         
+            if (!formData.name || !formData.email || !formData.message) {
+                throw new Error("Por favor completa todos los campos");
+            }
+            
+           
+            if (!captchaToken) {
+                throw new Error("Por favor verifica que no eres un robot");
+            }
 
+          
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(formData.email)) throw new Error("Por favor ingresa un correo electrónico válido");
 
-            await sendContactEmail(formData);
+            await sendContactEmail({ ...formData, captchaToken });
             alert("Mensaje enviado con éxito");
             setFormData({ name: '', email: '', message: '' });
+            alert("Mensaje enviado con éxito");
         } catch (error) {
             alert(error.message || "Hubo un error al enviar el mensaje");
             setError(error.message);

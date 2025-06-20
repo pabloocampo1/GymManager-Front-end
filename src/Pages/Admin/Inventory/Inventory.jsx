@@ -20,7 +20,7 @@ const Inventory = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Fetch all inventory items when component mounts
+  
   useEffect(() => {
     fetchInventoryItems();
   }, []);
@@ -47,18 +47,18 @@ const Inventory = () => {
     setLoading(true);
     try {
       if (newItem.id) {
-        // Update existing item
+        
         const updatedItem = await InventoryService.updateItem(newItem.id, newItem);
         
-        // Update local state
+       
         setItems(items.map(item => 
           item.id === updatedItem.id ? updatedItem : item
         ));
       } else {
-        // Add new item
+        
         const addedItem = await InventoryService.createItem(newItem);
         
-        // Update local state
+        
         setItems([...items, addedItem]);
       }
       
@@ -78,7 +78,7 @@ const Inventory = () => {
     try {
       await InventoryService.deleteItem(itemId);
       
-      // Update local state
+      
       setItems(items.filter(item => item.id !== itemId));
       setError(null);
     } catch (err) {
@@ -97,10 +97,10 @@ const Inventory = () => {
   const handleUpdateItemsFromFilterMax = async (updatedItems) => {
     setLoading(true);
     try {
-      // This would depend on your backend implementation
+      
       await InventoryService.bulkUpdateItems(updatedItems);
       
-      // Refresh from backend
+      
       await fetchInventoryItems();
       
       setError(null);
@@ -147,11 +147,12 @@ const Inventory = () => {
           <FilterAltIcon className={styles.filter_icon} /> Filtrar
         </button>
         
-        <SyncIcon
-          className={styles.FilterMax} 
-          onClick={handleToggleFilterModal}
-        />
-        
+        <span title="Actualizar lista">
+          <SyncIcon
+            className={styles.FilterMax} 
+            onClick={handleToggleFilterModal}
+          />
+        </span>
         <Menu 
           anchorEl={anchorEl} 
           open={Boolean(anchorEl)} 

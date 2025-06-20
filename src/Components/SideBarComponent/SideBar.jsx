@@ -38,11 +38,14 @@ function SideBar({ onLogoutClick }) {
         "/dashboard/eventos": "Eventos",
         "/dashboard/correo": "Email",
         "/dashboard/inventario": "Inventario",
-        "/dashboard/perfil": "perfil"
+        "/dashboard/perfil": "perfil",
+        "/dashboard/perfil/profiles": "perfil",
+        "/dashboard/perfil/TyC": "perfil"
     };
 
     useEffect(() => {
-        const current = routeMap[location.pathname] || "inicio";
+        const pathBase = location.pathname.split('/').slice(0, -1).join('/');
+        const current = routeMap[location.pathname] || routeMap[pathBase] || "inicio";
         setActiveLink(current);
         localStorage.setItem('activeLink', current);
     }, [location.pathname]);
