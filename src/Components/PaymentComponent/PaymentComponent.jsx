@@ -13,7 +13,7 @@ const PaymentComponent = ({ userInfo = [], isUpdateMembership, closeUpdateSubscr
     const [memberships, setMemberships] = useState([]);
     const [dataPurchase, setDataPurchase] = useState({
         userId: '',
-        membershipId: '',
+        membershipId: '',  
         purchaseMethod: '',
         receptionistName: '',
 
@@ -94,7 +94,7 @@ const PaymentComponent = ({ userInfo = [], isUpdateMembership, closeUpdateSubscr
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "space-between",
-            bgcolor: "white",
+            bgcolor: "background.default",
             borderRadius: "10px",
             p: 2,
 

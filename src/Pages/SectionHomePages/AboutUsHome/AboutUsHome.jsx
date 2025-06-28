@@ -10,7 +10,7 @@ const AboutUsHome = () => {
     const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.5 });
 
     return (
-        <Box id="aboutUs" sx={{ width: '100%', backgroundColor: 'background.paper' }}>
+        <Box id="aboutUs" sx={{ width: '100%', backgroundColor: 'background.paper'}}>
             {/* About Us Section */}
             <Box
                 ref={ref}
@@ -27,6 +27,7 @@ const AboutUsHome = () => {
                     px: { xs: 2, md: 12 },
                     py: { xs: 4, md: 0 },
                     backgroundColor: 'background.default',
+                     borderRadius:"60px 60px 0px 0px " 
                 }}
             >
                 {/* Text */}
@@ -88,7 +89,8 @@ const AboutUsHome = () => {
                     backgroundColor: 'background.paper',
                     py: 4,
                     px: { xs: 2, md: 12 },
-                    mt:"20px",
+                    mt:"50px",
+                    pb:"100px"
                    
                 }}
             >
@@ -101,7 +103,7 @@ const AboutUsHome = () => {
                     ].map((stat, i) => (
                         <Grid item xs={6} md={3} key={i}>
                             <Box sx={{ textAlign: 'center' }}>
-                                <Typography sx={{ fontSize: '1.3rem', fontWeight: 700, color: 'var(--primarySecond-color)' }}>
+                                <Typography sx={{ fontSize: '1.3rem', fontWeight: 700, color: 'text.secondary' }}>
                                     {stat.value}
                                 </Typography>
                                 <Typography sx={{ color: 'text.primary', opacity: "0.50" }}>

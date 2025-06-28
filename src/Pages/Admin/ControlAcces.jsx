@@ -63,7 +63,7 @@ function ControlAcces() {
                 width: '100%',
                 minHeight: '100vh',
                 p: '20px 100px',
-                bgcolor: 'var(--backgroundWhiteMiddle)',
+                bgcolor: 'background.default',
                 display: 'flex',
                 alignItems: 'center',
                 flexDirection: 'column',
@@ -97,15 +97,15 @@ function ControlAcces() {
                     <Button
                         onClick={() => { setShowActivity(true) }}
                         variant="outlined"
-                        sx={{mr:"20px", borderColor:"black", color:"black"}}
+                        sx={{mr:"20px", borderColor:"primary.main", color:"text.primary"}}
                     >
-                        <AppRegistrationOutlined sx={{color:'black'}} />
+                        <AppRegistrationOutlined sx={{color:'text.primry'}} />
                         Ver Actividad
                     </Button>
                    <Button
                         onClick={() => { handleOpen() }}
                         variant="outlined"
-                        sx={{mr:"20px", borderColor:"black", color:"black"}}
+                        sx={{mr:"20px", borderColor:"primary.main", color:"text.primary"}}
                     >
                         <AddCard />
                         Visita Regular
@@ -115,7 +115,7 @@ function ControlAcces() {
 
             <Box
                 sx={{
-                    bgcolor: 'white',
+                    bgcolor: 'background.paper',
                     width: '100%',
                     height: '70vh',
                     borderRadius: '15px',
@@ -134,7 +134,7 @@ function ControlAcces() {
                         justifyContent: 'center',
                         pt: '20px',
                         position: "sticky",
-                        bgcolor: "white",
+                        bgcolor: "background.paper",
                         top: "0%",
                         right: "2%"
                     }}

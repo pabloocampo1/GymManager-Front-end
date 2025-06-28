@@ -30,7 +30,7 @@ export default function DataUserAccesAllInfo({ open, onClose, userId, message, }
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            bgcolor: "white",
+            bgcolor: "background.default",
             borderRadius: "15px"
         }}>
             <Typography variant="subtitle2" sx={{ opacity: 0.5, pb: "10px" }}>
@@ -103,7 +103,7 @@ export default function DataUserAccesAllInfo({ open, onClose, userId, message, }
                         transform: "translate(-50%, -50%)",
                         width: "80vw",
                         maxWidth: "70vw",
-                        bgcolor: "#F9F9F9",
+                        bgcolor: "background.paper",
                         maxHeight: "95vh",
                         overflowY: "auto",
                         overflowX: "hidden",

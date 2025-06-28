@@ -54,7 +54,7 @@ export default function AccordionTransition() {
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
-                backgroundColor: 'background.paper',
+                backgroundColor: 'background.default',
                 zIndex: 1
             }}
         >

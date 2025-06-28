@@ -75,10 +75,10 @@ const ContactHome = () => {
     };
 
     return (
-        <Box id="contact" sx={{ width: '100%', backgroundColor: 'background.paper', padding: { xs: '10px 20px', md: '100px' } }}>
+        <Box id="contact" sx={{ width: '100%', backgroundColor: 'background.default', borderRadius:"80px 80px 0px 0px " , padding: { xs: '10px 20px', md: '100px' }, mt:"60px", }}>
             <Box display="flex" flexWrap="wrap" justifyContent="center" gap={5}>
                 {/* Contact Details */}
-                <Box sx={{ width: { xs: '100%', md: '60%' },  border:"1px solid rgb(72, 72, 72)" }}>
+                <Box sx={{ width: { xs: '100%', md: '60%' },  border:"1px solid rgb(72, 72, 72)", backgroundColor:"" }}>
                     <Typography variant="h4" color="text.primary" textAlign="center" mb={3} mt={4}>Nuestros detalles de contacto</Typography>
                     <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))" sx={{ m: "20px" }} gap={1}>
                         {[
@@ -93,7 +93,7 @@ const ContactHome = () => {
                                     <Typography variant="h6" color="text.primary">{item.title}</Typography>
                                     <List dense>
                                         {item.details.map((detail, idx) => (
-                                            <ListItem key={idx} disableGutters sx={{ color: 'rgb(182, 182, 182)', pl: 0 }}>{detail}</ListItem>
+                                            <ListItem key={idx} disableGutters sx={{ color: 'text.primary',  opacity:"0.50", pl: 0 }}>{detail}</ListItem>
                                         ))}
                                     </List>
                                 </Box>

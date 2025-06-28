@@ -22,7 +22,7 @@ export default function SearchInput({ onSearch }) {
       onChange={handleChange}
       sx={{
         maxWidth: 400,
-        backgroundColor: "white",
+        backgroundColor: "background.paper",
         borderRadius: "5px",
         "& .MuiOutlinedInput-root": {
           height: "36px", 

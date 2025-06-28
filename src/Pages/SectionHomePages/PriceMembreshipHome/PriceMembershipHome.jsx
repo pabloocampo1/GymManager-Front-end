@@ -90,7 +90,7 @@ const PriceMembershipHome = () => {
     }
 
     return (
-        <Box id="price" sx={{ width: '100%', minHeight: '100vh', backgroundColor: 'background.default', px: { xs: '20px', md: '100px' }, py: 5 }}>
+        <Box id="price" sx={{ width: '100%', minHeight: '100vh', backgroundColor: 'background.default',  borderRadius:"30px 30px 0px 0px " , px: { xs: '20px', md: '100px' }, py: 5 }}>
             <Typography variant="h4" textAlign="center" sx={{ color:"text.primary", pt: 10, pb: 5, fontWeight: 'bold' }}>Nuestros Precios</Typography>
 
             <Grid container spacing={3} ref={ref}>
