@@ -14,6 +14,7 @@ import imageSearch from "../../assets/images/undraw_search-control_k649.svg"
 import { Outlet } from 'react-router-dom';
 import ActivityRegister from './Dashboard/ActivityRegister';
 import { AddCard, AppRegistrationOutlined, LocalActivity } from '@mui/icons-material';
+import QrScanner from '../../Components/QRScanner';
 
 function ControlAcces() {
     const [isUserSelected, setIsUserSelected] = useState(false);
@@ -22,6 +23,7 @@ function ControlAcces() {
     const [searchTerm, setSearchTerm] = useState('');
     const [userData, setUserData] = useState('');
     const [showActivity, setShowActivity] = useState(false);
+    const [showScanner, setShowScaneer] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -52,6 +54,19 @@ function ControlAcces() {
         setShowActivity(false)
         setIsUserSelected(true);
     };
+
+    function stopAllCameras() {
+  // Recorre todos los elementos <video> en la página
+  document.querySelectorAll("video").forEach((video) => {
+    if (video.srcObject) {
+      // Detiene cada pista del stream
+      video.srcObject.getTracks().forEach((track) => track.stop());
+      // Desasocia el stream del elemento
+      video.srcObject = null;
+    }
+  });
+}
+
 
     useEffect(() => {
         setIsUserSelected(false);
@@ -140,8 +155,8 @@ function ControlAcces() {
                     }}
                 >
                     <SearchInput onSearch={handleInputSearch} />
-                    <Box>
-                        <QrCode2Icon />
+                    <Box sx={{pl:"20px"}}>
+                        <QrCode2Icon  onClick={(() => setShowScaneer(true))} />
                     </Box>
 
 
@@ -162,8 +177,12 @@ function ControlAcces() {
                     >
                         {searchTerm === '' ? (
                             <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
-                                <Typography sx={{ color: "GrayText", fontSize: "20px", pb: "20px", pt: "20px" }}>No hay busquedas</Typography>
-                                <img width={300} src={imageSearch} alt="search_image" />
+                                
+                                 {showScanner ? ( <QrScanner closeScanner={() => {
+                                    stopAllCameras(), setShowScaneer(false)
+                                 }}/>) : (<>
+                                 <Typography sx={{ color: "GrayText", fontSize: "20px", pb: "20px", pt: "20px" }}>No hay busquedas</Typography>
+                                <img width={300} src={imageSearch} alt="search_image" /></>)} 
                             </Box>
                         ) : (
                             <DataUserAccesUI
@@ -177,7 +196,7 @@ function ControlAcces() {
                     </Box>
                 )}
 
-
+                   
             </Box>
 
             {showMessage && (
@@ -187,6 +206,7 @@ function ControlAcces() {
                     type={'success'}
                 />
             )}
+           
 
         </Box>
     );

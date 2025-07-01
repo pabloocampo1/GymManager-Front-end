@@ -73,7 +73,7 @@ function Header() {
                             { to: '/#aboutUs', label: 'Sobre nosotros' },
                             { to: '/#price', label: 'Precios' },
                             { to: 'eventsHome#events', label: 'Eventos' },
-                            { to: 'contact#contact', label: 'Contacto' },
+                            { to: '/#contact', label: 'Contacto' },
                         ].map((item, index) => (
                             <Box component="li" key={index} sx={{ px: 2, display: 'flex', alignItems: 'center' }}>
                                 <Link to={item.to} style={{ textDecoration: 'none' }}>
