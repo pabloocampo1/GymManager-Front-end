@@ -5,6 +5,7 @@ import AboutUsHome from '../AboutUsHome/AboutUsHome';
 import PriceMembershipHome from '../PriceMembreshipHome/PriceMembershipHome';
 import ContactHome from '../ContactHome/ContactHome';
 import StateSuscriptionSection from '../StateSuscriptionSection';
+import SectionSummaryEvents from '../SectionSummaryEvents';
 
 
 
@@ -15,6 +16,7 @@ function Home() {
             <AboutUsHome />
             <PriceMembershipHome />
             <StateSuscriptionSection />
+            <SectionSummaryEvents />
              <ContactHome />
         </div>
     );

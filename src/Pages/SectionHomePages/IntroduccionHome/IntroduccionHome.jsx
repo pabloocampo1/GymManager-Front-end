@@ -32,7 +32,7 @@ const sliderDuration = 10;
 export default function IntroduccionHome() {
     const theme = useTheme();
     const images = [imagen1, imagen2, imagen3];
-    const fullText = 'El SALON DE LOS\nDIOSES';
+    const fullText = 'VALLHALLA\nGYM';
     const [typedText, setTypedText] = useState('');
 
     useEffect(() => {
@@ -80,7 +80,7 @@ export default function IntroduccionHome() {
                         color: "primary.main"
                     }}
                 >
-                    VALLHALLA GYM
+                El salon de los dioses
                 </Typography>
                 <Typography
                     component="h1"
@@ -113,19 +113,19 @@ export default function IntroduccionHome() {
                 </Typography>
                 <Button
                     component={RouterLink}
-                    to="contact#contact"
+                    to="#contact"
                     variant="outlined"
                     sx={{
                         width: 120,
                         height: 40,
                         mt: 4,
-                        borderColor: theme.palette.primary.main,
+                        borderColor: "text.secondary",
                         borderRadius: 2,
-                        backgroundColor: '#000',
-
+                       
+                        color:"text.secondary",
                         '&:hover': {
                             borderWidth: 2,
-                            backgroundColor: 'rgba(255, 219, 0, 0.5)',
+                            backgroundColor: 'rgba(242, 242, 241,)',
                         },
                     }}
                 >

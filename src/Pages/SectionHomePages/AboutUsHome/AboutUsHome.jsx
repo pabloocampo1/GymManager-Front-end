@@ -19,7 +19,7 @@ const AboutUsHome = () => {
                 animate={{}}
                 sx={{
                     width: '100%',
-                    height: { xs: 'auto', md: '80vh' },
+                    height: { xs: 'auto', md: '90vh' },
                     display: 'flex',
                     flexDirection: { xs: 'column', md: 'row' },
                     alignItems: 'center',
@@ -53,10 +53,10 @@ const AboutUsHome = () => {
                     <Typography variant="h4" sx={{ color: 'text.primary', pt: 1 }}>
                         Sobre Nosotros
                     </Typography>
-                    <Typography sx={{ color: theme.palette.primary.main, pt: 2 }}>
+                    <Typography sx={{ color: "text.primary", opacity:"0.50" , fontWeight:"lighter" }}>
                         Centro fitness y deportivo
                     </Typography>
-                    <Typography sx={{ color: 'text.primary', pt: 2, pb: 1 }}>
+                    <Typography sx={{ color: 'text.primary', pt: 5, pb: 1 }}>
                         En VALHALLA GYM, con más de 10 años de experiencia, ofrecemos 1,500 m² de instalaciones modernas con equipos de última generación. ¡Tra comunidad y transforma tu bienestar!
                     </Typography>
                 </Box>
@@ -116,6 +116,6 @@ const AboutUsHome = () => {
             </Box>
         </Box>
     );
-};
+};  
 
 export default AboutUsHome;

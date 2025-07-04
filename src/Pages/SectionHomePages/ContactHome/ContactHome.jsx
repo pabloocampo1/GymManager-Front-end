@@ -75,7 +75,7 @@ const ContactHome = () => {
     };
 
     return (
-        <Box id="contact" sx={{ width: '100%', backgroundColor: 'background.default', borderRadius:"80px 80px 0px 0px " , padding: { xs: '10px 20px', md: '100px' }, mt:"60px", }}>
+        <Box id="contact" sx={{ width: '100%', backgroundColor: 'background.paper', borderRadius:"80px 80px 0px 0px " , padding: { xs: '10px 20px', md: '100px' }, mt:"60px", }}>
             <Box display="flex" flexWrap="wrap" justifyContent="center" gap={5}>
                 {/* Contact Details */}
                 <Box sx={{ width: { xs: '100%', md: '60%' },  border:"1px solid rgb(72, 72, 72)", backgroundColor:"" }}>
@@ -87,7 +87,7 @@ const ContactHome = () => {
                             { icon: <LocationOn fontSize='large' sx={{  color: '#FFDB00' }} />, title: 'Lugar de residencia', details: ['Carrera 49 #12-15'] },
                             { icon: <AccessTimeFilled fontSize='large' sx={{  color: '#FFDB00' }} />, title: 'Horarios', details: ['Lunes - Viernes : 5am/10pm', 'Sábados, Domingos y Festivos : 7am/12pm'] },
                         ].map((item, index) => (
-                            <Box key={index}  sx={{ display: 'flex', padding: 2, borderRadius: 2, border: '1px solid #FFDB00', backgroundColor: 'background.default' }}>
+                            <Box key={index}  sx={{ display: 'flex', padding: 2, borderRadius: 2, border: '1px solid #FFDB00', backgroundColor: 'background.paper' }}>
                                 <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", mr: "20px" }}  >{item.icon}</Box>
                                 <Box>
                                     <Typography variant="h6" color="text.primary">{item.title}</Typography>
