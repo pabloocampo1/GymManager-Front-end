@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "./MembresiasModal.module.css";
 import ClearIcon from "@mui/icons-material/Clear";
 import { motion, AnimatePresence } from "framer-motion";
@@ -6,8 +6,10 @@ import SimpleBackdrop from "../../SimpleBackdrop";
 import Swal from 'sweetalert2';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { ThemeContext } from "../../../Context/ThemeContext";
 
 const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
+  const { darkMode } = useContext(ThemeContext);
   const [name, setName] = useState("");
   const [type, setType] = useState("Oro");
   const [duration, setDuration] = useState("");
@@ -142,27 +144,33 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
         >
           <motion.div
             className={styles.modalContainer}
+            data-theme={darkMode ? "dark" : "light"}
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
             transition={{ duration: 0.4 }}
           >
             <div className={styles.modalCloseContainer}>
-              <ClearIcon className={styles.closeButton} onClick={onClose} />
+              <ClearIcon 
+                className={styles.closeButton} 
+                data-theme={darkMode ? "dark" : "light"}
+                onClick={onClose} 
+              />
             </div>
-            <h2>
+            <h2 data-theme={darkMode ? "dark" : "light"}>
               {membresiaEditando ? "Editar Membresía" : "Agregar Membresía"}
             </h2>
             <form onSubmit={handleSubmit}>
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
-                  <label htmlFor="name" className={styles.label}>
+                  <label htmlFor="name" className={styles.label} data-theme={darkMode ? "dark" : "light"}>
                     Nombre Membresía
                   </label>
                   <input
                     type="text"
-                    id="name"
+                    id="title"
                     className={styles.input}
+                    data-theme={darkMode ? "dark" : "light"}
                     placeholder="Nombre"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -170,12 +178,13 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
                   />
                 </div>
                 <div className={styles.formGroup}>
-                  <label htmlFor="type" className={styles.label}>
+                  <label htmlFor="type" className={styles.label} data-theme={darkMode ? "dark" : "light"}>
                     Tipo
                   </label>
                   <select
                     id="type"
-                    className={styles.select} 
+                    className={styles.select}
+                    data-theme={darkMode ? "dark" : "light"}
                     value={type}
                     onChange={(e) => setType(e.target.value)}
                   >
@@ -187,13 +196,14 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
               </div>
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
-                  <label htmlFor="duration" className={styles.label}>
+                  <label htmlFor="duration" className={styles.label} data-theme={darkMode ? "dark" : "light"}>
                     Duración en Días
                   </label>
                   <input
                     type="text"
                     id="duration"
                     className={styles.input}
+                    data-theme={darkMode ? "dark" : "light"}
                     placeholder="Duración"
                     value={duration}
                     onChange={handleDuracionChange}
@@ -201,13 +211,14 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
                   />
                 </div>
                 <div className={styles.formGroup}>
-                  <label htmlFor="price" className={styles.label}>
+                  <label htmlFor="price" className={styles.label} data-theme={darkMode ? "dark" : "light"}>
                     Precio
                   </label>
                   <input
                     type="number"
                     id="price"
                     className={styles.input}
+                    data-theme={darkMode ? "dark" : "light"}
                     placeholder="Precio"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
@@ -216,20 +227,22 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
                 </div>
               </div>
 
-              <div className={styles.benefitsSection}>
-                <label className={styles.label}>Beneficios</label>
+              <div className={styles.benefitsSection} data-theme={darkMode ? "dark" : "light"}>
+                <h3>Beneficios</h3>
                 {benefits.map((benefit, index) => (
                   <div key={index} className={styles.benefitRow}>
                     <input
                       type="text"
                       className={styles.benefitInput}
-                      placeholder="Agregar beneficio"
+                      data-theme={darkMode ? "dark" : "light"}
+                      placeholder={`Beneficio ${index + 1}`}
                       value={benefit}
                       onChange={(e) => handleBenefitChange(index, e.target.value)}
                     />
                     <button
                       type="button"
                       className={styles.removeBenefitButton}
+                      data-theme={darkMode ? "dark" : "light"}
                       onClick={() => removeBenefit(index)}
                       disabled={benefits.length === 1}
                     >
@@ -240,6 +253,7 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
                 <button
                   type="button"
                   className={styles.addBenefitButton}
+                  data-theme={darkMode ? "dark" : "light"}
                   onClick={addBenefit}
                 >
                   <AddIcon /> Agregar Beneficio
@@ -250,6 +264,7 @@ const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
                 <button
                   type="button"
                   className={styles.cancelButton}
+                  data-theme={darkMode ? "dark" : "light"}
                   onClick={onClose}
                 >
                   Cancelar

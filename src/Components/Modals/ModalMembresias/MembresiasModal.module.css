@@ -19,6 +19,28 @@
   width: 800px;
   max-width: 90vw;
   text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  color: #333333;
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  .modalContainer {
+    background: #1e1e1e;
+    color: #ffffff;
+  }
+}
+
+/* Dark mode class for manual toggle */
+.modalContainer[data-theme="dark"] {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+/* Light mode class for manual toggle */
+.modalContainer[data-theme="light"] {
+  background: #ffffff;
+  color: #333333;
 }
 
 .modalCloseContainer {
@@ -30,6 +52,48 @@
 
 .closeButton {
   cursor: pointer;
+  color: #333333;
+  transition: color 0.3s ease;
+}
+
+/* Dark mode styles for close button */
+@media (prefers-color-scheme: dark) {
+  .closeButton {
+    color: #ffffff;
+  }
+}
+
+.closeButton[data-theme="dark"] {
+  color: #ffffff;
+}
+
+.closeButton[data-theme="light"] {
+  color: #333333;
+}
+
+.Subtitulos {
+  color: #b3b3b3;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-align: left;
+  margin-bottom: 20px;
+  transition: color 0.3s ease;
+}
+
+/* Dark mode styles for subtitles */
+@media (prefers-color-scheme: dark) {
+  .Subtitulos {
+    color: #9b9b9b;
+  }
+}
+
+.Subtitulos[data-theme="dark"] {
+  color: #9b9b9b;
+}
+
+.Subtitulos[data-theme="light"] {
+  color: #666666;
 }
 
 .modalContainer h2 {
@@ -38,6 +102,23 @@
   font-size: 22px;
   font-weight: bold;
   padding: 35px;
+  transition: color 0.3s ease;
+  color: #333333;
+}
+
+/* Dark mode styles for title */
+@media (prefers-color-scheme: dark) {
+  .modalContainer h2 {
+    color: #ffffff;
+  }
+}
+
+.modalContainer h2[data-theme="dark"] {
+  color: #ffffff;
+}
+
+.modalContainer h2[data-theme="light"] {
+  color: #333333;
 }
 
 .formRow {
@@ -57,6 +138,23 @@
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 5px;
+  transition: color 0.3s ease;
+  color: #333333;
+}
+
+/* Dark mode styles for labels */
+@media (prefers-color-scheme: dark) {
+  .label {
+    color: #ffffff;
+  }
+}
+
+.label[data-theme="dark"] {
+  color: #ffffff;
+}
+
+.label[data-theme="light"] {
+  color: #333333;
 }
 
 .input,
@@ -65,12 +163,56 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 14px;
+  background: #ffffff;
+  color: #333333;
+  transition: all 0.3s ease;
 }
 
 .input:focus,
 .select:focus {
   outline: none;
   border-color: #D3D837;
+  box-shadow: 0 0 0 2px rgba(211, 216, 55, 0.2);
+}
+
+/* Dark mode styles for inputs and selects */
+@media (prefers-color-scheme: dark) {
+  .input,
+  .select {
+    background: #2d2d2d;
+    border-color: #555;
+    color: #ffffff;
+  }
+  
+  .input::placeholder,
+  .select::placeholder {
+    color: #999;
+  }
+}
+
+.input[data-theme="dark"],
+.select[data-theme="dark"] {
+  background: #2d2d2d;
+  border-color: #555;
+  color: #ffffff;
+}
+
+.input[data-theme="dark"]::placeholder,
+.select[data-theme="dark"]::placeholder {
+  color: #999;
+}
+
+/* Light mode styles for inputs and selects */
+.input[data-theme="light"],
+.select[data-theme="light"] {
+  background: #ffffff;
+  border-color: #ccc;
+  color: #333333;
+}
+
+.input[data-theme="light"]::placeholder,
+.select[data-theme="light"]::placeholder {
+  color: #666;
 }
 
 .buttonContainer {
@@ -92,6 +234,11 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.cancelButton:hover {
+  background: #333;
 }
 
 .addButton {
@@ -102,14 +249,48 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: bold;
+  transition: all 0.3s ease;
 }
 
 .addButton:hover {
   background: var(--primarySecond-color);
+  transform: translateY(-2px);
 }
 
 .cancelButton:hover {
   background: #cfcfcf;
+}
+
+/* Dark mode styles for buttons */
+@media (prefers-color-scheme: dark) {
+  .cancelButton {
+    background: #333;
+    color: #ffffff;
+  }
+  
+  .cancelButton:hover {
+    background: #555;
+  }
+}
+
+.cancelButton[data-theme="dark"] {
+  background: #333;
+  color: #ffffff;
+}
+
+.cancelButton[data-theme="dark"]:hover {
+  background: #555;
+}
+
+/* Light mode styles for buttons */
+.cancelButton[data-theme="light"] {
+  background: #333333;
+  color: #ffffff;
+}
+
+.cancelButton[data-theme="light"]:hover {
+  background: #555555;
 }
 
 /* Estilos para la sección de beneficios */
@@ -117,6 +298,29 @@
   margin-top: 1.5rem;
   width: 100%;
   text-align: left;
+}
+
+.benefitsSection h3 {
+  margin-bottom: 15px;
+  color: #333333;
+  font-size: 16px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+/* Dark mode styles for benefits section */
+@media (prefers-color-scheme: dark) {
+  .benefitsSection h3 {
+    color: #ffffff;
+  }
+}
+
+.benefitsSection[data-theme="dark"] h3 {
+  color: #ffffff;
+}
+
+.benefitsSection[data-theme="light"] h3 {
+  color: #333333;
 }
 
 .benefitRow {
@@ -132,11 +336,49 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 14px;
+  background: #ffffff;
+  color: #333333;
+  transition: all 0.3s ease;
 }
 
 .benefitInput:focus {
   outline: none;
   border-color: #D3D837;
+  box-shadow: 0 0 0 2px rgba(211, 216, 55, 0.2);
+}
+
+/* Dark mode styles for benefit input */
+@media (prefers-color-scheme: dark) {
+  .benefitInput {
+    background: #2d2d2d;
+    border-color: #555;
+    color: #ffffff;
+  }
+  
+  .benefitInput::placeholder {
+    color: #999;
+  }
+}
+
+.benefitInput[data-theme="dark"] {
+  background: #2d2d2d;
+  border-color: #555;
+  color: #ffffff;
+}
+
+.benefitInput[data-theme="dark"]::placeholder {
+  color: #999;
+}
+
+/* Light mode styles for benefit input */
+.benefitInput[data-theme="light"] {
+  background: #ffffff;
+  border-color: #ccc;
+  color: #333333;
+}
+
+.benefitInput[data-theme="light"]::placeholder {
+  color: #666;
 }
 
 .removeBenefitButton {
@@ -148,6 +390,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: color 0.3s ease;
 }
 
 .removeBenefitButton:disabled {
@@ -156,6 +399,33 @@
 }
 
 .removeBenefitButton:not(:disabled):hover {
+  color: #ff4444;
+}
+
+/* Dark mode styles for remove button */
+@media (prefers-color-scheme: dark) {
+  .removeBenefitButton {
+    color: #999;
+  }
+  
+  .removeBenefitButton:not(:disabled):hover {
+    color: #ff6666;
+  }
+}
+
+.removeBenefitButton[data-theme="dark"] {
+  color: #999;
+}
+
+.removeBenefitButton[data-theme="dark"]:not(:disabled):hover {
+  color: #ff6666;
+}
+
+.removeBenefitButton[data-theme="light"] {
+  color: #666;
+}
+
+.removeBenefitButton[data-theme="light"]:not(:disabled):hover {
   color: #ff4444;
 }
 
@@ -177,6 +447,39 @@
 }
 
 .addBenefitButton:hover {
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* Dark mode styles for add benefit button */
+@media (prefers-color-scheme: dark) {
+  .addBenefitButton {
+    border-color: #555;
+    color: #999;
+  }
+  
+  .addBenefitButton:hover {
+    background-color: #2d2d2d;
+    color: #ffffff;
+  }
+}
+
+.addBenefitButton[data-theme="dark"] {
+  border-color: #555;
+  color: #999;
+}
+
+.addBenefitButton[data-theme="dark"]:hover {
+  background-color: #2d2d2d;
+  color: #ffffff;
+}
+
+.addBenefitButton[data-theme="light"] {
+  border-color: #D3D837;
+  color: #666;
+}
+
+.addBenefitButton[data-theme="light"]:hover {
   background-color: #f9f9f9;
   color: #333;
 }

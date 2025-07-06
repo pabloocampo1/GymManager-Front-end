@@ -26,8 +26,8 @@ const DataUserAccesUI = ({ dataUser = [], isUserSelect, message, searchBy }) => 
         <Box sx={{
             width: "100%",
             height: "auto",
-            bgcolor: "#ffffff",
-            border: "1px solid #F9F9F9"
+            bgcolor: "background.paper",
+           
         }}>
             {isUserSelect && (
                 dataUser.length > 0 ? (
@@ -43,7 +43,7 @@ const DataUserAccesUI = ({ dataUser = [], isUserSelect, message, searchBy }) => 
                                 p: "10px 20px",
                                 m: "10px 0px",
                                 alignItems: "center",
-                                 bgcolor: "#F9F9F9",
+                                 bgcolor: "background.default",
 
                             }}
                         >

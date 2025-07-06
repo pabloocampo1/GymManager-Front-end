@@ -14,6 +14,7 @@ import imageSearch from "../../assets/images/undraw_search-control_k649.svg"
 import { Outlet } from 'react-router-dom';
 import ActivityRegister from './Dashboard/ActivityRegister';
 import { AddCard, AppRegistrationOutlined, LocalActivity } from '@mui/icons-material';
+import QrScanner from '../../Components/QRScanner';
 
 function ControlAcces() {
     const [isUserSelected, setIsUserSelected] = useState(false);
@@ -22,6 +23,7 @@ function ControlAcces() {
     const [searchTerm, setSearchTerm] = useState('');
     const [userData, setUserData] = useState('');
     const [showActivity, setShowActivity] = useState(false);
+    const [showScanner, setShowScaneer] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -53,6 +55,19 @@ function ControlAcces() {
         setIsUserSelected(true);
     };
 
+    function stopAllCameras() {
+  // Recorre todos los elementos <video> en la página
+  document.querySelectorAll("video").forEach((video) => {
+    if (video.srcObject) {
+      // Detiene cada pista del stream
+      video.srcObject.getTracks().forEach((track) => track.stop());
+      // Desasocia el stream del elemento
+      video.srcObject = null;
+    }
+  });
+}
+
+
     useEffect(() => {
         setIsUserSelected(false);
     }, []);
@@ -63,7 +78,7 @@ function ControlAcces() {
                 width: '100%',
                 minHeight: '100vh',
                 p: '20px 100px',
-                bgcolor: 'var(--backgroundWhiteMiddle)',
+                bgcolor: 'background.default',
                 display: 'flex',
                 alignItems: 'center',
                 flexDirection: 'column',
@@ -97,15 +112,15 @@ function ControlAcces() {
                     <Button
                         onClick={() => { setShowActivity(true) }}
                         variant="outlined"
-                        sx={{mr:"20px", borderColor:"black", color:"black"}}
+                        sx={{mr:"20px", borderColor:"primary.main", color:"text.primary"}}
                     >
-                        <AppRegistrationOutlined sx={{color:'black'}} />
+                        <AppRegistrationOutlined sx={{color:'text.primry'}} />
                         Ver Actividad
                     </Button>
                    <Button
                         onClick={() => { handleOpen() }}
                         variant="outlined"
-                        sx={{mr:"20px", borderColor:"black", color:"black"}}
+                        sx={{mr:"20px", borderColor:"primary.main", color:"text.primary"}}
                     >
                         <AddCard />
                         Visita Regular
@@ -115,7 +130,7 @@ function ControlAcces() {
 
             <Box
                 sx={{
-                    bgcolor: 'white',
+                    bgcolor: 'background.paper',
                     width: '100%',
                     height: '70vh',
                     borderRadius: '15px',
@@ -134,14 +149,14 @@ function ControlAcces() {
                         justifyContent: 'center',
                         pt: '20px',
                         position: "sticky",
-                        bgcolor: "white",
+                        bgcolor: "background.paper",
                         top: "0%",
                         right: "2%"
                     }}
                 >
                     <SearchInput onSearch={handleInputSearch} />
-                    <Box>
-                        <QrCode2Icon />
+                    <Box sx={{pl:"20px"}}>
+                        <QrCode2Icon  onClick={(() => setShowScaneer(true))} />
                     </Box>
 
 
@@ -162,8 +177,12 @@ function ControlAcces() {
                     >
                         {searchTerm === '' ? (
                             <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
-                                <Typography sx={{ color: "GrayText", fontSize: "20px", pb: "20px", pt: "20px" }}>No hay busquedas</Typography>
-                                <img width={300} src={imageSearch} alt="search_image" />
+                                
+                                 {showScanner ? ( <QrScanner closeScanner={() => {
+                                    stopAllCameras(), setShowScaneer(false)
+                                 }}/>) : (<>
+                                 <Typography sx={{ color: "GrayText", fontSize: "20px", pb: "20px", pt: "20px" }}>No hay busquedas</Typography>
+                                <img width={300} src={imageSearch} alt="search_image" /></>)} 
                             </Box>
                         ) : (
                             <DataUserAccesUI
@@ -177,7 +196,7 @@ function ControlAcces() {
                     </Box>
                 )}
 
-
+                   
             </Box>
 
             {showMessage && (
@@ -187,6 +206,7 @@ function ControlAcces() {
                     type={'success'}
                 />
             )}
+           
 
         </Box>
     );

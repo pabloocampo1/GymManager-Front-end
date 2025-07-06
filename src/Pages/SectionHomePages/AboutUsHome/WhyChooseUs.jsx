@@ -36,7 +36,7 @@ const WhyChooseUs = () => {
             component="section"
             sx={{ width: '100%', py: 5, backgroundColor: 'background.paper', mt: 6 }}
         >
-            <Typography variant="h4" sx={{ color: 'primary.main', fontWeight: 'bold', textAlign: 'center', mb: 4 }}>
+            <Typography variant="h4" sx={{ color: 'text.primary', fontWeight: 'bold', textAlign: 'center', mb: 4 }}>
                 ¿Por qué elegirnos?
             </Typography>
             <Grid container justifyContent="center" spacing={4} sx={{ px: { xs: 2, md: 12 } }}>

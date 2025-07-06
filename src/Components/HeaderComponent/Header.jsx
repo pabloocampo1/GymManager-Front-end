@@ -35,7 +35,7 @@ function Header() {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                background: 'rgba(0, 0, 0, 0.2)',
+                background: 'black',
                 backdropFilter: 'blur(9px)',
                 borderBottom: '1px solid rgb(96, 96, 96)',
                 zIndex: 1000,
@@ -73,7 +73,7 @@ function Header() {
                             { to: '/#aboutUs', label: 'Sobre nosotros' },
                             { to: '/#price', label: 'Precios' },
                             { to: 'eventsHome#events', label: 'Eventos' },
-                            { to: 'contact#contact', label: 'Contacto' },
+                            { to: '/#contact', label: 'Contacto' },
                         ].map((item, index) => (
                             <Box component="li" key={index} sx={{ px: 2, display: 'flex', alignItems: 'center' }}>
                                 <Link to={item.to} style={{ textDecoration: 'none' }}>
@@ -81,7 +81,7 @@ function Header() {
                                         sx={{
                                             '&:hover': { color: "primary.main" },
                                             cursor: 'pointer',
-                                            color: "text.primary"
+                                            color: "white"
                                         }}
                                     >
                                         {item.label}

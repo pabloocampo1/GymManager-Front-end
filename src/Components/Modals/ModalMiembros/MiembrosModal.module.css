@@ -13,12 +13,34 @@
 
 .modalContainer {
   position: relative;
-  background: white;
+  background: #ffffff;
   padding: 25px;
   border-radius: 10px;
   width: 800px;
   max-width: 90vw;
   text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  color: #333333;
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  .modalContainer {
+    background: #1e1e1e;
+    color: #ffffff;
+  }
+}
+
+/* Dark mode class for manual toggle */
+.modalContainer[data-theme="dark"] {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+/* Light mode class for manual toggle */
+.modalContainer[data-theme="light"] {
+  background: #ffffff;
+  color: #333333;
 }
 
 .modalCloseContainer {
@@ -29,15 +51,48 @@
 }
 .closeButton{
   cursor: pointer;
+  color: #333333;
+  transition: color 0.3s ease;
+}
+
+/* Dark mode styles for close button */
+@media (prefers-color-scheme: dark) {
+  .closeButton {
+    color: #ffffff;
+  }
+}
+
+.closeButton[data-theme="dark"] {
+  color: #ffffff;
+}
+
+.closeButton[data-theme="light"] {
+  color: #333333;
 }
 
 .Subtitulos {
   color: #b3b3b3;
   font-size: 14px;
   font-weight: 400;
-  letter-spacing: 1px; /* Opcional, para mayor separación entre letras */
+  letter-spacing: 1px;
   text-align: left;
   margin-bottom: 20px;
+  transition: color 0.3s ease;
+}
+
+/* Dark mode styles for subtitles */
+@media (prefers-color-scheme: dark) {
+  .Subtitulos {
+    color: #9b9b9b;
+  }
+}
+
+.Subtitulos[data-theme="dark"] {
+  color: #9b9b9b;
+}
+
+.Subtitulos[data-theme="light"] {
+  color: #666666;
 }
 
 .modalContainer h2 {
@@ -46,6 +101,23 @@
   font-size: 22px;
   font-weight: bold;
   padding: 20px;
+  transition: color 0.3s ease;
+  color: #333333;
+}
+
+/* Dark mode styles for title */
+@media (prefers-color-scheme: dark) {
+  .modalContainer h2 {
+    color: #ffffff;
+  }
+}
+
+.modalContainer h2[data-theme="dark"] {
+  color: #ffffff;
+}
+
+.modalContainer h2[data-theme="light"] {
+  color: #333333;
 }
 
 .formRow {
@@ -65,6 +137,23 @@
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 5px;
+  transition: color 0.3s ease;
+  color: #333333;
+}
+
+/* Dark mode styles for labels */
+@media (prefers-color-scheme: dark) {
+  .label {
+    color: #ffffff;
+  }
+}
+
+.label[data-theme="dark"] {
+  color: #ffffff;
+}
+
+.label[data-theme="light"] {
+  color: #333333;
 }
 
 .input,
@@ -73,6 +162,56 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 14px;
+  background: #ffffff;
+  color: #333333;
+  transition: all 0.3s ease;
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(255, 219, 0, 0.2);
+}
+
+/* Dark mode styles for inputs and selects */
+@media (prefers-color-scheme: dark) {
+  .input,
+  .select {
+    background: #2d2d2d;
+    border-color: #555;
+    color: #ffffff;
+  }
+  
+  .input::placeholder,
+  .select::placeholder {
+    color: #999;
+  }
+}
+
+.input[data-theme="dark"],
+.select[data-theme="dark"] {
+  background: #2d2d2d;
+  border-color: #555;
+  color: #ffffff;
+}
+
+.input[data-theme="dark"]::placeholder,
+.select[data-theme="dark"]::placeholder {
+  color: #999;
+}
+
+/* Light mode styles for inputs and selects */
+.input[data-theme="light"],
+.select[data-theme="light"] {
+  background: #ffffff;
+  border-color: #ccc;
+  color: #333333;
+}
+
+.input[data-theme="light"]::placeholder,
+.select[data-theme="light"]::placeholder {
+  color: #666;
 }
 
 .buttonContainer {
@@ -93,22 +232,60 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.cancelButton:hover {
+  background: #333;
 }
 
 .addButton {
-  background: var(--primary-color);
+  background: #d3d837;
   color: black;
-  padding: 12px 20px;
+  padding: 10px 16px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: bold;
+  transition: all 0.3s ease;
 }
 
 .addButton:hover {
-  background: var(--primarySecond-color);
+  background: #c4c92f;
 }
 
 .cancelButton:hover {
-  background: #cfcfcf;
+  background: #333;
+}
+
+/* Dark mode styles for buttons */
+@media (prefers-color-scheme: dark) {
+  .cancelButton {
+    background: #333;
+    color: #ffffff;
+  }
+  
+  .cancelButton:hover {
+    background: #555;
+  }
+}
+
+.cancelButton[data-theme="dark"] {
+  background: #333;
+  color: #ffffff;
+}
+
+.cancelButton[data-theme="dark"]:hover {
+  background: #555;
+}
+
+/* Light mode styles for buttons */
+.cancelButton[data-theme="light"] {
+  background: #333333;
+  color: #ffffff;
+}
+
+.cancelButton[data-theme="light"]:hover {
+  background: #555555;
 }

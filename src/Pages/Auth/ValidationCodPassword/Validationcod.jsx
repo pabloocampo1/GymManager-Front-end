@@ -62,13 +62,13 @@ function SecurityCode() {
     if (!isTokenValid) return <ExpiredTokenResetPassword />;
 
     return (
-        <Box sx={{ width: "100vw", height: "100vh", backgroundColor: "black", display: "flex" }}>
+        <Box sx={{ width: "100vw", height: "100vh", backgroundColor: "background.paper", display: "flex" }}>
             <Box
                 sx={{
                     position: "relative",
                     width: "60%",
                     height: "100%",
-                    bgcolor: "white",
+                    bgcolor: "background.paper",
                     borderRadius: "0px 25px 25px 0px",
                     display: "flex",
                     justifyContent: "center",

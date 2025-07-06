@@ -41,7 +41,6 @@ function App() {
                             < Routes >
                                 <Route path="/" element={<PublicLayout />}>
                                     <Route index element={<Home />} />
-                                    <Route path="/contact" element={<ContactHome />} />
                                     <Route path="/eventsHome" element={<EventHome />} />
                                     <Route index element={<Dashboard />} />
                                     <Route path='acceso' element={<ControlAcces />}></Route>

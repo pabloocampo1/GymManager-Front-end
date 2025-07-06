@@ -58,7 +58,7 @@ export default function MenuMobile({ open, handleClose }) {
                             </Link>
                         </li>
                         <li>
-                            <Link to="contact#contact" onClick={handleClose}>
+                            <Link to="#contact" onClick={handleClose}>
                                 Contacto
                             </Link>
                         </li>

@@ -16,7 +16,7 @@ export default function UserDetails({ open, handleClose, data = {}} ) {
             alignItems: "center",
             flexDirection: "column",
             justifyContent: "center",
-            bgcolor: "white",
+            bgcolor: "background.paper",
             borderRadius: "15px",
              textAlign: "center",
            
@@ -73,7 +73,7 @@ export default function UserDetails({ open, handleClose, data = {}} ) {
                     transform: 'translate(-50%, -50%)',
                     width: "600px",
                     height: '100%',
-                    bgcolor: 'white',
+                    bgcolor: 'background.paper',
                     borderRadius: "15px",
                     boxShadow: 24,
 
@@ -82,7 +82,7 @@ export default function UserDetails({ open, handleClose, data = {}} ) {
             >
 
                 <Box sx={{
-                    bgcolor: "#F9F9F9",
+                    bgcolor: "background.default",
                     p: "0px 20px",
                     overflowY: "auto",
                     maxHeight: "calc(100vh - 0px)",

@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import DeleteIcon from "@mui/icons-material/Delete";
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, useContext } from "react";
 import styles from "./Miembros.module.css";
 import MiembrosModal from "../../../Components/Modals/ModalMiembros/MiembrosModal.jsx";
 import ConfirmatioModalMiembros from "../../../Components/Modals/ModalMiembros/ConfirmationModalMiembros/MiembrosConfirmation.jsx";
@@ -15,8 +15,10 @@ import ActiveButton from "../../../Components/Buttons/ButtonActive.jsx"
 import InactiveButton from "../../../Components/Buttons/ButtonInactive.jsx"
 import MiembrosService from "../../../Service/MiembrosService.jsx";
 import { useEffect } from "react";
+import { ThemeContext } from "../../../Context/ThemeContext";
 
 const MiembrosModalComponent = () => {
+  const { darkMode } = useContext(ThemeContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState("Todos");
@@ -25,6 +27,7 @@ const MiembrosModalComponent = () => {
   const [searchTerm, setSearchTerm] = useState(""); 
   const [miembrosToDelete, setMiembrosToDelete] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [miembroToDeleteName, setMiembroToDeleteName] = useState("");
   const [membershipData, setMembershipData] = useState({});
 
   useEffect(() => {
@@ -79,8 +82,9 @@ const MiembrosModalComponent = () => {
     }
   };
 
-  const onDeleteMiembro = (id) => {
+  const onDeleteMiembro = (id, fullName) => {
     setMiembrosToDelete(id);
+    setMiembroToDeleteName(fullName);
     setIsDeleteModalOpen(true);
   };
 
@@ -163,22 +167,23 @@ const MiembrosModalComponent = () => {
   };
 
   return (
-    <div className={styles.miembros_container}>
-      <div className={styles.miembros_header}>
-        <h2 className={styles.miembros_title}>Miembros</h2>
+    <div className={styles.miembros_container} data-theme={darkMode ? "dark" : "light"}>
+      <div className={styles.miembros_header} data-theme={darkMode ? "dark" : "light"}>
+        <h2 className={styles.miembros_title} data-theme={darkMode ? "dark" : "light"}>Miembros</h2>
 
-        <div className={styles.search_container}>
-          <FaSearch className={styles.search_icon} />
+        <div className={styles.search_container} data-theme={darkMode ? "dark" : "light"}>
+          <FaSearch className={styles.search_icon} data-theme={darkMode ? "dark" : "light"} />
           <input
             type="text"
             placeholder="Buscar miembros"
             className={styles.search_input}
+            data-theme={darkMode ? "dark" : "light"}
             value={searchTerm}
             onChange={handleSearchChange}
           />
         </div>
 
-        <button className={styles.filter_boton} onClick={handleOpenMenu}>
+        <button className={styles.filter_boton} data-theme={darkMode ? "dark" : "light"} onClick={handleOpenMenu}>
           <FaFilter className={styles.filter_icon} /> Filtrar
         </button>
         <Menu
@@ -202,19 +207,29 @@ const MiembrosModalComponent = () => {
         </button>
       </div>
 
-      <h2 className={styles.filtered_title}>
+      <h2 className={styles.filtered_title} data-theme={darkMode ? "dark" : "light"}>
         {titleToShow}
       </h2>
 
-      <TableContainer className={styles.miembros_table} style={{ backgroundColor: '#F9F9F9', border:'4px solid #F9F9F9', borderRadius :'30px' }}>
+      <TableContainer className={styles.miembros_table} style={{ 
+        backgroundColor: darkMode ? '#1e1e1e' : '#F9F9F9', 
+        border: `4px solid ${darkMode ? '#1e1e1e' : '#F9F9F9'}`, 
+        borderRadius: '30px' 
+      }}>
         <Table sx={{ 
           borderCollapse: 'separate',
           borderSpacing: '0 5px',
           '& td, & th': { 
-            border: 'none' 
+            border: 'none',
+            color: darkMode ? '#ffffff' : '#333333'
           },
           '& tbody tr': {
-            backgroundColor: 'white',
+            backgroundColor: darkMode ? '#2d2d2d' : 'white',
+            transition: 'background-color 0.3s ease'
+          },
+          '& tbody tr:hover': {
+            backgroundColor: darkMode ? '#3d3d3d' : '#f3f3f3',
+            transition: 'background-color 0.3s ease'
           },
           '& tbody tr td': {
             padding: '10px 16px',
@@ -226,7 +241,15 @@ const MiembrosModalComponent = () => {
             borderRadius: '0 35px 35px 0',
           },
           '& tbody': {
-            backgroundColor: '#F9F9F9',
+            backgroundColor: darkMode ? '#1e1e1e' : '#F9F9F9',
+          },
+          '& thead': {
+            backgroundColor: darkMode ? '#2d2d2d' : '#f8f9fa',
+          },
+          '& th': {
+            backgroundColor: darkMode ? '#2d2d2d' : '#f8f9fa',
+            color: darkMode ? '#ffffff' : '#333333',
+            fontWeight: 'bold'
           }
         }}>
           <TableHead>
@@ -247,25 +270,25 @@ const MiembrosModalComponent = () => {
               filteredMiembros.map((miembro) => {
                 const memberData = membershipData[miembro.id] || {};
                 return (
-                  <TableRow key={miembro.identificationNumber}>
-                    <TableCell>{miembro.identificationNumber}</TableCell>
-                    <TableCell>{miembro.fullName}</TableCell>
-                    <TableCell>{miembro.phone}</TableCell>
+                  <TableRow key={miembro.identificationNumber} data-theme={darkMode ? "dark" : "light"}>
+                    <TableCell data-theme={darkMode ? "dark" : "light"}>{miembro.identificationNumber}</TableCell>
+                    <TableCell data-theme={darkMode ? "dark" : "light"}>{miembro.fullName}</TableCell>
+                    <TableCell data-theme={darkMode ? "dark" : "light"}>{miembro.phone}</TableCell>
                     {renderEstadoCell(miembro)}
-                    <TableCell>{memberData.nameMembership || '-'}</TableCell>
-                    <TableCell>{formatearFecha(memberData.dateStart)}</TableCell>
-                    <TableCell>{formatearFecha(memberData.dateFinished)}</TableCell>
-                    <TableCell>{calcularDiasRestantes(memberData.dateFinished)}</TableCell>
+                    <TableCell data-theme={darkMode ? "dark" : "light"}>{memberData.nameMembership || '-'}</TableCell>
+                    <TableCell data-theme={darkMode ? "dark" : "light"}>{formatearFecha(memberData.dateStart)}</TableCell>
+                    <TableCell data-theme={darkMode ? "dark" : "light"}>{formatearFecha(memberData.dateFinished)}</TableCell>
+                    <TableCell data-theme={darkMode ? "dark" : "light"}>{calcularDiasRestantes(memberData.dateFinished)}</TableCell>
                     <TableCell>
-                      <FaPen className={styles.edit_icon} onClick={() => { setMiembroEditado(miembro); setIsModalOpen(true); }} />
-                      <DeleteIcon className={styles.delete_icon} onClick={() => onDeleteMiembro(miembro.id)} />
+                      <FaPen className={styles.edit_icon} data-theme={darkMode ? "dark" : "light"} onClick={() => { setMiembroEditado(miembro); setIsModalOpen(true); }} />
+                      <DeleteIcon className={styles.delete_icon} data-theme={darkMode ? "dark" : "light"} onClick={() => onDeleteMiembro(miembro.id, miembro.fullName)} />
                     </TableCell>
                   </TableRow>
                 );
               })
             ) : (
               <TableRow>
-                <TableCell colSpan={9} style={{ textAlign: 'center' }}>
+                <TableCell colSpan={9} style={{ textAlign: 'center' }} data-theme={darkMode ? "dark" : "light"}>
                   No se encontraron miembros con los criterios de búsqueda.
                 </TableCell>
               </TableRow>
@@ -286,7 +309,10 @@ const MiembrosModalComponent = () => {
       )}
       {isDeleteModalOpen && (
         <ConfirmatioModalMiembros
-          onClose={() => setIsDeleteModalOpen(false)}
+          onClose={() => {
+            setIsDeleteModalOpen(false);
+            setMiembroToDeleteName("");
+          }}
           onConfirm={() => {
             MiembrosService.deleteMiembro(miembrosToDelete)
               .then(() => {
@@ -295,12 +321,14 @@ const MiembrosModalComponent = () => {
                 );
                 setIsDeleteModalOpen(false);
                 setMiembrosToDelete(null);
+                setMiembroToDeleteName("");
               })
               .catch((error) => {
                 console.error("Error al eliminar miembro:", error);
                 setError("Error al eliminar el miembro. Por favor, intenta de nuevo.");
               });
           }}
+          memberName={miembroToDeleteName}
         />
       )}
     </div>

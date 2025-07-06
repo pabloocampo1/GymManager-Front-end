@@ -1,10 +1,12 @@
-
 :root{
     --primary-color:#FFDB00;
-    --primarySecond-color:#D3D837;
-    --textSecond-color:#9b9b9b;
+    --primarySecond-color:#E3E33A;
     --colorByBackgrounds: rgb(25, 25, 25,1);
     --backgroundWhiteMiddle:#F9F9F9;
+}
+
+body{
+    font-family: "Inter", sans-serif;
 }
 
 *{
@@ -18,7 +20,16 @@ html{
 }
 body{
     font-family: "Inter", sans-serif;
-    
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
 }
 
 

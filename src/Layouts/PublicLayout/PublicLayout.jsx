@@ -17,9 +17,9 @@ function PublicLayout() {
   }, [location]);
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <Box sx={{width:"100%", minHeight: '100vh', display: 'flex', flexDirection: 'column', bgcolor:"red" }}>
       <Header />
-      <Box component="main" sx={{ flexGrow: 1, pt: '9vh', backgroundColor: 'background.default' }}>
+      <Box component="main" sx={{  pt: '9vh', backgroundColor: 'background.default' }}>
         <Outlet />
       </Box>
       <Footer />
