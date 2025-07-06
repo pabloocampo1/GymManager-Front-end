@@ -82,7 +82,7 @@ const ContactHome = () => {
                     <Typography variant="h4" color="text.primary" textAlign="center" mb={3} mt={4}>Nuestros detalles de contacto</Typography>
                     <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))" sx={{ m: "20px" }} gap={1}>
                         {[
-                            { icon: <LocalPhone fontSize='large' sx={{ color: '#FFDB00' }} />, title: 'Teléfonos de contacto', details: ['314 5755765', '320 4040869'] },
+                            { icon: <LocalPhone fontSize='large' sx={{ color: '#FFDB00' }} />, title: 'Teléfonos de contacto', details: ['314 4201205', '320 4040869'] },
                             { icon: <Email fontSize='large' sx={{  color: '#FFDB00' }} />, title: 'Correos de Contacto', details: ['pablampo@gmail.com', 'mateocarna@gmail.com'] },
                             { icon: <LocationOn fontSize='large' sx={{  color: '#FFDB00' }} />, title: 'Lugar de residencia', details: ['Carrera 49 #12-15'] },
                             { icon: <AccessTimeFilled fontSize='large' sx={{  color: '#FFDB00' }} />, title: 'Horarios', details: ['Lunes - Viernes : 5am/10pm', 'Sábados, Domingos y Festivos : 7am/12pm'] },
