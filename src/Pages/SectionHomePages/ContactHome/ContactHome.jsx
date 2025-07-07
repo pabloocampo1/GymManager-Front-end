@@ -75,25 +75,25 @@ const ContactHome = () => {
     };
 
     return (
-        <Box id="contact" sx={{ width: '100%', backgroundColor: 'background.paper', padding: { xs: '10px 20px', md: '100px' } }}>
+        <Box id="contact" sx={{ width: '100%', backgroundColor: 'background.paper', borderRadius:"80px 80px 0px 0px " , padding: { xs: '10px 20px', md: '100px' }, mt:"60px", }}>
             <Box display="flex" flexWrap="wrap" justifyContent="center" gap={5}>
                 {/* Contact Details */}
-                <Box sx={{ width: { xs: '100%', md: '60%' },  border:"1px solid rgb(72, 72, 72)" }}>
+                <Box sx={{ width: { xs: '100%', md: '60%' },  border:"1px solid rgb(72, 72, 72)", backgroundColor:"" }}>
                     <Typography variant="h4" color="text.primary" textAlign="center" mb={3} mt={4}>Nuestros detalles de contacto</Typography>
                     <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))" sx={{ m: "20px" }} gap={1}>
                         {[
-                            { icon: <LocalPhone fontSize='large' sx={{ color: '#FFDB00' }} />, title: 'Teléfonos de contacto', details: ['314 5755765', '320 4040869'] },
+                            { icon: <LocalPhone fontSize='large' sx={{ color: '#FFDB00' }} />, title: 'Teléfonos de contacto', details: ['314 4201205', '320 4040869'] },
                             { icon: <Email fontSize='large' sx={{  color: '#FFDB00' }} />, title: 'Correos de Contacto', details: ['pablampo@gmail.com', 'mateocarna@gmail.com'] },
                             { icon: <LocationOn fontSize='large' sx={{  color: '#FFDB00' }} />, title: 'Lugar de residencia', details: ['Carrera 49 #12-15'] },
                             { icon: <AccessTimeFilled fontSize='large' sx={{  color: '#FFDB00' }} />, title: 'Horarios', details: ['Lunes - Viernes : 5am/10pm', 'Sábados, Domingos y Festivos : 7am/12pm'] },
                         ].map((item, index) => (
-                            <Box key={index}  sx={{ display: 'flex', padding: 2, borderRadius: 2, border: '1px solid #FFDB00', backgroundColor: 'background.default' }}>
+                            <Box key={index}  sx={{ display: 'flex', padding: 2, borderRadius: 2, border: '1px solid #FFDB00', backgroundColor: 'background.paper' }}>
                                 <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", mr: "20px" }}  >{item.icon}</Box>
                                 <Box>
                                     <Typography variant="h6" color="text.primary">{item.title}</Typography>
                                     <List dense>
                                         {item.details.map((detail, idx) => (
-                                            <ListItem key={idx} disableGutters sx={{ color: 'rgb(182, 182, 182)', pl: 0 }}>{detail}</ListItem>
+                                            <ListItem key={idx} disableGutters sx={{ color: 'text.primary',  opacity:"0.50", pl: 0 }}>{detail}</ListItem>
                                         ))}
                                     </List>
                                 </Box>

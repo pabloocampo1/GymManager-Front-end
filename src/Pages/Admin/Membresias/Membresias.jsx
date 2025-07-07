@@ -7,14 +7,16 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styles from "./Membresias.module.css";
 import MembresiasModal from "../../../Components/Modals/ModalMembresias/MembresiasModal.jsx";
 import ConfirmatioModalMembresia from "../../../Components/Modals/ModalMembresias/ConfirmationModalMembresias/MembresiasConfirmation.jsx";
 import MembresiaService from "../../../Service/MembresiaService.jsx";
 import { useEffect } from "react";
+import { ThemeContext } from "../../../Context/ThemeContext";
 
 const MembresiaModal = () => {
+  const { darkMode } = useContext(ThemeContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState("Todos");
@@ -22,6 +24,7 @@ const MembresiaModal = () => {
   const [membresiaEditando, setMembresiaEditando] = useState(null);
   const [membresiaToDelete, setMembresiaToDelete] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [membresiaToDeleteName, setMembresiaToDeleteName] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [activeFilterType, setActiveFilterType] = useState("filter"); // "filter" o "search"
 
@@ -98,8 +101,9 @@ const MembresiaModal = () => {
     setIsModalOpen(true);
   };
 
-  const confirmDeleteMembresia = (id) => {
-    setMembresiaToDelete(id); // usamos solo uno
+  const confirmDeleteMembresia = (id, title) => {
+    setMembresiaToDelete(id);
+    setMembresiaToDeleteName(title);
     setIsDeleteModalOpen(true);
   };
 
@@ -124,16 +128,17 @@ const MembresiaModal = () => {
   };
 
   return (
-    <div className={styles.membresia_container}>
-      <div className={styles.membresias_header}>
-        <h2 className={styles.membresias_title}>Membresías</h2>
+    <div className={styles.membresia_container} data-theme={darkMode ? "dark" : "light"}>
+      <div className={styles.membresias_header} data-theme={darkMode ? "dark" : "light"}>
+        <h2 className={styles.membresias_title} data-theme={darkMode ? "dark" : "light"}>Membresías</h2>
 
-        <div className={styles.search_container}>
-          <FaSearch className={styles.search_icon} />
+        <div className={styles.search_container} data-theme={darkMode ? "dark" : "light"}>
+          <FaSearch className={styles.search_icon} data-theme={darkMode ? "dark" : "light"} />
           <input
             type="text"
             placeholder="Buscar membresías"
             className={styles.search_input}
+            data-theme={darkMode ? "dark" : "light"}
             value={searchTerm}
             onChange={handleSearchChange}
           />
@@ -141,6 +146,7 @@ const MembresiaModal = () => {
 
         <Button
           className={styles.filter_boton}
+          data-theme={darkMode ? "dark" : "light"}
           onClick={handleOpenMenu}
           disabled={activeFilterType === "search" && searchTerm}
         >
@@ -168,7 +174,7 @@ const MembresiaModal = () => {
         </Button>
       </div>
 
-      <h2 className={styles.filtered_title}>{getFilterTitle()}</h2>
+      <h2 className={styles.filtered_title} data-theme={darkMode ? "dark" : "light"}>{getFilterTitle()}</h2>
 
       <TableContainer
         className={styles.membresia_table}
@@ -205,35 +211,45 @@ const MembresiaModal = () => {
           <TableHead>
             <TableRow>
               <TableCell>Nombre</TableCell>
-              <TableCell>Duración Dias</TableCell>
-              <TableCell>Precio</TableCell>
               <TableCell>Tipo</TableCell>
+              <TableCell>Duración (días)</TableCell>
+              <TableCell>Precio</TableCell>
+              <TableCell>Beneficios</TableCell>
               <TableCell>Opciones</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {filteredMembresias.length > 0 ? (
               filteredMembresias.map((membresia) => (
-                <TableRow key={membresia.id}>
-                  <TableCell>{membresia.title}</TableCell>
-                  <TableCell>{membresia.duration}</TableCell>
-                  <TableCell>{membresia.price}</TableCell>
-                  <TableCell>{membresia.type}</TableCell>
+                <TableRow key={membresia.id} data-theme={darkMode ? "dark" : "light"}>
+                  <TableCell data-theme={darkMode ? "dark" : "light"}>{membresia.title}</TableCell>
+                  <TableCell data-theme={darkMode ? "dark" : "light"}>
+                    <span className={styles[membresia.type.toLowerCase()]}>
+                      {membresia.type}
+                    </span>
+                  </TableCell>
+                  <TableCell data-theme={darkMode ? "dark" : "light"}>{membresia.duration}</TableCell>
+                  <TableCell data-theme={darkMode ? "dark" : "light"}>${membresia.price}</TableCell>
+                  <TableCell data-theme={darkMode ? "dark" : "light"}>
+                    {membresia.benefits ? membresia.benefits.length : 0} beneficios
+                  </TableCell>
                   <TableCell>
-                    <FaPen
-                      className={styles.edit_icon}
-                      onClick={() => handleEditMembresia(membresia)}
+                    <FaPen 
+                      className={styles.edit_icon} 
+                      data-theme={darkMode ? "dark" : "light"}
+                      onClick={() => handleEditMembresia(membresia)} 
                     />
-                    <DeleteIcon
-                      className={styles.delete_icon}
-                      onClick={() => confirmDeleteMembresia(membresia.id)}
+                    <DeleteIcon 
+                      className={styles.delete_icon} 
+                      data-theme={darkMode ? "dark" : "light"}
+                      onClick={() => confirmDeleteMembresia(membresia.id, membresia.title)} 
                     />
                   </TableCell>
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={5} style={{ textAlign: "center" }}>
+                <TableCell colSpan={6} style={{ textAlign: 'center' }} data-theme={darkMode ? "dark" : "light"}>
                   No se encontraron membresías con los criterios de búsqueda.
                 </TableCell>
               </TableRow>
@@ -255,8 +271,13 @@ const MembresiaModal = () => {
           onClose={() => {
             setIsDeleteModalOpen(false);
             setMembresiaToDelete(null);
+            setMembresiaToDeleteName("");
           }}
-          onConfirm={handleDeleteMembresia}
+          onConfirm={() => {
+            handleDeleteMembresia();
+            setMembresiaToDeleteName("");
+          }}
+          membershipName={membresiaToDeleteName}
         />
       )}
     </div>

@@ -39,6 +39,23 @@
 .search_icon {
   color: gray;
   font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+/* Dark mode styles for search icon */
+@media (prefers-color-scheme: dark) {
+  .search_icon {
+    color: #999;
+  }
+}
+
+.search_icon[data-theme="dark"] {
+  color: #999;
+}
+
+/* Light mode styles for search icon */
+.search_icon[data-theme="light"] {
+  color: gray;
 }
 
 .search_input {
@@ -75,6 +92,7 @@
 .filter_icon {
   margin-right: 4px;
 }
+
 
 .add_boton {
   display: flex !important;
@@ -131,11 +149,62 @@
   background: var(--input-bg);
   color: var(--text-color);
   font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+/* Dark mode styles for table */
+@media (prefers-color-scheme: dark) {
+  .membresia_table th,
+  .membresia_table td {
+    border-color: #555;
+  }
+  
+  .membresia_table th {
+    background: #2d2d2d;
+    color: #ffffff;
+  }
+}
+
+.membresia_table th[data-theme="dark"],
+.membresia_table td[data-theme="dark"] {
+  border-color: #555;
+}
+
+.membresia_table th[data-theme="dark"] {
+  background: #2d2d2d;
+  color: #ffffff;
+}
+
+/* Light mode styles for table */
+.membresia_table th[data-theme="light"],
+.membresia_table td[data-theme="light"] {
+  border-color: #e0e0e0;
+}
+
+.membresia_table th[data-theme="light"] {
+  background: #f8f9fa;
+  color: #333333;
 }
 
 .membresia_table tbody tr {
   background-color: var(--card-bg);
   transition: background 0.2s ease;
+}
+
+/* Dark mode styles for table rows */
+@media (prefers-color-scheme: dark) {
+  .membresia_table tbody tr {
+    background: #1e1e1e;
+  }
+}
+
+.membresia_table tbody tr[data-theme="dark"] {
+  background: #1e1e1e;
+}
+
+/* Light mode styles for table rows */
+.membresia_table tbody tr[data-theme="light"] {
+  background: #ffffff;
 }
 
 .membresia_table tbody tr:hover {

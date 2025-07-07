@@ -84,6 +84,9 @@
   border: 1px solid var(--border-color, #ccc);
   border-radius: 8px;
   font-size: 14px;
+  background: #ffffff;
+  color: #333333;
+  transition: all 0.3s ease;
 }
 .benefitInput:focus {
   outline: none;

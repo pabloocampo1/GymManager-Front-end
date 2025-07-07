@@ -39,6 +39,22 @@
 .search_icon {
   color: gray;
   font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+/* Dark mode styles for search icon */
+@media (prefers-color-scheme: dark) {
+  .search_icon {
+    color: #999;
+  }
+}
+
+.search_icon[data-theme="dark"] {
+  color: #999;
+}
+
+.search_icon[data-theme="light"] {
+  color: gray;
 }
 
 .search_input {
@@ -124,6 +140,39 @@
 
 .edit_icon:hover {
   color: #1976D2;
+}
+
+/* Dark mode styles for icons */
+@media (prefers-color-scheme: dark) {
+  .edit_icon,
+  .delete_icon {
+    color: #999;
+  }
+  
+  .edit_icon:hover,
+  .delete_icon:hover {
+    color: #007bff;
+  }
+}
+
+.edit_icon[data-theme="dark"],
+.delete_icon[data-theme="dark"] {
+  color: #999;
+}
+
+.edit_icon[data-theme="dark"]:hover,
+.delete_icon[data-theme="dark"]:hover {
+  color: #007bff;
+}
+
+.edit_icon[data-theme="light"],
+.delete_icon[data-theme="light"] {
+  color: #454141;
+}
+
+.edit_icon[data-theme="light"]:hover,
+.delete_icon[data-theme="light"]:hover {
+  color: #007bff;
 }
 
 .delete_icon:hover {

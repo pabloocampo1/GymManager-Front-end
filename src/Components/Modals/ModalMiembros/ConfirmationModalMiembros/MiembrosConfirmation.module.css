@@ -12,21 +12,58 @@
   }
   
   .Contenedorinfo {
-    background: white;
+    background: #ffffff;
     padding: 20px;
     border-radius: 8px;
     z-index: 1001;
     pointer-events: auto;
     width: 75%;
-    
+    transition: background-color 0.3s ease, color 0.3s ease;
+    color: #333333;
+  }
+  
+  /* Dark mode styles */
+  @media (prefers-color-scheme: dark) {
+    .Contenedorinfo {
+      background: #1e1e1e;
+      color: #ffffff;
+    }
+  }
+  
+  .Contenedorinfo[data-theme="dark"] {
+    background: #1e1e1e;
+    color: #ffffff;
+  }
+  
+  /* Light mode styles */
+  .Contenedorinfo[data-theme="light"] {
+    background: #ffffff;
+    color: #333333;
   }
   
   .TitleCOnteiner h2 {
     margin: 0;
     font-size: 18px;
-    color: #333;
+    color: #333333;
     margin-top: 6px;
     text-align: center;
+    transition: color 0.3s ease;
+  }
+  
+  /* Dark mode styles for title */
+  @media (prefers-color-scheme: dark) {
+    .TitleCOnteiner h2 {
+      color: #ffffff;
+    }
+  }
+  
+  .TitleCOnteiner h2[data-theme="dark"] {
+    color: #ffffff;
+  }
+  
+  /* Light mode styles for title */
+  .TitleCOnteiner h2[data-theme="light"] {
+    color: #333333;
   }
   
   .ConteinerActions {
@@ -43,6 +80,7 @@
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
+    transition: all 0.3s ease;
   }
   
   .ConteinerActions button:first-child {
@@ -57,5 +95,216 @@
   
   .ConteinerActions button:hover {
     opacity: 0.8;
+    transform: translateY(-2px);
+  }
+  
+  /* Dark mode styles for buttons */
+  @media (prefers-color-scheme: dark) {
+    .ConteinerActions button:first-child {
+      background: #333;
+      color: #ffffff;
+    }
+  
+    .ConteinerActions button:first-child:hover {
+      background: #555;
+    }
+  }
+  
+  .ConteinerActions button:first-child[data-theme="dark"] {
+    background: #333;
+    color: #ffffff;
+  }
+  
+  .ConteinerActions button:first-child[data-theme="dark"]:hover {
+    background: #555;
+  }
+  
+  .modalOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 35px;
+  }
+  
+  .modalContainer {
+    position: relative;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    width: 400px;
+    max-width: 90vw;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    color: #333333;
+  }
+  
+  /* Dark mode styles */
+  @media (prefers-color-scheme: dark) {
+    .modalContainer {
+      background: #1e1e1e;
+      color: #ffffff;
+    }
+  }
+  
+  /* Dark mode class for manual toggle */
+  .modalContainer[data-theme="dark"] {
+    background: #1e1e1e;
+    color: #ffffff;
+  }
+  
+  /* Light mode class for manual toggle */
+  .modalContainer[data-theme="light"] {
+    background: #ffffff;
+    color: #333333;
+  }
+  
+  .modalCloseContainer {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: end;
+  }
+  
+  .closeButton{
+    cursor: pointer;
+    color: #333333;
+    transition: color 0.3s ease;
+  }
+  
+  /* Dark mode styles for close button */
+  @media (prefers-color-scheme: dark) {
+    .closeButton {
+      color: #ffffff;
+    }
+  }
+  
+  .closeButton[data-theme="dark"] {
+    color: #ffffff;
+  }
+  
+  .closeButton[data-theme="light"] {
+    color: #333333;
+  }
+  
+  .modalContainer h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 20px;
+    transition: color 0.3s ease;
+    color: #333333;
+  }
+  
+  /* Dark mode styles for title */
+  @media (prefers-color-scheme: dark) {
+    .modalContainer h2 {
+      color: #ffffff;
+    }
+  }
+  
+  .modalContainer h2[data-theme="dark"] {
+    color: #ffffff;
+  }
+  
+  .modalContainer h2[data-theme="light"] {
+    color: #333333;
+  }
+  
+  .modalContainer p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    transition: color 0.3s ease;
+    color: #333333;
+  }
+  
+  /* Dark mode styles for paragraph */
+  @media (prefers-color-scheme: dark) {
+    .modalContainer p {
+      color: #ffffff;
+    }
+  }
+  
+  .modalContainer p[data-theme="dark"] {
+    color: #ffffff;
+  }
+  
+  .modalContainer p[data-theme="light"] {
+    color: #333333;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .cancelButton {
+    background: #333333;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+  }
+  
+  .cancelButton:hover {
+    background: #555555;
+  }
+  
+  .confirmButton {
+    background: #d3d837;
+    color: black;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  .confirmButton:hover {
+    background: #c4c92f;
+  }
+  
+  /* Dark mode styles for buttons */
+  @media (prefers-color-scheme: dark) {
+    .cancelButton {
+      background: #333;
+      color: #ffffff;
+    }
+    
+    .cancelButton:hover {
+      background: #555;
+    }
+  }
+  
+  .cancelButton[data-theme="dark"] {
+    background: #333;
+    color: #ffffff;
+  }
+  
+  .cancelButton[data-theme="dark"]:hover {
+    background: #555;
+  }
+  
+  /* Light mode styles for buttons */
+  .ConteinerActions button:first-child[data-theme="light"] {
+    background: #333333;
+    color: #ffffff;
+  }
+
+  .ConteinerActions button:first-child[data-theme="light"]:hover {
+    background: #555555;
   }
   
