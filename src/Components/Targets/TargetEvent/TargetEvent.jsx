@@ -11,10 +11,30 @@ import Swal from "sweetalert2";
 
 const TargetEvent = ({ event, onDelete, onEdit }) => {
   const getEventStatus = (fechaEvento) => {
+    if (!fechaEvento) return "expired"; // Si no hay fecha, se asume vencido
+
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const [year, month, day] = fechaEvento.split("-").map(Number);
+
+    // Convertir la fecha a string con formato "YYYY-MM-DD" si no lo es
+    let fechaStr;
+    if (typeof fechaEvento === 'string') {
+      fechaStr = fechaEvento;
+    } else if (fechaEvento instanceof Date) {
+      fechaStr = fechaEvento.toISOString().split('T')[0];
+    } else {
+      try {
+        const parsed = new Date(fechaEvento);
+        if (isNaN(parsed)) return "expired";
+        fechaStr = parsed.toISOString().split('T')[0];
+      } catch (e) {
+        return "expired";
+      }
+    }
+
+    const [year, month, day] = fechaStr.split("-").map(Number);
     const eventDate = new Date(year, month - 1, day);
+
     if (eventDate.getTime() === today.getTime()) return "today";
     if (eventDate > today) return "upcoming";
     return "expired";
@@ -59,10 +79,9 @@ const TargetEvent = ({ event, onDelete, onEdit }) => {
       <div className={styles.eventContent}>
         <h3 className={styles.eventTitle}>{event.nombre}</h3>
         <div className={styles.eventDetails}>
-          
           <div className={styles.detailItem}>
             <span className={styles.detailLabel}>Fecha</span>
-            <span className={styles.detailValue}>{event.fechaEvento}</span>
+            <span className={styles.detailValue}>{event.fechaEvento?.toString()}</span>
           </div>
         </div>
         <div className={styles.eventActions}>
