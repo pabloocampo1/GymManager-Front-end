@@ -143,7 +143,7 @@ function Dashboard() {
                 width: "100%",
                 minHeight: "100vh",
                 padding: "20px",
-                backgroundColor: "var(--backgroundWhiteMiddle)",
+                backgroundColor: "background.default",
             }}
         >
             <Box
@@ -175,7 +175,7 @@ function Dashboard() {
                     justifyContent: "center",
                     alignItems: "center",
                     marginTop: "50px",
-                    backgroundColor: "white",
+                    backgroundColor: "background.paper",
                     boxShadow: "0.5px 0.5px 2px rgba(241, 241, 241, 0.5)",
                 }}
             >
@@ -191,7 +191,7 @@ function Dashboard() {
                     justifyContent: "center",
                     alignItems: "center",
                     marginTop: "50px",
-                    backgroundColor: "white",
+                    backgroundColor: "background.paper",
                     boxShadow: "0.5px 0.5px 2px rgba(241, 241, 241, 0.5)",
                 }}
             >
@@ -216,7 +216,7 @@ function Dashboard() {
                     sx={{
                         width: "60%",
                         height: "100%",
-                        backgroundColor: "white",
+                        backgroundColor: "background.paper",
                         borderRadius: "15px",
                         textAlign: "center",
                         boxShadow: "0.5px 0.5px 0.5px 2px rgba(241, 241, 241, 0.5)",
@@ -242,7 +242,7 @@ function Dashboard() {
                         alignItems: "center",
                         justifyContent: "space-between",
                         borderRadius: "15px",
-                        backgroundColor: "#ffffff",
+                        backgroundColor:"background.paper",
                         boxShadow: "0.5px 0.5px 2px rgba(241, 241, 241, 0.5)",
 
                     }}
@@ -258,7 +258,7 @@ function Dashboard() {
                 sx={{
                     width: "100%",
                     minHeight: "340px",
-                    backgroundColor: "white",
+                    backgroundColor: "background.paper",
                     boxShadow: "0.5px 0.5px 2px rgba(241, 241, 241, 0.5)",
                     borderRadius: "15px",
                     paddingTop: "20px",
@@ -289,7 +289,7 @@ function Dashboard() {
                 sx={{
                     width: "100%",
                     minHeight: "340px",
-                    backgroundColor: "white",
+                    backgroundColor: "background.paper",
                     boxShadow: "0.5px 0.5px 2px rgba(241, 241, 241, 0.5)",
                     borderRadius: "15px",
                     paddingTop: "20px",
@@ -310,7 +310,7 @@ function Dashboard() {
                 sx={{
                     width: "100%",
                     minHeight: "340px",
-                    backgroundColor: "white",
+                    backgroundColor: "background.paper",
                     boxShadow: "0.5px 0.5px 2px rgba(241, 241, 241, 0.5)",
                     borderRadius: "15px",
                     paddingTop: "20px",

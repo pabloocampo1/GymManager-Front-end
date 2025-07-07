@@ -7,6 +7,10 @@
     --input-bg: #f2f2f2;
     --bg-color: #f9f9f9;
     --border-color: #D3D837;
+    --btn-bg: #D3D837;
+  --btn-hover-bg: #c4c92f;
+  --btn-text: #000000;
+  --shadow-color: rgba(0, 0, 0, 0.08);
   }
   
   body.dark-mode {
@@ -24,6 +28,9 @@
     --error-text: #f28b82;
     --success-bg: #1f3321;
     --success-text: #8fd19e;
+    --shadow-color: rgba(255, 255, 255, 0.03);
+    --contact-bg: #2a2a2a;
+    --highlight: #FFD700;
   }
   
   

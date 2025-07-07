@@ -1,5 +1,5 @@
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom'
-import './App.css'
+
 import Login from './Pages/Auth/LoginPage/Login'
 import Home from './Pages/SectionHomePages/Home/Home'
 import Dashboard from './Pages/Admin/Dashboard/Dashboard'
@@ -25,6 +25,8 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 import ActivityRegister from './Pages/Admin/Dashboard/ActivityRegister'
 import TerminosYCondiciones from './Pages/TerminosYCondiciones/TerminosYCondiciones'
 import React, { createContext, useContext, useEffect, useState } from 'react'
+import { ThemeContextProvider } from './Context/ThemeContext'
+
 
 export const DarkModeContext = createContext()
 
@@ -45,12 +47,14 @@ function App() {
     }, [darkMode])
 
     return (
+
         <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
             <BrowserRouter>
-                <GoogleOAuthProvider clientId={clientId}>
-                    <AuthContextProvider>
+            <GoogleOAuthProvider clientId={clientId}>
+                <AuthContextProvider>
+                    <ThemeContextProvider>
                         <AuthContextProvider>
-                            <Routes>
+                            < Routes >
                                 <Route path="/" element={<PublicLayout />}>
                                     <Route index element={<Home />} />
                                     <Route path="/contact" element={<ContactHome />} />
@@ -62,6 +66,7 @@ function App() {
                                     <Route path="correo" element={<Promotions />} />
                                     <Route path="eventos" element={<Events />} />
                                     <Route path="inventario" element={<Inventory />} />
+
                                 </Route>
 
                                 <Route path='/login' element={<GuestRoute />}>
@@ -70,8 +75,9 @@ function App() {
                                 <Route path='/ForgetPass' element={<ForgotPassword />} />
                                 <Route path='/resetPassword' element={<SecurityCode />} />
 
+
                                 <Route path="/dashboard" element={<PrivateRoute />}>
-                                    <Route element={<PrivateLayout />}>
+                                    <Route element={<PrivateLayout />} >
                                         <Route index element={<Dashboard />} />
                                         <Route path='acceso' element={<ControlAcces />}></Route>
                                         <Route path='miembros' element={<Miembros />}></Route>
@@ -86,9 +92,10 @@ function App() {
                                 <Route path="*" element={<NotFound />} />
                             </Routes>
                         </AuthContextProvider>
-                    </AuthContextProvider>
-                </GoogleOAuthProvider>
-            </BrowserRouter>
+                    </ThemeContextProvider>
+                </AuthContextProvider>
+            </GoogleOAuthProvider>
+        </BrowserRouter>
         </DarkModeContext.Provider>
     )
 }

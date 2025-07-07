@@ -78,14 +78,16 @@
   align-items: center;
   gap: 5px;
   border: 1px solid #D3D837;
-  background: var(--bg-color);
+  background: transparent;
   padding: 6px 15px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
   height: 27px;
-  min-width: 100px;
+  width: 100px;
   margin-right: 10px;
+  transition: all 0.3s ease;
+  color: var(--text-color);
 }
 
 .add_btn {
@@ -188,13 +190,10 @@
 }
 
 .syncIcon:hover {
-  transform: rotate(360deg);
+  
+  transform: rotate(180deg);
 }
 
-/* Si prefieres una animación continua */
-.syncIconSpinning {
-  animation: spin 1s linear infinite;
-}
 
 @keyframes spin {
   from {

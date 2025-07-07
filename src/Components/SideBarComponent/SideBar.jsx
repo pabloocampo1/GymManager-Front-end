@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import style from './SideBar.module.css';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
@@ -13,17 +13,19 @@ import ContactMailIcon from '@mui/icons-material/ContactMail';
 import EventIcon from '@mui/icons-material/Event';
 import AttachEmailIcon from '@mui/icons-material/AttachEmail';
 import InventoryIcon from '@mui/icons-material/Inventory';
-
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
+
+import { ThemeContext } from '../../Context/ThemeContext';
 
 function SideBar({ onLogoutClick }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [activeLink, setActiveLink] = useState("");
+  const [activeLink, setActiveLink] = useState('');
   const [profileImage, setProfileImage] = useState(null);
   const [darkMode, setDarkMode] = useState(localStorage.getItem("theme") === "dark");
+  const {toggleDarkMode} = useContext(ThemeContext);
 
   const routeMap = {
     "/dashboard": "inicio",
@@ -85,12 +87,13 @@ function SideBar({ onLogoutClick }) {
     }
   };
 
-  const handleDarkModeToggle = () => {
+  const handleDarkModeIconClick = () => {
     const body = document.body;
     body.classList.toggle("dark-mode");
     const isDark = body.classList.contains("dark-mode");
     localStorage.setItem("theme", isDark ? "dark" : "light");
     setDarkMode(isDark);
+    toggleDarkMode(); // Llamar también el contexto si tienes lógica global
   };
 
   return (
@@ -124,7 +127,7 @@ function SideBar({ onLogoutClick }) {
       </div>
 
       <div className={style.UtilsSideBar}>
-        <div onClick={handleDarkModeToggle} title="Modo oscuro" style={{ cursor: 'pointer', color: 'white', marginBottom: '10px' }}>
+        <div onClick={handleDarkModeIconClick} title="Modo oscuro" style={{ cursor: 'pointer', color: 'white', marginBottom: '10px' }}>
           {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
         </div>
         <div className={activeLink === "perfil" ? style.activeLink : ""} onClick={() => handleNavigate("/dashboard/perfil", "perfil")}>

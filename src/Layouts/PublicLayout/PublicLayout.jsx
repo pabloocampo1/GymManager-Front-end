@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
+import { Box } from '@mui/material';
 import Header from '../../Components/HeaderComponent/Header';
 import Footer from '../../Components/FooterComponent/Footer';
-import style from "./PublicLayout.module.css"
-import { useLocation } from 'react-router-dom';
 
 function PublicLayout() {
   const location = useLocation();
@@ -16,15 +15,16 @@ function PublicLayout() {
       }
     }
   }, [location]);
-    return (
-        <div className={style.container_layout_public}>
-        <Header />
-        <main className={style.main}>
-          <Outlet />
-        </main>
-        <Footer />
-      </div>
-    );
+
+  return (
+    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Header />
+      <Box component="main" sx={{ flexGrow: 1, pt: '9vh', backgroundColor: 'background.default' }}>
+        <Outlet />
+      </Box>
+      <Footer />
+    </Box>
+  );
 }
 
 export default PublicLayout;

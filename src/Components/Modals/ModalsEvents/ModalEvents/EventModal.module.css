@@ -11,7 +11,6 @@
   z-index: 1000;
 }
 
-/* Contenedor del modal */
 .modalContent {
   position: relative;
   background: var(--card-bg);
@@ -25,14 +24,12 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Botón de cerrar */
 .modalClosebtn {
   width: 100%;
   display: flex;
   justify-content: flex-end;
 }
 
-/* Título del modal */
 .modalContent h2 {
   text-align: center;
   margin-bottom: 20px;
@@ -40,7 +37,6 @@
   font-weight: bold;
 }
 
-/* Fila del formulario */
 .formRow {
   display: flex;
   gap: 20px;
@@ -48,61 +44,62 @@
   align-items: center;
 }
 
-/* Grupo de entrada (label + input/select) */
 .formGroup {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-/* Etiquetas */
 label {
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 5px;
   text-align: left;
-  color: var(--textSecond-color);
+  color: var(--text-color);
 }
 
-/* Inputs y selects */
 input,
 select {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color, #ccc);
   border-radius: 5px;
   font-size: 14px;
   height: 38px;
-  background: var(--input-bg);
+  
   color: var(--text-color);
   transition: all 0.3s ease;
+}
+
+/* Enfoque con borde amarillo y sombra suave */
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #D3D837;
+  box-shadow: 0 0 0 3px rgba(211, 216, 55, 0.2);
+  background: var(--card-bg);
 }
 
 input[type="date"] {
   color-scheme: light dark;
 }
 
-/* Área de carga de imagen */
 .imageUpload {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  
   padding: 10px;
   width: 130px;
   height: 130px;
   justify-content: center;
   text-align: center;
-  background-color: var(--input-bg);
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-/* Ocultar input file nativo */
 input[type="file"] {
   display: none;
 }
 
-/* Botones del formulario */
 .formActions {
   display: flex;
   justify-content: flex-end;
@@ -140,19 +137,24 @@ input[type="file"] {
   background: #c4c92f;
 }
 
-/* Previsualización de la imagen */
 .imagePreviewContainer {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  margin-top: 10px;
-  border-radius: 6px;
-  background-color: var(--card-bg);
-  border: 1px solid #ccc;
-  transition: background-color 0.3s ease;
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 0 auto 10px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* opcional */
 }
 
-/* Responsive */
+.imagePreviewContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 @media (max-width: 600px) {
   .modalContent {
     width: 95%;

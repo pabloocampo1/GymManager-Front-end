@@ -21,11 +21,10 @@ const InventoryModal = ({
     image: null,
     id: null
   });
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const closeTimeoutRef = useRef(null);
 
-  // Función para resetear el estado del formulario
   const resetForm = useCallback(() => {
     setFormData({
       nombre: "",
@@ -49,7 +48,7 @@ const InventoryModal = ({
       }
       closeTimeoutRef.current = setTimeout(() => {
         resetForm();
-      }, 100); 
+      }, 100);
     }
   }, [isSubmitting, onClose, resetForm]);
 
@@ -64,7 +63,6 @@ const InventoryModal = ({
   useEffect(() => {
     if (initialItemData && isOpen) {
       const imageData = initialItemData.image || initialItemData.imagen || null;
-      
       setFormData({
         ...initialItemData,
         nombre: initialItemData.nombre || "",
@@ -121,7 +119,7 @@ const InventoryModal = ({
     }
 
     setIsSubmitting(true);
-    
+
     try {
       onClose();
       await onAddItem(formData);
@@ -133,35 +131,23 @@ const InventoryModal = ({
     }
   };
 
-  const modalVariants = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: { scale: 1, opacity: 1, transition: { duration: 0.15 } },
-    exit: { scale: 0.8, opacity: 0, transition: { duration: 0.1 } }
-  };
-
-  const overlayVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.15 } },
-    exit: { opacity: 0, transition: { duration: 0.1 } }
-  };
-
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence>
       {isOpen && (
         <motion.div
           className={styles.modalOverlay}
-          variants={overlayVariants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.15 }}
           onClick={(e) => e.target.classList.contains(styles.modalOverlay) && !isSubmitting && handleClose()}
         >
           <motion.div
             className={styles.modal}
-            variants={modalVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            transition={{ duration: 0.4 }}
           >
             <div className={styles.modalClosebtn}>
               <ClearIcon onClick={handleClose} style={{ cursor: isSubmitting ? 'wait' : 'pointer' }} />

@@ -29,7 +29,7 @@ export default function PieChartActiveAndInactiveMembers({dataObject = {}}) {
         <Box
             sx={{ 
                 width: "45%",
-                backgroundColor:"white",
+                backgroundColor:"background.paper",
                 borderRadius:"15px"
             }}>
             <Typography variant='p'>Miembros activo e inactivos</Typography>

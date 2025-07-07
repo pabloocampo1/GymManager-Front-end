@@ -1,21 +1,24 @@
+
+/* --------------------- MAIN STYLES --------------------- */
+
 .container {
   min-height: 100vh;
-  background-color: #f4f4f4;
+  background-color: var(--bg-color);
   padding: 2rem 1rem;
 }
 
 .content {
   max-width: 900px;
   margin: 0 auto;
-  background: white;
+  background: var(--card-bg);
   padding: 3rem;
   border-radius: 16px;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 20px var(--shadow-color);
 }
 
 .title {
   font-size: 2.5rem;
-  color: #333;
+  color: var(--highlight);
   margin-bottom: 2rem;
   text-align: center;
   position: relative;
@@ -30,7 +33,8 @@
   transform: translateX(-50%);
   width: 100px;
   height: 3px;
-  background: linear-gradient(to right, #FFD700, #333);
+  background: linear-gradient(to right, var(--highlight), var(--text-main));
+  color: var(--highlight);
 }
 
 .section {
@@ -42,14 +46,15 @@
 }
 
 .section h2 {
-  color: #333;
+  color: var(--text-main);
   font-size: 1.5rem;
   margin-bottom: 1rem;
   font-weight: 600;
+  transition: color 0.3s ease;
 }
 
 .section p {
-  color: #666;
+  color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: 1rem;
 }
@@ -61,24 +66,25 @@
 }
 
 .section ul li {
-  color: #666;
+  color: var(--text-secondary);
   margin-bottom: 0.5rem;
   position: relative;
 }
 
 .section ul li::before {
   content: '•';
-  color: #FFD700;
+  color: var(--highlight);
   font-weight: bold;
   position: absolute;
   left: -1.5rem;
 }
 
 .contactInfo {
-  background-color: #f8f8f8;
+  background-color: var(--contact-bg);
   padding: 1.5rem;
   border-radius: 8px;
   margin-top: 1rem;
+  transition: all 0.3s ease;
 }
 
 .contactInfo p {
@@ -92,9 +98,9 @@
 .footer {
   margin-top: 3rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--border-color);
   text-align: center;
-  color: #888;
+  color: var(--text-secondary);
   font-size: 0.9rem;
 }
 
@@ -116,27 +122,27 @@
   }
 }
 
-/* Animaciones para los elementos al hacer hover */
+/* --------------------- HOVERS (NO TOCAR) --------------------- */
+
 .section:hover h2 {
-  color: #FFD700;
+  color: var(--highlight);
   transition: color 0.3s ease;
 }
 
 .contactInfo:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px var(--shadow-color);
   transition: all 0.3s ease;
 }
 
-/* Estilo para los enlaces si los hay */
 .section a {
-  color: #FFD700;
+  color: var(--highlight);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .section a:hover {
-  color: #333;
+  color: var(--text-main);
   text-decoration: underline;
 }
 
@@ -149,8 +155,8 @@
 
 .backButton {
   padding: 10px 20px;
-  background-color: #333;
-  color: #FFD700;
+  background-color: var(--text-main);
+  color: var(--highlight);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -159,7 +165,8 @@
 }
 
 .backButton:hover {
-  background-color: #FFD700;
-  color: #333;
+  background-color: var(--btn-bg);
+  color: var(--text-main);
   transform: translateY(-2px);
-} 
+  border-radius: 40%;
+}

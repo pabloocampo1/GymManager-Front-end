@@ -23,7 +23,7 @@ function PiePromGender({dataList = []}) {
     return (
         <Box  sx={{ 
             width: "45%",
-            backgroundColor:"white",
+            backgroundColor:"background.paper",
             borderRadius:"15px"
         }}>
             <Typography variant='p'>Genero Promedio</Typography>

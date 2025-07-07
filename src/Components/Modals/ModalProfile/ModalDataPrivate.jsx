@@ -1,19 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { motion } from "framer-motion";
 import { Eye, EyeOff } from "lucide-react";
 import styles from "./ModalDataPrivate.module.css";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../Context/AuthContext";
 
-const PrivateDataModal = ({ correo, onClose, onCorreoChange, onPasswordChange }) => {
-  const [email, setEmail] = useState(correo);
+const PrivateDataModal = ({ onClose, onCorreoChange, onPasswordChange }) => {
+  const { state } = useContext(AuthContext);
   const [nuevaPass, setNuevaPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const [mostrarCamposPass, setMostrarCamposPass] = useState(false);
   const [showCorreo, setShowCorreo] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const [passwordsMatch, setPasswordsMatch] = useState(true);
-  const { state } = useContext(AuthContext);
+
+  const safeUsername = state?.username || "";
+  const safeEmail = state?.email || "";
 
   const handleGuardar = () => {
     if (nuevaPass !== confirmPass) {
@@ -27,17 +29,12 @@ const PrivateDataModal = ({ correo, onClose, onCorreoChange, onPasswordChange })
       return;
     }
 
-  
     const datosGuardados = {
-      correo: state.email,
+      correo: safeEmail,
       nuevaPassword: nuevaPass,
     };
 
-   
-    console.log("Datos guardados:", datosGuardados);
-
-    
-    onCorreoChange(email);
+    onCorreoChange(safeEmail);
     onPasswordChange(nuevaPass);
 
     Swal.fire({
@@ -50,14 +47,10 @@ const PrivateDataModal = ({ correo, onClose, onCorreoChange, onPasswordChange })
     onClose();
   };
 
-  useEffect(() => {}, []);
-
   return (
     <motion.div
       className={styles.overlay}
-      onClick={(e) =>
-        e.target.classList.contains(styles.overlay) && onClose()
-      }
+      onClick={(e) => e.target.classList.contains(styles.overlay) && onClose()}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -75,11 +68,7 @@ const PrivateDataModal = ({ correo, onClose, onCorreoChange, onPasswordChange })
             <div className={styles.infoRow}>
               <label className={styles.label}>Usuario</label>
               <div className={styles.privateField}>
-                <span>
-                  {showPass
-                    ? state.username
-                    : "•".repeat(state.username.length)}
-                </span>
+                <span>{showPass ? safeUsername : "•".repeat(safeUsername.length)}</span>
                 <div className={styles.actionsInline}>
                   <button
                     onClick={() => setShowPass(!showPass)}
@@ -95,11 +84,7 @@ const PrivateDataModal = ({ correo, onClose, onCorreoChange, onPasswordChange })
             <div className={styles.infoRow}>
               <label className={styles.label}>Correo vinculado</label>
               <div className={styles.privateField}>
-                <span>
-                  {showCorreo
-                    ? state.email
-                    : "•".repeat(state.email.length)}
-                </span>
+                <span>{showCorreo ? safeEmail : "•".repeat(safeEmail.length)}</span>
                 <button
                   onClick={() => setShowCorreo(!showCorreo)}
                   className={styles.eyeBtn}
@@ -152,9 +137,7 @@ const PrivateDataModal = ({ correo, onClose, onCorreoChange, onPasswordChange })
                 </div>
 
                 {!passwordsMatch && (
-                  <p className={styles.errorText}>
-                    Las contraseñas no coinciden
-                  </p>
+                  <p className={styles.errorText}>Las contraseñas no coinciden</p>
                 )}
               </div>
             </div>

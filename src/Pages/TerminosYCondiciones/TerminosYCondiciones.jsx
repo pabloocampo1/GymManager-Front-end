@@ -40,7 +40,6 @@ const TerminosYCondiciones = () => {
           <ul>
             <li>Gestión de membresías y usuarios</li>
             <li>Control de acceso y asistencia</li>
-            <li>Administración de pagos y facturación</li>
             <li>Gestión de inventario y equipamiento</li>
             <li>Programación de clases y eventos</li>
           </ul>
@@ -89,9 +88,9 @@ const TerminosYCondiciones = () => {
             Si tienes preguntas sobre estos términos y condiciones, puedes contactarnos a través de:
           </p>
           <div className={styles.contactInfo}>
-            <p>Email: soporte@gymmanager.com</p>
-            <p>Teléfono: (123) 456-7890</p>
-            <p>Dirección: Calle Principal #123, Ciudad</p>
+            <p>Email: santiagomartinez100@gmail.com</p>
+            <p>Teléfono: (+57) 456-7890-343</p>
+            <p>Dirección: , cl. 49, caldas, Colombia</p>
           </div>
         </section>
 

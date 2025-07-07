@@ -148,7 +148,7 @@ export const AuthContextProvider = ({ children }) => {
             const userLoggedRaw = localStorage.getItem("userAuthGymManager");
 
             if (!userLoggedRaw) {
-            dispatch({ type: "authReady" }); // 👉 Autenticación lista pero sin sesión
+            dispatch({ type: "authReady" }); 
             return;
         }
             const userLogged = JSON.parse(userLoggedRaw);

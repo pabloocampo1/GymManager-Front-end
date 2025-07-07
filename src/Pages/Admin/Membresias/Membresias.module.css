@@ -3,18 +3,24 @@
   min-height: 100vh;
   position: relative;
   padding: 40px;
+  background-color: var(--bg-color);
+  overflow-x: auto;
 }
 
 .membresias_header {
   display: flex;
   align-items: center;
-  background-color: white;
+  background-color: var(--bg-color);
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .membresias_title {
-  font-size:  1.875rem;
+  font-size: 1.875rem;
   font-weight: bold;
   margin-right: auto;
+  color: var(--text-color);
+  white-space: nowrap;
 }
 
 .search_container {
@@ -23,11 +29,11 @@
   border: 1px solid #D3D837;
   border-radius: 8px;
   padding: 4px 10px;
-  margin-left: 67px;
   gap: 5px;
   height: 30px;
-  width: 30%;
-  margin-right: 14px;
+  width: 300px;
+  margin: 10px 14px;
+  background-color: var(--input-bg);
 }
 
 .search_icon {
@@ -38,11 +44,13 @@
 .search_input {
   border: none;
   outline: none;
-  width: 250px;
+  width: 100%;
   font-size: 14px;
   padding: 0;
   height: 24px;
   margin-left: 10px;
+  background-color: transparent;
+  color: var(--text-color);
 }
 
 .filter_boton {
@@ -50,8 +58,7 @@
   align-items: center !important;
   gap: 5px !important;
   border: 1px solid #D3D837 !important;
-  background: white !important;
-  color: #333 !important;
+  background: transparent !important;
   padding: 6px 15px !important;
   border-radius: 8px !important;
   cursor: pointer !important;
@@ -59,17 +66,22 @@
   height: 27px !important;
   width: 100px !important;
   margin-right: 10px !important;
+  color: var(--text-color) !important;
+  transition: background 0.3s ease;
   text-transform: capitalize !important;
 }
+
+
 .filter_icon {
   margin-right: 4px;
 }
+
 .add_boton {
   display: flex !important;
   align-items: center !important;
   gap: 5px !important;
-  background: #D3D837 !important;
-  color: black !important;
+  background: var(--btn-bg) !important;
+  color: var(--btn-text) !important;
   font-weight: bold !important;
   padding: 5px 9px !important;
   border: none !important;
@@ -79,75 +91,84 @@
   width: 230px !important;
   padding-left: 15px !important;
   text-transform: capitalize !important;
+  transition: background 0.3s ease;
 }
 
-
-.filtered_title{
-  color: var( --textSecond-color);
+.add_boton:hover {
+  background-color: var(--btn-hover-bg) !important;
 }
 
+.add_icon {
+  font-size: 14px;
+}
+
+.filtered_title {
+  color: var(--textSecond-color);
+  margin-top: 20px;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+}
 
 .membresia_table {
   width: 100%;
-  border-collapse: collapse;
   margin-top: 15px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-radius: 30px;
+  overflow: hidden;
 }
 
+/* Estilo de celdas, filas y cabecera */
 .membresia_table th,
 .membresia_table td {
-  border: 1px solid #e0e0e0;
-  padding: 12px;
   text-align: center;
+  font-size: 16px;
+  padding: 12px;
+  border: none;
 }
 
 .membresia_table th {
-  background: #f8f9fa;
-  color: #333;
+  background: var(--input-bg);
+  color: var(--text-color);
   font-weight: bold;
 }
 
 .membresia_table tbody tr {
-  background: white;
+  background-color: var(--card-bg);
   transition: background 0.2s ease;
 }
 
-.membresia_table tr:hover {
-  background: #f3f3f3;
+.membresia_table tbody tr:hover {
+  background-color: var(--hover-row-bg);
 }
 
-
-.actions {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
+.membresia_table td:first-of-type {
+  border-radius: 35px 0 0 35px;
 }
 
-.edit_icon {
-  cursor: pointer;
-  font-size: 18px;
-  color: #454141;
-  transition: color 0.2s ease;
-  margin: 3px;
+.membresia_table td:last-child {
+  border-radius: 0 35px 35px 0;
 }
 
+/* Iconos */
+.edit_icon,
 .delete_icon {
   cursor: pointer;
   font-size: 18px;
-  color: #454141;
+  color: var(--text-color);
+  margin: 3px;
   transition: color 0.2s ease;
 }
 
-.icon:hover {
-  color: #007bff;
+.edit_icon:hover {
+  color: #1976D2;
 }
 
-
-.membresia_table td {
-  font-size: 16px;
-  color: #444;
+.delete_icon:hover {
+  color: #D32F2F;
 }
 
-
+/* Colores por tipo */
 .oro {
   background-color: #ffe082;
   color: #333;
@@ -155,9 +176,26 @@
 
 .plata {
   background: #c0c0c0;
+  color: #333;
 }
 
 .bronce {
   background: #cd7f32;
   color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .membresias_header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search_container,
+  .filter_boton,
+  .add_boton {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-top: 10px;
+  }
 }

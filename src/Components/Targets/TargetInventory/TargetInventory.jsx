@@ -23,33 +23,33 @@ const TargetInventory = ({ inventory, onDelete, onEdit, isDarkMode }) => {
 
   const handleDeleteClick = () => {
     Swal.fire({
-      title: '¿Estás seguro?',
+      title: "¿Estás seguro?",
       text: `Se eliminará el elemento con el nombre: ${inventory.nombre}`,
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
       reverseButtons: true,
-      cancelButtonText: 'Cancelar',
-      confirmButtonText: 'Eliminar',
-      cancelButtonColor: '#000000',
-      confirmButtonColor: '#D3D837',
-      background: isDarkMode ? '#2d2d2d' : '#ffffff',
-      color: isDarkMode ? '#e4e4e4' : '#000000',
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Eliminar",
       customClass: {
-        confirmButton: 'mi-boton-confirmar',
-      }
+        confirmButton: "swal-confirm-button",
+        cancelButton: "swal-cancel-button",
+        popup: "swal-popup",
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         onDelete(inventory.id);
         Swal.fire({
-          title: '¡Eliminado!',
-          text: 'El elemento ha sido eliminado correctamente.',
-          icon: 'success',
-          background: isDarkMode ? '#2d2d2d' : '#ffffff',
-          color: isDarkMode ? '#e4e4e4' : '#000000'
+          title: "¡Eliminado!",
+          text: "El elemento ha sido eliminado correctamente.",
+          icon: "success",
+          customClass: {
+            popup: "swal-popup",
+          },
         });
       }
     });
   };
+  
 
   return (
     <div className={`${styles.inventoriCard} ${isDarkMode ? styles.darkTheme : ''}`}>

@@ -172,34 +172,34 @@ const MembresiaModal = () => {
 
       <TableContainer
         className={styles.membresia_table}
-        style={{
-          backgroundColor: "#F9F9F9",
-          border: "4px solid #F9F9F9",
-          borderRadius: "30px",
-        }}
+      
       >
         <Table
           sx={{
-            borderCollapse: "separate",
-            borderSpacing: "0 5px",
-            "& td, & th": {
-              border: "none",
-            },
-            "& tbody tr": {
-              backgroundColor: "white",
-            },
-            "& tbody tr td": {
-              padding: "10px 16px",
-            },
-            "& tbody tr td:first-of-type": {
-              borderRadius: "35px 0 0 35px",
-            },
-            "& tbody tr td:last-child": {
-              borderRadius: "0 35px 35px 0",
-            },
-            "& tbody": {
-              backgroundColor: "#F9F9F9",
-            },
+            borderCollapse: 'separate',
+          borderSpacing: '0 5px',
+          '& td, & th': {
+            border: 'none',
+            color: 'var(--text-color)',
+          },
+          '& thead': {
+            backgroundColor: 'var(--input-bg)',
+          },
+          '& tbody tr': {
+            backgroundColor: 'var(--card-bg)',
+          },
+          '& tbody tr td': {
+            padding: '10px 16px',
+          },
+          '& tbody tr td:first-of-type': {
+            borderRadius: '35px 0 0 35px',
+          },
+          '& tbody tr td:last-child': {
+            borderRadius: '0 35px 35px 0',
+          },
+          '& tbody': {
+            backgroundColor: 'var(--bg-color)',
+          },
           }}
         >
           <TableHead>

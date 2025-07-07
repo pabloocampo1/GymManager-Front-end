@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
-import style from "./ContactHome.module.css";
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import EmailIcon from '@mui/icons-material/Email';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
-import { Box, Button, TextField } from '@mui/material';
-import { Facebook, Instagram, Send, WhatsApp } from '@mui/icons-material';
-import MapLocation from '../../../Components/MapLocation';
+import {
+    Box,
+    Typography,
+    TextField,
+    Button,
+    List,
+    ListItem,
+    Link,
+    Paper,
+} from '@mui/material';
+import { LocalPhone, Email, LocationOn, AccessTimeFilled, Facebook, Instagram, WhatsApp, Send } from '@mui/icons-material';
+import ReCAPTCHA from "react-google-recaptcha";
+import MapLocation from "../../../Components/MapLocation";
+
 import AccordionTransition from '../AccordionContactHome/AccordionContactHome';
 import { sendContactEmail } from '../../../Service/HomeEmailService';
-import ReCAPTCHA from "react-google-recaptcha";
 
 const ContactHome = () => {
     const [captchaToken, setCaptchaToken] = useState(null);
@@ -25,7 +30,6 @@ const ContactHome = () => {
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [success, setSuccess] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -35,14 +39,13 @@ const ContactHome = () => {
         }));
         
         setError(null);
-        setSuccess(false);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         setError(null);
-        
+
         try {
          
             if (!formData.name || !formData.email || !formData.message) {
@@ -56,19 +59,15 @@ const ContactHome = () => {
 
           
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(formData.email)) {
-                throw new Error("Por favor ingresa un correo electrónico válido");
-            }
-            
+            if (!emailRegex.test(formData.email)) throw new Error("Por favor ingresa un correo electrónico válido");
+
             await sendContactEmail({ ...formData, captchaToken });
-            setSuccess(true);
+            alert("Mensaje enviado con éxito");
             setFormData({ name: '', email: '', message: '' });
-            setCaptchaToken(null);
             alert("Mensaje enviado con éxito");
         } catch (error) {
-            const errorMessage = error.message || "Hubo un error al enviar el mensaje";
-            setError(errorMessage);
-            alert(errorMessage);
+            alert(error.message || "Hubo un error al enviar el mensaje");
+            setError(error.message);
             console.error(error);
         } finally {
             setLoading(false);
@@ -76,172 +75,138 @@ const ContactHome = () => {
     };
 
     return (
-        <div id='contact' className={style.ContactHome_container}>
-            <div className={style.container_intro_contact}>
-                <h2>Contacto</h2>
-                <p>¿Tienes alguna pregunta o necesitas más información? </p>
-                <p>Estamos aquí para ayudarte. Contáctanos y con gusto responderemos a todas tus inquietudes.</p>
-            </div>
-
-            <div className={style.container_contact}>
-                <div className={style.section_details}>
-                    <div className={style.section_details_information}>
-                        <h2>Nuestros detalles de contacto</h2>
-                        <div className={style.information_items}>
-                            <div className={style.information_items_item}>
-                                <div className={style.logo_details}>
-                                    <LocalPhoneIcon fontSize='large' sx={{ color: "white" }} />
-                                </div>
-                                <div className={style.details_about_contact} >
-                                    <h3>Teléfonos de contacto</h3>
-                                    <ol>
-                                        <li>314 5755765</li>
-                                        <li>320 4040869</li>
-                                    </ol>
-                                </div>
-                            </div>
-                            <div className={style.information_items_item}>
-                                <div className={style.logo_details}>
-                                    <EmailIcon fontSize='large' sx={{ color: "white" }} />
-                                </div>
-                                <div className={style.details_about_contact} >
-                                    <h3>Correos de Contacto</h3>
-                                    <ol>
-                                        <li>pablampo@gmail.com</li>
-                                        <li>mateocarna@gmail.com</li>
-                                    </ol>
-                                </div>
-                            </div>
-                            <div className={style.information_items_item}>
-                                <div className={style.logo_details}>
-                                    <LocationOnIcon fontSize='large' sx={{ color: "white" }} />
-                                </div>
-                                <div className={style.details_about_contact} >
-                                    <h3>Lugar de residencia</h3>
-                                    <ol>
-                                        <li>Carrera 49 #12-15</li>
-                                    </ol>
-                                </div>
-                            </div>
-                            <div className={style.information_items_item}>
-                                <div className={style.logo_details}>
-                                    <AccessTimeFilledIcon fontSize='large' sx={{ color: "white" }} />
-                                </div>
-                                <div className={style.details_about_contact} >
-                                    <h3>Horarios</h3>
-                                    <ol>
-                                        <li>Lunes - Viernes : 5am/10pm</li>
-                                        <li>Sábados, Domingos y Festivos : 7am/12pm</li>
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={style.section_details_map}>
+        <Box id="contact" sx={{ width: '100%', backgroundColor: 'background.paper', padding: { xs: '10px 20px', md: '100px' } }}>
+            <Box display="flex" flexWrap="wrap" justifyContent="center" gap={5}>
+                {/* Contact Details */}
+                <Box sx={{ width: { xs: '100%', md: '60%' },  border:"1px solid rgb(72, 72, 72)" }}>
+                    <Typography variant="h4" color="text.primary" textAlign="center" mb={3} mt={4}>Nuestros detalles de contacto</Typography>
+                    <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))" sx={{ m: "20px" }} gap={1}>
+                        {[
+                            { icon: <LocalPhone fontSize='large' sx={{ color: '#FFDB00' }} />, title: 'Teléfonos de contacto', details: ['314 5755765', '320 4040869'] },
+                            { icon: <Email fontSize='large' sx={{  color: '#FFDB00' }} />, title: 'Correos de Contacto', details: ['pablampo@gmail.com', 'mateocarna@gmail.com'] },
+                            { icon: <LocationOn fontSize='large' sx={{  color: '#FFDB00' }} />, title: 'Lugar de residencia', details: ['Carrera 49 #12-15'] },
+                            { icon: <AccessTimeFilled fontSize='large' sx={{  color: '#FFDB00' }} />, title: 'Horarios', details: ['Lunes - Viernes : 5am/10pm', 'Sábados, Domingos y Festivos : 7am/12pm'] },
+                        ].map((item, index) => (
+                            <Box key={index}  sx={{ display: 'flex', padding: 2, borderRadius: 2, border: '1px solid #FFDB00', backgroundColor: 'background.default' }}>
+                                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", mr: "20px" }}  >{item.icon}</Box>
+                                <Box>
+                                    <Typography variant="h6" color="text.primary">{item.title}</Typography>
+                                    <List dense>
+                                        {item.details.map((detail, idx) => (
+                                            <ListItem key={idx} disableGutters sx={{ color: 'rgb(182, 182, 182)', pl: 0 }}>{detail}</ListItem>
+                                        ))}
+                                    </List>
+                                </Box>
+                            </Box>
+                        ))}
+                    </Box>
+                    <Box sx={{ m: "20px" }}>
                         <MapLocation />
-                    </div>
-                </div>
-
-                <Box className={style.section_send_mesagge}>
-                    <div className={style.container_form}>
-                        <h2>Envíanos un mensaje</h2>
-                        <div className={style.section_send_mesagge_items}>
-                            <div className={style.send_mesagge_form_container}>
-                                <form onSubmit={handleSubmit} className={style.formContainer}>
-                                    <TextField
-                                        label="Nombre"
-                                        variant="standard"
-                                        className={style.inputField}
-                                        name="name"
-                                        value={formData.name}
-                                        onChange={handleChange}
-                                        required
-                                        sx={{
-                                            width: "100%",
-                                            paddingBottom: 2,
-                                            input: { color: "white" },
-                                            label: { color: "white" },
-                                            "& .MuiInput-underline:before": { borderBottomColor: "white" },
-                                            "& .MuiInput-underline:hover:before": { borderBottomColor: "#FFDB00" },
-                                            "& .MuiInput-underline:after": { borderBottomColor: "#FFDB00" },
-                                        }}
-                                    />
-                                    <TextField
-                                        label="Correo"
-                                        variant="standard"
-                                        className={style.inputField}
-                                        name="email"
-                                        type="email"
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                        required
-                                        sx={{
-                                            width: "100%",
-                                            paddingBottom: 5,
-                                            input: { color: "white" },
-                                            label: { color: "white" }, // Corregido: "white" en lugar de "#FFDB00"
-                                            "& .MuiInput-underline:before": { borderBottomColor: "white" },
-                                            "& .MuiInput-underline:hover:before": { borderBottomColor: "#FFDB00" },
-                                            "& .MuiInput-underline:after": { borderBottomColor: "#FFDB00" },
-                                        }}
-                                    />
-                                    <label htmlFor="message">Mensaje</label>
-                                    <textarea
-                                        name="message"
-                                        placeholder="Escribe tu mensaje"
-                                        id="message"
-                                        value={formData.message}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                    <ReCAPTCHA
-                                        sitekey="6LfArTArAAAAAPxWG4v5Z6ktodfQzQN42wdFm_My"
-                                        onChange={onChange}
-                                        theme="dark"
-                                        size="normal"
-                                        className={style.recaptcha}
-                                    />
-                                    <Button
-                                        variant="contained"
-                                        endIcon={<Send />}
-                                        type="submit"
-                                        disabled={loading}
-                                        sx={{
-                                            marginTop: 3,
-                                            backgroundColor: "#FFDB00",
-                                            color: "black"
-                                        }}
-                                    >
-                                        {loading ? "Enviando..." : "Enviar"}
-                                    </Button>
-                                    
-                                    {error && (
-                                        <div style={{ color: 'red', marginTop: '10px' }}>
-                                            {error}
-                                        </div>
-                                    )}
-                                    
-                                    
-                                </form>
-                            </div>
-                            <div className={style.send_mesagge_socialMedia_container}>
-                                <p>Redes sociales:</p>
-                                <div>
-                                    <a href="https://www.facebook.com/valhallagymoficial?locale=es_LA" target="_blank" rel="noopener noreferrer">
-                                        <Facebook sx={{ marginRight: 1, marginLeft: 1 }} />
-                                    </a>
-                                    <a href="https://www.instagram.com/valhalla__gym?igsh=a3lhbGJnbHpmNzNx" target="_blank" rel="noopener noreferrer">
-                                        <Instagram sx={{ marginRight: 1 }} />
-                                    </a>
-                                    <WhatsApp sx={{ marginRight: 1 }} />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </Box>
                 </Box>
-            </div>
+
+                {/* Contact Form */}
+                <Box sx={{ width: { xs: '100%', md: '35%' }, display: 'flex', justifyContent: 'center', }}>
+                    <Box
+                        sx={{
+                            width: '100%',
+                            padding: 4,
+                          border:"1px solid rgb(72, 72, 72)" ,
+                            borderRadius: 2,
+                          
+                        }}
+                    >
+                        <Typography variant="h4" color="text.primary" textAlign="center" mb={3}>Envíanos un mensaje</Typography>
+                        <form onSubmit={handleSubmit}>
+                            <TextField
+                                label="Nombre"
+                                variant="standard"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                fullWidth
+                                required
+                                sx={{
+                                    mb: 2,
+                                    input: { color: 'text.primary' },
+                                    label: { color: 'text.primary' },
+                                    '& .MuiInput-underline:before': { borderBottomColor: 'text.primary' },
+                                    '& .MuiInput-underline:hover:before': { borderBottomColor: '#FFDB00' },
+                                    '& .MuiInput-underline:after': { borderBottomColor: '#FFDB00' }
+                                }}
+                            />
+                            <TextField
+                                label="Correo"
+                                variant="standard"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                fullWidth
+                                required
+                                sx={{
+                                    mb: 2,
+                                    input: {color: 'text.primary' },
+                                    label: {color: 'text.primary' },
+                                    '& .MuiInput-underline:before': { borderBottomColor: 'text.primary' },
+                                    '& .MuiInput-underline:hover:before': { borderBottomColor: '#FFDB00' },
+                                    '& .MuiInput-underline:after': { borderBottomColor: '#FFDB00' }
+                                }}
+                            />
+                            <Typography variant="body1" color="text.primary" mb={1}>Mensaje</Typography>
+                            <TextField
+                                name="message"
+                                placeholder="Escribe tu mensaje"
+                                multiline
+                                rows={4}
+                                value={formData.message}
+                                onChange={handleChange}
+                                fullWidth
+                                required
+                                sx={{
+                                    mb: 2,
+                                    '& .MuiOutlinedInput-root': {
+                                        '& fieldset': { borderColor: 'text.primary' },
+                                        '&:hover fieldset': { borderColor: '#FFDB00' },
+                                        '&.Mui-focused fieldset': { borderColor: '#FFDB00' },
+                                    },
+                                    textarea: { color:"text.primary" }
+                                }}
+                            />
+                            <ReCAPTCHA sitekey="6LfArTArAAAAAPxWG4v5Z6ktodfQzQN42wdFm_My" onChange={onChange} />
+                            <Button
+                                variant="contained"
+                                endIcon={<Send />}
+                                type="submit"
+                                disabled={loading}
+                                fullWidth
+                                sx={{ mt: 3, backgroundColor: '#FFDB00', color: 'black', fontWeight: 'bold' }}
+                            >
+                                {loading ? "Enviando..." : "Enviar"}
+                            </Button>
+                            {error && (
+                                <Typography color="error" mt={2}>{error}</Typography>
+                            )}
+                        </form>
+
+                        {/* Redes sociales */}
+                        <Box mt={4}>
+                            <Typography color="text.primary" mb={1}>Redes sociales:</Typography>
+                            <Box display="flex" alignItems="center">
+                                <Link href="https://www.facebook.com/valhallagymoficial?locale=es_LA" target="_blank" rel="noopener noreferrer" color="inherit" sx={{ mr: 2 }}>
+                                    <Facebook />
+                                </Link>
+                                <Link href="https://www.instagram.com/valhalla__gym?igsh=a3lhbGJnbHpmNzNx" target="_blank" rel="noopener noreferrer" color="inherit" sx={{ mr: 2 }}>
+                                    <Instagram />
+                                </Link>
+                                <WhatsApp />
+                            </Box>
+                        </Box>
+                    </Box>
+                </Box>
+            </Box>
+
             <AccordionTransition />
-        </div>
+        </Box>
     );
 };
 

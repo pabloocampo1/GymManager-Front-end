@@ -13,13 +13,14 @@
 }
 
 .modal {
-  background: #fff;
+  background: var(--card-bg);
   padding: 2rem;
   border-radius: 16px;
-  max-width: 800px; /* Increased to accommodate side-by-side layout */
+  max-width: 800px;
   width: 100%;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 30px var(--shadow-color);
   transition: all 0.3s ease;
+  color: var(--text-color);
 }
 
 .modalContent {
@@ -28,20 +29,21 @@
   gap: 2rem;
 }
 
-.leftSide, .rightSide {
+.leftSide,
+.rightSide {
   flex: 1;
 }
 
 .separator {
   width: 1px;
-  background-color: #e0e0e0;
+  background-color: var(--border-color);
   margin: 0 10px;
 }
 
 .title {
   font-size: 26px;
   font-weight: bold;
-  color: #333;
+  color: var(--text-color);
   margin-bottom: 20px;
   text-align: center;
 }
@@ -49,7 +51,7 @@
 .label {
   display: block;
   font-weight: 600;
-  color: #444;
+  color: var(--label-color);
   margin-bottom: 0.4rem;
   margin-top: 1rem;
 }
@@ -58,22 +60,24 @@
   width: 100%;
   padding: 10px;
   border-radius: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   font-size: 14px;
   transition: border 0.3s ease;
+  background-color: var(--input-bg);
+  color: var(--text-color);
 }
 
 .input:focus {
   outline: none;
-  border-color: #d3d837;
+  border-color: var(--primarySecond-color);
 }
 
 .button {
   margin-top: 1rem;
   width: 100%;
   padding: 0.8rem;
-  background: #d3d837;
-  color: white;
+  background: var(--btn-bg);
+  color: var(--btn-text);
   border: none;
   border-radius: 10px;
   font-weight: bold;
@@ -81,11 +85,12 @@
   font-size: 14px;
   transition: background-color 0.3s, transform 0.3s ease;
 }
-.buttonv{
-   margin-top: 1rem;
+
+.buttonv {
+  margin-top: 1rem;
   width: 100%;
   padding: 0.8rem;
-  background-color: #6e7038;
+  background-color: #6e7038; /* Puedes crear una variable si lo deseas */
   color: white;
   border: none;
   border-radius: 10px;
@@ -96,7 +101,7 @@
 }
 
 .button:hover {
-  background-color: #e5c100;
+  background-color: var(--btn-hover-bg);
   transform: scale(1.02);
 }
 
@@ -107,7 +112,8 @@
   justify-content: space-between;
 }
 
-.saveBtn, .cancelBtn {
+.saveBtn,
+.cancelBtn {
   flex: 1;
   padding: 0.75rem;
   border: none;
@@ -117,17 +123,11 @@
   font-size: 14px;
   cursor: pointer;
   transition: transform 0.2s ease;
+  background-color: #000;
 }
 
-.saveBtn {
-  background-color: #000000;
-}
-
-.cancelBtn {
-  background-color: #000000;
-}
-
-.saveBtn:hover, .cancelBtn:hover {
+.saveBtn:hover,
+.cancelBtn:hover {
   transform: scale(1.05);
 }
 
@@ -135,25 +135,28 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #f4f4f4;
+  background: var(--input-bg);
   padding: 10px 12px;
   border-radius: 10px;
   font-size: 14px;
   margin-bottom: 0.5rem;
+  color: var(--text-color);
 }
 
-.eyeBtn, .editBtn {
+.eyeBtn,
+.editBtn {
   background: transparent;
   border: none;
   cursor: pointer;
   padding: 4px;
   display: flex;
   align-items: center;
-  color: #555;
+  color: var(--textSecond-color);
 }
 
-.eyeBtn:hover, .editBtn:hover {
-  color: #111;
+.eyeBtn:hover,
+.editBtn:hover {
+  color: var(--text-color);
 }
 
 .actionsInline {
@@ -169,7 +172,7 @@
 }
 
 .errorText {
-  color: #f44336;
+  color: var(--error-text);
   font-size: 12px;
   margin-top: 5px;
   margin-bottom: 0;
@@ -181,7 +184,7 @@
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   .separator {
     width: 100%;
     height: 1px;

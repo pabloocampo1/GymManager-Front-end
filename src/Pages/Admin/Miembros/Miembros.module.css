@@ -3,32 +3,37 @@
   min-height: 100vh;
   position: relative;
   padding: 40px;
-  
+  background-color: var(--bg-color);
+  overflow-x: auto;
 }
 
 .miembros_header {
   display: flex;
   align-items: center;
-  background-color: white;
+  background-color: var(--bg-color);
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .miembros_title {
-  font-size:  1.875rem;
+  font-size: 1.875rem;
   font-weight: bold;
   margin-right: auto;
+  color: var(--text-color);
+  white-space: nowrap;
 }
 
 .search_container {
   display: flex;
   align-items: center;
-  border: 1px solid #d3d837;
+  border: 1px solid #D3D837;
   border-radius: 8px;
   padding: 4px 10px;
-  margin-left: 67px;
   gap: 5px;
-  height: 30%;
-  width: 30%;
-  margin-right: 14px;
+  height: 30px;
+  width: 300px;
+  margin: 10px 14px;
+  background-color: var(--input-bg);
 }
 
 .search_icon {
@@ -39,19 +44,21 @@
 .search_input {
   border: none;
   outline: none;
-  width: 250px;
+  width: 100%;
   font-size: 14px;
   padding: 0;
   height: 24px;
   margin-left: 10px;
+  background-color: transparent;
+  color: var(--text-color);
 }
 
 .filter_boton {
   display: flex;
   align-items: center;
   gap: 5px;
-  border: 1px solid #d3d837;
-  background: white;
+  border: 1px solid #D3D837 !important;
+  background: transparent;
   padding: 6px 15px;
   border-radius: 8px;
   cursor: pointer;
@@ -59,18 +66,18 @@
   height: 27px;
   width: 100px;
   margin-right: 10px;
+  color: var(--text-color);
+  transition: background 0.3s ease;
 }
 
-.filter_icon {
-  margin-right: 4px;
-}
+
 
 .add_boton {
   display: flex;
   align-items: center;
   gap: 5px;
-  background: #d3d837 !important;
-  color: black !important;
+  background: var(--btn-bg) !important;
+  color: var(--btn-text) !important;
   font-weight: bold;
   padding: 5px 9px;
   border: none;
@@ -79,66 +86,62 @@
   height: 35px;
   width: 200px;
   padding-left: 15px;
+  transition: background 0.3s ease;
 }
 
-.filtered_title{
-  color: var( --textSecond-color);
+.add_boton:hover {
+  background-color: var(--btn-hover-bg) !important;
+}
+
+.add_icon {
+  font-size: 14px;
+}
+
+.filtered_title {
+  color: var(--textSecond-color);
+  margin-top: 20px;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
 }
 
 .miembros_table {
   width: 100%;
-  border-collapse: collapse;
   margin-top: 15px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-radius: 30px;
+  overflow: hidden;
 }
 
-.miembros_table th,
-.miembros_table td {
-  border: 1px solid #e0e0e0;
-  padding: 12px;
-  text-align: center;
-}
-
-.miembros_table th {
-  background: #f8f9fa;
-  color: #333;
-  font-weight: bold;
-}
-
-.miembros_table tbody tr {
-  background: white;
-  transition: background 0.2s ease;
-}
-
-.miembros_table tr:hover {
-  background: #f3f3f3;
-}
-
-.actions {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.edit_icon {
-  cursor: pointer;
-  font-size: 18px;
-  color: #454141;
-  transition: color 0.2s ease;
-  margin: 3px;
-}
-
+.edit_icon,
 .delete_icon {
   cursor: pointer;
   font-size: 18px;
-  color: #454141;
+  color: var(--text-color);
+  margin: 3px;
   transition: color 0.2s ease;
 }
 
-.icon:hover {
-  color: #007bff;
+.edit_icon:hover {
+  color: #1976D2;
 }
 
-.miembros_table td {
-  font-size: 16px;
-  color: #444;
+.delete_icon:hover {
+  color: #D32F2F;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .miembros_header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search_container,
+  .filter_boton,
+  .add_boton {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
+  }
 }

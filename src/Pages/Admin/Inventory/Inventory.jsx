@@ -150,7 +150,7 @@ const Inventory = () => {
         
         <span title="Actualizar lista">
           <SyncIcon
-            className={styles.FilterMax} 
+            className={styles.syncIcon} 
             onClick={handleToggleFilterModal}
           />
         </span>

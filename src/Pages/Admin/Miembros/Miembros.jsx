@@ -206,15 +206,19 @@ const MiembrosModalComponent = () => {
         {titleToShow}
       </h2>
 
-      <TableContainer className={styles.miembros_table} style={{ backgroundColor: '#F9F9F9', border:'4px solid #F9F9F9', borderRadius :'30px' }}>
+      <TableContainer className={styles.miembros_table} >
         <Table sx={{ 
           borderCollapse: 'separate',
           borderSpacing: '0 5px',
-          '& td, & th': { 
-            border: 'none' 
+          '& td, & th': {
+            border: 'none',
+            color: 'var(--text-color)',
+          },
+          '& thead': {
+            backgroundColor: 'var(--input-bg)',
           },
           '& tbody tr': {
-            backgroundColor: 'white',
+            backgroundColor: 'var(--card-bg)',
           },
           '& tbody tr td': {
             padding: '10px 16px',
@@ -226,7 +230,7 @@ const MiembrosModalComponent = () => {
             borderRadius: '0 35px 35px 0',
           },
           '& tbody': {
-            backgroundColor: '#F9F9F9',
+            backgroundColor: 'var(--bg-color)',
           }
         }}>
           <TableHead>

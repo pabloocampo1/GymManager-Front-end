@@ -30,9 +30,9 @@
 }
 
 .promotions-title {
-  font-size: 2.5rem;
+  font-size: 1.875rem;
   font-weight: 600;
-  color: var(--text-main);
+  color: var(text-color);
   letter-spacing: 0.5px;
   margin: 35px 0;
 }
@@ -77,7 +77,7 @@
   font-size: 0.95rem;
   transition: all 0.3s ease;
   background: var(--input-bg);
-  color: var(--text-main);
+  color: var(--text-color);
 }
 
 .promotions-input:hover {
@@ -122,7 +122,7 @@
   font-size: 0.95rem;
   transition: all 0.3s ease;
   background: var(--input-bg);
-  color: var(--text-main);
+  color: var(--text-color);
   resize: vertical;
 }
 
