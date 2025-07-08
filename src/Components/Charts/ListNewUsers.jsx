@@ -62,7 +62,7 @@ const ListNewUsers = () => {
         <Box sx={{ display: "flex", gap: 2 }}>
             <Box
                 sx={{
-                    width: '250px',
+                    minWidth: '300px',
                     maxWidth: 370,
                     bgcolor: "background.paper",
                     overflow: 'hidden',
@@ -90,7 +90,7 @@ const ListNewUsers = () => {
                                 disablePadding
                             >
                                 <ListItemButton onClick={() => { data.onUserClick(user), setOpen(true) }}>
-                                    <FiberNewIcon sx={{ color: "black", opacity: "0.80" }} />
+                                    <FiberNewIcon sx={{ color: "text.primary", opacity: "0.80" }} />
                                     <ListItemText sx={{ ml: "10px" }}  primary={`${user.fullName} - ${getTimeAgo(new Date(user.createDate))}`} />
                                 </ListItemButton>
                             </ListItem>

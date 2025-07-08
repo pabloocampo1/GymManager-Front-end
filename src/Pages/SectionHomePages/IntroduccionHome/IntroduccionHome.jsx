@@ -114,7 +114,7 @@ export default function IntroduccionHome() {
                             pb: 1,
                         }}
                     >
-                        <Typewriter>
+                        <Typewriter sx={{color:"white"}}>
                             {typedText.split('\n').map((line, i) => (
                                 <React.Fragment key={i}>
                                     {line}

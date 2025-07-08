@@ -1,43 +1,52 @@
 import React, { useState } from "react";
-import { TextField, InputAdornment, IconButton } from "@mui/material";
+import { Box, IconButton, InputBase } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 export default function SearchInput({ onSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleChange = (event) => {
-    setSearchTerm(event.target.value);
-    if (onSearch) {
-      onSearch(event.target.value); 
-    }
+    const value = event.target.value;
+    setSearchTerm(value);
+    if (onSearch) onSearch(value);
   };
 
   return (
-    <TextField
-      variant="outlined"
-      size="small" 
-      fullWidth
-      placeholder="Buscar..."
-      value={searchTerm}
-      onChange={handleChange}
+    <Box
       sx={{
+        display: "flex",
+        alignItems: "center",
         maxWidth: 400,
-        backgroundColor: "background.paper",
+        height: 36,
+        px: 1,
         borderRadius: "5px",
-        "& .MuiOutlinedInput-root": {
-          height: "36px", 
-          fontSize: "14px", 
-        },
+        backgroundColor:  "background.default", // fondo fijo
+
       }}
-      InputProps={{
-        endAdornment: (
-          <InputAdornment position="end">
-            <IconButton size="small">
-              <SearchIcon fontSize="small" />
-            </IconButton>
-          </InputAdornment>
-        ),
-      }}
-    />
+    >
+      <InputBase
+        placeholder="Buscar..."
+        id="jajajaj"
+        value={searchTerm}
+        onChange={handleChange}
+        sx={{
+            width:"300px",
+          flex: 1,
+          fontSize: "14px",
+          color: "text.primary",
+          backgroundColor: "transparent",
+          "& input": {
+            backgroundColor: "transparent !important", // FORZAR fondo
+          
+          }
+        }}
+        inputProps={{
+          "aria-label": "search",
+        }}
+      />
+      <IconButton size="small" >
+        <SearchIcon fontSize="small" />
+      </IconButton>
+    </Box>
   );
 }

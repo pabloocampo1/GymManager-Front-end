@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { api } from '../../../Service/api';
 import SimpleBackdrop from "../../SimpleBackdrop";
 
-export default function ModalVisitRegular({ open, handleClose , ShowMessageSuccess}) {
+export default function ModalVisitRegular({ open, handleClose, ShowMessageSuccess }) {
 
     const [userDataVisit, setUserDataVisit] = React.useState({
         fullName: null,
@@ -42,9 +42,9 @@ export default function ModalVisitRegular({ open, handleClose , ShowMessageSucce
                 setErrorRequest(true)
                 return;
             }
-            
-              ShowMessageSuccess()
-          handleClose()
+
+            ShowMessageSuccess()
+            handleClose()
         } catch (Error) {
             console.error(Error);
             setIslOanding(false);
@@ -52,7 +52,7 @@ export default function ModalVisitRegular({ open, handleClose , ShowMessageSucce
         }
 
         setIslOanding(false)
-      
+
     };
 
     return (
@@ -63,7 +63,7 @@ export default function ModalVisitRegular({ open, handleClose , ShowMessageSucce
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-              
+
                 <Box
                     sx={{
                         position: 'absolute',
@@ -76,7 +76,7 @@ export default function ModalVisitRegular({ open, handleClose , ShowMessageSucce
                         borderRadius: "15px"
                     }}
                 >
-                      <SimpleBackdrop open={isLoanding} />
+                    <SimpleBackdrop open={isLoanding} />
                     <Box sx={{ position: "absolute", left: "3%", display: "flex", justifyContent: "center", alignItems: "center", cursor: "alias" }} onClick={() => handleClose()}>
                         <ArrowBack sx={{ opacity: "0.50" }} /> <Typography sx={{ opacity: "0.50" }}>volver</Typography>
                     </Box>
@@ -91,17 +91,22 @@ export default function ModalVisitRegular({ open, handleClose , ShowMessageSucce
                     </Box>
                     <Box sx={{ width: "100%", height: "auto", }}>
                         <form onSubmit={(e) => { handleSubmit(e) }} style={{ display: "flex", flexDirection: 'column', justifyContent: "center", alignItems: "center" }} >
-                            <TextField id="outlined-search" name='fullName' label="Nombre completo" size='small' type="text" required onChange={handleInputChange} sx={{ pb: "20px", borderRadius: "15px" }} />
-                            <TextField id="outlined-search" name='documentId' label="Cedula" size='small' type="number" required onChange={handleInputChange} sx={{ pb: "20px" }} />
-                            <TextField id="outlined-search" name='phoneNumber' label="Numero de telefono" size='small' type="number" required onChange={handleInputChange} />
+                            <TextField id="outlined-seawwrch" name='fullName' label="Nombre completo" size='small' type="text" required onChange={handleInputChange} sx={{
+                                pb: "20px", borderRadius: "15px", "& input": {
+                                    backgroundColor: "transparent !important", // FORZAR fondo
+
+                                }
+                            }} />
+                            <TextField id="outlined-seaewerch" name='documentId' label="Cedula" size='small' type="number" required onChange={handleInputChange} sx={{ pb: "20px" }} />
+                            <TextField id="outlined-sewewearch" name='phoneNumber' label="Numero de telefono" size='small' type="number" required onChange={handleInputChange} />
                             <Button type='submit' variant='outlined' sx={{ mt: "40px", mb: "20px", }}>Registrar Entrada</Button>
-                            {errorRequest && (<Typography sx={{color:"red"}}>Error registrabdi visita.</Typography>)}
+                            {errorRequest && (<Typography sx={{ color: "red" }}>Error registrabdi visita.</Typography>)}
                         </form>
                     </Box>
 
                 </Box>
             </Modal>
-          
+
         </Box>
     );
 }

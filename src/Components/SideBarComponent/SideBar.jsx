@@ -88,12 +88,13 @@ function SideBar({ onLogoutClick }) {
   };
 
   const handleDarkModeIconClick = () => {
+    toggleDarkMode();
     const body = document.body;
     body.classList.toggle("dark-mode");
     const isDark = body.classList.contains("dark-mode");
     localStorage.setItem("theme", isDark ? "dark" : "light");
     setDarkMode(isDark);
-    toggleDarkMode(); // Llamar también el contexto si tienes lógica global
+   // Llamar también el contexto si tienes lógica global
   };
 
   return (
