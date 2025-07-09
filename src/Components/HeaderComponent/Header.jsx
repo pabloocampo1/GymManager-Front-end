@@ -5,6 +5,8 @@ import ImageLogoPrincipal from '../../assets/images/logoSinFondo.png';
 import LoginIcon from '@mui/icons-material/Login';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuMobile from '../MenuMobileComponent/MenuMobile';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 
 import { ThemeContext } from '../../Context/ThemeContext';
 import { MaterialUISwitch } from '../ButtonDarkMode';
@@ -12,11 +14,16 @@ import { MaterialUISwitch } from '../ButtonDarkMode';
 function Header() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
     const { toggleDarkMode } = useContext(ThemeContext);
-       const [checked, setChecked] = useState(true);
-        const handleChecked = () => {
-            setChecked(event.target.checked);
-    
-        }
+    const [darkMode, setDarkMode] = useState(localStorage.getItem("theme") === "dark");
+    const handleDarkModeIconClick = () => {
+        toggleDarkMode();
+        const body = document.body;
+        body.classList.toggle("dark-mode");
+        const isDark = body.classList.contains("dark-mode");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+        setDarkMode(isDark);
+        // Llamar también el contexto si tienes lógica global
+    };
 
 
     const handleShowMenu = () => {
@@ -103,9 +110,9 @@ function Header() {
                     justifyContent: 'flex-end',
                 }}
             >
-                <IconButton onClick={toggleDarkMode} sx={{ color: 'white', mr: 2 }}>
-                    <MaterialUISwitch sx={{bgcolor:"none"}}  checked={checked} onChange={handleChecked} />
-                </IconButton>
+                <div onClick={handleDarkModeIconClick} title="Modo oscuro" style={{ cursor: 'pointer', color: 'white', marginBottom: '10px' }}>
+                    {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+                </div>
 
                 <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                     <Link to="/login" style={{ textDecoration: 'none' }}>
@@ -116,9 +123,9 @@ function Header() {
                                 px: 2.8,
                                 py: 0.60,
                                 minWidth: 'auto',
-                                borderRadius: '15px', 
+                                borderRadius: '15px',
                                 color: 'primary.main',
-                                border:"1px solid #FFDB00",
+                                border: "1px solid #FFDB00",
                                 textTransform: 'none',
                                 fontWeight: '500',
                                 fontSize: '0.95rem',

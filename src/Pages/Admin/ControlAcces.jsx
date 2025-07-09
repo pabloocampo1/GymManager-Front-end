@@ -149,7 +149,7 @@ function ControlAcces() {
                         justifyContent: 'center',
                         pt: '20px',
                         position: "sticky",
-                        bgcolor: "background.paper",
+                        // bgcolor: "background.paper",
                         top: "0%",
                         right: "2%"
                     }}

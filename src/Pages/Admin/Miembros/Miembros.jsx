@@ -311,7 +311,7 @@ const MiembrosModalComponent = () => {
               })
               .catch((error) => {
                 console.error("Error al eliminar miembro:", error);
-                setError("Error al eliminar el miembro. Por favor, intenta de nuevo.");
+                // setError("Error al eliminar el miembro. Por favor, intenta de nuevo.");
               });
           }}
           memberName={miembroToDeleteName}
