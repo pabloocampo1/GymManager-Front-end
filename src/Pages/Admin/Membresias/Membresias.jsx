@@ -188,9 +188,7 @@ const MembresiaModal = () => {
             border: 'none',
             color: 'var(--text-color)',
           },
-          '& thead': {
-            backgroundColor: 'var(--input-bg)',
-          },
+          
           '& tbody tr': {
             backgroundColor: 'var(--card-bg)',
           },
