@@ -1,167 +1,182 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import {
+  Box,
+  Typography,
+  TextField,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  Button,
+  Grid,
+} from "@mui/material";
 import imageLogo from "../../../assets/images/logoprincipal.png";
 import imageLogin from "../../../assets/images/logo_login_yellow.png";
 import iconArrowLeft from "../../../assets/icons/left-arrow.png";
-import style from "./Login.module.css";
-import { Box, Checkbox, FormControlLabel, FormGroup, Typography } from "@mui/material";
-import { Password } from "@mui/icons-material";
-
 import SimpleBackdrop from "../../../Components/SimpleBackdrop";
 import { AuthContext } from "../../../Context/AuthContext";
 import { GoogleLogin } from "@react-oauth/google";
 
 function Login() {
-    const navigate = useNavigate();
-    const { state, singIn, singInWithGoogle } = useContext(AuthContext);
-    const [dataCredentials, setDataCredentials] = useState({
-        username: "",
-        password: ""
-    });
-    const [isLoanding, setIsLoanding] = useState(false)
-    const [isAuthenticated, setIsAuthenticated] = useState(true);
-    const [rememberPassword, setRememberPassword] = useState(false);
+  const navigate = useNavigate();
+  const { state, singIn, singInWithGoogle } = useContext(AuthContext);
 
-    const navigateTo = (path) => {
-        navigate(path);
-    };
+  const [dataCredentials, setDataCredentials] = useState({ username: "", password: "" });
+  const [isLoanding, setIsLoanding] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [rememberPassword, setRememberPassword] = useState(false);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        setIsLoanding(true)
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setIsLoanding(true);
+    await singIn(dataCredentials, rememberPassword);
+    setDataCredentials({ username: "", password: "" });
+    setIsAuthenticated(state.isAuthenticated);
+    setIsLoanding(false);
+  };
 
-        await singIn(dataCredentials, rememberPassword);
-        setDataCredentials({
-            username: "",
-            password: ""
-        })
-        if (state.isAuthenticated) {
-            setIsAuthenticated(true)
-            setIsLoanding(false)
+  return (
+    <Grid container sx={{ width: "100%", height: "100vh" }}>
+      {isLoanding && <SimpleBackdrop open={isLoanding} />}
 
-        } else {
-            setIsAuthenticated(false)
-            setIsLoanding(false)
-        }
+      {/* --- Imagen / Lado Izquierdo --- */}
+      <Grid
+        item
+        xs={12}
+        md={5}
+        sx={{
+          bgcolor: "black",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          alignItems: "center",
+          p: 4,
+        }}
+      >
+        <Box component="img" src={imageLogo} alt="logo del negocio" sx={{ width: 300, height: 100 }} />
 
+        <Box sx={{ textAlign: "center" }}>
+          <Typography variant="h3" sx={{ color: "white", mb: 6 }}>
+            <Box component="span" sx={{ color: "#FFDB00" }}>
+              Bien
+            </Box>
+            venid@
+          </Typography>
+          <Box component="img" src={imageLogin} alt="logo login" sx={{ width: { xs: 120, md: 320 }, height: { xs: 120, md: 320 } }} />
+        </Box>
+      </Grid>
 
+      {/* --- Credenciales / Lado Derecho --- */}
+      <Grid
+        item
+        xs={12}
+        md={7}
+        sx={{
+          bgcolor: "background.paper",
+          borderTopLeftRadius: { md: 30 },
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          position: "relative",
+          px: { xs: 4, md: 15 },
+        }}
+      >
+        {/* Botón Volver */}
+        <Button
+          onClick={() => navigate("/")}
+          startIcon={<Box component="img" src={iconArrowLeft} alt="volver" sx={{ width: 12, height: 12 }} />}
+          sx={{
+            position: "absolute",
+            top: 24,
+            left: 24,
+            color: "black",
+            fontWeight: 700,
+            textTransform: "none",
+            p: 0,
+            minWidth: 0,
+          }}
+        >
+          Volver
+        </Button>
 
+        {/* Formulario */}
+        <Box component="form" onSubmit={handleSubmit} sx={{ width: "100%", maxWidth: 480 }}>
+          <Typography variant="h4" sx={{ color: "#FFDB00", fontWeight: 500, mb: 3 }}>
+            Login
+          </Typography>
+          <Typography sx={{ color: "var(--textSecond-color)", mb: 6 }}>
+            Bienvenido, por favor ingresa tus credenciales para acceder a tu cuenta
+          </Typography>
 
+          <TextField
+            fullWidth
+            label="Nombre De Usuario"
+            name="username"
+            value={dataCredentials.username}
+            onChange={(e) => setDataCredentials({ ...dataCredentials, username: e.target.value })}
+            sx={{ mb: 3,  }}
+            required
+          />
 
+          <TextField
+            fullWidth
+            label="Contraseña"
+            type="password"
+            name="password"
+            value={dataCredentials.password}
+            onChange={(e) => setDataCredentials({ ...dataCredentials, password: e.target.value })}
+            sx={{ mb: 1, }}
+            required
+          />
 
-    };
+          {!isAuthenticated && (
+            <Typography color="error" sx={{ textAlign: "center", mb: 1 }}>
+              Credenciales no válidas
+            </Typography>
+          )}
 
-    const handleCkeck = (event) => {
-        const isChecked = event.target.checked;
-        setRememberPassword(isChecked);
-    };
+          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={rememberPassword}
+                  onChange={(e) => setRememberPassword(e.target.checked)}
+                  sx={{ color: "#FFDB00", "&.Mui-checked": { color: "#FFDB00" } }}
+                />
+              }
+              label={<Typography sx={{ color: "#504F4F" }}>Guardar contraseña</Typography>}
+            />
+            <Link to="/ForgetPass" style={{ color: "var(--textSecond-color)", fontSize: "0.875rem" }}>
+              Olvidaste tu contraseña?
+            </Link>
+          </Box>
 
-    const handleInput = (event) => {
-        setDataCredentials({
-            ...dataCredentials,
-            [event.target.name]: event.target.value,
-        });
-    };
+          <Box sx={{ mb: 3 }}>
+            <GoogleLogin
+              onSuccess={(credentialResponse) => singInWithGoogle(credentialResponse.credential)}
+              onError={() => console.log("Login Failed")}
+            />
+          </Box>
 
-
-
-
-    return (
-        <div className={style.container_login}>
-            {isLoanding && (<SimpleBackdrop open={isLoanding} />)}
-            <div className={style.container_image}>
-                <div>
-                    <img src={imageLogo} alt="logo del negocio" />
-                </div>
-                <div className={style.container_image_contain}>
-                    <h2>
-                        <span>Bien</span>venid@
-                    </h2>
-                    <img src={imageLogin} alt="logo del login" />
-                </div>
-            </div>
-            <div className={style.container_credentials}>
-                <div onClick={() => navigateTo("/")} className={style.backText}>
-                    <img src={iconArrowLeft} alt="icono de volver" />
-                    <p>Volver</p>
-                </div>
-                <div className={style.container_form}>
-                    <div className={style.form}>
-                        <h2 className={style.h2_title_login}>Login</h2>
-                        <p>
-                            Bienvenido, por favor ingresa tus credenciales para acceder a tu
-                            cuenta
-                        </p>
-
-                        <form onSubmit={handleSubmit}>
-                            <label htmlFor="username">Nombre De Usuario</label>
-                            <input
-                                type="text"
-                                id="username"
-                                placeholder="Nombre De Usuario"
-                                name="username"
-                                value={dataCredentials.username}
-                                onChange={handleInput}
-                                required
-                            />
-
-                            <label htmlFor="password">Contraseña</label>
-                            <input
-                                type="password"
-                                id="password"
-                                placeholder="Contraseña"
-                                name="password"
-                                value={dataCredentials.password}
-                                onChange={handleInput}
-                                required
-                            />
-
-                            <Box sx={{ width: "100%", textAlign: "center" }}>
-                                {isAuthenticated ? "" : (<Typography component="span" sx={{ color: "red", textAlign: "center" }} >Credenciales no validas</Typography>)}
-                            </Box>
-
-                            <div className={style.forgetPasswoedSection}>
-                                <FormGroup>
-                                    <FormControlLabel
-                                        sx={{ color: "#504F4F", fontSize: 20 }}
-                                        control={
-                                            <Checkbox
-                                                sx={{
-                                                    color: "#FFDB00",
-                                                    "&.Mui-checked": {
-                                                        color: "#FFDB00",
-                                                    },
-                                                }}
-                                                checked={rememberPassword}
-                                                onChange={handleCkeck}
-                                            />
-                                        }
-                                        label="Guardar contraseña"
-                                    />
-                                </FormGroup>
-                                <Link to="/ForgetPass">Olvidaste tu contraseña?</Link>
-                            </div>
-                            <GoogleLogin
-                                onSuccess={credentialResponse => {
-                                    singInWithGoogle(credentialResponse.credential); 
-                                }}
-                                onError={() => {
-                                    console.log("Login Failed");
-                                }}
-                            />
-                            <button type="submit" >
-                                Iniciar sesion
-                            </button>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-    );
+          <Button
+            type="submit"
+            fullWidth
+            sx={{
+              bgcolor: "#FFDB00",
+              color: "black",
+              fontWeight: 700,
+              height: 40,
+              borderRadius: 2,
+              ":hover": { bgcolor: "#c4c92f" },
+            }}
+          >
+            Iniciar sesión
+          </Button>
+        </Box>
+      </Grid>
+    </Grid>
+  );
 }
 
 export default Login;

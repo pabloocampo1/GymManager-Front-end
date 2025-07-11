@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Box, IconButton, Button, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ImageLogoPrincipal from '../../assets/images/logoSinFondo.png';
@@ -8,22 +8,14 @@ import MenuMobile from '../MenuMobileComponent/MenuMobile';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 
-import { ThemeContext } from '../../Context/ThemeContext';
+
 import { MaterialUISwitch } from '../ButtonDarkMode';
+import { useThemeCtx } from '../../Context/ThemeContext';
 
 function Header() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
-    const { toggleDarkMode } = useContext(ThemeContext);
-    const [darkMode, setDarkMode] = useState(localStorage.getItem("theme") === "dark");
-    const handleDarkModeIconClick = () => {
-        toggleDarkMode();
-        const body = document.body;
-        body.classList.toggle("dark-mode");
-        const isDark = body.classList.contains("dark-mode");
-        localStorage.setItem("theme", isDark ? "dark" : "light");
-        setDarkMode(isDark);
-        // Llamar también el contexto si tienes lógica global
-    };
+     const { darkMode, toggleDarkMode } = useThemeCtx();
+   
 
 
     const handleShowMenu = () => {
@@ -110,8 +102,8 @@ function Header() {
                     justifyContent: 'flex-end',
                 }}
             >
-                <div onClick={handleDarkModeIconClick} title="Modo oscuro" style={{ cursor: 'pointer', color: 'white', marginBottom: '10px' }}>
-                    {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+                <div onClick={toggleDarkMode} title="Modo oscuro" style={{ cursor: 'pointer', color: 'white', marginBottom: '10px', width:"auto", height:"100%",  marginRight:"20px", display:"flex", flexDirection:"column", justifyContent:"center"}}>
+                   {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
                 </div>
 
                 <Box sx={{ display: { xs: 'none', md: 'block' } }}>

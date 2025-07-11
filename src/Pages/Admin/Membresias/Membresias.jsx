@@ -7,16 +7,17 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import styles from "./Membresias.module.css";
 import MembresiasModal from "../../../Components/Modals/ModalMembresias/MembresiasModal.jsx";
 import ConfirmatioModalMembresia from "../../../Components/Modals/ModalMembresias/ConfirmationModalMembresias/MembresiasConfirmation.jsx";
 import MembresiaService from "../../../Service/MembresiaService.jsx";
 import { useEffect } from "react";
-import { ThemeContext } from "../../../Context/ThemeContext";
+import { useThemeCtx } from "../../../Context/ThemeContext.jsx";
+
 
 const MembresiaModal = () => {
-  const { darkMode } = useContext(ThemeContext);
+  const { darkMode } = useThemeCtx();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState("Todos");

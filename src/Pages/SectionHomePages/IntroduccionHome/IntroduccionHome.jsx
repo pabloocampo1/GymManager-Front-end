@@ -130,6 +130,8 @@ export default function IntroduccionHome() {
                             fontSize: '1rem',
                             pt: 2,
                             pb: 1,
+                            color:"white",
+                            opacity:"0.70"
                         }}
                     >
                         Transforma tu cuerpo y fortalece tu mente. <br />
