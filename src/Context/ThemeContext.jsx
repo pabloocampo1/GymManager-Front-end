@@ -1,12 +1,12 @@
 import React, { createContext, useState, useMemo, useEffect, useContext } from "react";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 
-// Creamos el contexto
+
 const ThemeContext = createContext();
 export const useThemeCtx = () => useContext(ThemeContext);
 
 export function ThemeContextProvider({ children }) {
-  // 1️⃣ Preferencia inicial (localStorage > sistema)
+
   const prefersDark = (() => {
     const stored = localStorage.getItem("theme");
     if (stored === "dark" || stored === "light") return stored === "dark";
@@ -15,7 +15,7 @@ export function ThemeContextProvider({ children }) {
 
   const [darkMode, setDarkMode] = useState(prefersDark);
 
-  // 2️⃣ Sincroniza MUI + body.classList + localStorage
+
   useEffect(() => {
     document.body.classList.toggle("dark-mode", darkMode);
     localStorage.setItem("theme", darkMode ? "dark" : "light");
@@ -25,7 +25,7 @@ export function ThemeContextProvider({ children }) {
     setDarkMode((prev) => !prev);
   };
 
-  // 3️⃣ MUI theme (tu diseño personalizado)
+  
   const theme = useMemo(() =>
     createTheme({
       palette: {
