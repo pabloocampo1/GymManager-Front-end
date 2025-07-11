@@ -12,10 +12,11 @@ import {
 } from "@mui/material";
 import imageLogo from "../../../assets/images/logoprincipal.png";
 import imageLogin from "../../../assets/images/logo_login_yellow.png";
-import iconArrowLeft from "../../../assets/icons/left-arrow.png";
+
 import SimpleBackdrop from "../../../Components/SimpleBackdrop";
 import { AuthContext } from "../../../Context/AuthContext";
 import { GoogleLogin } from "@react-oauth/google";
+import { ArrowBack, BackHand } from "@mui/icons-material";
 
 function Login() {
   const navigate = useNavigate();
@@ -85,18 +86,19 @@ function Login() {
         {/* Botón Volver */}
         <Button
           onClick={() => navigate("/")}
-          startIcon={<Box component="img" src={iconArrowLeft} alt="volver" sx={{ width: 12, height: 12 }} />}
+  
           sx={{
             position: "absolute",
             top: 24,
             left: 24,
-            color: "black",
+            color: "text.primary",
             fontWeight: 700,
             textTransform: "none",
             p: 0,
             minWidth: 0,
           }}
         >
+          <ArrowBack />
           Volver
         </Button>
 
