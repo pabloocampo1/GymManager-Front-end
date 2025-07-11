@@ -57,7 +57,7 @@ function SecurityCode() {
         validateToken();
     }, [token]);
 
-    if (isTokenValid === null) return null; 
+    
 
     if (!isTokenValid) return <ExpiredTokenResetPassword />;
 

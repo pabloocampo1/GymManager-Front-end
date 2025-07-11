@@ -4,6 +4,8 @@ const MembresiaService = {
   getAllMembresiaPublic: async () => {
     try {
       const response = await api.get(`/api/membership/public`);
+      console.log(response);
+      
       return response.data;
     } catch (error) {
       console.error('Error obteniendo membresias:', error);

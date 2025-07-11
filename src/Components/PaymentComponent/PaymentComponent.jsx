@@ -6,7 +6,7 @@ import MembresiaService from "../../Service/MembresiaService"
 import { api } from '../../Service/api';
 import SimpleBackdrop from "../../Components/SimpleBackdrop";
 
-const PaymentComponent = ({ userInfo = [], isUpdateMembership, closeUpdateSubscription }) => {
+const PaymentComponent = ({ userInfo = [], isUpdateMembership, closeUpdateSubscription, isChange }) => {
     const [userData, setUserData] = useState([]);
     const { state } = useContext(AuthContext);
     const [isLoanding, setIslOanding] = useState(false);
@@ -44,6 +44,7 @@ const PaymentComponent = ({ userInfo = [], isUpdateMembership, closeUpdateSubscr
                 setIslOanding(false);
                 return;
             }
+            
             setDataPurchase({
                 userId: "",
                 membershipId: "",
@@ -64,6 +65,7 @@ const PaymentComponent = ({ userInfo = [], isUpdateMembership, closeUpdateSubscr
         }
 
         setIslOanding(false)
+        isChange()
 
     }
     const handleChange = (event) => {

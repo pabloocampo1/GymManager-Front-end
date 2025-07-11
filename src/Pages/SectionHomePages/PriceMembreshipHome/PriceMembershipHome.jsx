@@ -19,6 +19,8 @@ const PriceMembershipHome = () => {
                 setIsLoading(false);
                 setError(null);
                 const data = await MembresiaService.getAllMembresiaPublic();
+                console.log("data:   " + data);
+                
                 if (Array.isArray(data)) {
                     setMembresias(data);
                 } else {

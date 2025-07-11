@@ -36,8 +36,6 @@ const ActivityRegister = () => {
                 {
                     const fetchData = await api.get("/api/activity/getAllByMemberToday");
                     setActivityData(fetchData.data)
-                    console.log(fetchData.data);
-
 
                     break;
                 }
