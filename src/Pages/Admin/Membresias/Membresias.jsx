@@ -181,16 +181,19 @@ const MembresiaModal = () => {
         className={styles.membresia_table}
       
       >
-        <Table
-          sx={{
-            borderCollapse: 'separate',
+        <Table sx={{ 
+          borderCollapse: 'separate',
           borderSpacing: '0 5px',
           '& td, & th': {
             border: 'none',
             color: 'var(--text-color)',
           },
-          
-          
+          "& thead": {
+      backgroundColor: '#f2f2f2',
+          },
+          '& tbody tr': {
+            backgroundColor: 'var(--card-bg)',
+          },
           '& tbody tr td': {
             padding: '10px 16px',
           },
@@ -202,17 +205,16 @@ const MembresiaModal = () => {
           },
           '& tbody': {
             backgroundColor: 'var(--bg-color)',
-          },
-          }}
-        >
+          }
+        }}>
           <TableHead>
             <TableRow>
-              <TableCell>Nombre</TableCell>
-              <TableCell>Tipo</TableCell>
-              <TableCell>Duración (días)</TableCell>
-              <TableCell>Precio</TableCell>
-              <TableCell>Beneficios</TableCell>
-              <TableCell>Opciones</TableCell>
+              <TableCell data-theme={darkMode ? "dark" : "light"}>Nombre</TableCell>
+              <TableCell data-theme={darkMode ? "dark" : "light"}>Tipo</TableCell>
+              <TableCell data-theme={darkMode ? "dark" : "light"}>Duración (días)</TableCell>
+              <TableCell data-theme={darkMode ? "dark" : "light"}>Precio</TableCell>
+              <TableCell data-theme={darkMode ? "dark" : "light"}>Beneficios</TableCell>
+              <TableCell data-theme={darkMode ? "dark" : "light"}>Opciones</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

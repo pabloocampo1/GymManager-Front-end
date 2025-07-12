@@ -120,11 +120,6 @@
   transform: translateY(-1px);
 }
 
-.addButton:disabled {
-  background: #a8a8a8 !important;
-  cursor: not-allowed;
-  transform: none;
-}
 
 .eventosList {
   display: grid;

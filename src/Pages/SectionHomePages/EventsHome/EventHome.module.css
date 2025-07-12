@@ -22,21 +22,21 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("https://valhallagymclub.com/wp-content/uploads/revslider/slider-one/slider-1.jpg");
+    background-image: url('../../../assets/images/slider.jpg');
     background-size: cover;
     background-position: center;
-    opacity: 0.4;
+    opacity: 0.8;
     z-index: -1;
 }
 
 .EventHome_intro h2 {
-    color: white;
+    color: var(--btn-text);
     font-weight: bold;
     padding-bottom: 20px;
 }
 
 .EventHome_intro p {
-    color: var(--textSecond-color);
+    color: var(--btn-text);
 }
 
 /*
@@ -63,11 +63,11 @@ seccion de eventos
 
 .events_items_container h2{
     text-align: center;
-    color: white;
+    color: var(--text-color);
     padding-bottom: 50px;
 }
 .events_items_container .text_no_events{
-    color: white;
+    color: var(--text-color);
     text-align: center;
 }
 .events_items_container .event_item{
@@ -77,8 +77,8 @@ seccion de eventos
 }
 .events_items_container .event_item .content_event{
     min-height: 300px;
-    background-color: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
+    background-color: var(--card-bg);
+    color: var(--text-color);
     border-radius: 15px;
 }
 
@@ -104,12 +104,12 @@ seccion de eventos
     padding:10px;
 }
 .data_about_event p{
-   color: rgb(0, 0, 0);
+   color: var(--text-color);
    font-weight: 500;
 }
 .data_about_event span{
    font-weight: 500;
-   color: rgb(76, 76, 76);
+   color: var(--textSecond-color);
 }
 
 
