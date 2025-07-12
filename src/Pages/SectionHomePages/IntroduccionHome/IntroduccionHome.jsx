@@ -140,7 +140,7 @@ export default function IntroduccionHome() {
                     </Typography>
                     <Button
                         component={RouterLink}
-                        to="contact#contact"
+                        to="#contact"
                         variant="outlined"
                         sx={{
                             width: 120,
