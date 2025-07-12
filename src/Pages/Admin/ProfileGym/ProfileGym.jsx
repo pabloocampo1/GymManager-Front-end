@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import SecurityIcon from "@mui/icons-material/Security";
 import ProfileService from "../../../Service/profileService";
 import { AuthContext } from "../../../Context/AuthContext";
-import MapLocation from "../MapLocation/MapLocation";
+
 
 const ProfileGym = () => {
   const { state } = useContext(AuthContext);
