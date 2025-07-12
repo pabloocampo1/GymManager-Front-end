@@ -24,7 +24,7 @@ import ProfilesGym from './Pages/Admin/ProfilesGym/ProfilesGym'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import ActivityRegister from './Pages/Admin/Dashboard/ActivityRegister'
 import TerminosYCondiciones from './Pages/TerminosYCondiciones/TerminosYCondiciones'
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext} from 'react'
 import { ThemeContextProvider } from './Context/ThemeContext'
 
 
@@ -32,23 +32,10 @@ export const DarkModeContext = createContext()
 
 function App() {
     const clientId = "161148106630-1e8ad1edsce66mqtrt42roin5llu7ipb.apps.googleusercontent.com"
-    const [darkMode, setDarkMode] = useState(() => {
-        const stored = localStorage.getItem('darkMode')
-        return stored ? JSON.parse(stored) : false
-    })
-
-    useEffect(() => {
-        if (darkMode) {
-            document.body.classList.add('dark-mode')
-        } else {
-            document.body.classList.remove('dark-mode')
-        }
-        localStorage.setItem('darkMode', JSON.stringify(darkMode))
-    }, [darkMode])
-
+    
     return (
 
-        <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
+        <DarkModeContext.Provider>
             <BrowserRouter>
             <GoogleOAuthProvider clientId={clientId}>
                 <AuthContextProvider>

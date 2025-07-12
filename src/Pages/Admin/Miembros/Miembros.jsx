@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import DeleteIcon from "@mui/icons-material/Delete";
-import React, { useState, useMemo, useCallback, useContext } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import styles from "./Miembros.module.css";
 import MiembrosModal from "../../../Components/Modals/ModalMiembros/MiembrosModal.jsx";
 import ConfirmatioModalMiembros from "../../../Components/Modals/ModalMiembros/ConfirmationModalMiembros/MiembrosConfirmation.jsx";
@@ -15,10 +15,11 @@ import ActiveButton from "../../../Components/Buttons/ButtonActive.jsx"
 import InactiveButton from "../../../Components/Buttons/ButtonInactive.jsx"
 import MiembrosService from "../../../Service/MiembrosService.jsx";
 import { useEffect } from "react";
-import { ThemeContext } from "../../../Context/ThemeContext";
+import { useThemeCtx } from "../../../Context/ThemeContext.jsx";
+
 
 const MiembrosModalComponent = () => {
-  const { darkMode } = useContext(ThemeContext);
+   const { darkMode } = useThemeCtx();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState("Todos");

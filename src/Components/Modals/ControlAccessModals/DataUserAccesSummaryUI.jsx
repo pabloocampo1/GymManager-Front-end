@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import DataUserAccesAllInfo from './DataUserAccesAllInfo';
 import noData from "../../../assets/images/undraw_no-data_ig65.svg"
 
-const DataUserAccesUI = ({ dataUser = [], isUserSelect, message, searchBy }) => {
+const DataUserAccesUI = ({ dataUser = [], isUserSelect, message, searchBy , isChange}) => {
     const [open, setOpen] = useState(false);
     const [dataByUserSelect, setDataUserSelect] = useState({});
 
@@ -67,7 +67,7 @@ const DataUserAccesUI = ({ dataUser = [], isUserSelect, message, searchBy }) => 
                 )
             )
             }
-            {open && <DataUserAccesAllInfo open={open} onClose={handleClose} userId={dataByUserSelect.userId} message={message}  />
+            {open && <DataUserAccesAllInfo open={open} onClose={handleClose} userId={dataByUserSelect.userId} message={message} isChange={isChange}  />
             }
 
         </Box>

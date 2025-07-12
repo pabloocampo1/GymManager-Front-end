@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./MembresiasModal.module.css";
 import ClearIcon from "@mui/icons-material/Clear";
 import { motion, AnimatePresence } from "framer-motion";
@@ -6,10 +6,11 @@ import SimpleBackdrop from "../../SimpleBackdrop";
 import Swal from 'sweetalert2';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { ThemeContext } from "../../../Context/ThemeContext";
+import { useThemeCtx } from "../../../Context/ThemeContext";
+
 
 const MembresiaModal = ({ isOpen, onClose, onAdd, membresiaEditando}) => {
-  const { darkMode } = useContext(ThemeContext);
+   const { darkMode } = useThemeCtx();
   const [name, setName] = useState("");
   const [type, setType] = useState("Oro");
   const [duration, setDuration] = useState("");

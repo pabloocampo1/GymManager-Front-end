@@ -25,8 +25,8 @@ function ControlAcces() {
     const [showActivity, setShowActivity] = useState(false);
     const [showScanner, setShowScaneer] = useState(false);
 
-    useEffect(() => {
-        const fetchData = async () => {
+
+    const fetchData = async () => {
             if (searchTerm != "") {
                 try {
                     const response = await api.get(`/api/members/searchControlAccess/${searchTerm}`);
@@ -38,8 +38,11 @@ function ControlAcces() {
             }
         }
 
+    useEffect(() => {
+        
         fetchData()
     }, [searchTerm]);
+
 
     const mostrarMensaje = () => {
         setShowMessage(true);
@@ -56,12 +59,12 @@ function ControlAcces() {
     };
 
     function stopAllCameras() {
-  // Recorre todos los elementos <video> en la página
+ 
   document.querySelectorAll("video").forEach((video) => {
     if (video.srcObject) {
-      // Detiene cada pista del stream
+     
       video.srcObject.getTracks().forEach((track) => track.stop());
-      // Desasocia el stream del elemento
+     
       video.srcObject = null;
     }
   });
@@ -190,6 +193,7 @@ function ControlAcces() {
                                 isUserSelect={isUserSelected}
                                 message={mostrarMensaje}
                                 searchBy={searchTerm}
+                                isChange={fetchData }
 
                             />
                         )}

@@ -1,10 +1,10 @@
+import { useThemeCtx } from "../../../../Context/ThemeContext";
 import styles from "./MiembrosConfirmation.module.css";
 import { motion, AnimatePresence } from "framer-motion";
-import { useContext } from "react";
-import { ThemeContext } from "../../../../Context/ThemeContext";
+
 
 const ConfirmationModalMiembros= ({ onClose, onConfirm, memberName })=>{
-    const { darkMode } = useContext(ThemeContext);
+     const { darkMode } = useThemeCtx();
 
     const handleOverlayClick = (e) => {
             if (e.target.classList.contains(styles.DivConteiner)) {

@@ -14,7 +14,7 @@ import PaymentComponent from '../../PaymentComponent/PaymentComponent';
         const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
         return daysLeft > 0 ? daysLeft : 0;
     };
-export default function DataUserAccesAllInfo({ open, onClose, userId, message, }) {
+export default function DataUserAccesAllInfo({ open, onClose, userId, message,isChange }) {
     const [isUpdateMembership, setIsUpdateMembership] = useState(false);
     const [openUpdate, setOpenUpdate] = useState(false);
     const [dataUser, setDataUser] = useState([])
@@ -160,7 +160,7 @@ export default function DataUserAccesAllInfo({ open, onClose, userId, message, }
                         ) : "Cargando miembro..."}
                     </Box>
 
-                    {openUpdate && (<PaymentComponent userInfo={dataUser} isUpdateMembership={() => setIsUpdateMembership(true)} closeUpdateSubscription={() => { setIsUpdateMembership(true), setOpenUpdate(false) }} />)}
+                    {openUpdate && (<PaymentComponent userInfo={dataUser} isUpdateMembership={() => setIsUpdateMembership(true)} closeUpdateSubscription={() => { setIsUpdateMembership(true), setOpenUpdate(false) }} isChange={isChange} />)}
                     <CloseOutlined onClick={onClose} sx={{ cursor: 'pointer', position: "absolute", top: "2%", right: "2%" }} />
                 </Box>
             </Modal >
