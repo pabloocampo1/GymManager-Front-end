@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = 'https://perfect-exploration-production.up.railway.app';
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 // Recuperar el token del localStorage al inicio
 const userAuth = JSON.parse(localStorage.getItem("userAuthGymManager"));
