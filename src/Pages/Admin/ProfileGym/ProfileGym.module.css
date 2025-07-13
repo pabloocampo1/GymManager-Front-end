@@ -235,7 +235,7 @@
   transition: all 0.3s ease;
   background: var(--input-bg);
   color: var(--text-color);
-  cursor: not-allowed;
+ 
   
 }
 

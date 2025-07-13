@@ -182,8 +182,8 @@
 }
 
 .membresia_table th[data-theme="light"] {
-  background: #f8f9fa;
-  color: #333333;
+  background: var(--input-bg);
+  color: var(--text-color);
 }
 
 .membresia_table tbody tr {

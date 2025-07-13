@@ -8,6 +8,7 @@ import SecurityIcon from "@mui/icons-material/Security";
 import ProfileService from "../../../Service/profileService";
 import { AuthContext } from "../../../Context/AuthContext";
 
+
 const ProfileGym = () => {
     const { state } = useContext(AuthContext);
 
